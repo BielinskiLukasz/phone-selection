@@ -1,0 +1,9 @@
+export const SITE_BUDGET_MAX = 2000;
+export const DEFAULT_BUDGET = 2000;
+export const VALUE_PRICE_FLOOR = 1200;
+export const DEFAULT_CRITERION_WEIGHT = 2;
+export const BLEND = 0.5;
+export const TOP_THREE_IMPORTANCE = [5, 4, 3] as const;
+export const OTHER_GROUP_BASE = 0.5;
+export const OTHER_GROUP_FACTOR = 0.4;
+export const PRACTICAL_TIE_THRESHOLD = 2;
