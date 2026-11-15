@@ -1,0 +1,241 @@
+# QUIZ-SPEC — pytania, wagi i algorytm rankingu
+
+Dokument jest **źródłem prawdy** dla treści quizu i obliczania rankingu. Jeśli `PROJECT.md` mówi coś innego, obowiązuje ten plik. Realizują go etapy 2 (silnik), 4 (quiz) i 5 (suwaki i hybryda).
+
+Wartości liczbowe w tym dokumencie zostały sprawdzone symulacją na danych z `phones.json` (stan z 14.11.2026). Parametry oznaczone jako „do kalibracji” mają być stałymi w jednym miejscu kodu (`lib/scoringConfig.ts`).
+
+---
+
+## 1. Zasady pisania pytań
+
+1. **Pytamy o sytuacje, nie o „ważność”.** „Jak często robisz zdjęcia dziecka w ruchu?” zamiast „Jak ważny jest autofokus?”. Na pytania o ważność każdy odpowiada „bardzo”.
+2. **Język bez żargonu.** Zero „mAh”, „OIS”, „IP68” w pytaniach. Techniczne słowa tylko w polu „Dlaczego pytamy?” albo w szczegółach telefonu.
+3. **Trzy do czterech odpowiedzi** na pytanie, każda krótka, plus zawsze **„Nie wiem / pomiń”** (nie wnosi nic do wag).
+4. **Jedno pytanie na ekran**, z paskiem postępu i tekstem „Dlaczego pytamy?” (jedno zdanie, rozwijane).
+5. Odpowiedzi nie ujawniają telefonów. Żadnych nazw marek ani modeli w treści quizu.
+
+## 2. Model obliczeń
+
+### 2.1 Kryteria i grupy
+
+14 kryteriów (jak w `PROJECT.md`, sekcja 7.1) w **6 grupach**:
+
+| Grupa (`groupId`) | Nazwa w interfejsie | Kryteria |
+|---|---|---|
+| `battery` | Bateria i ładowanie | `battery`, `charging` |
+| `camera` | Aparat | `photoDay`, `photoIndoor`, `photoMotion`, `selfie`, `video`, `zoom` |
+| `storage` | Pamięć | `storage` |
+| `longevity` | Aktualizacje i trwałość | `updates`, `durability` |
+| `smooth` | Ekran i płynność | `display`, `smoothness` |
+| `price` | Cena | `value` |
+
+### 2.2 Dwa poziomy wag (zmiana względem wcześniejszej wersji)
+
+Symulacja pokazała, że płaskie wagi na 14 kryteriach są błędne: grupa „Aparat” ma sześć kryteriów, więc przy równych wagach zdominowałaby wynik, nawet gdy użytkowniczka najbardziej ceni baterię. Dlatego wagi liczymy w dwóch poziomach:
+
+1. **Waga kryterium wewnątrz grupy** (`w_c`, skala 0-5): średnia wartości z odpowiedzi na pytania dotyczące tego kryterium; bez odpowiedzi domyślnie **2**. Waga mówi, **jak bardzo** kryterium liczy się *w swojej grupie*; z wag liczymy udziały `share_c = w_c / Σ w_c` w grupie (przy samych zerach udziały równe).
+2. **Ważność grupy** (`G_g`):
+   - grupy wybrane w kroku „trzy najważniejsze rzeczy”: 1. miejsce **5**, 2. miejsce **4**, 3. miejsce **3**;
+   - pozostałe grupy: `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów grupy` (bez odpowiedzi: średnia = 2, czyli 1,3). Zakres 0,5 do 2,5.
+   - grupa `price`: jeśli nie jest w trójce, wartość z pytania o budżet (F1) przechodzi przez ten sam wzór.
+
+### 2.3 Normalizacja ocen telefonów
+
+Oceny 0-100 z `phones.json` są ściśnięte (np. aparat 60-85, bateria 48-88), więc surowe wagi niewiele zmieniają ranking. Przed liczeniem **normalizujemy każde kryterium** na puli kandydatów metodą min-max i mieszamy z oceną surową:
+
+```
+n_c   = 100 × (s_c − min_c) / (max_c − min_c)        // 50, gdy max = min
+s'_c  = BLEND × n_c + (1 − BLEND) × s_c               // BLEND = 0,5 (do kalibracji)
+```
+
+### 2.4 Wynik telefonu
+
+```
+GroupScore_g = Σ_c ( share_c × s'_c )                 // c należy do grupy g
+S            = Σ_g ( G_g × GroupScore_g ) / Σ_g G_g   // 0-100
+```
+
+`value` liczymy przed normalizacją: `100 × (1 − (cena − 1200) / (budżet − 1200))`, obcięte do 0-100 (budżet z odpowiedzi F1; domyślnie 2000).
+
+### 2.5 Pula kandydatów i filtry
+
+- **Pula:** telefony z ceną ≤ 2000 zł (twardy limit strony) spełniające filtry pamięci (C2). Normalizacja z 2.3 dotyczy tej puli.
+- **Karty:** trzy najlepsze z puli, których cena mieści się w budżecie z F1.
+- **Za mało telefonów w budżecie:** gdy w budżecie są mniej niż trzy telefony, brakujące miejsca uzupełniamy **najlepiej dopasowanymi z puli powyżej budżetu**, z etykietą „Powyżej budżetu o X zł”. Przykład: budżet 1500 zł daje dwa telefony w budżecie i jeden dodany powyżej.
+- **Remis:** telefony różniące się o mniej niż 2 punkty to „praktyczny remis”; interfejs pokazuje to na karcie. Kolejność przy remisie: niższa cena, potem wyższa ocena `battery`.
+
+### 2.6 Parametry do kalibracji
+
+| Parametr | Wartość | Uwagi |
+|---|---|---|
+| `BLEND` | 0,5 | 0 = surowe oceny, 1 = pełna normalizacja |
+| Ważność grup w trójce | 5 / 4 / 3 | |
+| Ważność grupy poza trójką | `0,5 + 0,4 × średnia` | |
+| Domyślna waga kryterium | 2 | |
+| Próg „praktycznego remisu” | 2 pkt | |
+
+Procent dopasowania na karcie to `round(S)`. Rozstęp wyników jest wąski (około 50-72), więc kalibracja wyświetlania jest **otwarta** (sekcja 10).
+
+## 3. Typy (szkic)
+
+```ts
+type GroupId = 'battery' | 'camera' | 'storage' | 'longevity' | 'smooth' | 'price';
+type CriterionId = 'battery' | 'charging' | 'photoDay' | 'photoIndoor' | 'photoMotion'
+                 | 'selfie' | 'video' | 'zoom' | 'storage' | 'updates' | 'smoothness'
+                 | 'display' | 'durability' | 'value';
+
+interface QuizOption {
+  id: string;                                   // np. 'A1-b'
+  label: string;
+  sets?: Partial<Record<CriterionId, number>>;  // wartość 0-5 dla kryterium
+  budgetMax?: 1500 | 1800 | 2000;               // tylko F1
+  minStorageGb?: 256;                           // tylko C2
+  skip?: true;                                  // „Nie wiem / pomiń”
+}
+
+interface QuizQuestion {
+  id: string;                                   // 'A1', 'B3', ...
+  block: 'battery' | 'camera' | 'storage' | 'everyday' | 'display' | 'budget';
+  text: string;
+  why: string;                                  // „Dlaczego pytamy?”
+  options: QuizOption[];
+  appliesWhen?: (phones: Phone[]) => boolean;   // pominięcie pytania bez wpływu na wynik
+  inShortQuiz?: boolean;                        // tryb hybrydowy
+}
+
+interface TopThreeAnswer { picks: [GroupId, GroupId, GroupId]; }   // kolejność ma znaczenie
+```
+
+## 4. Pytania
+
+Wartości `→` to waga kryterium (0-5) ustawiana przez odpowiedź. Każde pytanie ma też „Nie wiem / pomiń”. Kolumna „Krótki” oznacza udział w trybie hybrydowym.
+
+### Blok A. Bateria i ładowanie
+
+| ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
+|---|---|---|---|---|
+| A1 | Ile godzin dziennie patrzysz w ekran telefonu? | Do 2 godzin → `battery` 1 · 2-4 godziny → 3 · 4-6 godzin → 4 · Ponad 6 godzin → 5 | Im więcej ekranu, tym ważniejsza bateria. | tak |
+| A2 | Czy zdarzają się dni, gdy nie masz jak naładować telefonu (wyjazd, wycieczka, długi dzień poza domem)? | Prawie nigdy → `battery` 1 · Czasem → 3 · Często → 5 | Przy takich dniach liczy się bateria na dwa dni, a nie sama szybkość ładowania. | tak |
+| A3 | Jak zwykle ładujesz telefon? | Zawsze na noc → `charging` 1 · Czasem w ciągu dnia → 3 · Często potrzebuję szybkiego doładowania → 5 | Szybkie ładowanie ratuje dzień, gdy bateria padnie w drodze. | nie |
+
+### Blok B. Aparat
+
+| ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
+|---|---|---|---|---|
+| B1 | Jak często robisz zdjęcia w domu, wieczorem albo przy sztucznym świetle? | Rzadko → `photoIndoor` 1 · Czasem → 3 · Często → 5 | Słabe światło to najtrudniejszy test dla aparatu. | tak |
+| B2 | Jak często fotografujesz dziecko lub rodzinę w ruchu (zabawa, bieganie)? | Rzadko → `photoMotion` 1 · Czasem → 3 · Często → 5 | Ruchome obiekty wymagają szybkiego, pewnego ustawiania ostrości. | tak |
+| B3 | Jak często robisz zdjęcia na zewnątrz w dzień (spacery, plac zabaw, wyjazdy)? | Rzadko → `photoDay` 1 · Czasem → 3 · Często → 5 | W dzień większość telefonów radzi sobie dobrze, ale różnią się szczegółami i kolorami. | tak |
+| B4 | Jak często robisz selfie? | Prawie nigdy → `selfie` 1 · Czasem → 3 · Często → 5 | Aparat przedni to osobny aparat o osobnej jakości. | nie |
+| B5 | Jak często nagrywasz filmy? | Prawie nigdy → `video` 1 · Czasem → 3 · Często → 5 | Wideo wymaga stabilizacji i dobrego dźwięku. | nie |
+| B6 | Czy zdarza się, że fotografujesz z daleka (występ dziecka, plac zabaw, zwierzęta)? | Nie → `zoom` 1 · Czasem → 3 · Często → 5 | Z daleka dobre zdjęcia robi tylko telefon z osobnym aparatem do przybliżania. | nie |
+
+### Blok C. Pamięć
+
+| ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
+|---|---|---|---|---|
+| C1 | Ile zdjęć i filmów chcesz trzymać w telefonie? | Niewiele, resztę usuwam albo przenoszę → `storage` 1 · Sporo, część w chmurze → 3 · Wszystko w telefonie, chmura sporadycznie → 5 | Zdjęcia i filmy zajmują najwięcej miejsca. | tak |
+| C2 | Czy telefon z pamięcią mniejszą niż 256 GB w ogóle wchodzi w grę? | Tak, jeśli reszta jest dobra → bez filtra · Nie, minimum 256 GB → filtr `minStorageGb = 256` | Pamięci nie da się potem zwiększyć. | nie |
+| C3 | Czy chcesz móc włożyć kartę pamięci microSD? | Nie ma znaczenia → `storage` bez zmian · Chcę, jeśli się da → `storage` 5 | Karta pozwala tanio zwiększyć pamięć. | nie |
+
+**C3 jest warunkowe** (`appliesWhen`): pytanie pojawia się tylko, gdy przynajmniej jeden telefon w puli ma slot microSD. Dla zebranych danych żaden telefon go nie ma (dla części pole jest nieznane), więc C3 jest pomijane. Zasada ogólna: **pytania, których odpowiedź nie może zmienić rankingu, nie są zadawane**.
+
+### Blok D. Codzienność i trwałość
+
+| ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
+|---|---|---|---|---|
+| D1 | Jak bardzo przeszkadzają Ci chwilowe zacięcia i wolne otwieranie aplikacji? | Prawie wcale → `smoothness` 1 · Trochę → 3 · Bardzo → 5 | Różnice w szybkości widać nawet przy przeglądarce i komunikatorach. | nie |
+| D2 | Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)? | Rzadko → `durability` 1 · Czasem → 3 · Często, chcę mieć spokój → 5 | Odporność na wodę ratuje przed głupimi wpadkami. | nie |
+| D3 | Jak długo chcesz używać tego telefonu? | 2 lata → `updates` 1 · 3-4 lata → 3 · 5 lat lub dłużej → 5 | Telefon bez aktualizacji bezpieczeństwa przestaje być bezpieczny. | nie |
+
+### Blok E. Ekran
+
+| ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
+|---|---|---|---|---|
+| E1 | Jak często używasz telefonu na zewnątrz w pełnym słońcu? | Rzadko → `display` 1 · Czasem → 3 · Często → 5 | W słońcu liczy się jasność ekranu. | nie |
+| E2 | Jak często oglądasz na telefonie filmy, zdjęcia i dłuższe materiały? | Rzadko → `display` 1 · Czasem → 3 · Często → 5 | Przy oglądaniu liczy się jakość i płynność ekranu. | nie |
+
+Dla `display` liczymy średnią z E1 i E2.
+
+### Blok F. Budżet
+
+| ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
+|---|---|---|---|---|
+| F1 | Ile możesz wydać na telefon? | Do 1500 zł, twardo → `budgetMax` 1500, `value` 5 · Do 1800 zł → 1800, `value` 3 · Do 2000 zł, jeśli warto → 2000, `value` 2 | Cena zawęża wybór i wpływa na ocenę opłacalności. | tak |
+
+### Podsumowanie
+
+| ID | Krok | Opis |
+|---|---|---|
+| G1 | **Wybierz trzy najważniejsze rzeczy** | Lista sześciu grup z sekcji 2.1, użytkowniczka wskazuje trzy po kolei (1., 2., 3.). Wynik przechodzi do ważności grup (sekcja 2.2). Pominięcie kroku jest dozwolone: wtedy ważność grup liczymy tylko ze wzoru dla grup poza trójką. |
+
+Razem: **18 pytań (C3 warunkowe, przy obecnych danych pomijane, czyli 17 zadawanych) + krok podsumowania**, około 4-5 minut. Kolejność ekranów: A → B → C → D → E → F → G1. Pytania warto przeplatać krótkimi nagłówkami bloków, żeby przerwanie w połowie było czytelne.
+
+## 5. Tryb hybrydowy: krótki zestaw
+
+Pytania z `inShortQuiz`: A1, A2, B1, B2, B3, C1, F1 (siedem) plus G1. Po nich ekran suwaków (patrz `UI-SPEC.md`) pokazuje wyliczone ważności grup i wagi kryteriów do ręcznej korekty.
+
+## 6. Tryb suwaków
+
+- **Sześć suwaków grup** (0-5), każdy ustawia bezpośrednio `G_g`. Opcjonalnie rozwijane suwaki kryteriów w grupie (ustawiają `w_c`, czyli udziały w grupie).
+- Filtry: budżet (1500 / 1800 / 2000), minimalna pamięć (bez ograniczeń / 256 GB).
+- Wartości startowe suwaków: neutralne (grupy 2, kryteria 2). Żadnych profili „z góry”.
+
+## 7. Zapis odpowiedzi
+
+Sesja zapisuje: `answers` (id pytania → id opcji), `topThree`, wyliczone `groupImportance` i `criterionWeights` (snapshot), filtry i ranking (snapshot z wynikami `S`). Ręczna korekta suwakami w hybrydzie nadpisuje wartości snapshotu i jest oznaczona flagą `manualOverride`.
+
+## 8. Przypadki brzegowe
+
+| Sytuacja | Zachowanie |
+|---|---|
+| Wszystkie odpowiedzi „pomiń” | Wagi neutralne, ranking wg ocen ogólnych; ekran ostrzega, że wynik jest mało spersonalizowany |
+| Budżet 1500 zł | Dwa telefony w budżecie plus jeden powyżej z etykietą (sekcja 2.5) |
+| Filtr „min. 256 GB” usuwa telefony | Pula mniejsza; normalizacja liczona na pozostałych |
+| Mniej niż 3 telefony w puli | Pokazujemy tyle, ile jest, z komunikatem |
+| Oceny „neutralne 50” (brak danych) | Karta oznacza kryterium jako „brak danych” w szczegółach |
+| Zmiana odpowiedzi w już ukończonym quizie | Tworzy nowy ranking w tej samej sesji; poprzednie wybory (`picks`) zostają w historii |
+| Dwa telefony różnią się o mniej niż 2 pkt | Etykieta „praktyczny remis” |
+
+## 9. Persony testowe i testy akceptacyjne
+
+Odpowiedzi persony zapisujemy w testach jako stałe. Wyniki poniżej to **stan referencyjny z danych na 14.11.2026**; testy sprawdzają **niezmienniki**, a nie dokładne liczby, żeby aktualizacja cen nie psuła testów.
+
+### 9.1 Persona „żona” (profil z `PROJECT.md`, sekcja 2)
+
+| Pytanie | Odpowiedź |
+|---|---|
+| A1 / A2 / A3 | 2-4 godziny (3) / Czasem (3) / Zawsze na noc (1) |
+| B1 / B2 / B3 | Często (5) / Często (5) / Często (5) |
+| B4 / B5 / B6 | Czasem (3) / Czasem (3) / Czasem (3) |
+| C1 / C2 | Wszystko w telefonie (5) / Tak, jeśli reszta jest dobra |
+| D1 / D2 / D3 | Trochę (3) / Czasem (3) / 3-4 lata (3) |
+| E1 / E2 | Czasem (3) / Czasem (3) |
+| F1 | Do 2000 zł, jeśli warto |
+| G1 | 1. Bateria i ładowanie, 2. Aparat, 3. Pamięć |
+
+Stan referencyjny: **#1 Edge 70 Fusion (71 pkt), #2 Edge 60 (58), #3 Realme 16 Pro+ (56)**. Pixel 10a i Pixel 9a (128 GB) nie wchodzą do trójki.
+
+**Niezmienniki:**
+1. Żaden telefon z 128 GB nie jest w trójce przy `storage` w trójce najważniejszych.
+2. Średnia ocena `battery` w trójce ≥ średniej puli.
+3. Włączenie filtra „min. 256 GB” nie zmienia pozycji #1.
+4. Przy budżecie 1500 zł karty to dwa telefony w budżecie plus jeden z etykietą „Powyżej budżetu” (referencyjnie: Edge 60, Redmi Note 15 Pro, Edge 70 Fusion).
+
+### 9.2 Persona „aparat” (kontrolna)
+
+A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000; G1 = Aparat, Pamięć, Ekran i płynność. Referencyjnie: Edge 60, Edge 70 Fusion, Galaxy A57.
+
+### 9.3 Persona „bateria” (kontrolna)
+
+A1, A2 = 5, A3 = 1; B1-B6 = 1; C1 = 3; D1-D3 = 3; E1, E2 = 1; F1 = 2000; G1 = Bateria i ładowanie, Cena, Aktualizacje i trwałość. Referencyjnie: Edge 70 Fusion, Redmi Note 15 Pro, Edge 60.
+
+### 9.4 Test różnicujący (niezmiennik między personami)
+
+Średnia oceny `battery` w trójce persony „bateria” **>** analogiczna średnia persony „aparat”, a średnia oceny `photoDay` w trójce persony „aparat” **>** persony „bateria” (referencyjnie 78 kontra 75). Jeśli test nie przechodzi, poprawiamy pytania, mapowanie albo `BLEND`, a nie oceny telefonów.
+
+## 10. Otwarte kwestie
+
+1. **Wyświetlanie „% dopasowania”.** Wyniki mieszczą się w wąskim przedziale (ok. 50-72), więc 72% i 68% wyglądają niemal tak samo. Warianty: pokazać surowe `S`, przeskalować tak, by najlepszy telefon w puli miał 100%, albo zastąpić liczbę opisem (np. „bardzo dobre / dobre / przeciętne”) z liczbą w szczegółach. Do rozstrzygnięcia w etapie 2 razem z `BLEND`.
+2. **Zaufanie do ocen kamer.** Część ocen aparatu ma pewność `low` (patrz `phones.json`, `scoreConfidence`). Czy karta ma to sygnalizować użytkowniczce, czy tylko szczegóły?
+3. **Brak pytań o system i markę** — świadomie pominięte (brak przywiązania do systemu, wszystkie telefony z listy to Android, marka bez znaczenia).
+4. **Mi Band 6** — nie wpływa na ranking; informacja o zgodności trafia do szczegółów telefonów po weryfikacji.
