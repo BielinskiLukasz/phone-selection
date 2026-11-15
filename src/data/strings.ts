@@ -62,7 +62,7 @@ export const strings = {
   /* Panel szkieletu (Etap 1) */
   skeletonTitle: 'Panel szkieletu',
   skeletonNote:
-    'Ta sekcja opisuje stan etapu 1 i zniknie, gdy gotowe będą quiz, ranking i zapis sesji.',
+    'Ta sekcja opisuje stan etapów 1-2 (szkielet i silnik rankingu) i zniknie, gdy gotowe będą quiz, karty i zapis sesji.',
   routesTitle: 'Mapa ekranów (routing hashowy)',
   routesNote: 'Każdy adres działa po odświeżeniu — GitHub Pages nie potrzebuje fallbacku SPA.',
   routeWorks: 'ekran-zaślepka',

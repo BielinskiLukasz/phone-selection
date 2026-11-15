@@ -42,26 +42,40 @@ describe('phone data validation', () => {
     expect(validatePhoneData(data, today).warnings.some((warning) => warning.includes('30 dni'))).toBe(true);
   });
 
-  it('traktuje telephotoMp = 0 jako celowy brak teleobiektywu', () => {
+  it('brak teleobiektywu udokumentowany w basis.zoom nie jest luką w danych', () => {
     const data = sampleData();
-    data.phones[0]!.specs = { batteryMah: 5000, cameras: { mainMp: 50, telephotoMp: 0 } };
+    data.phones[0]!.specs = {
+      batteryMah: 5000,
+      cameras: { main: '50 MP z OIS', telephoto: null },
+    };
+    data.phones[0]!.basis.zoom = 'brak teleobiektywu (zoom 2x z kadrowania)';
     const result = validatePhoneData(data, today);
     expect(result.errors).toEqual([]);
-    expect(result.warnings.some((warning) => warning.includes('telephotoMp'))).toBe(false);
+    expect(result.warnings.some((warning) => warning.includes('telephoto'))).toBe(false);
   });
 
-  it('odróżnia brak danych o teleobiektywie od wartości niepoprawnej', () => {
+  it('odróżnia nieudokumentowany brak danych od opisu bez liczby Mpix', () => {
     const missing = sampleData();
-    missing.phones[0]!.specs = { batteryMah: 5000, cameras: { mainMp: 50, telephotoMp: null } };
+    missing.phones[0]!.specs = { batteryMah: 5000, cameras: { main: '50 MP', telephoto: null } };
     expect(
-      validatePhoneData(missing, today).warnings.some((warning) => warning.includes('telephotoMp')),
+      validatePhoneData(missing, today).warnings.some((warning) => warning.includes('telephoto')),
     ).toBe(true);
 
     const invalid = sampleData();
-    invalid.phones[0]!.specs = { batteryMah: 5000, cameras: { mainMp: 50, telephotoMp: -3 } };
+    invalid.phones[0]!.specs = {
+      batteryMah: 5000,
+      cameras: { main: '50 MP', telephoto: 'bardzo dobry zoom' },
+    };
     expect(
-      validatePhoneData(invalid, today).errors.some((error) => error.includes('telephotoMp')),
+      validatePhoneData(invalid, today).errors.some((error) => error.includes('telephoto')),
     ).toBe(true);
+
+    const valid = sampleData();
+    valid.phones[0]!.specs = {
+      batteryMah: 5000,
+      cameras: { main: '50 MP', telephoto: '50 MP peryskopowy, zoom optyczny 3,5x' },
+    };
+    expect(validatePhoneData(valid, today).errors).toEqual([]);
   });
 
   it('allows the empty phase-one placeholder without inventing phone data', () => {

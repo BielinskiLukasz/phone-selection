@@ -1,77 +1,275 @@
 import { describe, expect, it } from 'vitest';
-import { formatMatchPercent, toMatchPercent } from '../src/lib/matchDisplay';
-import { countPool, getCandidatePool } from '../src/lib/pool';
-import { rank, valueScore } from '../src/lib/scoring';
-import type { GroupWeights } from '../src/types/ranking';
-import { makePhone, SYNTHETIC_PHONES } from './fixtures/phones';
+import { POOL, clonePhone, overLimit, phoneById, tiedPair, withMicroSd } from './data';
+import { CAMERA, WIFE, noAnswers } from './personas';
+import {
+  anyMicroSd,
+  buildPool,
+  countPool,
+  inBudget,
+  inBudgetSubset,
+  matchesFilters,
+} from '../src/lib/pool';
+import {
+  blend,
+  groupScores,
+  normalize,
+  rank,
+  rankFromAnswers,
+  rawScore,
+  scoreRanges,
+  totalScore,
+  valueScore,
+} from '../src/lib/scoring';
+import { answersToCriterionWeights, groupImportance } from '../src/lib/weights';
+import {
+  BLEND,
+  BUDGET_LIMIT,
+  NEUTRAL_SCORE,
+  TIE_THRESHOLD,
+  VALUE_FLOOR,
+} from '../src/lib/scoringConfig';
+import { GROUPS } from '../src/data/criteria';
+import { activeQuestions } from '../src/data/questions';
+import type { Phone } from '../src/types';
 
-const noPriceWeight: GroupWeights = {
-  battery: 1, camera: 1, storage: 1, longevity: 1, smooth: 1, price: 0,
+const neutralRun = (phones: readonly Phone[]) => {
+  const weights = answersToCriterionWeights(noAnswers());
+  return rank({
+    phones,
+    weights,
+    groupImportance: groupImportance(weights, null),
+    filters: { budgetMax: BUDGET_LIMIT },
+  });
 };
 
-describe('candidate pool and scoring', () => {
-  it('applies the site limit and hard memory/microSD filters before normalization', () => {
-    const tooExpensive = { ...SYNTHETIC_PHONES[0]!, id: 'too-expensive', price: { ...SYNTHETIC_PHONES[0]!.price, pln: 2100 } };
-    expect(countPool([...SYNTHETIC_PHONES, tooExpensive])).toBe(6);
-    expect(getCandidatePool(SYNTHETIC_PHONES, { minStorageGb: 256 })).toHaveLength(5);
-    expect(getCandidatePool(SYNTHETIC_PHONES, { requireMicroSd: true })).toEqual([]);
-    const withSlot = { ...SYNTHETIC_PHONES[0]!, specs: { ...SYNTHETIC_PHONES[0]!.specs, microSd: true } };
-    expect(countPool([withSlot], { requireMicroSd: true })).toBe(1);
-  });
-
-  it('computes value from the budget even when the stored value score is null', () => {
-    expect(valueScore(1200, 2000)).toBe(100);
-    expect(valueScore(1600, 2000)).toBe(50);
+describe('E2-07 · value, braki danych i normalizacja', () => {
+  it('value = 100 × (1 − (cena − 1200) / (budżet − 1200)), obcięte do 0-100', () => {
+    expect(valueScore(VALUE_FLOOR, 2000)).toBe(100);
     expect(valueScore(2000, 2000)).toBe(0);
-    expect(valueScore(2000, 1500)).toBe(0);
-    const phone = makePhone({ id: 'value-case', brand: 'ValueBrand', price: 1600, storageGb: 256, battery: 60, charging: 60, camera: 60 });
-    expect(rank({ phones: [phone] }).ranking[0]?.rawScores.value).toBe(50);
+    expect(valueScore(1600, 2000)).toBe(50);
+    expect(valueScore(3000, 2000)).toBe(0);
+    expect(valueScore(1500, 1200)).toBe(NEUTRAL_SCORE);
   });
 
-  it('blends raw and min-max values, using 50 when a criterion is constant', () => {
-    const phones = [
-      makePhone({ id: 'same-a', brand: 'FirstBrand', price: 1500, storageGb: 256, battery: 60, charging: 60, camera: 60 }),
-      makePhone({ id: 'same-b', brand: 'SecondBrand', price: 1700, storageGb: 256, battery: 60, charging: 60, camera: 60 }),
-    ];
-    const result = rank({ phones });
-    expect(result.ranking[0]?.normalizedScores.battery).toBe(55);
-    expect(result.ranking[0]?.rawScores.value).toBe(62.5);
+  it('8. `null` w scores.value nie zawiesza silnika — value liczy się z ceny', () => {
+    for (const phone of POOL) expect(phone.scores.value).toBeNull();
+
+    const result = neutralRun(POOL);
+    expect(result.ranked.length).toBe(POOL.length);
+    for (const entry of result.ranked) {
+      expect(Number.isFinite(entry.score)).toBe(true);
+      expect(entry.score).toBeGreaterThanOrEqual(0);
+      expect(entry.score).toBeLessThanOrEqual(100);
+    }
+
+    // najtańszy telefon w puli ma najwyższe value
+    const cheapest = [...POOL].sort((a, b) => a.price.pln - b.price.pln)[0]!;
+    expect(rawScore(cheapest, 'value', 2000)).toBe(88);
   });
 
-  it('breaks an identical-score tie by lower price then higher battery', () => {
-    const cheaper = makePhone({ id: 'cheap', brand: 'CheaperBrand', price: 1400, storageGb: 256, battery: 60, charging: 60, camera: 60 });
-    const expensive = makePhone({ id: 'expensive', brand: 'ExpensiveBrand', price: 1800, storageGb: 256, battery: 60, charging: 60, camera: 60 });
-    const tied = rank({ phones: [expensive, cheaper], groupWeights: noPriceWeight });
-    expect(tied.ranking[0]?.phoneId).toBe('cheap');
-    expect(tied.ranking[1]?.tieWith).toBe(1);
+  it('brak danych → wartość neutralna 50 i wpis w scoresEstimatedNeutral', () => {
+    const redmi = phoneById('redmi-note-15-pro-5g-8-256');
+    expect(rawScore(redmi, 'updates', 2000)).toBe(NEUTRAL_SCORE);
+    expect(redmi.scoresEstimatedNeutral).toContain('updates');
 
-    const higherBattery = { ...cheaper, id: 'higher-battery', scores: { ...cheaper.scores, battery: 90 } };
-    const withoutBattery: GroupWeights = { ...noPriceWeight, battery: 0 };
-    expect(rank({ phones: [cheaper, higherBattery], groupWeights: withoutBattery }).ranking[0]?.phoneId).toBe('higher-battery');
+    const xiaomi = phoneById('xiaomi-15t-12-512');
+    for (const id of ['battery', 'charging', 'updates', 'durability', 'display', 'zoom'] as const) {
+      expect(rawScore(xiaomi, id, 2000), id).toBe(NEUTRAL_SCORE);
+    }
   });
 
-  it('fills three cards from above the session budget when necessary', () => {
-    const result = rank({ phones: SYNTHETIC_PHONES, answers: { F1: 'F1-a' } });
-    expect(result.cards).toHaveLength(3);
-    expect(result.cards.slice(0, 2).every((card) => card.overBudgetBy === undefined)).toBe(true);
-    expect(result.cards[2]?.overBudgetBy).toBeGreaterThan(0);
-    expect(result.ranking).toHaveLength(6);
+  it('normalizacja min-max z mieszaniem; przy max = min zwraca 50', () => {
+    expect(normalize(75, { min: 50, max: 100 })).toBe(50);
+    expect(normalize(60, { min: 60, max: 60 })).toBe(NEUTRAL_SCORE);
+    expect(blend(60, { min: 50, max: 100 }, 0)).toBe(60);
+    expect(blend(60, { min: 50, max: 100 }, 1)).toBe(20);
+    expect(blend(60, { min: 50, max: 100 }, BLEND)).toBe(40);
   });
 
-  it('keeps 128 GB phones out of the pool and ranking when 256 GB is required', () => {
-    const result = rank({ phones: SYNTHETIC_PHONES, answers: { C2: 'C2-b' } });
-    expect(result.ranking.map((item) => item.phoneId)).not.toContain('sample-four');
-    expect(result.cards.map((item) => item.phoneId)).not.toContain('sample-four');
+  it('zakresy normalizacji liczone są na puli po filtrach', () => {
+    const full = scoreRanges(POOL, 2000);
+    const filtered = scoreRanges(
+      buildPool(POOL, { budgetMax: 2000, minStorageGb: 256 }),
+      2000,
+    );
+    expect(full.storage.min).toBe(40); // Pixel 10a i 9a: 128 GB
+    expect(filtered.storage.min).toBe(75); // po filtrze zostają 256 GB i 512 GB
   });
 
-  it('handles an empty pool, zero group weights and display rounding', () => {
-    expect(rank({ phones: [] }).cards).toEqual([]);
-    const result = rank({ phones: SYNTHETIC_PHONES, groupWeights: {
-      battery: 0, camera: 0, storage: 0, longevity: 0, smooth: 0, price: 0,
-    } });
-    expect(Number.isFinite(result.ranking[0]!.score)).toBe(true);
-    expect(toMatchPercent(72.6)).toBe(73);
-    expect(formatMatchPercent(72.6)).toBe('73%');
-    expect(toMatchPercent(Number.NaN)).toBe(0);
+  it('S jest średnią ważoną GroupScore (przy równych ważnościach — zwykłą średnią)', () => {
+    const weights = answersToCriterionWeights(noAnswers());
+    const ranges = scoreRanges(POOL, 2000);
+    const phone = POOL[0]!;
+    const { scores } = groupScores(phone, ranges, weights, 2000);
+    const flat = groupImportance(weights, null);
+    const expected =
+      GROUPS.reduce((sum, group) => sum + (scores[group.id] ?? 0), 0) / GROUPS.length;
+
+    expect(totalScore(scores, flat)).toBeCloseTo(expected, 1);
+  });
+});
+
+describe('E2-07 · kolejność i remisy', () => {
+  /* Cena wchodzi do S przez kryterium `value`, więc prawdziwy remis punktowy wymaga
+     wyzerowania ważności grupy „Cena” — wtedy decyduje kolejność z PROJECT 7.3. */
+  const tiedRun = () => {
+    const phones = tiedPair();
+    const weights = answersToCriterionWeights(noAnswers());
+    const importance = { ...groupImportance(weights, null), price: 0 };
+    return rank({ phones, weights, groupImportance: importance, filters: { budgetMax: 2000 } });
+  };
+
+  it('3. identyczne oceny → wyżej jest tańszy telefon', () => {
+    const result = tiedRun();
+    expect(result.ranked[0]!.score).toBe(result.ranked[1]!.score);
+    expect(result.ranked.map((entry) => entry.phoneId)).toEqual(['remis-tanszy', 'remis-drozszy']);
+  });
+
+  it('dokładny remis dostaje znacznik praktycznego remisu', () => {
+    const result = tiedRun();
+    expect(result.ranked[0]!.practicalTieWith).toBe('remis-drozszy');
+    expect(result.ranked[1]!.practicalTieWith).toBe('remis-tanszy');
+  });
+
+  it('przy jednakowej cenie o remisie rozstrzyga wyższa ocena baterii', () => {
+    const phones = tiedPair().map((phone) => ({
+      ...phone,
+      price: { ...phone.price, pln: 1500 },
+    }));
+    phones[0]!.scores = { ...phones[0]!.scores, battery: 40 };
+    phones[1]!.scores = { ...phones[1]!.scores, battery: 90 };
+    const weights = answersToCriterionWeights(noAnswers());
+    const result = rank({
+      phones,
+      weights,
+      groupImportance: { ...groupImportance(weights, null), price: 0 },
+      filters: { budgetMax: 2000 },
+    });
+    expect(result.ranked[0]!.phoneId).toBe(phones[1]!.id);
+  });
+
+  it('sąsiedzi bliżej niż próg 2 pkt są oznaczeni, dalsi nie', () => {
+    const result = rankFromAnswers(POOL, CAMERA.answers, CAMERA.topThree);
+    for (const [index, entry] of result.ranked.entries()) {
+      const next = result.ranked[index + 1];
+      if (!next) continue;
+      const close = entry.score - next.score < TIE_THRESHOLD;
+      const linked =
+        entry.practicalTieWith === next.phoneId || next.practicalTieWith === entry.phoneId;
+      if (close) expect(linked, `${entry.phoneId} vs ${next.phoneId}`).toBe(true);
+    }
+  });
+
+  it('różnica ponad próg nie daje znacznika remisu', () => {
+    const result = rankFromAnswers(POOL, WIFE.answers, WIFE.topThree);
+    expect(result.ranked[0]!.score - result.ranked[1]!.score).toBeGreaterThan(TIE_THRESHOLD);
+    expect(result.ranked[0]!.practicalTieWith).toBeNull();
+  });
+});
+
+describe('E2-06 · pula i filtry twarde', () => {
+  it('cała pula mieści się w twardym limicie 2000 zł', () => {
+    expect(countPool(POOL, { budgetMax: BUDGET_LIMIT })).toBe(POOL.length);
+    for (const phone of POOL) expect(phone.price.pln).toBeLessThanOrEqual(BUDGET_LIMIT);
+  });
+
+  it('telefon powyżej limitu nie wchodzi do puli', () => {
+    expect(matchesFilters(overLimit(), { budgetMax: BUDGET_LIMIT })).toBe(false);
+    expect(countPool([...POOL, overLimit()], { budgetMax: BUDGET_LIMIT })).toBe(POOL.length);
+  });
+
+  it('5. filtr „min. 256 GB” usuwa telefony 128 GB z puli i z rankingu', () => {
+    const filters = { budgetMax: BUDGET_LIMIT, minStorageGb: 256 };
+    const pool = buildPool(POOL, filters);
+    expect(pool.length).toBe(8);
+    expect(pool.map((phone) => phone.id)).not.toContain('pixel-10a-8-128');
+    expect(pool.map((phone) => phone.id)).not.toContain('pixel-9a-8-128');
+
+    const result = rankFromAnswers(POOL, WIFE.answers, WIFE.topThree, filters);
+    for (const entry of result.ranked) {
+      expect(phoneById(entry.phoneId).variant.storageGb).toBeGreaterThanOrEqual(256);
+    }
+  });
+
+  it('filtr „musi mieć microSD” zostawia tylko telefony ze slotem i włącza C3', () => {
+    expect(anyMicroSd(POOL)).toBe(false);
+    expect(countPool(POOL, { budgetMax: BUDGET_LIMIT, requireMicroSd: true })).toBe(0);
+
+    const withSlot = withMicroSd();
+    expect(anyMicroSd([withSlot])).toBe(true);
+    expect(buildPool([...POOL, withSlot], { budgetMax: BUDGET_LIMIT, requireMicroSd: true })).toEqual([
+      withSlot,
+    ]);
+    expect(activeQuestions([...POOL, withSlot]).map((question) => question.id)).toContain('C3');
+  });
+
+  it('inBudgetSubset liczy telefony mieszczące się w budżecie sesji', () => {
+    expect(inBudgetSubset(POOL, 1500).map((phone) => phone.id).sort()).toEqual([
+      'motorola-edge-60-12-256',
+      'redmi-note-15-pro-5g-8-256',
+    ]);
+    expect(inBudgetSubset(POOL, BUDGET_LIMIT).length).toBe(POOL.length);
+    expect(inBudget(phoneById('xiaomi-15t-12-512'), 1500)).toBe(false);
+  });
+
+  it('pusta pula po filtrach zwraca pusty wynik, nie wyjątek', () => {
+    const result = rank({
+      phones: POOL,
+      weights: answersToCriterionWeights(noAnswers()),
+      groupImportance: groupImportance(answersToCriterionWeights(noAnswers()), null),
+      filters: { budgetMax: BUDGET_LIMIT, minStorageGb: 1024 },
+    });
+    expect(result.empty).toBe(true);
+    expect(result.ranked).toEqual([]);
+    expect(result.cards).toEqual([]);
+    expect(result.bestScore).toBeNull();
+  });
+
+  it('pula mniejsza niż trzy telefony daje tyle kart, ile jest (QUIZ-SPEC 8)', () => {
+    const small = POOL.slice(0, 2);
+    const result = neutralRun(small);
+    expect(result.cards.length).toBe(2);
+    expect(result.poolSize).toBe(2);
+  });
+});
+
+describe('E2-07 · karty i uzupełnianie powyżej budżetu', () => {
+  it('4. budżet 1500 zł → dwa telefony w budżecie i jeden z overBudgetBy', () => {
+    const result = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
+    expect(result.inBudgetCount).toBe(2);
+    expect(result.cards.length).toBe(3);
+    expect(result.cards.filter((entry) => entry.overBudgetBy !== null).length).toBe(1);
+    expect(result.cards.map((entry) => entry.place)).toEqual([1, 2, 3]);
+  });
+
+  it('karty są numerowane od 1, a ranking puli zachowuje własną numerację', () => {
+    const result = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
+    const overBudgetCard = result.cards.find((entry) => !entry.inBudget)!;
+    const sameInPool = result.ranked.find((entry) => entry.phoneId === overBudgetCard.phoneId)!;
+    /* Uzupełnienie ponad budżetem trafia na koniec kart, choć w puli jest najlepsze. */
+    expect(overBudgetCard.place).toBe(3);
+    expect(sameInPool.place).toBe(1);
+    expect(result.ranked.map((entry) => entry.place)).toEqual(
+      result.ranked.map((_entry, index) => index + 1),
+    );
+  });
+
+  it('budżet 2000 zł: wszystkie karty mieszczą się w budżecie', () => {
+    const result = rankFromAnswers(POOL, WIFE.answers, WIFE.topThree);
+    expect(result.inBudgetCount).toBe(POOL.length);
+    for (const entry of result.cards) {
+      expect(entry.inBudget).toBe(true);
+      expect(entry.overBudgetBy).toBeNull();
+    }
+  });
+
+  it('klon telefonu z inną ceną zmienia value, a więc i wynik', () => {
+    const base = phoneById('galaxy-a57-8-256');
+    const cheaper = clonePhone(base, {
+      id: 'a57-taniej',
+      price: { ...base.price, pln: 1299 },
+      reveal: { ...base.reveal, name: 'Taniej', brand: 'Test' },
+    });
+    expect(rawScore(cheaper, 'value', 2000)).toBeGreaterThan(rawScore(base, 'value', 2000));
   });
 });

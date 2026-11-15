@@ -1,22 +1,24 @@
-export const CRITERION_IDS = [
-  'battery',
-  'charging',
-  'photoDay',
-  'photoIndoor',
-  'photoMotion',
-  'selfie',
-  'video',
-  'zoom',
-  'storage',
-  'updates',
-  'smoothness',
-  'display',
-  'durability',
-  'value',
-] as const;
+/**
+ * Identyfikatory kryteriów i grup (E2-01) — QUIZ-SPEC 2.1, PROJECT 7.1.
+ * Osobny moduł, żeby typy danych i typy silnika nie definiowały ich podwójnie.
+ */
 
-export type CriterionId = (typeof CRITERION_IDS)[number];
+export type GroupId = 'battery' | 'camera' | 'storage' | 'longevity' | 'smooth' | 'price';
 
-export const GROUP_IDS = ['battery', 'camera', 'storage', 'longevity', 'smooth', 'price'] as const;
+export type CriterionId =
+  | 'battery'
+  | 'charging'
+  | 'photoDay'
+  | 'photoIndoor'
+  | 'photoMotion'
+  | 'selfie'
+  | 'video'
+  | 'zoom'
+  | 'storage'
+  | 'updates'
+  | 'smoothness'
+  | 'display'
+  | 'durability'
+  | 'value';
 
-export type GroupId = (typeof GROUP_IDS)[number];
+export type ScoreConfidence = 'high' | 'medium' | 'low';

@@ -1,134 +1,227 @@
-import { CRITERION_IDS, GROUP_IDS, GROUPS } from '../data/criteria';
-import type { CriterionId } from '../types/criteria';
-import type { Phone } from '../types/phone';
-import type { GroupScores, RankInput, RankedPhone, RankingResult } from '../types/ranking';
-import { toMatchPercent } from './matchDisplay';
-import { getCandidatePool } from './pool';
-import { BLEND, DEFAULT_BUDGET, PRACTICAL_TIE_THRESHOLD, VALUE_PRICE_FLOOR } from './scoringConfig';
-import { answersToCriterionWeights, answersToFilters, criterionShares, groupImportance } from './weights';
+import { GROUPS } from '@/data/criteria';
+import type {
+  Answers,
+  CriterionId,
+  Filters,
+  GroupId,
+  Phone,
+  RankInput,
+  RankResult,
+  RankedPhone,
+  TopThreeAnswer,
+  Weights,
+} from '@/types';
+import { buildPool, inBudget } from './pool';
+import { clamp, criterionShares, deriveFromAnswers, round } from './weights';
+import {
+  BLEND,
+  BUDGET_LIMIT,
+  CARD_COUNT,
+  DEFAULT_BUDGET,
+  NEUTRAL_SCORE,
+  TIE_THRESHOLD,
+  VALUE_FLOOR,
+} from './scoringConfig';
 
-function clamp(value: number): number {
-  return Math.max(0, Math.min(100, value));
+/**
+ * Silnik rankingu (E2-07) — czysta funkcja, bez Reacta i bez DOM.
+ * QUIZ-SPEC 2.3-2.5, PROJECT 7.3.
+ */
+
+export interface ScoreRange {
+  min: number;
+  max: number;
 }
 
-export function valueScore(pricePln: number, budgetMax = DEFAULT_BUDGET): number {
-  const denominator = Math.max(1, budgetMax - VALUE_PRICE_FLOOR);
-  return clamp(100 * (1 - (pricePln - VALUE_PRICE_FLOOR) / denominator));
+export type ScoreRanges = Record<CriterionId, ScoreRange>;
+
+/** `value` liczone z ceny i budżetu sesji, obcięte do 0-100 (PROJECT 7.3). */
+export function valueScore(pricePln: number, budgetMax: number): number {
+  const denominator = budgetMax - VALUE_FLOOR;
+  if (!Number.isFinite(pricePln) || !Number.isFinite(denominator) || denominator <= 0) {
+    return NEUTRAL_SCORE;
+  }
+  return clamp(Math.round(100 * (1 - (pricePln - VALUE_FLOOR) / denominator)), 0, 100);
 }
 
-function rawScoresFor(phone: Phone, budgetMax: number): Record<CriterionId, number> {
-  return Object.fromEntries(CRITERION_IDS.map((criterion) => [
-    criterion,
-    criterion === 'value'
-      ? valueScore(phone.price.pln, budgetMax)
-      : clamp(phone.scores[criterion] ?? 50),
-  ])) as Record<CriterionId, number>;
+/** Ocena kryterium: `value` z ceny, braki danych jako wartość neutralna 50. */
+export function rawScore(phone: Phone, id: CriterionId, budgetMax: number): number {
+  if (id === 'value') return valueScore(phone.price.pln, budgetMax);
+  const score = phone.scores[id];
+  return typeof score === 'number' && Number.isFinite(score) ? clamp(score, 0, 100) : NEUTRAL_SCORE;
 }
 
-interface ScoredCandidate {
-  phone: Phone;
-  score: number;
-  rawScores: Record<CriterionId, number>;
-  normalizedScores: Record<CriterionId, number>;
-  groupScores: GroupScores;
-}
+/** Zakresy min-max na puli kandydatów (QUIZ-SPEC 2.3). */
+export function scoreRanges(pool: readonly Phone[], budgetMax: number): ScoreRanges {
+  const ranges = {} as ScoreRanges;
 
-function orderWithPracticalTies(candidates: ScoredCandidate[]): ScoredCandidate[] {
-  const byScore = [...candidates].sort((a, b) => b.score - a.score || a.phone.id.localeCompare(b.phone.id));
-  const ordered: ScoredCandidate[] = [];
-
-  // Group by the best score in each band so the near-tie rule stays transitive.
-  for (let start = 0; start < byScore.length;) {
-    const anchor = byScore[start]!;
-    let end = start + 1;
-    while (end < byScore.length && anchor.score - byScore[end]!.score < PRACTICAL_TIE_THRESHOLD) {
-      end += 1;
+  for (const group of GROUPS) {
+    for (const id of group.criteria) {
+      const values = pool.map((phone) => rawScore(phone, id, budgetMax));
+      ranges[id] = {
+        min: values.length > 0 ? Math.min(...values) : 0,
+        max: values.length > 0 ? Math.max(...values) : 100,
+      };
     }
-    ordered.push(...byScore.slice(start, end).sort((a, b) =>
-      a.phone.price.pln - b.phone.price.pln ||
-      b.rawScores.battery - a.rawScores.battery ||
-      b.score - a.score ||
-      a.phone.id.localeCompare(b.phone.id),
-    ));
-    start = end;
   }
 
-  return ordered;
+  return ranges;
 }
 
-function withPositions(candidates: ScoredCandidate[], budgetMax: number): RankedPhone[] {
-  return candidates.map((item, index) => {
-    const previousTie = candidates.slice(0, index).reverse().find((previous) =>
-      Math.abs(previous.score - item.score) < PRACTICAL_TIE_THRESHOLD,
-    );
-    const previousIndex = previousTie ? candidates.indexOf(previousTie) : -1;
-    const overBudgetBy = Math.max(0, item.phone.price.pln - budgetMax);
-    return {
-      phoneId: item.phone.id,
-      position: index + 1,
-      score: item.score,
-      matchPercent: toMatchPercent(item.score),
-      rawScores: item.rawScores,
-      normalizedScores: item.normalizedScores,
-      groupScores: item.groupScores,
-      ...(previousIndex >= 0 ? { tieWith: previousIndex + 1 } : {}),
-      ...(overBudgetBy > 0 ? { overBudgetBy } : {}),
-    };
-  });
+/** Normalizacja min-max; przy max = min zwracamy 50 (QUIZ-SPEC 2.3). */
+export function normalize(score: number, range: ScoreRange): number {
+  const span = range.max - range.min;
+  if (span <= 0) return NEUTRAL_SCORE;
+  return clamp((100 * (score - range.min)) / span, 0, 100);
 }
 
-export function rank(input: RankInput): RankingResult {
-  const answers = input.answers ?? {};
-  const derivedFilters = answersToFilters(answers);
-  const filters = {
-    ...derivedFilters,
-    ...input.filters,
-    budgetMax: input.filters?.budgetMax ?? derivedFilters.budgetMax,
-  };
-  if (!Number.isFinite(filters.budgetMax) || filters.budgetMax <= 0) {
-    filters.budgetMax = DEFAULT_BUDGET;
+/** Zmieszanie oceny znormalizowanej z surową: `BLEND × n + (1 − BLEND) × s`. */
+export function blend(score: number, range: ScoreRange, factor: number = BLEND): number {
+  const normalized = normalize(score, range);
+  return clamp(factor * normalized + (1 - factor) * score, 0, 100);
+}
+
+/** GroupScore_g = Σ_c (share_c × s'_c) dla kryteriów grupy g. */
+export function groupScores(
+  phone: Phone,
+  ranges: ScoreRanges,
+  weights: Weights,
+  budgetMax: number,
+): { scores: Record<GroupId, number>; normalized: Partial<Record<CriterionId, number>> } {
+  const scores = {} as Record<GroupId, number>;
+  const normalized: Partial<Record<CriterionId, number>> = {};
+
+  for (const group of GROUPS) {
+    const shares = criterionShares(weights, group.criteria);
+    let total = 0;
+
+    for (const id of group.criteria) {
+      const raw = rawScore(phone, id, budgetMax);
+      const blended = blend(raw, ranges[id] ?? { min: 0, max: 100 });
+      normalized[id] = round(blended, 2);
+      total += (shares[id] ?? 0) * blended;
+    }
+
+    scores[group.id] = round(total, 2);
   }
-  const criterionWeights = input.criterionWeights ?? answersToCriterionWeights(answers);
-  const groupWeights = input.groupWeights ?? groupImportance(criterionWeights, input.topThree, answers);
-  const pool = getCandidatePool(input.phones, filters);
+
+  return { scores, normalized };
+}
+
+/** S = Σ_g (G_g × GroupScore_g) / Σ_g G_g, wynik 0-100. */
+export function totalScore(
+  scores: Record<GroupId, number>,
+  importance: Record<GroupId, number>,
+): number {
+  let weighted = 0;
+  let sum = 0;
+
+  for (const group of GROUPS) {
+    const weight = Math.max(0, importance[group.id] ?? 0);
+    weighted += weight * (scores[group.id] ?? 0);
+    sum += weight;
+  }
+
+  if (sum <= 0) {
+    const values = GROUPS.map((group) => scores[group.id] ?? 0);
+    return round(values.reduce((a, b) => a + b, 0) / Math.max(1, values.length), 2);
+  }
+
+  return round(weighted / sum, 2);
+}
+
+function sortKey(phone: Phone): number {
+  return phone.price.pln;
+}
+
+function byRank(a: RankedPhone, b: RankedPhone, phones: Map<string, Phone>): number {
+  if (b.score !== a.score) return b.score - a.score;
+  /* Remis: niższa cena, potem wyższa ocena `battery` (PROJECT 7.3). */
+  const phoneA = phones.get(a.phoneId);
+  const phoneB = phones.get(b.phoneId);
+  const priceA = phoneA ? sortKey(phoneA) : Number.POSITIVE_INFINITY;
+  const priceB = phoneB ? sortKey(phoneB) : Number.POSITIVE_INFINITY;
+  if (priceA !== priceB) return priceA - priceB;
+  const batteryA = phoneA?.scores.battery ?? 0;
+  const batteryB = phoneB?.scores.battery ?? 0;
+  return (batteryB ?? 0) - (batteryA ?? 0);
+}
+
+/** Pełne liczenie rankingu: pula → normalizacja → S → kolejność → karty. */
+export function rank(input: RankInput): RankResult {
+  const { phones, weights, groupImportance, filters } = input;
+  const budgetMax = clamp(filters.budgetMax ?? DEFAULT_BUDGET, 0, BUDGET_LIMIT);
+  const pool = buildPool(phones, { ...filters, budgetMax });
 
   if (pool.length === 0) {
-    return { filters, criterionWeights, groupWeights, ranking: [], cards: [] };
+    return { poolSize: 0, inBudgetCount: 0, ranked: [], cards: [], bestScore: null, empty: true };
   }
 
-  const raw = pool.map((phone) => ({ phone, scores: rawScoresFor(phone, filters.budgetMax) }));
-  const bounds = Object.fromEntries(CRITERION_IDS.map((criterion) => [criterion, {
-    min: Math.min(...raw.map((item) => item.scores[criterion])),
-    max: Math.max(...raw.map((item) => item.scores[criterion])),
-  }])) as Record<CriterionId, { min: number; max: number }>;
-  const shares = criterionShares(criterionWeights);
-  const importanceTotal = GROUP_IDS.reduce((sum, group) => sum + Math.max(0, groupWeights[group]), 0);
-
-  const scored: ScoredCandidate[] = raw.map(({ phone, scores }) => {
-    const normalizedScores = Object.fromEntries(CRITERION_IDS.map((criterion) => {
-      const { min, max } = bounds[criterion];
-      const normalized = max === min ? 50 : 100 * (scores[criterion] - min) / (max - min);
-      return [criterion, BLEND * normalized + (1 - BLEND) * scores[criterion]];
-    })) as Record<CriterionId, number>;
-
-    const groupScores = Object.fromEntries(GROUP_IDS.map((group) => [group,
-      GROUPS[group].criteria.reduce((sum, criterion) =>
-        sum + shares[criterion] * normalizedScores[criterion], 0),
-    ])) as GroupScores;
-
-    const score = importanceTotal === 0
-      ? GROUP_IDS.reduce((sum, group) => sum + groupScores[group], 0) / GROUP_IDS.length
-      : GROUP_IDS.reduce((sum, group) => sum + Math.max(0, groupWeights[group]) * groupScores[group], 0) / importanceTotal;
-
-    return { phone, score, rawScores: scores, normalizedScores, groupScores };
+  const ranges = scoreRanges(pool, budgetMax);
+  const byId = new Map(pool.map((phone) => [phone.id, phone]));
+  const entries: RankedPhone[] = pool.map((phone) => {
+    const { scores, normalized } = groupScores(phone, ranges, weights, budgetMax);
+    const score = totalScore(scores, groupImportance);
+    const within = inBudget(phone, budgetMax);
+    return {
+      phoneId: phone.id,
+      place: 0,
+      score,
+      matchPercent: Math.round(score),
+      groupScores: scores,
+      normalized,
+      inBudget: within,
+      overBudgetBy: within ? null : Math.round(phone.price.pln - budgetMax),
+      practicalTieWith: null,
+    };
   });
 
-  const ordered = orderWithPracticalTies(scored);
-  const ranking = withPositions(ordered, filters.budgetMax);
-  const inBudget = ordered.filter((item) => item.phone.price.pln <= filters.budgetMax);
-  const aboveBudget = ordered.filter((item) => item.phone.price.pln > filters.budgetMax);
-  const chosen = [...inBudget.slice(0, 3), ...aboveBudget.slice(0, Math.max(0, 3 - inBudget.length))];
-  const cards = withPositions(chosen, filters.budgetMax);
+  entries.sort((a, b) => byRank(a, b, byId));
+  entries.forEach((entry, index) => {
+    entry.place = index + 1;
+  });
 
-  return { filters, criterionWeights, groupWeights, ranking, cards };
+  /* „Praktyczny remis”: różnica mniejsza niż próg wobec sąsiada w kolejności. */
+  entries.forEach((entry, index) => {
+    const previous = entries[index - 1];
+    const next = entries[index + 1];
+    if (previous && previous.score - entry.score < TIE_THRESHOLD) {
+      entry.practicalTieWith = previous.phoneId;
+    } else if (next && entry.score - next.score < TIE_THRESHOLD) {
+      entry.practicalTieWith = next.phoneId;
+    }
+  });
+
+  /* Karty: najlepsze w budżecie, brakujące miejsca z puli powyżej budżetu (QUIZ-SPEC 2.5). */
+  const withinBudget = entries.filter((entry) => entry.inBudget);
+  const aboveBudget = entries.filter((entry) => !entry.inBudget);
+  const cards = [...withinBudget, ...aboveBudget]
+    .slice(0, CARD_COUNT)
+    .map((entry, index) => ({ ...entry, place: index + 1 }));
+
+  return {
+    poolSize: pool.length,
+    inBudgetCount: withinBudget.length,
+    ranked: entries,
+    cards,
+    bestScore: entries[0]?.score ?? null,
+    empty: false,
+  };
+}
+
+/** Wygoda dla testów i przyszłych ekranów: odpowiedzi → wagi → ranking. */
+export function rankFromAnswers(
+  phones: readonly Phone[],
+  answers: Answers,
+  topThree?: TopThreeAnswer | null,
+  filtersOverride?: Partial<Filters>,
+): RankResult {
+  const derived = deriveFromAnswers(answers, topThree);
+  const filters: Filters = { ...derived.filters, ...filtersOverride };
+  return rank({
+    phones: phones as Phone[],
+    weights: derived.weights,
+    groupImportance: derived.groupImportance,
+    filters,
+  });
 }

@@ -7,8 +7,8 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | Etap | Nazwa | Status |
 |---|---|---|
 | 0 | Dane telefonów i specyfikacja rankingu | `[~]` w toku |
-| 1 | Szkielet projektu i deploy | `[ ]` |
-| 2 | Silnik rankingu (czysta logika + testy) | `[ ]` |
+| 1 | Szkielet projektu i deploy | `[x]` zrobione |
+| 2 | Silnik rankingu (czysta logika + testy) | `[x]` zrobione |
 | 3 | Sesje i zapis w przeglądarce | `[ ]` |
 | 4 | Tryb quiz | `[ ]` |
 | 5 | Tryb suwaków i hybryda | `[ ]` |
@@ -79,11 +79,11 @@ Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i brak
 
 **Cel:** pusta aplikacja działa lokalnie i jest wdrożona na GitHub Pages.
 
-- [ ] Vite 7.3.7 + React 19.2.6 + TypeScript 5.9.3 + Tailwind 4.1.17 (wersje przypięte)
-- [ ] ESLint, Prettier, Vitest + Testing Library
-- [ ] Router hashowy i layout (nagłówek z miejscem na przycisk motywu)
-- [ ] `vite.config.ts` z `base`, workflow GitHub Actions, włączone Pages (źródło: GitHub Actions)
-- [ ] Skrypt `validate-data` podpięty pod CI
+- [x] Vite 7.3.7 + React 19.2.6 + TypeScript 5.9.3 + Tailwind 4.1.17 (wersje przypięte)
+- [x] ESLint, Prettier, Vitest + Testing Library
+- [x] Router hashowy i layout (nagłówek z miejscem na przycisk motywu)
+- [x] `vite.config.ts` z `base`, workflow GitHub Actions, włączone Pages (źródło: GitHub Actions)
+- [x] Skrypt `validate-data` podpięty pod CI
 
 **DoD:** adres Pages pokazuje ekran startowy; CI buduje i wdraża po wypchnięciu do `main`.
 
@@ -91,14 +91,16 @@ Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i brak
 
 **Cel:** poprawna, przetestowana logika bez UI.
 
-- [ ] Typy: `Phone`, `Criterion`, `Question`, `Weights`, `Filters`
-- [ ] `scoring.ts`: filtry twarde, wzór `S`, `value`, remisy
-- [ ] Mapowanie odpowiedzi quizu na wagi (start neutralny, odpowiedzi ustawiają wagi, krok „trzy najważniejsze” z mnożnikami 1,5 / 1,3 / 1,15 / 0,85)
-- [ ] Persona testowa „żona”: test, że jej odpowiedzi dają ranking zgodny z jej priorytetami
-- [ ] `anonymize.ts`: budowa danych karty bez pól `reveal`
-- [ ] Testy: skrajne wagi, filtry (budżet, microSD), remisy, brak ujawniania nazw w danych karty
+- [x] Typy: `Phone`, `Criterion`, `Question`, `Weights`, `Filters`
+- [x] `scoring.ts`: filtry twarde, wzór `S`, `value`, remisy
+- [x] Mapowanie odpowiedzi quizu na wagi (start neutralny, odpowiedzi ustawiają wagi, krok „trzy najważniejsze” z mnożnikami 1,5 / 1,3 / 1,15 / 0,85)
+- [x] Persona testowa „żona”: test, że jej odpowiedzi dają ranking zgodny z jej priorytetami
+- [x] `anonymize.ts`: budowa danych karty bez pól `reveal`
+- [x] Testy: skrajne wagi, filtry (budżet, microSD), remisy, brak ujawniania nazw w danych karty
 
 **DoD:** pokrycie testami kluczowych ścieżek; test sprawdza, że obiekt karty nie zawiera nazwy, marki ani linków.
+
+**Stan po etapie 2:** `src/lib` bez zależności od Reacta, pokrycie linii 98,5%, 63 testy zielone (8/8 testów akceptacyjnych etapu 2, niezmienniki person 9.1.1-9.1.4 i 9.4). Persony liczone na syntetycznej puli `tests/fixtures/phones.fixture.ts`, bo `phones.json` jest pusty do czasu domknięcia etapu 0 — po wgraniu danych testy trzeba przełączyć na `phones.json` i ponownie skalibrować `BLEND`. Decyzja QUIZ-SPEC 10.1: na karcie `round(S)` + opis słowny, przeskalowanie (najlepszy = 100%) w szczegółach.
 
 ## Etap 3 — Sesje i zapis w przeglądarce
 

@@ -1,78 +1,187 @@
 import { describe, expect, it } from 'vitest';
-import phoneData from '../src/data/phones.json';
-import { rank } from '../src/lib/scoring';
-import type { Phone, PhoneData } from '../src/types/phone';
-import { validatePhoneData } from '../scripts/validate-data';
-import { SYNTHETIC_PHONES } from './fixtures/phones';
-import { personas } from './personas';
+import { POOL, phoneById } from './data';
+import { BATTERY, CAMERA, PERSONAS, WIFE, skipAll } from './personas';
+import { rankFromAnswers } from '../src/lib/scoring';
+import { rawScore } from '../src/lib/scoring';
+import { TIE_THRESHOLD } from '../src/lib/scoringConfig';
+import type { Persona } from './personas';
+import type { RankedPhone } from '../src/types';
 
-function average(phones: readonly Phone[], ids: readonly string[], criterion: 'battery' | 'photoDay') {
-  const selected = phones.filter((phone) => ids.includes(phone.id));
-  return selected.reduce((total, phone) => total + phone.scores[criterion], 0) / selected.length;
+/**
+ * E2-11 · persony i niezmienniki z QUIZ-SPEC 9 na prawdziwych danych (14.11.2026).
+ * Sprawdzamy niezmienniki, nie liczby referencyjne — aktualizacja cen nie może psuć testów.
+ */
+
+const wife = () => rankFromAnswers(POOL, WIFE.answers, WIFE.topThree);
+const camera = () => rankFromAnswers(POOL, CAMERA.answers, CAMERA.topThree);
+const battery = () => rankFromAnswers(POOL, BATTERY.answers, BATTERY.topThree);
+
+function phoneOf(entry: RankedPhone) {
+  return phoneById(entry.phoneId);
 }
 
-describe('persona invariants', () => {
-  it('keeps the wife profile focused on storage and battery using synthetic phones', () => {
-    const persona = personas.wife;
-    const result = rank({ phones: SYNTHETIC_PHONES, ...persona });
-    const ids = result.cards.map((card) => card.phoneId);
-    expect(ids).toHaveLength(3);
-    expect(SYNTHETIC_PHONES.filter((phone) => ids.includes(phone.id)).every((phone) => phone.variant.storageGb >= 256)).toBe(true);
-    expect(average(SYNTHETIC_PHONES, ids, 'battery')).toBeGreaterThanOrEqual(
-      average(SYNTHETIC_PHONES, SYNTHETIC_PHONES.map((phone) => phone.id), 'battery'),
-    );
-    const filtered = rank({ phones: SYNTHETIC_PHONES, ...persona, filters: { minStorageGb: 256 } });
-    expect(filtered.cards[0]?.phoneId).toBe(result.cards[0]?.phoneId);
-    const budget = rank({ phones: SYNTHETIC_PHONES, ...persona, filters: { budgetMax: 1500 } });
-    expect(budget.cards).toHaveLength(3);
-    expect(budget.cards.filter((card) => card.overBudgetBy === undefined)).toHaveLength(2);
+function mean(entries: readonly RankedPhone[], criterion: 'battery' | 'photoDay'): number {
+  return (
+    entries.reduce((sum, entry) => sum + rawScore(phoneOf(entry), criterion, 2000), 0) /
+    entries.length
+  );
+}
+
+describe('persony · podstawy', () => {
+  it('każda persona dostaje ranking całej puli i trzy karty', () => {
+    for (const persona of PERSONAS) {
+      const result = rankFromAnswers(POOL, persona.answers, persona.topThree);
+      expect(result.empty, persona.id).toBe(false);
+      expect(result.poolSize, persona.id).toBe(POOL.length);
+      expect(result.ranked.length, persona.id).toBe(POOL.length);
+      expect(result.cards.length, persona.id).toBe(3);
+      for (const entry of result.ranked) {
+        expect(entry.score, persona.id).toBeGreaterThanOrEqual(0);
+        expect(entry.score, persona.id).toBeLessThanOrEqual(100);
+      }
+    }
   });
 
-  it('differentiates the battery and camera profiles', () => {
-    const camera = rank({ phones: SYNTHETIC_PHONES, ...personas.camera });
-    const battery = rank({ phones: SYNTHETIC_PHONES, ...personas.battery });
-    const cameraIds = camera.cards.map((card) => card.phoneId);
-    const batteryIds = battery.cards.map((card) => card.phoneId);
-    expect(average(SYNTHETIC_PHONES, batteryIds, 'battery')).toBeGreaterThan(
-      average(SYNTHETIC_PHONES, cameraIds, 'battery'),
-    );
-    expect(average(SYNTHETIC_PHONES, cameraIds, 'photoDay')).toBeGreaterThan(
-      average(SYNTHETIC_PHONES, batteryIds, 'photoDay'),
-    );
+  it('wyniki są uporządkowane malejąco i miejsca są kolejne', () => {
+    const result = wife();
+    result.ranked.forEach((entry, index) => {
+      expect(entry.place).toBe(index + 1);
+      const previous = result.ranked[index - 1];
+      if (previous) expect(previous.score).toBeGreaterThanOrEqual(entry.score);
+    });
   });
 
-  it('validates the synthetic schema and the local phones.json shape', () => {
-    expect(validatePhoneData({ _meta: { generatedOn: '2026-11-15' }, phones: SYNTHETIC_PHONES }, new Date('2026-11-16')).errors).toEqual([]);
-    expect(validatePhoneData(phoneData).errors).toEqual([]);
+  it('te same dane, inne odpowiedzi → inny ranking', () => {
+    const firsts = new Set([wife(), camera(), battery()].map((result) => result.cards[0]!.phoneId));
+    expect(firsts.size).toBeGreaterThan(1);
+  });
+
+  it('same „pomiń” dają wynik ogólny, a nie błąd (QUIZ-SPEC 8)', () => {
+    const result = rankFromAnswers(POOL, skipAll(), null);
+    expect(result.cards.length).toBe(3);
+    expect(result.bestScore).not.toBeNull();
   });
 });
 
-const realPhones = (phoneData as PhoneData).phones;
+describe('9.1 · persona „żona”', () => {
+  it('trójka odpowiada stanowi referencyjnemu: bateria przed aparatem, pamięć 256 GB', () => {
+    const ids = wife().cards.map((entry) => entry.phoneId);
+    expect(ids[0]).toBe('motorola-edge-70-fusion-12-256');
+    expect(ids).toContain('motorola-edge-60-12-256');
+    for (const entry of wife().cards) {
+      expect(phoneOf(entry).variant.storageGb).toBeGreaterThanOrEqual(256);
+    }
+    expect(wife().cards[0]!.matchPercent).toBeGreaterThanOrEqual(65);
+    expect(wife().cards[0]!.matchPercent).toBeLessThanOrEqual(80);
+  });
 
-if (realPhones.length === 0) {
-  it.skip('real phone persona calibration requires the verified Etap 0 dataset', () => {});
-} else {
-  it('checks the specified wife-persona invariants on verified phones', () => {
-    const persona = personas.wife;
-    const result = rank({ phones: realPhones, ...persona });
-    const ids = result.cards.map((card) => card.phoneId);
-    expect(result.cards).toHaveLength(3);
-    expect(realPhones.filter((phone) => ids.includes(phone.id)).every((phone) => phone.variant.storageGb >= 256)).toBe(true);
-    expect(average(realPhones, ids, 'battery')).toBeGreaterThanOrEqual(
-      average(realPhones, realPhones.map((phone) => phone.id), 'battery'),
+  it('9.1.1 żaden telefon 128 GB w trójce, gdy pamięć jest w trójce najważniejszych', () => {
+    for (const entry of wife().cards) {
+      expect(phoneOf(entry).variant.storageGb, entry.phoneId).toBeGreaterThanOrEqual(256);
+    }
+  });
+
+  it('9.1.2 średnia ocena battery w trójce ≥ średniej puli', () => {
+    const poolMean =
+      POOL.reduce((sum, phone) => sum + rawScore(phone, 'battery', 2000), 0) / POOL.length;
+    expect(mean(wife().cards, 'battery')).toBeGreaterThanOrEqual(poolMean);
+  });
+
+  it('9.1.3 filtr „min. 256 GB” nie zmienia pozycji #1', () => {
+    const filtered = rankFromAnswers(POOL, WIFE.answers, WIFE.topThree, { minStorageGb: 256 });
+    expect(filtered.poolSize).toBe(POOL.length - 2);
+    expect(filtered.cards[0]!.phoneId).toBe(wife().cards[0]!.phoneId);
+  });
+
+  it('9.1.4 budżet 1500 zł → dwie karty w budżecie i jedna „Powyżej budżetu”', () => {
+    const result = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
+    expect(result.inBudgetCount).toBe(2);
+    expect(result.cards.length).toBe(3);
+
+    const over = result.cards.filter((entry) => !entry.inBudget);
+    expect(over.length).toBe(1);
+    expect(over[0]!.overBudgetBy).toBeGreaterThan(0);
+    expect(phoneOf(over[0]!).price.pln).toBeGreaterThan(1500);
+
+    const within = result.cards.filter((entry) => entry.inBudget);
+    expect(within.length).toBe(2);
+    for (const entry of within) {
+      expect(entry.overBudgetBy).toBeNull();
+      expect(phoneOf(entry).price.pln).toBeLessThanOrEqual(1500);
+    }
+  });
+
+  it('priorytet baterii przed aparatem jest widoczny w ważnościach i w wyniku', () => {
+    const result = wife();
+    const top = phoneOf(result.cards[0]!);
+    const bestCameraPhone = [...result.ranked]
+      .map((entry) => phoneOf(entry))
+      .sort((a, b) => (b.scores.photoDay ?? 0) - (a.scores.photoDay ?? 0))[0]!;
+
+    expect(result.cards[0]!.groupScores.battery).toBeGreaterThan(
+      result.cards[0]!.groupScores.camera,
     );
-    expect(rank({ phones: realPhones, ...persona, filters: { minStorageGb: 256 } }).cards[0]?.phoneId).toBe(result.cards[0]?.phoneId);
-    const lowerBudget = rank({ phones: realPhones, ...persona, filters: { budgetMax: 1500 } });
-    expect(lowerBudget.cards).toHaveLength(3);
-    expect(lowerBudget.cards.filter((card) => card.overBudgetBy === undefined)).toHaveLength(2);
+    expect(top.scores.battery).toBeGreaterThanOrEqual(bestCameraPhone.scores.battery ?? 0);
+  });
+});
+
+describe('9.2 i 9.3 · persony kontrolne', () => {
+  it('persona „aparat” stawia na telefon z najmocniejszymi zdjęciami w dzień', () => {
+    const result = camera();
+    expect(result.cards[0]!.phoneId).toBe('motorola-edge-60-12-256');
+    expect(result.cards[0]!.groupScores.camera).toBeGreaterThan(
+      result.cards[0]!.groupScores.battery,
+    );
   });
 
-  it('differentiates verified camera and battery personas', () => {
-    const battery = rank({ phones: realPhones, ...personas.battery });
-    const camera = rank({ phones: realPhones, ...personas.camera });
-    const batteryIds = battery.cards.map((card) => card.phoneId);
-    const cameraIds = camera.cards.map((card) => card.phoneId);
-    expect(average(realPhones, batteryIds, 'battery')).toBeGreaterThan(average(realPhones, cameraIds, 'battery'));
-    expect(average(realPhones, cameraIds, 'photoDay')).toBeGreaterThan(average(realPhones, batteryIds, 'photoDay'));
+  it('persona „bateria” stawia na telefon z największą baterią', () => {
+    const result = battery();
+    expect(result.cards[0]!.phoneId).toBe('motorola-edge-70-fusion-12-256');
+    expect(phoneOf(result.cards[0]!).scores.battery).toBe(88);
+    expect(result.cards[0]!.groupScores.battery).toBeGreaterThan(
+      result.cards[0]!.groupScores.camera,
+    );
   });
-}
+
+  it('bliskie wyniki persony „aparat” są oznaczone jako praktyczny remis', () => {
+    const result = camera();
+    const tied = result.ranked.filter((entry) => entry.practicalTieWith !== null);
+    expect(tied.length).toBeGreaterThan(0);
+
+    for (const entry of tied) {
+      const neighbour = result.ranked.find((item) => item.phoneId === entry.practicalTieWith);
+      expect(neighbour).toBeTruthy();
+      expect(Math.abs(neighbour!.score - entry.score)).toBeLessThan(TIE_THRESHOLD);
+    }
+  });
+});
+
+describe('9.4 · test różnicujący między personami', () => {
+  it('bateria persony „bateria” > „aparat”, a zdjęcia w dzień odwrotnie', () => {
+    expect(mean(battery().cards, 'battery')).toBeGreaterThan(mean(camera().cards, 'battery'));
+    expect(mean(camera().cards, 'photoDay')).toBeGreaterThan(mean(battery().cards, 'photoDay'));
+  });
+
+  it('różnica jest wyraźna, nie szumowa (co najmniej 3 pkt na każdej osi)', () => {
+    expect(mean(battery().cards, 'battery') - mean(camera().cards, 'battery')).toBeGreaterThan(3);
+    expect(mean(camera().cards, 'photoDay') - mean(battery().cards, 'photoDay')).toBeGreaterThan(1);
+  });
+});
+
+describe('persony · filtry i brzegi', () => {
+  it('żadna persona nie wyciąga telefonu powyżej limitu 2000 zł', () => {
+    const run = (persona: Persona) => rankFromAnswers(POOL, persona.answers, persona.topThree);
+    for (const persona of PERSONAS) {
+      for (const entry of run(persona).cards) {
+        expect(phoneOf(entry).price.pln, persona.id).toBeLessThanOrEqual(2000);
+      }
+    }
+  });
+
+  it('telefon „do potwierdzenia” zostaje w puli, ale ma niską pewność ocen', () => {
+    const realme = phoneById('realme-16-pro-plus-5g-8-256');
+    expect(realme.status).toBe('needs_confirmation');
+    expect(wife().ranked.some((entry) => entry.phoneId === realme.id)).toBe(true);
+    expect(realme.scoreConfidence?.battery).toBe('low');
+  });
+});

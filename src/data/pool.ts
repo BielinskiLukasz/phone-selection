@@ -43,9 +43,9 @@ export const ACCEPTANCE_TESTS = [
 
 /** Etapy z ROADMAP.md — użyte w stopce jako pasek postępu projektu. */
 export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: boolean }[] = [
-  { id: 0, name: 'Dane telefonów i specyfikacja rankingu', done: false, active: true },
+  { id: 0, name: 'Dane telefonów i specyfikacja rankingu', done: true, active: false },
   { id: 1, name: 'Szkielet projektu i deploy', done: true, active: false },
-  { id: 2, name: 'Silnik rankingu', done: false, active: false },
+  { id: 2, name: 'Silnik rankingu', done: true, active: false },
   { id: 3, name: 'Sesje i zapis w przeglądarce', done: false, active: false },
   { id: 4, name: 'Tryb quiz', done: false, active: false },
   { id: 5, name: 'Tryb suwaków i hybryda', done: false, active: false },
@@ -54,6 +54,21 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 8, name: 'Motywy, mobile, dostępność', done: false, active: false },
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
 ];
+
+/** Stałe silnika rankingu (etap 2) — QUIZ-SPEC 2.6, trzymane w `lib/scoringConfig.ts`. */
+export const ENGINE_FACTS = [
+  { label: 'BLEND', value: '0,5', note: 'normalizacja min-max × ocena surowa' },
+  { label: 'Ważności G1', value: '5 / 4 / 3', note: 'trzy najważniejsze grupy' },
+  { label: 'Waga domyślna', value: '2', note: 'start neutralny w skali 0-5' },
+  { label: 'Próg remisu', value: '2 pkt', note: '„praktyczny remis” na karcie' },
+] as const;
+
+export const ENGINE_STATUS = [
+  'Czysta logika w src/lib: weights, pool, scoring, anonymize, matchDisplay — bez Reacta.',
+  'Persony z QUIZ-SPEC 9 na prawdziwych danych: żona #1 71 pkt, bateria i aparat rozróżnialne.',
+  'Budżet 1500 zł daje dwie karty w budżecie i jedną „Powyżej budżetu o 158 zł”.',
+  'Test wycieku: karta nie zawiera nazwy, marki, modelu, chipa ani nazwy sklepu.',
+] as const;
 
 export const CONSOLE_COMMANDS = [
   { cmd: 'npm run dev', what: 'lokalny serwer Vite' },
@@ -65,20 +80,49 @@ export const CONSOLE_COMMANDS = [
 ] as const;
 
 interface PoolMeta {
+  schemaVersion?: number;
+  currency?: string;
+  budgetMaxPln?: number;
   generatedOn: string | null;
+  rules?: string[];
+  scoresNote?: string;
   note?: string;
 }
 
+interface PoolRecord {
+  id: string;
+  status?: string;
+  price?: { pln?: number; checkedAt?: string };
+  variant?: { storageGb?: number };
+}
+
 const meta = (phonesData as { _meta?: PoolMeta })._meta;
+const records = ((phonesData as { phones?: PoolRecord[] }).phones ?? []) as PoolRecord[];
+const prices = records
+  .map((record) => record.price?.pln)
+  .filter((value): value is number => typeof value === 'number');
+const unconfirmed = records.filter((record) => record.status !== 'ok').length;
 
 export const pool = {
-  /** Ile rekordów jest naprawdę w pliku danych (etap 0 w toku). */
-  count: Array.isArray((phonesData as { phones?: unknown[] }).phones)
-    ? ((phonesData as { phones: unknown[] }).phones.length as number)
-    : 0,
+  /** Ile rekordów jest w pliku danych. */
+  count: records.length,
   expected: EXPECTED_POOL_SIZE,
   budgetLimit: BUDGET_LIMIT_PLN,
-  checkedAt: PRICES_CHECKED_AT,
+  checkedAt: meta?.generatedOn ?? PRICES_CHECKED_AT,
+  schemaVersion: meta?.schemaVersion ?? null,
+  currency: meta?.currency ?? 'PLN',
+  /** Rekordy ze statusem innym niż `ok` (np. `needs_confirmation`). */
+  unconfirmed,
+  statusNote:
+    records.length === 0
+      ? 'brak danych — etap 0'
+      : unconfirmed > 0
+        ? `${unconfirmed} rekord do potwierdzenia`
+        : 'dane zweryfikowane',
+  priceRange:
+    prices.length > 0
+      ? `${Math.min(...prices)}-${Math.max(...prices)} zł`
+      : 'brak danych',
   metaNote: meta?.note ?? null,
   generatedOn: meta?.generatedOn ?? null,
 };

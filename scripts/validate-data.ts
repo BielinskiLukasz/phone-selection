@@ -76,33 +76,48 @@ function validShopUrl(value: unknown): boolean {
   }
 }
 
-/** Pola liczbowe, z których biorą się cechy karty (UI-SPEC 4) i oceny sprzętowe (PROJECT 7.5). */
+/** Pola liczbowe używane przez cechy karty (UI-SPEC 4) i oceny sprzętowe (PROJECT 7.5). */
 const NUMERIC_SPECS = [
   'batteryMah',
   'chargingW',
-  'displaySizeIn',
+  'displayInch',
   'refreshHz',
   'weightG',
   'updatesYears',
 ] as const;
 
-const BOOLEAN_SPECS = ['wirelessCharging', 'microSd'] as const;
+const BOOLEAN_SPECS = ['wirelessCharging', 'microSd', 'nfc', 'chargerInBox'] as const;
 
-/** Aparaty, dla których 0 jest poprawnym zapisem „telefon nie ma tego aparatu”. */
-const OPTIONAL_CAMERA_SPECS = ['ultraWideMp', 'selfieMp'] as const;
+const CAMERA_SPECS = ['main', 'ultrawide', 'macro', 'selfie', 'telephoto'] as const;
+
+const PHONE_STATUSES = ['ok', 'over_budget', 'variant_swapped', 'unverified', 'needs_confirmation'];
+
+/** „50 MP f/1.8 z OIS” → 50; brak liczby Mpix → null (nie zgadujemy). */
+function megapixelsOf(value: unknown): number | null {
+  if (typeof value !== 'string') return null;
+  const match = /(\d+(?:[.,]\d+)?)\s*(?:MP|Mpix|megapiksel)/i.exec(value);
+  if (!match?.[1]) return null;
+  const parsed = Number(match[1].replace(',', '.'));
+  return Number.isFinite(parsed) ? parsed : null;
+}
 
 /**
- * Walidacja `specs`. Wartość nieliczbowa, ujemna, NaN albo 0 tam, gdzie nie ma
- * sensu, to błąd; brak pola to ostrzeżenie, bo karta pokaże wtedy „brak danych”.
+ * Walidacja `specs` w schemacie `schemaVersion: 1`.
+ * Wartość niepoprawna to błąd, brak pola to ostrzeżenie (karta pokaże „brak danych”).
  */
 function validateSpecs(
   specs: DataRecord,
   path: string,
   errors: string[],
   warnings: string[],
+  record?: DataRecord,
 ): void {
   for (const field of NUMERIC_SPECS) {
-    const status = classifyNumber(optionalNumber(specs[field]));
+    const raw = specs[field];
+    /* refreshHz bywa zakresem ze źródeł („60-120”) — to poprawny zapis. */
+    if (field === 'refreshHz' && typeof raw === 'string' && /\d/.test(raw)) continue;
+
+    const status = classifyNumber(optionalNumber(raw));
     if (status === 'ok') continue;
     if (status === 'missing') {
       warnings.push(`${path}.specs.${field}: brak danych — karta pokaże „brak danych”.`);
@@ -120,11 +135,11 @@ function validateSpecs(
     }
   }
 
-  const ipRating = specs.ipRating;
-  if (ipRating === null || ipRating === undefined) {
-    warnings.push(`${path}.specs.ipRating: brak danych (kryterium durability).`);
-  } else if (!nonEmptyString(ipRating)) {
-    errors.push(`${path}.specs.ipRating musi być niepustym stringiem (np. „IP68”) albo null.`);
+  const ip = specs.ip;
+  if (ip === null || ip === undefined) {
+    warnings.push(`${path}.specs.ip: brak danych (kryterium durability dostaje wartość neutralną).`);
+  } else if (!nonEmptyString(ip)) {
+    errors.push(`${path}.specs.ip musi być niepustym stringiem (np. „IP68”) albo null.`);
   }
 
   const cameras = isRecord(specs.cameras) ? specs.cameras : undefined;
@@ -133,37 +148,37 @@ function validateSpecs(
     return;
   }
 
-  const mainStatus = classifyNumber(optionalNumber(cameras.mainMp));
-  if (mainStatus === 'missing') {
-    warnings.push(`${path}.specs.cameras.mainMp: brak danych — karta pokaże „brak danych”.`);
-  } else if (mainStatus !== 'ok') {
-    errors.push(`${path}.specs.cameras.mainMp musi być dodatnią liczbą albo null.`);
+  for (const field of CAMERA_SPECS) {
+    const value = cameras[field];
+    if (value === null || value === undefined) continue;
+    if (!nonEmptyString(value)) {
+      errors.push(`${path}.specs.cameras.${field} musi być opisem ze źródła albo null.`);
+    }
   }
 
-  /* Aparat do przybliżania: 0 to celowy zapis „brak teleobiektywu”, nie brak danych.
-     Kolejność warunków jest istotna — `positive()` jest type guardem, więc po niej
-     typ zawęża się do `null | undefined` i porównanie z 0 nie miałoby pokrycia (TS2367). */
-  const telephotoMp = optionalNumber(cameras.telephotoMp);
+  if (megapixelsOf(cameras.main) === null) {
+    warnings.push(`${path}.specs.cameras.main: brak liczby Mpix w opisie — karta pokaże „brak danych”.`);
+  }
+
+  /* Aparat do przybliżania: `null` = brak teleobiektywu albo brak danych, a „0 MP”
+     nie występuje w opisach. Kolejność warunków jest istotna — `positive()` jest
+     type guardem, więc po niej typ zawęża się do `null | undefined` i porównanie
+     z 0 nie miałoby pokrycia typów (TS2367). */
+  const telephotoMp = megapixelsOf(cameras.telephoto);
   if (telephotoMp === 0) {
-    // Telefon bez aparatu do przybliżania: karta pokaże „bez aparatu do przybliżania”.
+    // Celowy zapis „0 MP”: telefon bez aparatu do przybliżania.
   } else if (positive(telephotoMp)) {
     // Teleobiektyw o rozdzielczości `telephotoMp` Mpix — wartość poprawna.
-  } else if (telephotoMp === null || telephotoMp === undefined) {
-    warnings.push(
-      `${path}.specs.cameras.telephotoMp: brak danych — wpisz 0, jeśli telefon nie ma teleobiektywu.`,
-    );
-  } else {
-    errors.push(`${path}.specs.cameras.telephotoMp musi być liczbą ≥ 0 albo null.`);
-  }
-
-  for (const field of OPTIONAL_CAMERA_SPECS) {
-    const status = classifyNumber(optionalNumber(cameras[field]));
-    if (status === 'ok' || status === 'zero') continue;
-    if (status === 'missing') {
-      warnings.push(`${path}.specs.cameras.${field}: brak danych — wpisz 0, jeśli brak aparatu.`);
-    } else {
-      errors.push(`${path}.specs.cameras.${field} musi być liczbą ≥ 0 albo null.`);
+  } else if (cameras.telephoto === null || cameras.telephoto === undefined) {
+    /* Brak teleobiektywu bywa udokumentowany w uzasadnieniu oceny `zoom` — wtedy to nie luka. */
+    const zoomBasis = isRecord(record?.basis) ? String(record.basis.zoom ?? '') : '';
+    if (!/brak teleobiektywu|bez teleobiektywu/i.test(zoomBasis)) {
+      warnings.push(
+        `${path}.specs.cameras.telephoto: brak danych — opisz brak teleobiektywu w basis.zoom.`,
+      );
     }
+  } else if (!/\d+(?:[.,]\d+)?\s*x/i.test(String(cameras.telephoto))) {
+    errors.push(`${path}.specs.cameras.telephoto: opis bez liczby Mpix ani krotności zoomu.`);
   }
 }
 
@@ -228,9 +243,9 @@ export function validatePhoneData(data: unknown, now = new Date()) {
     if (!isRecord(value.specs)) {
       errors.push(`${path}.specs musi być obiektem.`);
     } else {
-      validateSpecs(value.specs, path, errors, warnings);
+      validateSpecs(value.specs, path, errors, warnings, value);
     }
-    if (!['ok', 'over_budget', 'variant_swapped', 'unverified'].includes(String(value.status))) {
+    if (!PHONE_STATUSES.includes(String(value.status))) {
       errors.push(`${path}.status ma nieznaną wartość.`);
     }
 

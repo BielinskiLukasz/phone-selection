@@ -1,75 +1,214 @@
-import { GROUPS, GROUP_IDS, CRITERION_IDS } from '../data/criteria';
-import { QUIZ_QUESTIONS } from '../data/questions';
-import type { CriterionId, GroupId } from '../types/criteria';
-import type { Answers, CriterionWeights, Filters, GroupWeights } from '../types/ranking';
-import { DEFAULT_BUDGET, DEFAULT_CRITERION_WEIGHT, OTHER_GROUP_BASE, OTHER_GROUP_FACTOR, TOP_THREE_IMPORTANCE } from './scoringConfig';
+import { GROUPS, criterion } from '@/data/criteria';
+import { QUESTIONS, findOption } from '@/data/questions';
+import type {
+  Answers,
+  CriterionId,
+  CriterionShares,
+  Filters,
+  GroupId,
+  GroupImportance,
+  QuizQuestion,
+  TopThreeAnswer,
+  Weights,
+} from '@/types';
+const ALL_CRITERIA: readonly CriterionId[] = GROUPS.flatMap((group) => group.criteria);
 
-function answeredValues(answers: Answers): Partial<Record<CriterionId, number[]>> {
-  const values: Partial<Record<CriterionId, number[]>> = {};
-  for (const question of QUIZ_QUESTIONS) {
-    const option = question.options.find((item) => item.id === answers[question.id]);
-    if (!option || option.skip || !option.sets) continue;
-    for (const criterion of CRITERION_IDS) {
-      const weight = option.sets[criterion];
-      if (weight !== undefined && Number.isFinite(weight) && weight >= 0 && weight <= 5) {
-        (values[criterion] ??= []).push(weight);
-      }
+/** Trójka najważniejszych albo surowa lista grup — obie formy są poprawne. */
+export function normalizeTopThree(
+  value: TopThreeAnswer | readonly GroupId[] | null | undefined,
+): TopThreeAnswer | null {
+  if (!value) return null;
+  const picks: readonly GroupId[] = 'picks' in value ? value.picks : value;
+  if (!Array.isArray(picks) || picks.length === 0) return null;
+  const unique = picks.filter(
+    (id, index) => picks.indexOf(id) === index,
+  ) as [GroupId, GroupId, GroupId];
+  return { picks: unique };
+}
+
+import {
+  BUDGET_LIMIT,
+  DEFAULT_BUDGET,
+  DEFAULT_WEIGHT,
+  GROUP_BASE,
+  GROUP_FACTOR,
+  TOP_THREE_IMPORTANCE,
+} from './scoringConfig';
+
+/**
+ * Wagi z odpowiedzi (E2-05) — QUIZ-SPEC 2.2.
+ * Dwa poziomy: waga kryterium w grupie (`w_c`) i ważność grupy (`G_g`).
+ */
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function round(value: number, digits = 6): number {
+  const factor = 10 ** digits;
+  return Math.round(value * factor) / factor;
+}
+
+function average(values: readonly number[]): number {
+  if (values.length === 0) return DEFAULT_WEIGHT;
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+/** Surowe wartości ustawione przez odpowiedzi, z podziałem na kryteria. */
+export function answeredCriterionValues(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): Map<CriterionId, number[]> {
+  const collected = new Map<CriterionId, number[]>();
+
+  for (const question of questions) {
+    const optionId = answers[question.id];
+    if (!optionId) continue;
+    const option = question.options.find((item) => item.id === optionId) ?? findOption(question.id, optionId);
+    if (!option || option.skip === true || !option.sets) continue;
+
+    for (const [key, value] of Object.entries(option.sets)) {
+      if (typeof value !== 'number') continue;
+      const id = key as CriterionId;
+      const list = collected.get(id) ?? [];
+      list.push(clamp(value, 0, 5));
+      collected.set(id, list);
     }
   }
-  return values;
+
+  return collected;
 }
 
-export function answersToCriterionWeights(answers: Answers): CriterionWeights {
-  const values = answeredValues(answers);
-  return Object.fromEntries(CRITERION_IDS.map((criterion) => {
-    const choices = values[criterion];
-    return [criterion, choices?.length
-      ? choices.reduce((sum, value) => sum + value, 0) / choices.length
-      : DEFAULT_CRITERION_WEIGHT];
-  })) as CriterionWeights;
+/** Kryteria, których waga pochodzi z odpowiedzi (reszta zostaje neutralna). */
+export function answeredCriteria(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): Set<CriterionId> {
+  return new Set(answeredCriterionValues(answers, questions).keys());
 }
 
-export function groupImportance(
-  weights: CriterionWeights,
-  topThree: readonly GroupId[] = [],
-  answers: Answers = {},
-): GroupWeights {
-  const answered = answeredValues(answers);
-  return Object.fromEntries(GROUP_IDS.map((group) => {
-    const selectedIndex = topThree.indexOf(group);
-    if (selectedIndex >= 0 && selectedIndex < TOP_THREE_IMPORTANCE.length) {
-      return [group, TOP_THREE_IMPORTANCE[selectedIndex]];
-    }
+/** Waga kryterium wewnątrz grupy: średnia z odpowiedzi, bez odpowiedzi — 2. */
+export function answersToCriterionWeights(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): Weights {
+  const collected = answeredCriterionValues(answers, questions);
+  const weights = {} as Weights;
 
-    const answeredInGroup = GROUPS[group].criteria.filter((criterion) => answered[criterion]?.length);
-    const mean = answeredInGroup.length
-      ? answeredInGroup.reduce((sum, criterion) => sum + weights[criterion], 0) / answeredInGroup.length
-      : DEFAULT_CRITERION_WEIGHT;
-    return [group, OTHER_GROUP_BASE + OTHER_GROUP_FACTOR * mean];
-  })) as GroupWeights;
-}
-
-export function criterionShares(weights: CriterionWeights): Record<CriterionId, number> {
-  const shares = {} as Record<CriterionId, number>;
-  for (const group of GROUP_IDS) {
-    const criteria = GROUPS[group].criteria;
-    const sum = criteria.reduce((total, criterion) => total + Math.max(0, weights[criterion]), 0);
-    for (const criterion of criteria) {
-      shares[criterion] = sum === 0
-        ? 1 / criteria.length
-        : Math.max(0, weights[criterion]) / sum;
-    }
+  for (const { id } of criterionIds()) {
+    const values = collected.get(id);
+    weights[id] = round(values && values.length > 0 ? average(values) : DEFAULT_WEIGHT);
   }
+
+  return weights;
+}
+
+function criterionIds(): { id: CriterionId }[] {
+  return GROUPS.flatMap((group) => group.criteria.map((id) => ({ id })));
+}
+
+/**
+ * Udziały kryteriów w grupie: `share_c = w_c / Σ w_c`.
+ * Przy samych zerach udziały są równe (QUIZ-SPEC 2.2).
+ */
+/** Udziały kryteriów w grupie; bez listy kryteriów liczone dla wszystkich 14. */
+export function criterionShares(
+  weights: Weights,
+  criteria: readonly CriterionId[] = ALL_CRITERIA,
+): CriterionShares {
+  if (criteria.length === 0) return {};
+
+  const total = criteria.reduce((sum, id) => sum + clamp(weights[id] ?? 0, 0, 5), 0);
+  const shares: CriterionShares = {};
+
+  for (const id of criteria) {
+    shares[id] = total > 0 ? round((weights[id] ?? 0) / total) : round(1 / criteria.length);
+  }
+
   return shares;
 }
 
-export function answersToFilters(answers: Answers): Filters {
-  const filters: Filters = { budgetMax: DEFAULT_BUDGET };
-  for (const question of QUIZ_QUESTIONS) {
-    const option = question.options.find((item) => item.id === answers[question.id]);
-    if (!option || option.skip) continue;
-    if (option.budgetMax) filters.budgetMax = option.budgetMax;
-    if (option.minStorageGb) filters.minStorageGb = option.minStorageGb;
+/**
+ * Ważność grupy: miejsca w trójce dostają 5/4/3, pozostałe
+ * `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów` (bez odpowiedzi: 1,3).
+ */
+export function groupImportance(
+  weights: Weights,
+  topThree?: TopThreeAnswer | readonly GroupId[] | null,
+  answered: ReadonlySet<CriterionId> = new Set(criterionIds().map((item) => item.id)),
+): GroupImportance {
+  const importance = {} as GroupImportance;
+  const picks = normalizeTopThree(topThree)?.picks ?? null;
+
+  for (const group of GROUPS) {
+    const position = picks ? picks.indexOf(group.id) : -1;
+    if (position >= 0) {
+      importance[group.id] = TOP_THREE_IMPORTANCE[position] ?? GROUP_BASE;
+      continue;
+    }
+
+    const answeredInGroup = group.criteria.filter((id) => answered.has(id));
+    const source = answeredInGroup.length > 0 ? answeredInGroup : group.criteria;
+    const mean = average(source.map((id) => clamp(weights[id] ?? DEFAULT_WEIGHT, 0, 5)));
+    importance[group.id] = round(clamp(GROUP_BASE + GROUP_FACTOR * mean, GROUP_BASE, 2.5));
   }
-  return filters;
+
+  return importance;
 }
+
+/** Budżet sesji z odpowiedzi F1 (domyślnie 2000 zł, nigdy powyżej limitu strony). */
+export function budgetFromAnswers(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): number {
+  for (const question of questions) {
+    const optionId = answers[question.id];
+    if (!optionId) continue;
+    const option = question.options.find((item) => item.id === optionId);
+    if (option?.budgetMax) return clamp(option.budgetMax, 0, BUDGET_LIMIT);
+  }
+  return DEFAULT_BUDGET;
+}
+
+/** Filtry twarde z odpowiedzi: budżet (F1) i minimalna pamięć (C2). */
+export function filtersFromAnswers(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): Filters {
+  let minStorageGb: number | null = null;
+
+  for (const question of questions) {
+    const optionId = answers[question.id];
+    if (!optionId) continue;
+    const option = question.options.find((item) => item.id === optionId);
+    if (option?.minStorageGb) minStorageGb = option.minStorageGb;
+  }
+
+  return { budgetMax: budgetFromAnswers(answers, questions), minStorageGb, requireMicroSd: false };
+}
+
+/** Alias nazewniczy używany w testach i w ekranach suwaków. */
+export function answersToFilters(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): Filters {
+  return filtersFromAnswers(answers, questions);
+}
+
+/** Komplet wag i filtrów z odpowiedzi — wspólny punkt wyjścia quizu, suwaków i hybrydy. */
+export function deriveFromAnswers(
+  answers: Answers,
+  topThree?: TopThreeAnswer | readonly GroupId[] | null,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): { weights: Weights; groupImportance: GroupImportance; filters: Filters } {
+  const weights = answersToCriterionWeights(answers, questions);
+  return {
+    weights,
+    groupImportance: groupImportance(weights, topThree, answeredCriteria(answers, questions)),
+    filters: filtersFromAnswers(answers, questions),
+  };
+}
+
+export { clamp, round };
+export type { GroupId };
+export const criterionLabel = (id: CriterionId): string => criterion(id).label;

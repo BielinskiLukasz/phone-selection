@@ -1,208 +1,310 @@
-import { GROUP_IDS } from './criteria';
-import type { Phone } from '../types/phone';
-import type { QuizOption, QuizQuestion } from '../types/ranking';
+import type { Answers, Phone, QuizOption, QuizQuestion } from '@/types';
+import { GROUP_IDS, groupLabel } from './criteria';
 
-type QuestionSeed = Omit<QuizQuestion, 'options'> & { options: Omit<QuizOption, 'id'>[] };
+/**
+ * Pytania quizu (E2-03) — treść i wartości dokładnie z QUIZ-SPEC sekcja 4.
+ * Każde pytanie ma opcję „Nie wiem / pomiń”, która nie wnosi nic do wag.
+ */
 
-function question(seed: QuestionSeed): QuizQuestion {
+const LETTERS = ['a', 'b', 'c', 'd', 'e'] as const;
+
+type OptionInput = Omit<QuizOption, 'id'>;
+
+function buildOptions(questionId: string, options: OptionInput[]): QuizOption[] {
+  return options.map((option, index) => ({
+    ...option,
+    id: `${questionId}-${LETTERS[index] ?? index}`,
+  }));
+}
+
+function question(
+  id: string,
+  block: QuizQuestion['block'],
+  text: string,
+  why: string,
+  options: OptionInput[],
+  extra: { appliesWhen?: QuizQuestion['appliesWhen']; inShortQuiz?: boolean } = {},
+): QuizQuestion {
   return {
-    ...seed,
+    id,
+    block,
+    text,
+    why,
+    ...extra,
     options: [
-      ...seed.options.map((option, index) => ({ ...option, id: `${seed.id}-${String.fromCharCode(97 + index)}` })),
-      { id: `${seed.id}-skip`, label: 'Nie wiem / pomiń', skip: true as const },
+      ...buildOptions(id, options),
+      { id: `${id}-skip`, label: 'Nie wiem / pomiń', skip: true },
     ],
   };
 }
 
-export const QUIZ_QUESTIONS: QuizQuestion[] = [
-  question({
-    id: 'A1', block: 'battery', inShortQuiz: true,
-    text: 'Ile godzin dziennie patrzysz w ekran telefonu?',
-    why: 'Im więcej ekranu, tym ważniejsza bateria.',
-    options: [
+export const QUESTIONS: readonly QuizQuestion[] = [
+  /* Blok A. Bateria i ładowanie */
+  question(
+    'A1',
+    'battery',
+    'Ile godzin dziennie patrzysz w ekran telefonu?',
+    'Im więcej ekranu, tym ważniejsza bateria.',
+    [
       { label: 'Do 2 godzin', sets: { battery: 1 } },
       { label: '2-4 godziny', sets: { battery: 3 } },
       { label: '4-6 godzin', sets: { battery: 4 } },
       { label: 'Ponad 6 godzin', sets: { battery: 5 } },
     ],
-  }),
-  question({
-    id: 'A2', block: 'battery', inShortQuiz: true,
-    text: 'Czy zdarzają się dni, gdy nie masz jak naładować telefonu (wyjazd, wycieczka, długi dzień poza domem)?',
-    why: 'Przy takich dniach liczy się bateria na dwa dni, a nie sama szybkość ładowania.',
-    options: [
+    { inShortQuiz: true },
+  ),
+  question(
+    'A2',
+    'battery',
+    'Czy zdarzają się dni, gdy nie masz jak naładować telefonu (wyjazd, wycieczka, długi dzień poza domem)?',
+    'Przy takich dniach liczy się bateria na dwa dni, a nie sama szybkość ładowania.',
+    [
       { label: 'Prawie nigdy', sets: { battery: 1 } },
       { label: 'Czasem', sets: { battery: 3 } },
       { label: 'Często', sets: { battery: 5 } },
     ],
-  }),
-  question({
-    id: 'A3', block: 'battery',
-    text: 'Jak zwykle ładujesz telefon?',
-    why: 'Szybkie ładowanie ratuje dzień, gdy bateria padnie w drodze.',
-    options: [
+    { inShortQuiz: true },
+  ),
+  question(
+    'A3',
+    'battery',
+    'Jak zwykle ładujesz telefon?',
+    'Szybkie ładowanie ratuje dzień, gdy bateria padnie w drodze.',
+    [
       { label: 'Zawsze na noc', sets: { charging: 1 } },
       { label: 'Czasem w ciągu dnia', sets: { charging: 3 } },
       { label: 'Często potrzebuję szybkiego doładowania', sets: { charging: 5 } },
     ],
-  }),
-  question({
-    id: 'B1', block: 'camera', inShortQuiz: true,
-    text: 'Jak często robisz zdjęcia w domu, wieczorem albo przy sztucznym świetle?',
-    why: 'Słabe światło to najtrudniejszy test dla aparatu.',
-    options: [
+  ),
+
+  /* Blok B. Aparat */
+  question(
+    'B1',
+    'camera',
+    'Jak często robisz zdjęcia w domu, wieczorem albo przy sztucznym świetle?',
+    'Słabe światło to najtrudniejszy test dla aparatu.',
+    [
       { label: 'Rzadko', sets: { photoIndoor: 1 } },
       { label: 'Czasem', sets: { photoIndoor: 3 } },
       { label: 'Często', sets: { photoIndoor: 5 } },
     ],
-  }),
-  question({
-    id: 'B2', block: 'camera', inShortQuiz: true,
-    text: 'Jak często fotografujesz dziecko lub rodzinę w ruchu (zabawa, bieganie)?',
-    why: 'Ruchome obiekty wymagają szybkiego, pewnego ustawiania ostrości.',
-    options: [
+    { inShortQuiz: true },
+  ),
+  question(
+    'B2',
+    'camera',
+    'Jak często fotografujesz dziecko lub rodzinę w ruchu (zabawa, bieganie)?',
+    'Ruchome obiekty wymagają szybkiego, pewnego ustawiania ostrości.',
+    [
       { label: 'Rzadko', sets: { photoMotion: 1 } },
       { label: 'Czasem', sets: { photoMotion: 3 } },
       { label: 'Często', sets: { photoMotion: 5 } },
     ],
-  }),
-  question({
-    id: 'B3', block: 'camera', inShortQuiz: true,
-    text: 'Jak często robisz zdjęcia na zewnątrz w dzień (spacery, plac zabaw, wyjazdy)?',
-    why: 'W dzień większość telefonów radzi sobie dobrze, ale różnią się szczegółami i kolorami.',
-    options: [
+    { inShortQuiz: true },
+  ),
+  question(
+    'B3',
+    'camera',
+    'Jak często robisz zdjęcia na zewnątrz w dzień (spacery, plac zabaw, wyjazdy)?',
+    'W dzień większość telefonów radzi sobie dobrze, ale różnią się szczegółami i kolorami.',
+    [
       { label: 'Rzadko', sets: { photoDay: 1 } },
       { label: 'Czasem', sets: { photoDay: 3 } },
       { label: 'Często', sets: { photoDay: 5 } },
     ],
-  }),
-  question({
-    id: 'B4', block: 'camera',
-    text: 'Jak często robisz selfie?',
-    why: 'Aparat przedni to osobny aparat o osobnej jakości.',
-    options: [
+    { inShortQuiz: true },
+  ),
+  question(
+    'B4',
+    'camera',
+    'Jak często robisz selfie?',
+    'Aparat przedni to osobny aparat o osobnej jakości.',
+    [
       { label: 'Prawie nigdy', sets: { selfie: 1 } },
       { label: 'Czasem', sets: { selfie: 3 } },
       { label: 'Często', sets: { selfie: 5 } },
     ],
-  }),
-  question({
-    id: 'B5', block: 'camera',
-    text: 'Jak często nagrywasz filmy?',
-    why: 'Wideo wymaga stabilizacji i dobrego dźwięku.',
-    options: [
+  ),
+  question(
+    'B5',
+    'camera',
+    'Jak często nagrywasz filmy?',
+    'Wideo wymaga stabilizacji i dobrego dźwięku.',
+    [
       { label: 'Prawie nigdy', sets: { video: 1 } },
       { label: 'Czasem', sets: { video: 3 } },
       { label: 'Często', sets: { video: 5 } },
     ],
-  }),
-  question({
-    id: 'B6', block: 'camera',
-    text: 'Czy zdarza się, że fotografujesz z daleka (występ dziecka, plac zabaw, zwierzęta)?',
-    why: 'Z daleka dobre zdjęcia robi tylko telefon z osobnym aparatem do przybliżania.',
-    options: [
+  ),
+  question(
+    'B6',
+    'camera',
+    'Czy zdarza się, że fotografujesz z daleka (występ dziecka, plac zabaw, zwierzęta)?',
+    'Z daleka dobre zdjęcia robi tylko telefon z osobnym aparatem do przybliżania.',
+    [
       { label: 'Nie', sets: { zoom: 1 } },
       { label: 'Czasem', sets: { zoom: 3 } },
       { label: 'Często', sets: { zoom: 5 } },
     ],
-  }),
-  question({
-    id: 'C1', block: 'storage', inShortQuiz: true,
-    text: 'Ile zdjęć i filmów chcesz trzymać w telefonie?',
-    why: 'Zdjęcia i filmy zajmują najwięcej miejsca.',
-    options: [
+  ),
+
+  /* Blok C. Pamięć */
+  question(
+    'C1',
+    'storage',
+    'Ile zdjęć i filmów chcesz trzymać w telefonie?',
+    'Zdjęcia i filmy zajmują najwięcej miejsca.',
+    [
       { label: 'Niewiele, resztę usuwam albo przenoszę', sets: { storage: 1 } },
       { label: 'Sporo, część w chmurze', sets: { storage: 3 } },
       { label: 'Wszystko w telefonie, chmura sporadycznie', sets: { storage: 5 } },
     ],
-  }),
-  question({
-    id: 'C2', block: 'storage',
-    text: 'Czy telefon z pamięcią mniejszą niż 256 GB w ogóle wchodzi w grę?',
-    why: 'Pamięci nie da się potem zwiększyć.',
-    options: [
+    { inShortQuiz: true },
+  ),
+  question(
+    'C2',
+    'storage',
+    'Czy telefon z pamięcią mniejszą niż 256 GB w ogóle wchodzi w grę?',
+    'Pamięci nie da się potem zwiększyć.',
+    [
       { label: 'Tak, jeśli reszta jest dobra' },
       { label: 'Nie, minimum 256 GB', minStorageGb: 256 },
     ],
-  }),
-  question({
-    id: 'C3', block: 'storage',
-    text: 'Czy chcesz móc włożyć kartę pamięci microSD?',
-    why: 'Karta pozwala tanio zwiększyć pamięć.',
-    appliesWhen: (phones) => phones.some((phone) => phone.specs.microSd === true),
-    options: [
+  ),
+  question(
+    'C3',
+    'storage',
+    'Czy chcesz móc włożyć kartę pamięci microSD?',
+    'Karta pozwala tanio zwiększyć pamięć.',
+    [
       { label: 'Nie ma znaczenia' },
       { label: 'Chcę, jeśli się da', sets: { storage: 5 } },
     ],
-  }),
-  question({
-    id: 'D1', block: 'everyday',
-    text: 'Jak bardzo przeszkadzają Ci chwilowe zacięcia i wolne otwieranie aplikacji?',
-    why: 'Różnice w szybkości widać nawet przy przeglądarce i komunikatorach.',
-    options: [
+    /* Pytanie warunkowe: zadawane tylko, gdy jakiś telefon w puli ma slot microSD. */
+    {
+      appliesWhen: (phones: readonly Phone[]) =>
+        phones.some((phone) => phone.specs.microSd === true),
+    },
+  ),
+
+  /* Blok D. Codzienność i trwałość */
+  question(
+    'D1',
+    'everyday',
+    'Jak bardzo przeszkadzają Ci chwilowe zacięcia i wolne otwieranie aplikacji?',
+    'Różnice w szybkości widać nawet przy przeglądarce i komunikatorach.',
+    [
       { label: 'Prawie wcale', sets: { smoothness: 1 } },
       { label: 'Trochę', sets: { smoothness: 3 } },
       { label: 'Bardzo', sets: { smoothness: 5 } },
     ],
-  }),
-  question({
-    id: 'D2', block: 'everyday',
-    text: 'Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)?',
-    why: 'Odporność na wodę ratuje przed głupimi wpadkami.',
-    options: [
+  ),
+  question(
+    'D2',
+    'everyday',
+    'Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)?',
+    'Odporność na wodę ratuje przed głupimi wpadkami.',
+    [
       { label: 'Rzadko', sets: { durability: 1 } },
       { label: 'Czasem', sets: { durability: 3 } },
       { label: 'Często, chcę mieć spokój', sets: { durability: 5 } },
     ],
-  }),
-  question({
-    id: 'D3', block: 'everyday',
-    text: 'Jak długo chcesz używać tego telefonu?',
-    why: 'Telefon bez aktualizacji bezpieczeństwa przestaje być bezpieczny.',
-    options: [
+  ),
+  question(
+    'D3',
+    'everyday',
+    'Jak długo chcesz używać tego telefonu?',
+    'Telefon bez aktualizacji bezpieczeństwa przestaje być bezpieczny.',
+    [
       { label: '2 lata', sets: { updates: 1 } },
       { label: '3-4 lata', sets: { updates: 3 } },
       { label: '5 lat lub dłużej', sets: { updates: 5 } },
     ],
-  }),
-  question({
-    id: 'E1', block: 'display',
-    text: 'Jak często używasz telefonu na zewnątrz w pełnym słońcu?',
-    why: 'W słońcu liczy się jasność ekranu.',
-    options: [
-      { label: 'Rzadko', sets: { display: 1 } },
-      { label: 'Czasem', sets: { display: 3 } },
-      { label: 'Często', sets: { display: 5 } },
-    ],
-  }),
-  question({
-    id: 'E2', block: 'display',
-    text: 'Jak często oglądasz na telefonie filmy, zdjęcia i dłuższe materiały?',
-    why: 'Przy oglądaniu liczy się jakość i płynność ekranu.',
-    options: [
-      { label: 'Rzadko', sets: { display: 1 } },
-      { label: 'Czasem', sets: { display: 3 } },
-      { label: 'Często', sets: { display: 5 } },
-    ],
-  }),
-  question({
-    id: 'F1', block: 'budget', inShortQuiz: true,
-    text: 'Ile możesz wydać na telefon?',
-    why: 'Cena zawęża wybór i wpływa na ocenę opłacalności.',
-    options: [
-      { label: 'Do 1500 zł, twardo', budgetMax: 1500, sets: { value: 5 } },
-      { label: 'Do 1800 zł', budgetMax: 1800, sets: { value: 3 } },
-      { label: 'Do 2000 zł, jeśli warto', budgetMax: 2000, sets: { value: 2 } },
-    ],
-  }),
-];
+  ),
 
+  /* Blok E. Ekran */
+  question(
+    'E1',
+    'display',
+    'Jak często używasz telefonu na zewnątrz w pełnym słońcu?',
+    'W słońcu liczy się jasność ekranu.',
+    [
+      { label: 'Rzadko', sets: { display: 1 } },
+      { label: 'Czasem', sets: { display: 3 } },
+      { label: 'Często', sets: { display: 5 } },
+    ],
+  ),
+  question(
+    'E2',
+    'display',
+    'Jak często oglądasz na telefonie filmy, zdjęcia i dłuższe materiały?',
+    'Przy oglądaniu liczy się jakość i płynność ekranu.',
+    [
+      { label: 'Rzadko', sets: { display: 1 } },
+      { label: 'Czasem', sets: { display: 3 } },
+      { label: 'Często', sets: { display: 5 } },
+    ],
+  ),
+
+  /* Blok F. Budżet */
+  question(
+    'F1',
+    'budget',
+    'Ile możesz wydać na telefon?',
+    'Cena zawęża wybór i wpływa na ocenę opłacalności.',
+    [
+      { label: 'Do 1500 zł, twardo', sets: { value: 5 }, budgetMax: 1500 },
+      { label: 'Do 1800 zł', sets: { value: 3 }, budgetMax: 1800 },
+      { label: 'Do 2000 zł, jeśli warto', sets: { value: 2 }, budgetMax: 2000 },
+    ],
+    { inShortQuiz: true },
+  ),
+] as const;
+
+/** Krok G1 — trzy najważniejsze rzeczy (QUIZ-SPEC 4, „Podsumowanie”). */
 export const TOP_THREE_STEP = {
   id: 'G1',
-  text: 'Wybierz trzy najważniejsze rzeczy',
-  groups: GROUP_IDS,
+  title: 'Wybierz trzy najważniejsze rzeczy',
+  description:
+    'Kolejność ma znaczenie: pierwszy wybór liczy się najmocniej. Możesz pominąć ten krok — wtedy ważności grup wyliczymy z odpowiedzi.',
+  groups: GROUP_IDS.map((id) => ({ id, label: groupLabel(id) })),
 } as const;
 
-export function activeQuestions(phones: readonly Phone[], short = false): QuizQuestion[] {
-  return QUIZ_QUESTIONS.filter((item) => (!short || item.inShortQuiz) && (!item.appliesWhen || item.appliesWhen(phones)));
+export const QUESTION_IDS: readonly string[] = QUESTIONS.map((item) => item.id);
+
+/** Pytania krótkiego quizu w trybie hybrydowym (QUIZ-SPEC 5). */
+export const SHORT_QUIZ_IDS: readonly string[] = QUESTIONS.filter(
+  (item) => item.inShortQuiz === true,
+).map((item) => item.id);
+
+export function findQuestion(id: string): QuizQuestion | undefined {
+  return QUESTIONS.find((item) => item.id === id);
+}
+
+export function findOption(questionId: string, optionId: string): QuizOption | undefined {
+  return findQuestion(questionId)?.options.find((option) => option.id === optionId);
+}
+
+/**
+ * Pytania zadawane dla danej puli (warunkowe odpadają bez śladu w liczniku).
+ * Drugi argument zawęża listę do krótkiego quizu w trybie hybrydowym (QUIZ-SPEC 5).
+ */
+export function activeQuestions(
+  phones: readonly Phone[],
+  options: boolean | { short?: boolean } = {},
+): QuizQuestion[] {
+  const short = typeof options === 'boolean' ? options : options.short === true;
+  return QUESTIONS.filter((item) => {
+    if (short && item.inShortQuiz !== true) return false;
+    return item.appliesWhen ? item.appliesWhen(phones) : true;
+  });
+}
+
+/** Alias używany w testach i w przyszłych ekranach quizu. */
+export const QUIZ_QUESTIONS = QUESTIONS;
+
+export function isSkipAnswer(answers: Answers, questionId: string): boolean {
+  const optionId = answers[questionId];
+  if (!optionId) return true;
+  return findOption(questionId, optionId)?.skip === true;
 }

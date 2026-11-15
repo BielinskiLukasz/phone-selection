@@ -1,37 +1,130 @@
 import { describe, expect, it } from 'vitest';
-import { CRITERION_IDS } from '../src/data/criteria';
-import { activeQuestions, QUIZ_QUESTIONS, TOP_THREE_STEP } from '../src/data/questions';
-import { SYNTHETIC_PHONES } from './fixtures/phones';
+import {
+  QUESTIONS,
+  QUIZ_QUESTIONS,
+  QUESTION_IDS,
+  SHORT_QUIZ_IDS,
+  TOP_THREE_STEP,
+  activeQuestions,
+  findOption,
+  findQuestion,
+  isSkipAnswer,
+} from '../src/data/questions';
+import { GROUP_IDS } from '../src/data/criteria';
+import { POOL, withMicroSd } from './data';
+import { skipAll } from './personas';
+import type { CriterionId } from '../src/types';
 
-describe('quiz data', () => {
-  it('defines 18 questions, seven short questions and the group-choice step', () => {
-    expect(QUIZ_QUESTIONS).toHaveLength(18);
-    expect(QUIZ_QUESTIONS.filter((question) => question.inShortQuiz)).toHaveLength(7);
-    expect(TOP_THREE_STEP.id).toBe('G1');
-    expect(TOP_THREE_STEP.groups).toHaveLength(6);
+const FORBIDDEN_IN_QUIZ = [
+  'samsung', 'galaxy', 'pixel', 'google', 'xiaomi', 'redmi', 'motorola', 'nothing', 'realme',
+  'snapdragon', 'dimensity', 'tensor', 'exynos', 'mah', 'ois', 'ip68', 'amoled',
+];
+
+describe('E2-03 · dane quizu', () => {
+  it('ma 18 pytań w kolejności bloków A → B → C → D → E → F', () => {
+    expect(QUESTIONS.length).toBe(18);
+    expect(QUIZ_QUESTIONS).toBe(QUESTIONS);
+    expect(QUESTION_IDS.join(',')).toBe(
+      'A1,A2,A3,B1,B2,B3,B4,B5,B6,C1,C2,C3,D1,D2,D3,E1,E2,F1',
+    );
   });
 
-  it('has distinct IDs, a skip answer and weights in range for each question', () => {
-    expect(new Set(QUIZ_QUESTIONS.map((question) => question.id)).size).toBe(18);
-    for (const question of QUIZ_QUESTIONS) {
-      expect(question.options.filter((option) => option.skip)).toHaveLength(1);
-      expect(new Set(question.options.map((option) => option.id)).size).toBe(question.options.length);
+  it('każde pytanie ma 3-4 odpowiedzi wartościujące i opcję „Nie wiem / pomiń”', () => {
+    for (const question of QUESTIONS) {
+      const valueOptions = question.options.filter((option) => option.skip !== true);
+      const skips = question.options.filter((option) => option.skip === true);
+
+      expect(valueOptions.length, question.id).toBeGreaterThanOrEqual(2);
+      expect(valueOptions.length, question.id).toBeLessThanOrEqual(4);
+      expect(skips.length, question.id).toBe(1);
+      expect(skips[0]!.id).toBe(`${question.id}-skip`);
+      expect(question.why.length, question.id).toBeGreaterThan(10);
+      expect(question.text.length, question.id).toBeGreaterThan(10);
+    }
+  });
+
+  it('wartości odpowiedzi mieszczą się w skali 0-5 i dotyczą istniejących kryteriów', () => {
+    const known: readonly string[] = [
+      'battery', 'charging', 'photoDay', 'photoIndoor', 'photoMotion', 'selfie', 'video', 'zoom',
+      'storage', 'updates', 'smoothness', 'display', 'durability', 'value',
+    ];
+    for (const question of QUESTIONS) {
       for (const option of question.options) {
-        for (const [criterion, weight] of Object.entries(option.sets ?? {})) {
-          expect(CRITERION_IDS).toContain(criterion);
-          expect(weight).toBeGreaterThanOrEqual(0);
-          expect(weight).toBeLessThanOrEqual(5);
+        for (const [criterion, value] of Object.entries(option.sets ?? {})) {
+          expect(known, `${question.id}/${option.id}`).toContain(criterion);
+          expect(value as number, `${question.id}/${option.id}`).toBeGreaterThanOrEqual(0);
+          expect(value as number, `${question.id}/${option.id}`).toBeLessThanOrEqual(5);
         }
       }
     }
   });
 
-  it('asks about microSD only if a candidate actually has a slot', () => {
-    expect(activeQuestions(SYNTHETIC_PHONES).map((question) => question.id)).not.toContain('C3');
-    const withSlot = [
-      { ...SYNTHETIC_PHONES[0]!, specs: { ...SYNTHETIC_PHONES[0]!.specs, microSd: true } },
+  it('treści pytań nie ujawniają marek ani żargonu (QUIZ-SPEC 1.2 i 1.5)', () => {
+    for (const question of QUESTIONS) {
+      const text = `${question.text} ${question.why} ${question.options
+        .map((option) => option.label)
+        .join(' ')}`.toLowerCase();
+      for (const word of FORBIDDEN_IN_QUIZ) {
+        expect(text, `${question.id}: ${word}`).not.toContain(word);
+      }
+    }
+  });
+
+  it('C3 jest warunkowe: odpada przy obecnych danych, wraca przy telefonie z microSD', () => {
+    expect(findQuestion('C3')?.appliesWhen).toBeTypeOf('function');
+    expect(POOL.every((phone) => phone.specs.microSd !== true)).toBe(true);
+
+    const without = activeQuestions(POOL).map((question) => question.id);
+    expect(without).not.toContain('C3');
+    expect(without.length).toBe(17);
+
+    const withSlot = activeQuestions([...POOL, withMicroSd()]).map((question) => question.id);
+    expect(withSlot).toContain('C3');
+    expect(withSlot.length).toBe(18);
+  });
+
+  it('krótki quiz hybrydy to A1, A2, B1, B2, B3, C1, F1 (QUIZ-SPEC 5)', () => {
+    expect(SHORT_QUIZ_IDS).toEqual(['A1', 'A2', 'B1', 'B2', 'B3', 'C1', 'F1']);
+    expect(activeQuestions(POOL, { short: true }).map((question) => question.id)).toEqual([
+      'A1',
+      'A2',
+      'B1',
+      'B2',
+      'B3',
+      'C1',
+      'F1',
+    ]);
+    expect(activeQuestions(POOL, true).length).toBe(7);
+    expect(activeQuestions(POOL, { short: true }).length).toBe(7);
+  });
+
+  it('F1 niesie budżet, C2 filtr pamięci, a krok G1 sześć grup', () => {
+    expect(findOption('F1', 'F1-a')?.budgetMax).toBe(1500);
+    expect(findOption('F1', 'F1-c')?.budgetMax).toBe(2000);
+    expect(findOption('C2', 'C2-b')?.minStorageGb).toBe(256);
+    expect(TOP_THREE_STEP.groups.length).toBe(GROUP_IDS.length);
+    expect(TOP_THREE_STEP.id).toBe('G1');
+  });
+
+  it('„pomiń” i brak odpowiedzi są rozpoznawane tak samo', () => {
+    expect(isSkipAnswer(skipAll(), 'A1')).toBe(true);
+    expect(isSkipAnswer({}, 'A1')).toBe(true);
+    expect(isSkipAnswer({ A1: 'A1-c' }, 'A1')).toBe(false);
+  });
+
+  it('każde kryterium (poza value) ma przynajmniej jedno pytanie', () => {
+    const touched = new Set<CriterionId>();
+    for (const question of QUESTIONS) {
+      for (const option of question.options) {
+        for (const id of Object.keys(option.sets ?? {}) as CriterionId[]) touched.add(id);
+      }
+    }
+    expect(touched.has('value')).toBe(true);
+    const cameraCriteria: CriterionId[] = [
+      'photoDay', 'photoIndoor', 'photoMotion', 'selfie', 'video', 'zoom',
     ];
-    expect(activeQuestions(withSlot).map((question) => question.id)).toContain('C3');
-    expect(activeQuestions(withSlot, true)).toHaveLength(7);
+    for (const id of cameraCriteria) {
+      expect(touched.has(id), id).toBe(true);
+    }
   });
 });
