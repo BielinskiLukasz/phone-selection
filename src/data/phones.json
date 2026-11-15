@@ -1,0 +1,1214 @@
+{
+  "_meta": {
+    "schemaVersion": 1,
+    "currency": "PLN",
+    "budgetMaxPln": 2000,
+    "generatedOn": "2026-11-14",
+    "rules": [
+      "Tylko dane ze źródeł; brak danych = null, nigdy wartość zgadywana.",
+      "Ceny z pola price.pln podał użytkownik (sprawdzone ręcznie w sklepach, data w checkedAt); ostateczne odświeżenie cen tuż przed publikacją (ROADMAP, etap 9).",
+      "Warianty pamięci zostają takie, jak na liście, z wyjątkami zdecydowanymi przez użytkownika: Pixel 10a i 9a w wersji 8/128 GB, Xiaomi 15T w wersji 12/512 GB. Zamiast Pixela 8a i Galaxy A55 do listy weszły Redmi Note 15 Pro 5G i Realme 16 Pro 5G.",
+      "Linki w price.url bez parametrów śledzących (utm_*, ceneo_cid)."
+    ],
+    "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja."
+  },
+  "phones": [
+    {
+      "id": "galaxy-a57-8-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Samsung Galaxy A57 5G 8/256 GB",
+        "brand": "Samsung",
+        "shopLinks": [
+          {
+            "label": "sferis.pl",
+            "url": "https://www.sferis.pl/samsung-galaxy-a57-sm-a576b-8-256gb-5g-ds-gray-i688666"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-a57-5g-8-256gb-granatowy-sm-a576bdb-15914652"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "Samsung Galaxy A57 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1729.0,
+        "source": "sferis.pl",
+        "url": "https://www.sferis.pl/samsung-galaxy-a57-sm-a576b-8-256gb-5g-ds-gray-i688666",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "szary, 8/256 GB",
+        "otherObservations": [
+          {
+            "pln": 1799.96,
+            "source": "morele.net (sprzedawca Tridis, Marketplace)",
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-a57-5g-8-256gb-granatowy-sm-a576bdb-15914652",
+            "checkedAt": "2026-11-14",
+            "providedBy": "claude (odczyt strony)",
+            "note": "granatowy; na stronie „więcej propozycji od 1790 zł”"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.7,
+        "panel": "Super AMOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2340",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS",
+        "microSd": false,
+        "chip": "Exynos 1680",
+        "batteryMah": 5000,
+        "chargingW": 45,
+        "wirelessCharging": false,
+        "ip": "IP68",
+        "weightG": 179,
+        "cameras": {
+          "main": "50 MP f/1.8 z OIS",
+          "ultrawide": "12 MP f/2.2",
+          "macro": "5 MP f/2.4",
+          "selfie": "12 MP",
+          "telephoto": null
+        },
+        "os": "Android 16, One UI 8.5",
+        "updatesYears": 6,
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "video": "4K",
+        "bluetooth": "6.0",
+        "batteryCycles": 1200,
+        "updatesNote": "6 generacji Androida i 6 lat poprawek (android.com.pl, notebookcheck.pl); start: Android 16 / One UI 8.5",
+        "chargerInBox": false,
+        "chargingTests": "GSMArena: 36% w 15 min, 64% w 30 min, pełne ładowanie w 69 min",
+        "thicknessMm": 6.9,
+        "dimensionsMm": "161,5 x 76,8 x 6,9"
+      },
+      "scores": {
+        "battery": 48,
+        "charging": 40,
+        "updates": 86,
+        "storage": 75,
+        "durability": 90,
+        "smoothness": 68,
+        "display": 85,
+        "photoDay": 78,
+        "photoIndoor": 72,
+        "photoMotion": 68,
+        "selfie": 65,
+        "video": 70,
+        "zoom": 45,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck chwali długi czas pracy, inne źródła nazywają baterię słabszym punktem; ocena środkowa",
+        "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "updates": "6 lat aktualizacji systemu i zabezpieczeń",
+        "storage": "256 GB, brak slotu microSD",
+        "durability": "IP68 (strona sklepu)",
+        "smoothness": "Exynos 1680; GSMArena: ok. 10-13% szybszy od Exynosa 1580 z A56",
+        "display": "Super AMOLED+ 120 Hz, w recenzjach chwalony ekran (Notebookcheck, gsmManiaK)",
+        "photoDay": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
+        "photoIndoor": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
+        "photoMotion": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
+        "selfie": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
+        "video": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
+        "zoom": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.morele.net/smartfon-samsung-galaxy-a57-5g-8-256gb-granatowy-sm-a576bdb-15914652",
+        "https://mediamarkt.pl/pl/product/_smartfon-samsung-galaxy-a57-sm-a576-5g-8-gb-256-gb-awesome-icyblue-174100264.html",
+        "https://android.com.pl/tech/1044147-samsung-galaxy-a57-w-swietnej-cenie/",
+        "https://www.alza.hu/samsung-galaxy-a57-5g-8-256gb-navy-d13285956.htm",
+        "https://android.com.pl/tech/1036870-samsung-galaxy-a57-i-a37-vs-a55-i-a35/",
+        "https://www.notebookcheck.pl/Samsung-Galaxy-A57.1262292.0.html",
+        "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "pixel-10a-8-128",
+      "status": "ok",
+      "reveal": {
+        "name": "Google Pixel 10a 8/128 GB",
+        "brand": "Google",
+        "shopLinks": [
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-google-pixel-10a-5g-8-128gb-6-3-120hz-obsydian"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 128,
+        "fromList": "Google Pixel 10a 8/128 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1899.99,
+        "source": "mediaexpert.pl",
+        "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-google-pixel-10a-5g-8-128gb-6-3-120hz-obsydian",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "obsydian, 8/128 GB; oficjalna cena premierowa 8/128 GB: 2349 zł",
+        "otherObservations": []
+      },
+      "specs": {
+        "displayInch": 6.3,
+        "panel": "pOLED",
+        "refreshHz": "60-120",
+        "resolution": "1080x2424",
+        "peakNits": 3000,
+        "ramGb": 8,
+        "storageGb": 128,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "chip": "Google Tensor G4",
+        "batteryMah": 5100,
+        "chargingW": 30,
+        "chargingNote": "recenzje (benchmark.pl, spidersweb.pl, android.com.pl): 30 W przewodowo i 10 W Qi; część materiałów (Komputronik, Engadget) podaje 23 W — rozbieżność, do sprawdzenia na stronie producenta. Test Tom's Guide: 31% w 15 min, 64% w 30 min",
+        "wirelessCharging": true,
+        "ip": "IP68",
+        "weightG": 183,
+        "dimensionsMm": "153,9 x 73 x 9",
+        "cameras": {
+          "main": "48 MP f/1.7",
+          "ultrawide": "13 MP f/2.2",
+          "macro": null,
+          "selfie": "13 MP f/2.2",
+          "telephoto": null
+        },
+        "os": "Android 16",
+        "updatesYears": 7,
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "satelliteSos": true,
+        "wirelessW": 10,
+        "batteryTests": [
+          "Tom's Guide: czas pracy o ok. 2 godziny dłuższy niż w Pixelu 9a (przy tej samej baterii)",
+          "producent: ok. 30 h w typowym użyciu"
+        ]
+      },
+      "scores": {
+        "battery": 58,
+        "charging": 28,
+        "updates": 100,
+        "storage": 40,
+        "durability": 90,
+        "smoothness": 70,
+        "display": 80,
+        "photoDay": 85,
+        "photoIndoor": 85,
+        "photoMotion": 78,
+        "selfie": 72,
+        "video": 60,
+        "zoom": 30,
+        "value": null
+      },
+      "basis": {
+        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Tom's Guide: ok. 2 h dłużej niż 9a; Galaxus: 9a ok. 17 h w PCMark; Notebookcheck: duża żywotność baterii",
+        "charging": "30 W przewodowo + bezprzewodowe Qi; ładowarki w zestawie brak lub nieznana",
+        "updates": "7 lat systemu i zabezpieczeń",
+        "storage": "128 GB, brak slotu microSD",
+        "durability": "IP68",
+        "smoothness": "Tensor G4 (wydajność jak w 9a); recenzje chwalą czysty i płynny system",
+        "display": "pOLED 120 Hz, do 3000 nitów",
+        "photoDay": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
+        "photoIndoor": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
+        "photoMotion": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
+        "selfie": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
+        "video": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
+        "zoom": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.tabletowo.pl/?p=1081434",
+        "https://www.tabletowo.pl/?p=1034727",
+        "https://gsmonline.pl/artykuly/jest-nowy-pixel-10a-oto-jego-polskie-ceny",
+        "https://www.purepc.pl/premiera-google-pixel-10a",
+        "https://www.benchmark.pl/google-pixel-10a-test-recenzja-i-opinia-7268558626128449a",
+        "https://tomsguide.com/phones/google-pixel-phones/google-pixel-10a-vs-pixel-9a-whats-the-difference",
+        "https://spidersweb.pl/2026/03/google-pixel-10a-stary-procesor-i-nowe-bajery.html"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "galaxy-a56-5g-8-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Samsung Galaxy A56 5G 8/256 GB",
+        "brand": "Samsung",
+        "shopLinks": [
+          {
+            "label": "empik.com",
+            "url": "https://www.empik.com/smartfon-samsung-galaxy-a56-5g-8-gb-256-gb-grafitowy-samsung,p1592668618,elektronika-p"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "Samsung Galaxy A56 5G 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1718.99,
+        "source": "empik.com",
+        "url": "https://www.empik.com/smartfon-samsung-galaxy-a56-5g-8-gb-256-gb-grafitowy-samsung,p1592668618,elektronika-p",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "grafitowy, 8/256 GB",
+        "otherObservations": []
+      },
+      "specs": {
+        "displayInch": 6.7,
+        "panel": "Super AMOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2340",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "chip": "Exynos 1580",
+        "batteryMah": 5000,
+        "chargingW": 45,
+        "wirelessCharging": false,
+        "ip": "IP67",
+        "weightG": 198,
+        "thicknessMm": 7.4,
+        "cameras": {
+          "main": "50 MP z OIS",
+          "ultrawide": null,
+          "macro": null,
+          "selfie": "12 MP",
+          "telephoto": null
+        },
+        "os": "Android 15, One UI 7 (start)",
+        "updatesYears": 6,
+        "updatesNote": "6 lat aktualizacji systemu i zabezpieczeń, do 31.03.2032 (android.com.pl)",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "chargerInBox": false,
+        "chargingTests": "GSMArena: 38% w 15 min, 65% w 30 min, pełne ładowanie w 73 min"
+      },
+      "scores": {
+        "battery": 49,
+        "charging": 40,
+        "updates": 86,
+        "storage": 75,
+        "durability": 80,
+        "smoothness": 62,
+        "display": 82,
+        "photoDay": 76,
+        "photoIndoor": 70,
+        "photoMotion": 66,
+        "selfie": 65,
+        "video": 68,
+        "zoom": 42,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): android.com.pl: dobre czasy pracy; rankingpro: ok. 1,5 dnia przy umiarkowanym użyciu",
+        "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "updates": "6 lat aktualizacji systemu i zabezpieczeń",
+        "storage": "256 GB, brak slotu microSD",
+        "durability": "IP67",
+        "smoothness": "Exynos 1580; GSMArena: Geekbench 6 ok. 3900 (wielordzeniowy)",
+        "display": "Super AMOLED 120 Hz, „świetny ekran o wysokiej jasności” (android.com.pl)",
+        "photoDay": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
+        "photoIndoor": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
+        "photoMotion": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
+        "selfie": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
+        "video": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
+        "zoom": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.gsmmaniak.pl/1601785/orange-samsung-galaxy-a56-rabat-250-zlotych/",
+        "https://www.gsmmaniak.pl/1578365/samsung-galaxy-a56-5g-256-gb-promocja-z-polski-za-1500-zlotych/amp/",
+        "https://mediamarkt.pl/pl/product/_smartfon-samsung-galaxy-a56-5g-8-gb256-gb-zielony-1490751.html",
+        "https://aio.lv/en/product--samsung-sm-a566bzkceub--11362017.md",
+        "https://www.play.pl/dlafirm/produkty/samsung/samsung-galaxy-a56-5g",
+        "https://android.com.pl/tech/919428-recenzja-samsung-galaxy-a56-5g/",
+        "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "redmi-note-15-pro-5g-8-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Xiaomi Redmi Note 15 Pro 5G 8/256 GB",
+        "brand": "Xiaomi",
+        "shopLinks": [
+          {
+            "label": "euro.com.pl",
+            "url": "https://www.euro.com.pl/telefony-komorkowe/xiaomi-redmi-note-15-pro-5g-8-256gb-6-83-120hz-200mpix-czarny.bhtml"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "(zamiast Pixel 8a 256 GB, decyzja użytkownika)",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1299.0,
+        "source": "euro.com.pl",
+        "url": "https://www.euro.com.pl/telefony-komorkowe/xiaomi-redmi-note-15-pro-5g-8-256gb-6-83-120hz-200mpix-czarny.bhtml",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "czarny, 8/256 GB; cena premierowa w Polsce (grudzień 2025): 1699 zł, więc 1299 zł to duża obniżka. Warto sprawdzić, czy to oferta nowego egzemplarza z polską gwarancją",
+        "otherObservations": []
+      },
+      "specs": {
+        "displayInch": 6.83,
+        "panel": "AMOLED (CrystalRes)",
+        "refreshHz": 120,
+        "glass": "Gorilla Glass Victus 2",
+        "chip": "MediaTek Dimensity 7400 Ultra (4 nm)",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 2.2",
+        "microSd": null,
+        "batteryMah": 6580,
+        "chargingW": 45,
+        "chargerInBox": false,
+        "wirelessCharging": null,
+        "ip": "IP66/IP68",
+        "ipNote": "wg strony producenta; niektóre źródła podają IP69, producent tego nie potwierdza",
+        "cameras": {
+          "main": "200 MP",
+          "ultrawide": null,
+          "macro": null,
+          "selfie": "20 MP",
+          "telephoto": null
+        },
+        "widthMm": 78.09,
+        "fingerprint": "w ekranie",
+        "nfc": true,
+        "wifi": "Wi-Fi 6",
+        "bluetooth": "5.4",
+        "os": "HyperOS (Android 15 wg zapowiedzi globalnej; wersja w polskiej sprzedaży do potwierdzenia)",
+        "updatesYears": null,
+        "polishLaunchPricePln": 1699,
+        "reviewNotes": [
+          "tabletowo.pl: bateria „świetna na papierze”, wydajność i oprogramowanie budzą zastrzeżenia, pierwszy testowany egzemplarz miał problemy ze stabilnością (drugi działał dobrze)",
+          "ppe.pl: bardzo jasny ekran i solidny aparat główny, ale „zbyt wiele kompromisów” (procesor, oprogramowanie)"
+        ]
+      },
+      "scores": {
+        "battery": 68,
+        "charging": 40,
+        "updates": 50,
+        "storage": 75,
+        "durability": 88,
+        "smoothness": 50,
+        "display": 82,
+        "photoDay": 70,
+        "photoIndoor": 62,
+        "photoMotion": 60,
+        "selfie": 58,
+        "video": 60,
+        "zoom": 40,
+        "value": null
+      },
+      "basis": {
+        "battery": "6580 mAh (50% wagi) + wytrzymałość w użyciu (50%): tabletowo: „świetna bateria na papierze”, w praktyce słabsze wyniki, problemy z oprogramowaniem",
+        "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "updates": "brak potwierdzonej polityki aktualizacji, wartość neutralna 50",
+        "storage": "256 GB, brak slotu microSD",
+        "durability": "IP66/IP68 (producent)",
+        "smoothness": "Dimensity 7400 Ultra; recenzje: słabe oprogramowanie, AnTuTu nie ukończył testu, Geekbench 6 wielordzeniowy ok. 2930",
+        "display": "6,83″ AMOLED 120 Hz, „bardzo jasny wyświetlacz” (ppe.pl)",
+        "photoDay": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
+        "photoIndoor": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
+        "photoMotion": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
+        "selfie": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
+        "video": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
+        "zoom": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.euro.com.pl/telefony-komorkowe/xiaomi-redmi-note-15-pro-5g-8-256gb-6-83-120hz-200mpix-czarny.bhtml",
+        "https://www.mi.com/pl/product/redmi-note-15-pro-5g/",
+        "https://www.tabletowo.pl/recenzja-redmi-note-15-pro-5g-test-opinia/",
+        "https://www.ppe.pl/recenzje/400734/redmi-note-15-pro-5g-test-smartfona-zbyt-wiele-kompromisow-w-tej-polce-cenowej.html",
+        "https://www.mymobileindia.com/?p=287744"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "low",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": [
+        "updates"
+      ]
+    },
+    {
+      "id": "motorola-edge-60-12-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Motorola Edge 60 12/256 GB",
+        "brand": "Motorola",
+        "shopLinks": [
+          {
+            "label": "euro.com.pl",
+            "url": "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "Motorola Edge 60 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1399.0,
+        "source": "euro.com.pl",
+        "url": "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "zielony, 12/256 GB; zakres 6,67″ 120 Hz i 50 MP wynika z adresu strony sklepu",
+        "otherObservations": []
+      },
+      "specs": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "batteryMah": 5200,
+        "chargingW": 68,
+        "display": "zakrzywiony AMOLED, szczytowa jasność do 4000 nitów (wg Notebookcheck)",
+        "refreshHz": 120,
+        "cameras": {
+          "main": "50 MP (z adresu strony sklepu)",
+          "telephoto": "3x zoom optyczny (potrójny aparat tylny wg Notebookcheck)",
+          "selfie": null
+        },
+        "updates": "3 aktualizacje systemu Android i 4 lata poprawek zabezpieczeń (wg Tabletowo, dla premierowych modeli Edge 60 i Edge 60 Pro)",
+        "updatesYears": 4,
+        "updatesNote": "3 wersje Androida + 4 lata poprawek zabezpieczeń",
+        "performanceNote": "wydajność „standardowa”; Notebookcheck zwraca uwagę na spowolnienia przy uruchamianiu aplikacji aparatu",
+        "ip": null,
+        "weightG": null,
+        "os": null,
+        "displayInch": 6.67
+      },
+      "scores": {
+        "battery": 55,
+        "charging": 71,
+        "updates": 50,
+        "storage": 75,
+        "durability": 50,
+        "smoothness": 55,
+        "display": 88,
+        "photoDay": 80,
+        "photoIndoor": 74,
+        "photoMotion": 70,
+        "selfie": 68,
+        "video": 70,
+        "zoom": 70,
+        "value": null
+      },
+      "basis": {
+        "battery": "5200 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck: wyróżnia się długim czasem pracy; Tabletowo: obiecujące wstępne wyniki",
+        "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "updates": "3 duże aktualizacje systemu + 4 lata poprawek",
+        "storage": "256 GB, brak slotu microSD",
+        "durability": "brak potwierdzonej klasy IP w zebranych źródłach, wartość neutralna 50",
+        "smoothness": "Notebookcheck i PurePC: wydajność przeciętna, spowolnienia przy aplikacji aparatu",
+        "display": "zakrzywiony AMOLED, do 4000 nitów (Notebookcheck)",
+        "photoDay": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
+        "photoIndoor": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
+        "photoMotion": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
+        "selfie": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
+        "video": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
+        "zoom": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://gsmonline.pl/artykuly/testujemy-motorole-edge-60-nasze-pierwsze-wrazenia",
+        "https://www.tabletowo.pl/?p=972072",
+        "https://www.notebookcheck.pl/Motorola-Edge-60.1041978.0.html",
+        "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "low",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium"
+      },
+      "scoresEstimatedNeutral": [
+        "durability"
+      ]
+    },
+    {
+      "id": "xiaomi-15t-12-512",
+      "status": "ok",
+      "reveal": {
+        "name": "Xiaomi 15T 12/512 GB",
+        "brand": "Xiaomi",
+        "shopLinks": [
+          {
+            "label": "komputronik.pl",
+            "url": "https://www.komputronik.pl/product/983816/telefon-xiaomi-15t-12-512gb-black.html"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 512,
+        "fromList": "Xiaomi 15T 12/256 GB",
+        "variantOf": "decyzja użytkownika: wariant 512 GB zamiast 256 GB (podobne ceny)"
+      },
+      "price": {
+        "pln": 1999.0,
+        "source": "komputronik.pl",
+        "url": "https://www.komputronik.pl/product/983816/telefon-xiaomi-15t-12-512gb-black.html",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "czarny, 12/512 GB (zgodnie z adresem strony)",
+        "otherObservations": []
+      },
+      "specs": {
+        "ramGb": 12,
+        "storageGb": 512,
+        "chip": "MediaTek Dimensity 8400 Ultra",
+        "batteryMah": 5500,
+        "updatesNote": "dla 15T Pro producent obiecuje 4 lata dużych aktualizacji Androida; dla 15T (bez Pro) do potwierdzenia",
+        "updatesYears": null,
+        "chargingW": null,
+        "chargingNote": "90 W przewodowo i 50 W bezprzewodowo dotyczy modelu 15T Pro; moc ładowania zwykłego 15T do sprawdzenia",
+        "sourceNote": "większość publikacji dotyczy modelu 15T Pro; dla 15T zweryfikowane: procesor (m3.se) i bateria 5500 mAh (racunalniske-novice.com)"
+      },
+      "scores": {
+        "battery": 50,
+        "charging": 50,
+        "updates": 50,
+        "storage": 100,
+        "durability": 50,
+        "smoothness": 85,
+        "display": 50,
+        "photoDay": 78,
+        "photoIndoor": 74,
+        "photoMotion": 72,
+        "selfie": 68,
+        "video": 70,
+        "zoom": 50,
+        "value": null
+      },
+      "basis": {
+        "battery": "5500 mAh (50% wagi) + wytrzymałość w użyciu (50%): brak testów czasu pracy dla 15T (dla 15T Pro: „dobrze, ale nie tak jak sugeruje specyfikacja”)",
+        "charging": "brak potwierdzonej mocy ładowania, wartość neutralna 50",
+        "updates": "brak potwierdzonej polityki aktualizacji, wartość neutralna 50",
+        "storage": "512 GB, brak slotu microSD",
+        "durability": "brak potwierdzenia klasy IP dla 15T (15T Pro: IP68), wartość neutralna 50",
+        "smoothness": "Dimensity 8400 Ultra, AnTuTu ok. 1,86 mln (m3.se)",
+        "display": "brak danych o ekranie 15T w zebranych źródłach, wartość neutralna 50",
+        "photoDay": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
+        "photoIndoor": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
+        "photoMotion": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
+        "selfie": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
+        "video": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
+        "zoom": "brak potwierdzonych danych, wartość neutralna 50",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.m3.se/article/2930431/xiaomi-15t-test-2.html",
+        "https://www.racunalniske-novice.com/en/test-xiaomi-15t-and-15t-pro-top-screen-good-performance-a-few-compromises/"
+      ],
+      "scoreConfidence": {
+        "battery": "low",
+        "charging": "low",
+        "updates": "low",
+        "storage": "high",
+        "durability": "low",
+        "smoothness": "medium",
+        "display": "low",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": [
+        "battery",
+        "charging",
+        "updates",
+        "durability",
+        "display",
+        "zoom"
+      ]
+    },
+    {
+      "id": "motorola-edge-70-fusion-12-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Motorola Edge 70 Fusion 12/256 GB",
+        "brand": "Motorola",
+        "shopLinks": [
+          {
+            "label": "allegro.pl (X-KOM_PL)",
+            "url": "https://allegro.pl/oferta/smartfon-motorola-edge-70-fusion-5g-12-256gb-orient-blue-120hz-18538693570"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "Motorola Edge 70 Fusion 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1658.12,
+        "source": "allegro.pl (sprzedawca X-KOM_PL)",
+        "url": "https://allegro.pl/oferta/smartfon-motorola-edge-70-fusion-5g-12-256gb-orient-blue-120hz-18538693570",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user, zweryfikowane przez claude",
+        "note": "Sprawdzone przez Claude 14.11.2026: stan NOWY; sprzedawca X-KOM_PL (Super Sprzedawca, firma, poleca 98,6%); Allegro Smart (darmowa dostawa i zwrot 15 dni); Gwarancja najniższej ceny; promocja do 30.11.2026 lub wyczerpania zapasów (poprzednia najniższa cena z 30 dni 1799 zł); limit 1 szt.; opinie 5,00 (17 ocen). W opisie oferty nie podano gwarancji producenta",
+        "otherObservations": []
+      },
+      "specs": {
+        "displayInch": 6.78,
+        "panel": "AMOLED",
+        "refreshHz": 144,
+        "resolution": "2772x1272",
+        "ppi": 450,
+        "chip": "Qualcomm Snapdragon 7s Gen 3 (zapowiedź przedpremierowa mówiła o Gen 4; sklep, telepolis i nanoreview podają Gen 3)",
+        "ramGb": 12,
+        "storageGb": 256,
+        "microSd": null,
+        "batteryMah": 7000,
+        "batteryType": "węglowo-krzemowa",
+        "chargingW": 68,
+        "wirelessCharging": false,
+        "ip": "IP68/IP69",
+        "militaryStandard": "MIL-STD-810H",
+        "glass": "Gorilla Glass 7i (front), ramka z tworzywa",
+        "weightG": null,
+        "dimensionsMm": "163 x 76 x 7,99",
+        "cameras": {
+          "main": "50 MP Sony Lytia 710, f/1.8, OIS",
+          "ultrawide": "13 MP f/2.2, 120°",
+          "macro": null,
+          "selfie": "32 MP f/2.2",
+          "telephoto": null
+        },
+        "video": "4K do 30 kl./s",
+        "os": "Android 16",
+        "updatesYears": null,
+        "sim": "nanoSIM + eSIM (Dual SIM)",
+        "nfc": true,
+        "bluetooth": "6.0",
+        "speakers": "stereo",
+        "fingerprint": "w ekranie",
+        "sourceNote": "Allegro, opis oferty X-KOM_PL (14.11.2026); kolor w nazwie „Orient Blue”, w parametrach „fioletowy”",
+        "refreshNote": "kilka testów i m3.se podaje 144 Hz i szczytową jasność 5200 nitów; opis oferty Allegro podaje 120 Hz",
+        "peakNits": 5200,
+        "weightNote": "źródła podają 177 g albo 193 g (opis oferty Allegro: 193 g) — do rozstrzygnięcia",
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 5,
+        "updatesNote": "3 duże aktualizacje systemu i 5 lat poprawek (zapowiedź producenta wg gsmmaniak.pl; tabletowo.pl: „trzy aktualizacje systemu”)",
+        "chargerInBox": false,
+        "reviewNotes": [
+          "android.com.pl: bateria wystarcza na cały dzień, brak ładowarki w zestawie, brak ładowania bezprzewodowego",
+          "Expert Reviews: przeciętny procesor, plastikowa ramka, niezbyt długie wsparcie",
+          "Notebookcheck: mocna bateria, smukła obudowa, IP68/IP69"
+        ]
+      },
+      "scores": {
+        "battery": 88,
+        "charging": 71,
+        "updates": 57,
+        "storage": 75,
+        "durability": 100,
+        "smoothness": 62,
+        "display": 92,
+        "photoDay": 76,
+        "photoIndoor": 72,
+        "photoMotion": 68,
+        "selfie": 78,
+        "video": 68,
+        "zoom": 30,
+        "value": null
+      },
+      "basis": {
+        "battery": "7000 mAh (50% wagi) + wytrzymałość w użyciu (50%): android.com.pl: bateria na cały dzień; Notebookcheck: mocna bateria; opinia klienta: ok. 2 dni",
+        "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "updates": "3 duże aktualizacje systemu + 5 lata poprawek",
+        "storage": "256 GB, brak slotu microSD",
+        "durability": "IP68/IP69 + MIL-STD-810H",
+        "smoothness": "Snapdragon 7s Gen 3; Expert Reviews: „przeciętny procesor”",
+        "display": "AMOLED 144 Hz, do 5200 nitów (m3.se)",
+        "photoDay": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
+        "photoIndoor": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
+        "photoMotion": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
+        "selfie": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
+        "video": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
+        "zoom": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://allegro.pl/oferta/smartfon-motorola-edge-70-fusion-5g-12-256gb-orient-blue-120hz-18538693570",
+        "https://android.com.pl/tech/1047367-recenzja-motorola-edge-70-fusion-test/",
+        "https://www.gsmmaniak.pl/1640135/motorola-edge-70-fusion-bateria-7000mah-snapdragon-7s-gen-4-premiera-specyfikacja/amp/",
+        "https://www.tabletowo.pl/recenzja-motorola-edge-70-fusion-test-opinia/",
+        "https://www.m3.se/article/3135967/motorola-edge-70-fusion-mobil-test.html"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "pixel-9a-8-128",
+      "status": "ok",
+      "reveal": {
+        "name": "Google Pixel 9a 8/128 GB",
+        "brand": "Google",
+        "shopLinks": [
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-Google-pixel-9a-5g-8-128gb-6-3-120hz-obsydian"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 128,
+        "fromList": "Google Pixel 9a 8/128 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1749.99,
+        "source": "mediaexpert.pl",
+        "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-Google-pixel-9a-5g-8-128gb-6-3-120hz-obsydian",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "obsydian, 8/128 GB",
+        "otherObservations": []
+      },
+      "specs": {
+        "displayInch": 6.28,
+        "panel": "pOLED",
+        "refreshHz": "60-120",
+        "chip": "Google Tensor G4",
+        "ramGb": 8,
+        "storageGb": 128,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "batteryMah": 5100,
+        "chargingW": 23,
+        "wirelessW": 7.5,
+        "wirelessCharging": true,
+        "ip": "IP68",
+        "glass": "Gorilla Glass 7i (ekran)",
+        "weightG": 186,
+        "dimensionsMm": "154,7 x 73,3 x 8,9",
+        "cameras": {
+          "main": "48 MP",
+          "ultrawide": "13 MP",
+          "selfie": "13 MP",
+          "telephoto": null,
+          "macro": null
+        },
+        "os": "Android 15 przy premierze (dziś aktualizowany)",
+        "updatesYears": 7,
+        "nfc": true,
+        "satelliteSos": false,
+        "batteryTests": [
+          "Galaxus: wynik PCMark ok. 17 h",
+          "producent: ponad 30 h w typowym użyciu"
+        ],
+        "polishLaunchPricePln": "8/128: 1799 zł, 8/256: 2299 zł (wg Komputronik, premiera 2025)",
+        "sourceNote": "benchmark.pl, komputronik.pl (porównanie z 10a), spidersweb.pl, galaxus.ch"
+      },
+      "scores": {
+        "battery": 54,
+        "charging": 19,
+        "updates": 100,
+        "storage": 40,
+        "durability": 90,
+        "smoothness": 70,
+        "display": 78,
+        "photoDay": 84,
+        "photoIndoor": 84,
+        "photoMotion": 76,
+        "selfie": 70,
+        "video": 60,
+        "zoom": 30,
+        "value": null
+      },
+      "basis": {
+        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Galaxus: PCMark ok. 17 h; producent: ponad 30 h w typowym użyciu",
+        "charging": "23 W przewodowo + bezprzewodowe Qi; ładowarki w zestawie brak lub nieznana",
+        "updates": "7 lat systemu i zabezpieczeń",
+        "storage": "128 GB, brak slotu microSD",
+        "durability": "IP68",
+        "smoothness": "Tensor G4, czysty Android",
+        "display": "pOLED 120 Hz",
+        "photoDay": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
+        "photoIndoor": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
+        "photoMotion": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
+        "selfie": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
+        "video": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
+        "zoom": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-Google-pixel-9a-5g-8-128gb-6-3-120hz-obsydian",
+        "https://www.benchmark.pl/google-pixel-10a-test-recenzja-i-opinia-7268558626128449a",
+        "https://nano.komputronik.pl/n/google-pixel-10a-vs-pixel-9a-porownanie/",
+        "https://www.galaxus.ch/en/page/jetzt-noch-in-klein-dann-passt-das-pixel-10a-im-test-41653"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "nothing-phone-3a-12-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Nothing Phone (3a) 12/256 GB",
+        "brand": "Nothing",
+        "shopLinks": [
+          {
+            "label": "proshop.pl",
+            "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "Nothing Phone (3a) 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1779.0,
+        "source": "proshop.pl",
+        "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "czarny, 12/256 GB",
+        "otherObservations": []
+      },
+      "specs": {
+        "displayInch": 6.77,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2392",
+        "peakNits": 3000,
+        "chip": "Qualcomm Snapdragon 7s Gen 3",
+        "ramGb": 12,
+        "storageGb": 256,
+        "storageType": "UFS 2.2",
+        "microSd": false,
+        "batteryMah": 5000,
+        "chargingW": 50,
+        "chargingNote": "producent: 50% w 19 min, 100% w 56 min; test gsmManiaK: pełne ładowanie w 63 min (ładowarka do 50 W)",
+        "chargerInBox": null,
+        "wirelessCharging": false,
+        "ip": "IP64",
+        "ipNote": "ochrona przed pyłem i zachlapaniem, bez pełnej wodoszczelności",
+        "weightG": 201,
+        "dimensionsMm": "164 x 78 x 9",
+        "back": "szkło",
+        "cameras": {
+          "main": "50 MP",
+          "ultrawide": "8 MP",
+          "telephoto": "50 MP",
+          "selfie": "32 MP",
+          "macro": null
+        },
+        "updatesYears": null,
+        "updatesNote": "gsmManiaK: 4 aktualizacje Androida; okres poprawek bezpieczeństwa do potwierdzenia",
+        "fingerprint": "w ekranie (optyczny)",
+        "nfc": true,
+        "bluetooth": "5.4",
+        "wifi": "Wi-Fi 6",
+        "stereoSpeakers": true,
+        "realWorldBattery": "gsmManiaK: dzień od rana do wieczora przy 7-8 h ekranu, w nocy traci do ok. 1%",
+        "sourceNote": "gsmmaniak.pl (test), telepolis.pl, gsmarena.com, phonearena.com"
+      },
+      "scores": {
+        "battery": 59,
+        "charging": 47,
+        "updates": 57,
+        "storage": 75,
+        "durability": 55,
+        "smoothness": 62,
+        "display": 80,
+        "photoDay": 74,
+        "photoIndoor": 70,
+        "photoMotion": 66,
+        "selfie": 76,
+        "video": 68,
+        "zoom": 60,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): gsmManiaK: 7-8 h ekranu, w nocy traci ok. 1%",
+        "charging": "50 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "updates": "4 aktualizacje Androida (gsmManiaK), okres poprawek bezpieczeństwa niepotwierdzony",
+        "storage": "256 GB, brak slotu microSD",
+        "durability": "IP64 (tylko zachlapania)",
+        "smoothness": "Snapdragon 7s Gen 3; opinie: bardzo dobre dopracowanie",
+        "display": "AMOLED 120 Hz, do 3000 nitów",
+        "photoDay": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
+        "photoIndoor": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
+        "photoMotion": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
+        "selfie": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
+        "video": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
+        "zoom": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300",
+        "https://www.gsmmaniak.pl/1558980/nothing-phone-3a-test-recenzja-opinia/amp/",
+        "https://www.telepolis.pl/telefony/nothing/phone-3a",
+        "https://www.gsmarena.com/nothing_phone_(3a)-13672.php"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "realme-16-pro-plus-5g-8-256",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Realme 16 Pro+ 5G 8/256 GB (do potwierdzenia: adres oferty to „16 pro 5g”)",
+        "brand": "Realme",
+        "shopLinks": [
+          {
+            "label": "empik.com",
+            "url": "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "(zamiast Galaxy A55, decyzja użytkownika)",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1959.99,
+        "source": "empik.com",
+        "url": "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p",
+        "checkedAt": "2026-11-14",
+        "providedBy": "user",
+        "note": "Użytkownik potwierdził, że to wersja Pro+ (14.11.2026). Adres oferty Empik zawiera „realme-16-pro-5g” bez „plus”, a Empik blokuje odczyt strony, więc nie mogłem tego sprawdzić. Oficjalne ceny premierowe: Pro 8/256 = 1799 zł, Pro+ 8/256 = 2299 zł. Cena 1959,99 zł pasuje do obniżonego Pro+ i do podniesionego Pro. Sprawdzić na stronie oferty: nazwa, procesor, bateria",
+        "otherObservations": []
+      },
+      "specs": {
+        "displayInch": 6.8,
+        "panel": "AMOLED",
+        "refreshHz": 144,
+        "resolution": "2800x1280",
+        "chip": "Qualcomm Snapdragon 7 Gen 4",
+        "ramGb": 8,
+        "ramType": "LPDDR5X",
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "batteryMah": 7000,
+        "chargingW": null,
+        "wirelessCharging": null,
+        "ip": null,
+        "cameras": {
+          "main": "200 MP (1/1,56″) z OIS",
+          "ultrawide": "8 MP (116°)",
+          "macro": null,
+          "selfie": "50 MP",
+          "telephoto": "50 MP peryskopowy, zoom optyczny 3,5x"
+        },
+        "os": "Android 16, realme UI",
+        "updatesYears": null,
+        "sim": "2x nanoSIM + eSIM",
+        "weightG": 198,
+        "dimensionsMm": "162,45 x 76,17 x 8,49",
+        "frame": "plastik",
+        "sourceNote": "dane dla wersji Pro+ z polskich zapowiedzi i recenzji (gsmonline, purepc, gsmmaniak, tabletowo); obowiązują tylko, jeśli oferta jest faktycznie Pro+",
+        "ifItIsPlainPro": {
+          "chip": "MediaTek Dimensity 7300 Max",
+          "ramType": "LPDDR4X",
+          "batteryMah": 6500,
+          "displayInch": 6.78,
+          "refreshHz": 144,
+          "cameras": "200 MP + 8 MP, selfie 50 MP, bez teleobiektywu"
+        }
+      },
+      "scores": {
+        "battery": 75,
+        "charging": 50,
+        "updates": 50,
+        "storage": 75,
+        "durability": 50,
+        "smoothness": 75,
+        "display": 80,
+        "photoDay": 74,
+        "photoIndoor": 68,
+        "photoMotion": 62,
+        "selfie": 78,
+        "video": 62,
+        "zoom": 78,
+        "value": null
+      },
+      "basis": {
+        "battery": "7000 mAh (50% wagi) + wytrzymałość w użyciu (50%): brak testów czasu pracy w zebranych źródłach",
+        "charging": "brak potwierdzonej mocy ładowania, wartość neutralna 50",
+        "updates": "brak potwierdzonej polityki aktualizacji, wartość neutralna 50",
+        "storage": "256 GB, brak slotu microSD",
+        "durability": "brak potwierdzonej klasy IP, wartość neutralna 50",
+        "smoothness": "Snapdragon 7 Gen 4 (LPDDR5X)",
+        "display": "6,8″ AMOLED 144 Hz (jasność nieznana)",
+        "photoDay": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
+        "photoIndoor": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
+        "photoMotion": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
+        "selfie": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
+        "video": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
+        "zoom": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p",
+        "https://www.purepc.pl/realme-16-pro-plus-pierwsze-wrazenia",
+        "https://www.gsmonline.pl/artykuly/realme-16-pro-i-16-pro-plus-pojawily-sie-w-polskim-sklepie-przed-premiera-jeden-ma-juz-cene",
+        "https://www.tabletowo.pl/?p=1051230"
+      ],
+      "scoreConfidence": {
+        "battery": "low",
+        "charging": "low",
+        "updates": "low",
+        "storage": "high",
+        "durability": "low",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": [
+        "battery",
+        "charging",
+        "updates",
+        "durability"
+      ]
+    }
+  ]
+}
