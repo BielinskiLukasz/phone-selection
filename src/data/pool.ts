@@ -51,7 +51,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 3, name: 'Sesje i zapis w przeglądarce', done: true, active: false },
   { id: 4, name: 'Tryb quiz', done: true, active: false },
   { id: 5, name: 'Tryb suwaków i hybryda', done: true, active: false },
-  { id: 6, name: 'Ranking, anonimowe karty, wybór', done: false, active: false },
+  { id: 6, name: 'Ranking, anonimowe karty, wybór', done: true, active: false },
   { id: 7, name: 'Historia sesji i wznawianie', done: false, active: false },
   { id: 8, name: 'Motywy, mobile, dostępność', done: false, active: false },
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
@@ -131,6 +131,20 @@ export const SLIDERS_STATUS = [
   'Wszystkie trzy tryby kończą się tym samym kształtem sesji: weights, groupImportance, filters, ranking.',
 ] as const;
 
+export const CARDS_FACTS = [
+  { label: 'propozycje', value: '3', note: '1 kolumna, 3 od 1024 px' },
+  { label: 'cechy na karcie', value: '6', note: 'stała kolejność, ikony' },
+  { label: 'kryteria w szczegółach', value: '14', note: 'paski 0-100 + pewność' },
+  { label: 'wybory w sesji', value: 'n / m', note: 'plakietki „Wybór 1/2”' },
+] as const;
+
+export const CARDS_STATUS = [
+  'Przed wyborem w DOM, atrybutach i adresie nie ma nazwy, marki ani sklepu — pilnuje test wycieku.',
+  'Potwierdzenie w oknie u dołu: pułapka fokusu, zamknięcie klawiszem Esc, fokus wraca na kartę.',
+  'Każdy wybór zostaje w sesji: po odświeżeniu karty są odsłonięte z tymi samymi numerami.',
+  'W ciemnym motywie szczegóły (oceny i pełne dane) są widoczne od razu, bez rozwijania.',
+] as const;
+
 export const CONSOLE_COMMANDS = [
   { cmd: 'npm run dev', what: 'lokalny serwer Vite' },
   { cmd: 'npm run lint', what: 'ESLint' },
@@ -193,6 +207,24 @@ export function daysSincePriceCheck(now = new Date()): number {
   const checked = new Date(`${PRICES_CHECKED_AT}T00:00:00.000Z`);
   if (Number.isNaN(checked.getTime())) return 0;
   return Math.max(0, Math.floor((now.getTime() - checked.getTime()) / 86_400_000));
+}
+
+/** Najstarsza data sprawdzenia ceny w puli i czy przekracza próg 30 dni (E6-09). */
+export function priceFreshness(
+  checkedDates: readonly string[],
+  now: Date = new Date(),
+  thresholdDays = 30,
+): { oldest: string | null; days: number; stale: boolean } {
+  const valid = checkedDates
+    .map((iso) => ({ iso, time: new Date(`${iso}T00:00:00.000Z`).getTime() }))
+    .filter((entry) => Number.isFinite(entry.time))
+    .sort((a, b) => a.time - b.time);
+
+  const oldest = valid[0];
+  if (!oldest) return { oldest: null, days: 0, stale: false };
+
+  const days = Math.max(0, Math.floor((now.getTime() - oldest.time) / 86_400_000));
+  return { oldest: oldest.iso, days, stale: days > thresholdDays };
 }
 
 export function formatPln(value: number): string {

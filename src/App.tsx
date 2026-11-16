@@ -8,6 +8,7 @@ import { StartScreen } from '@/screens/StartScreen';
 import { SessionStubScreen } from '@/screens/SessionStubScreen';
 import { QuizScreen } from '@/screens/QuizScreen';
 import { SlidersScreen } from '@/screens/SlidersScreen';
+import { CardsScreen } from '@/screens/CardsScreen';
 import { HistoryScreen } from '@/screens/HistoryScreen';
 import { MissingSessionScreen, NotFoundScreen } from '@/screens/ErrorScreens';
 
@@ -86,6 +87,10 @@ function Screen({ route }: ScreenProps) {
       }
       if (found && route.name === 'tune') {
         return <SlidersScreen session={found} variant="tune" />;
+      }
+      /* Etap 6: anonimowe karty, wybór i ujawnienie. */
+      if (found && route.name === 'cards') {
+        return <CardsScreen session={found} />;
       }
       return (
         <SessionStubScreen view={route.name} sessionId={route.sessionId} session={found} />

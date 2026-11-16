@@ -1,6 +1,7 @@
 import { CRITERIA, groupOf, labelOf } from '@/data/criteria';
 import type { AnonCard, AnonCriterion, AnonFact, FactKey, Phone, Specs } from '@/types';
 import type { RankResult, RankedPhone } from '@/types';
+import type { RankingSnapshot } from '@/types/state';
 import { DEFAULT_BUDGET, NEUTRAL_SCORE } from './scoringConfig';
 import { matchDisplay } from './matchDisplay';
 import { rawScore } from './scoring';
@@ -499,6 +500,59 @@ export function toAnonCards(
       }),
     ];
   });
+}
+
+/** Snapshot sesji → wpisy w kształcie `RankedPhone` (karty liczone w etapie 2/3). */
+export function rankedFromSnapshot(snapshot: RankingSnapshot): RankedPhone[] {
+  const byId = new Map(snapshot.entries.map((entry) => [entry.phoneId, entry]));
+  return snapshot.cards.flatMap((phoneId, index) => {
+    const entry = byId.get(phoneId);
+    if (!entry) return [];
+    return [
+      {
+        phoneId,
+        place: index + 1,
+        score: entry.score,
+        matchPercent: entry.matchPercent,
+        groupScores: {} as RankedPhone['groupScores'],
+        normalized: {},
+        inBudget: entry.inBudget,
+        overBudgetBy: entry.overBudgetBy,
+        practicalTieWith: entry.practicalTieWith,
+      },
+    ];
+  });
+}
+
+/** Karty anonimowe ze snapshotu rankingu zapisanego w sesji (E6-01). */
+export function toAnonCardsFromSnapshot(
+  phones: readonly Phone[],
+  snapshot: RankingSnapshot,
+  budgetMax?: number,
+): AnonCard[] {
+  const ranked = rankedFromSnapshot(snapshot);
+  return toAnonCards(phones, snapshotRankResult(ranked, snapshot), budgetMax);
+}
+
+function snapshotRankResult(ranked: RankedPhone[], snapshot: RankingSnapshot): RankResult {
+  return {
+    poolSize: snapshot.poolSize,
+    inBudgetCount: snapshot.inBudgetCount,
+    ranked: snapshot.entries.map((entry) => ({
+      phoneId: entry.phoneId,
+      place: entry.place,
+      score: entry.score,
+      matchPercent: entry.matchPercent,
+      groupScores: {} as RankedPhone['groupScores'],
+      normalized: {},
+      inBudget: entry.inBudget,
+      overBudgetBy: entry.overBudgetBy,
+      practicalTieWith: entry.practicalTieWith,
+    })),
+    cards: ranked,
+    bestScore: snapshot.bestScore,
+    empty: snapshot.entries.length === 0,
+  };
 }
 
 /** Rzuca wyjątek, gdyby karta zawierała nazwę, markę albo token chipa. */

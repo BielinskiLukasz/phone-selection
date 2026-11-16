@@ -108,6 +108,59 @@ describe('Etap 1 — szkielet aplikacji', () => {
     expect(document.documentElement.dataset.theme).toBe('light');
   });
 
+  test('DoD etapu 6: od Startu przez quiz do ujawnienia nazwy', async () => {
+    render(createElement(App));
+
+    // 1. Start → tryb Quiz tworzy sesję
+    fireEvent.click(
+      screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }),
+    );
+    expect(window.location.hash).toMatch(/^#\/s\/\d+\/quiz$/);
+    act(() => window.dispatchEvent(new Event('hashchange')));
+
+    // 2. Nagłówek pierwszego bloku → pytania
+    fireEvent.click(screen.getByRole('button', { name: /Dalej/ }));
+    for (let step = 0; step < 40; step += 1) {
+      const radios = screen.queryAllByRole('radio');
+      if (radios.length === 0) break;
+      fireEvent.click(radios[radios.length - 2]!); // odpowiedź inna niż „pomiń”
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 40));
+      });
+    }
+
+    // 3. Krok G1 → trzy najważniejsze → podsumowanie
+    fireEvent.click(screen.getByRole('button', { name: /Bateria i ładowanie/ }));
+    fireEvent.click(screen.getByRole('button', { name: /^Aparat/ }));
+    fireEvent.click(screen.getByRole('button', { name: /^Pamięć/ }));
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 40));
+    });
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Podsumowanie odpowiedzi');
+
+    // 4. „Pokaż wyniki” → ekran kart
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    act(() => window.dispatchEvent(new Event('hashchange')));
+    expect(window.location.hash).toMatch(/\/cards$/);
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Trzy propozycje');
+
+    const articles = screen.getAllByRole('article');
+    expect(articles.length).toBe(3);
+    expect(screen.getAllByText(/nazwa ukryta/).length).toBe(1);
+
+    // 5. Wybór i ujawnienie
+    fireEvent.click(
+      screen.getAllByRole('button', { name: /Wybieram tę propozycję/ })[0]!,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Odkryj' }));
+
+    expect(screen.getByText('Wybór 1/1')).toBeTruthy();
+    expect(screen.getAllByRole('link', { name: /Zobacz w sklepie/ }).length).toBeGreaterThan(0);
+    expect(screen.getByRole('link', { name: /Pokaż pełny ranking/ })).toBeTruthy();
+    expect(document.title).toContain('Trzy propozycje');
+  });
+
   test('na ekranie kart nie ma nazwy ani marki telefonu', () => {
     render(createElement(App));
 

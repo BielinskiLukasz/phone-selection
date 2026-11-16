@@ -8,6 +8,9 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 6 — Ranking, anonimowe karty, wybór i ujawnienie**: trzy karty z dopasowaniem, ceną z datą
+  i sześcioma cechami, rozwijane szczegóły z ocenami i pewnością, okno potwierdzenia z pułapką
+  fokusu, ujawnienie nazwy i linków do sklepów, wielokrotny wybór z plakietkami „Wybór n/m”.
 - **Etap 5 — Tryb suwaków i hybryda**: sześć suwaków grup 0-5 z etykietą słowną i `aria-valuetext`,
   rozwijane suwaki kryteriów z udziałami w grupie, panel filtrów (budżet, pamięć, microSD), licznik
   puli na żywo, ekran dostrojenia po krótkim quizie z „Przywróć wyliczone” i flagą `manualOverride`.
@@ -73,6 +76,9 @@ src/
 │   ├── ProgressBar.tsx  OptionButton.tsx   # pasek postępu i odpowiedzi quizu (E4-02/03)
 │   ├── TopThreePicker.tsx                  # krok G1 z numeracją 1-3 (E4-05)
 │   ├── GroupSlider.tsx  CriterionSliders.tsx  FilterPanel.tsx  # suwaki i filtry (E5-01…04)
+│   ├── PhoneCardAnon.tsx  PhoneCardRevealed.tsx                # karty przed i po ujawnieniu (E6-02/06)
+│   ├── DetailsAccordion.tsx  ScoreBar.tsx  ConfidenceIcon.tsx  # szczegóły karty (E6-03)
+│   ├── ConfirmSheet.tsx  Toast.tsx                             # potwierdzenie wyboru i komunikat (E6-05)
 │   ├── NoticeStack.tsx                     # banery stanów krańcowych zapisu
 │   ├── ScreenShell.tsx                     # ramka ekranu-zaślepki + pager
 │   ├── AnonCardPreview.tsx  ModeRow.tsx    # makiety UI-SPEC 3.1 i 3.4
@@ -99,13 +105,14 @@ src/
 │   ├── matchDisplay.ts           # sposób pokazywania „% dopasowania” (E2-09)
 │   ├── session.ts                # fabryki sesji, postęp quizu, limit i sortowanie (E3-01/09)
 │   ├── storage.ts                # klucz v1, migracje, stany awaryjne, zapis (E3-02…04)
-│   └── sessionReducer.ts         # akcje na sesjach + snapshot rankingu (E3-05/06)
+│   ├── sessionReducer.ts         # akcje na sesjach + snapshot rankingu (E3-05/06)
+│   └── cardSpecs.ts              # „pełne dane” karty bez pola reveal (E6-03)
 ├── features/
 │   ├── quiz/quizFlow.ts          # kroki quizu, licznik, wznawianie (E4-01)
 │   ├── sliders/sliderModel.ts    # skala, etykiety, udziały, punkt odniesienia (E5-01/02)
 │   ├── state/StateProvider.tsx    # kontekst, debounce zapisu, sync kart (E3-07/08)
 │   └── sessions/useReveal.ts      # plakietki „Wybór 1/2”, „2/2” (E3-10)
-├── screens/                      # Start, QuizScreen, SlidersScreen (suwaki + dostrojenie), zaślepki, Historia, 404
+├── screens/                      # Start, QuizScreen, SlidersScreen, CardsScreen, zaślepki, Historia, 404
 ├── App.tsx  main.tsx  index.css
 tests/app.test.ts                 # test dymny na App: routing, motyw, anonimizacja, błędy
 tests/data.ts                     # pula testowa = phones.json + klony (remis, microSD, 2100 zł)
@@ -125,6 +132,7 @@ tests/quizFlow.test.ts            # kroki quizu, licznik, wznawianie, „pomiń�
 tests/quiz-screen.test.ts         # ekran quizu: odpowiedzi, wstecz, klawiatura, G1, zakończenie
 tests/sliderModel.test.ts         # model suwaków + równoważność trzech trybów (E5, DoD)
 tests/sliders-screen.test.ts      # suwaki, filtry, licznik, hybryda, „Przywróć wyliczone”
+tests/cards-screen.test.ts        # karty, test wycieku w DOM, wybór, ujawnienie, etykiety
 tests/personas.ts                 # odpowiedzi person jako stałe (E2-11)
 tests/validate-data.test.ts       # testy walidatora danych
 planning/                         # PROJECT.md, UI-SPEC.md, ROADMAP.md, opisy etapów
@@ -223,7 +231,7 @@ wraz z `basis.zoom` (które cytuje źródło mówiące „brak teleobiektywu”)
 | 8 | `null` w `scores.value` → silnik liczy `value` z ceny i nie zawiesza się | ✅ |
 
 Pokrycie: `npx vitest run --coverage --coverage.include='src/lib/**'` → 98,5% linii (DoD: ≥ 90%).
-Cała suite: **247 testów** w 18 plikach.
+Cała suite: **263 testów** w 19 plikach.
 
 ## Wdrożenie (GitHub Pages)
 
@@ -304,6 +312,29 @@ w `aria-live`, a przy budżecie, w którym mieszczą się mniej niż trzy telefo
 „W tym budżecie mieszczą się tylko dwa telefony. Trzecia propozycja jest droższa.” Pod filtrami jest
 podgląd na żywo: trzy najlepsze propozycje z procentem, ceną i flagą „+X zł” — bez nazw (te wracają
 dopiero w etapie 6). „Przywróć wyliczone” cofa ręczną korektę i zdejmuje `manualOverride`.
+
+## Etap 6 — karty, wybór i ujawnienie
+
+`#/s/:id/cards` bierze ranking ze **snapshotu sesji** (nie liczy go od nowa), więc wynik obejrzany
+po tygodniu jest taki sam jak w dniu liczenia. Karty: „Propozycja #n”, dopasowanie `%` z opisem
+słownym i przeskalowaniem względem najlepszego, cena z datą, sześć wierszy cech ze stałą kolejnością
+i ikonami, etykiety „Powyżej budżetu o X zł”, „Praktyczny remis z #m” i „brak danych”. „Więcej
+szczegółów” rozwija 14 pasków ocen z grupą, pewnością (pełne/połówka/puste kółko) i uzasadnieniem
+oraz pełne dane — **bez pola `reveal`**: procesor występuje jako klasa wydajności, a każda wartość
+przechodzi przez redakcję tokenów. W ciemnym motywie szczegóły są otwarte od razu (UI-SPEC 3.5).
+
+Wybór potwierdza okno u dołu („Wybierasz propozycję #2?”) z pułapką fokusu, klawiszem Esc i
+przywróceniem fokusu na kartę; „Wróć” nie odsłania nic. Po potwierdzeniu karta pokazuje nazwę,
+markę, linki do sklepów (`target="_blank"`, `rel="noopener noreferrer"`), uwagę „Cena orientacyjna,
+sprawdź w sklepie” i plakietkę „Wybór n/m”; pozostałe propozycje zostają anonimowe. Wybory są
+w sesji, więc odświeżenie zachowuje odsłonięte karty i ich numery. Pod kartami: „Zacznij od nowa”
+(nowa sesja, poprzednia zostaje w historii), „Zmień odpowiedzi” (powrót do quizu/suwaków) i
+„Pokaż pełny ranking” — widoczny dopiero po pierwszym wyborze (ekran w etapie 9).
+
+Anonimowość pilnowana testem wycieku (E6-11): skanowane są węzły tekstu, atrybuty `alt`, `title`,
+`aria-*`, `data-*` i `href`, tytuł dokumentu oraz hash adresu — lista tokenów budowana jest z
+`reveal` i `specs.chip` całej puli. Zadanie opcjonalne E6-10 (osobny `reveal.json`) zostało
+pominięte świadomie: build jest jednoplikowy, więc i tak wcieliłby dane w `dist/index.html`.
 
 ## Stan danych (etap 0 — domknięty)
 

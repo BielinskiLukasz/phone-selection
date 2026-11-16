@@ -9,6 +9,8 @@ import {
   QUIZ_STATUS,
   SLIDERS_FACTS,
   SLIDERS_STATUS,
+  CARDS_FACTS,
+  CARDS_STATUS,
   STORAGE_STATUS,
   daysSincePriceCheck,
   formatDate,
@@ -22,6 +24,7 @@ import {
   AlertIcon,
   HistoryIcon,
   ListIcon,
+  PhoneIcon,
   SlidersIcon,
 } from './Icons';
 import { useAppState } from '@/features/state/StateProvider';
@@ -299,6 +302,39 @@ export function SkeletonPanel() {
         </dl>
         <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
           {SLIDERS_STATUS.map((line) => (
+            <li
+              key={line}
+              className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"
+            >
+              <span className="mt-px shrink-0 text-[var(--color-ok)]">
+                <CheckIcon className="h-4 w-4" />
+              </span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      {/* Karty i ujawnienie — etap 6 */}
+      <Reveal delay={40} className="surface mt-6 p-0">
+        <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] px-[var(--pad-card)] py-3">
+          <span className="label-mono flex items-center gap-2">
+            <PhoneIcon className="h-4 w-4" />
+            Karty, wybór i ujawnienie · etap 6
+          </span>
+          <Badge tone="accent">anonimowo do wyboru</Badge>
+        </div>
+        <dl className="grid gap-px bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+          {CARDS_FACTS.map((fact) => (
+            <div key={fact.label} className="bg-[var(--color-surface)] p-3">
+              <dt className="label-mono">{fact.label}</dt>
+              <dd className="num mt-1.5 text-lg font-bold tracking-tight">{fact.value}</dd>
+              <dd className="mt-0.5 text-[11px] leading-snug text-[var(--color-muted)]">{fact.note}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
+          {CARDS_STATUS.map((line) => (
             <li
               key={line}
               className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"

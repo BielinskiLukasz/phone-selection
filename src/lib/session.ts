@@ -31,15 +31,23 @@ export function defaultFilters(): Filters {
   return { budgetMax: DEFAULT_BUDGET, minStorageGb: null, requireMicroSd: false };
 }
 
-/** `crypto.randomUUID()` z awaryjnym generatorem (ETAP-3, „Ryzyka”). */
+/**
+ * Identyfikator sesji: **tylko cyfry**. Dzięki temu nie może przypadkiem zawierać
+ * tokenów modeli (np. „a57”, „3a”, „9a”), które test wycieku wyszukiwałby w adresie
+ * `#/s/:id/cards` (E6-11). Losowanie z `crypto.getRandomValues`, z awaryjnym `Math.random`.
+ */
 export function newSessionId(random: () => number = Math.random): string {
-  const cryptoRef = typeof globalThis !== 'undefined' ? globalThis.crypto : undefined;
-  if (cryptoRef && typeof cryptoRef.randomUUID === 'function') {
-    return cryptoRef.randomUUID().replace(/-/g, '').slice(0, 12);
-  }
-  const stamp = Date.now().toString(36);
-  const dice = () => Math.floor(random() * 36).toString(36);
-  return `${stamp}-${dice()}${dice()}${dice()}${dice()}`;
+  const digits = (count: number): string => {
+    const cryptoRef = typeof globalThis !== 'undefined' ? globalThis.crypto : undefined;
+    if (cryptoRef && typeof cryptoRef.getRandomValues === 'function') {
+      const buffer = cryptoRef.getRandomValues(new Uint32Array(count));
+      return Array.from(buffer, (value) => value % 10).join('');
+    }
+    return Array.from({ length: count }, () => Math.floor(random() * 10)).join('');
+  };
+
+  const stamp = String(Date.now()).slice(-8);
+  return `${stamp}${digits(5)}`;
 }
 
 export function nowIso(now: Date = new Date()): string {

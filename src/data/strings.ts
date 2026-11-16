@@ -174,6 +174,46 @@ export const strings = {
   tuneLead:
     'Krótki quiz wyliczył te wartości. Dostroj je ręcznie, jeśli coś chcesz zmienić — ranking przelicza się na bieżąco.',
 
+  /* Etap 6 — karty, wybór i ujawnienie (UI-SPEC 3.4, 3.5, 4) */
+  cardsIntro: 'Trzy propozycje dla Ciebie. Nazwy odkryjemy po wyborze.',
+  cardsFewInBudget: 'Mało telefonów mieści się w budżecie — jedna propozycja jest droższa.',
+  cardsMatch: 'Dopasowanie',
+  cardsChoose: 'Wybieram tę propozycję',
+  cardsMoreDetails: 'Więcej szczegółów',
+  cardsHideDetails: 'Ukryj szczegóły',
+  cardsDetailsScores: 'Oceny kryteriów',
+  cardsDetailsSpecs: 'Pełne dane',
+  cardsBasis: 'uzasadnienie',
+  cardsConfidence: 'pewność oceny',
+  cardsConfidenceHigh: 'wysoka',
+  cardsConfidenceMedium: 'średnia',
+  cardsConfidenceLow: 'niska',
+  cardsEstimated: 'brak danych — ocena neutralna',
+  cardsConfirmTitle: 'Odkryć nazwę tej propozycji?',
+  cardsConfirmBody: 'Odkryjemy jej nazwę i link do sklepu. Pozostałe propozycje zostają anonimowe.',
+  cardsConfirmReveal: 'Odkryj',
+  cardsConfirmBack: 'Wróć',
+  cardsRevealedNote: 'Cena orientacyjna, sprawdź w sklepie.',
+  cardsShopLink: 'Zobacz w sklepie',
+  cardsStartOver: 'Zacznij od nowa',
+  cardsChangeAnswers: 'Zmień odpowiedzi',
+  cardsFullRanking: 'Pokaż pełny ranking',
+  cardsPricesStale: 'Ceny mogą być nieaktualne',
+  cardsNoRanking: 'Ta sesja nie ma jeszcze rankingu — przeliczamy go z Twoich ustawień.',
+  cardsRecompute: 'Przelicz ranking',
+  cardsToastRevealed: 'Nazwa odkryta. Karta zostaje odsłonięta, pozostałe są anonimowe.',
+  cardsSpecDisplay: 'Ekran',
+  cardsSpecPerformance: 'Wydajność',
+  cardsSpecBattery: 'Bateria',
+  cardsSpecCharging: 'Ładowanie',
+  cardsSpecWeight: 'Waga i wymiary',
+  cardsSpecCameras: 'Aparaty',
+  cardsSpecStorage: 'Pamięć',
+  cardsSpecUpdates: 'Aktualizacje',
+  cardsSpecDurability: 'Odporność',
+  cardsSpecConnectivity: 'Łączność',
+  cardsSpecCharger: 'Ładowarka w zestawie',
+
   /* Motyw (UI-SPEC 6) */
   themeToDark: 'Przełącz na ciemny motyw',
   themeToLight: 'Przełącz na jasny motyw',
@@ -284,7 +324,9 @@ export const screenPlans = {
   },
   cards: {
     stage: 6,
-    done: false,
+    done: true,
+    previewNote:
+      'To makieta podglądowa. Prawdziwe karty otwierają się po quizie albo suwakach — przycisk „Pokaż wyniki”.',
     stageName: 'Ranking, anonimowe karty, wybór',
     items: [
       'Trzy anonimowe karty: miejsce, % dopasowania, cena z datą, sześć wierszy cech.',
@@ -356,6 +398,21 @@ export const sessionTexts = {
   },
   poolMatches: (matches: number, total: number): string =>
     `Pasuje ${matches} z ${total} ${total === 1 ? 'telefonu' : matches === 1 ? 'telefonów' : 'telefonów'}`,
+  proposalHeading: (place: number): string => `Propozycja #${place}`,
+  practicalTie: (place: number): string => `Praktyczny remis z #${place}`,
+  overBudgetBy: (amount: number): string => `Powyżej budżetu o ${amount} zł`,
+  priceWithDate: (iso: string): string => {
+    const [year, month, day] = iso.split('-');
+    return `cena z ${day}.${month}.${year}`;
+  },
+  pickBadge: (order: number, total: number): string => `Wybór ${order}/${total}`,
+  confirmTitle: (place: number): string => `Wybierasz propozycję #${place}?`,
+  pricesStaleNote: (iso: string, days: number): string =>
+    `Najstarsza cena w puli jest z ${sessionTexts.priceWithDate(iso).replace('cena z ', '')} (${days} dni temu). Przed zakupem sprawdź aktualną cenę w sklepie.`,
+  poolSmall: (count: number): string =>
+    count === 1
+      ? 'Tylko jeden telefon spełnia te warunki — pokazujemy jedną propozycję.'
+      : `Tylko ${count} telefony spełniają te warunki — pokazujemy ${count} propozycje.`,
   answeredSummary: (answered: number, total: number, skipped: number): string =>
     `${answered} z ${total} pytań · ${skipped} × „nie wiem”`,
 } as const;

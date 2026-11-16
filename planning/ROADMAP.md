@@ -12,7 +12,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 3 | Sesje i zapis w przeglądarce | `[x]` zrobione |
 | 4 | Tryb quiz | `[x]` zrobione |
 | 5 | Tryb suwaków i hybryda | `[x]` zrobione |
-| 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[ ]` |
+| 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[x]` zrobione |
 | 7 | Historia sesji i wznawianie | `[ ]` |
 | 8 | Motywy, mobile, dostępność | `[ ]` |
 | 9 | Pełny ranking, szlify i wydanie | `[ ]` |
@@ -148,13 +148,15 @@ Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i brak
 
 ## Etap 6 — Ranking, anonimowe karty, wybór i ujawnienie
 
-- [ ] Ekran trzech kart (kolejność rankingu, numer miejsca, % dopasowania, cena z datą)
-- [ ] „Więcej szczegółów” (oceny z uzasadnieniami, pełne dane)
-- [ ] Wybór karty → ujawnienie nazwy i linków do sklepu
-- [ ] Powrót i kolejny wybór, plakietki „Wybór 1/2”, „2/2”
-- [ ] Ekran zwycięzcy
+- [x] Ekran trzech kart (kolejność rankingu, numer miejsca, % dopasowania, cena z datą)
+- [x] „Więcej szczegółów” (oceny z uzasadnieniami, pełne dane)
+- [x] Wybór karty → ujawnienie nazwy i linków do sklepu
+- [x] Powrót i kolejny wybór, plakietki „Wybór 1/2”, „2/2”
+- [x] Ekran zwycięzcy
 
 **DoD:** przed wyborem w DOM nie ma nazwy ani marki żadnego telefonu; po wyborze wcześniej wybrane karty pozostają odsłonięte z numerem wyboru.
+
+**Stan po etapie 6:** `src/screens/CardsScreen.tsx` (układ 1 kolumna / 3 od 1024 px), komponenty `PhoneCardAnon`, `PhoneCardRevealed`, `DetailsAccordion`, `ScoreBar`, `ConfidenceIcon`, `ConfirmSheet`, `Toast` oraz `src/lib/cardSpecs.ts` (pełne dane bez pola `reveal`, procesor jako klasa wydajności, każda wartość przez redakcję tokenów). Karty powstają ze snapshotu sesji (`toAnonCardsFromSnapshot`), więc wynik obejrzany po tygodniu się nie zmienia. Etykiety: „Powyżej budżetu o X zł”, „Praktyczny remis z #m”, „brak danych”, baner starych cen (>30 dni), komunikat przy puli <3. Wybór potwierdzany oknem u dołu (pułapka fokusu, Esc, przywrócenie fokusu), plakietki „Wybór n/m” z `useReveal`, przyciski „Zacznij od nowa”, „Zmień odpowiedzi”, „Pokaż pełny ranking” (po pierwszym wyborze; ekran w etapie 9). **E6-10 (osobny `reveal.json`) pominięty świadomie:** build jest jednoplikowy (`vite-plugin-singlefile`) i wcieliłby taki plik w `dist/index.html`, więc anonimowość zostaje na poziomie interfejsu — tak jak opisuje to sekcja „Ryzyka” — a pilnuje jej test wycieku E6-11 (węzły tekstu, atrybuty `alt`/`title`/`aria-*`/`data-*`/`href`, tytuł dokumentu i hash). Testy akceptacyjne 1-8 zielone, w tym przejście persony od Startu do ujawnienia (`tests/cards-screen.test.ts`, `tests/app.test.ts`).
 
 ## Etap 7 — Historia sesji i wznawianie
 
