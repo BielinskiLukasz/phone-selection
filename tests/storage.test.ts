@@ -104,7 +104,7 @@ describe('E3-03 · migracje', () => {
 
     const { state, migratedFrom } = migrate(legacy);
     expect(migratedFrom).toBe(0);
-    expect(state.schemaVersion).toBe(1);
+    expect(state.schemaVersion).toBe(SCHEMA_VERSION);
 
     const normalized = normalizeState(state);
     expect(normalized.state.sessions.length).toBe(2);
@@ -119,9 +119,41 @@ describe('E3-03 · migracje', () => {
     expect(first.weights.battery).toBe(2); // brak wag w v0 → wartości neutralne
   });
 
+  it('E11-01 · migracja v1 → v2 uzupełnia puste wykluczenia i exclusionsStep = done', () => {
+    const v1 = {
+      schemaVersion: 1,
+      theme: 'light',
+      activeSessionId: 'sesja-v1',
+      sessions: [
+        {
+          id: 'sesja-v1',
+          createdAt: '2026-11-14T10:00:00.000Z',
+          updatedAt: '2026-11-14T10:05:00.000Z',
+          mode: 'quiz',
+          status: 'in_progress',
+          answers: { A1: 'A1-b' },
+          filters: { budgetMax: 1800, minStorageGb: 256 },
+          picks: [],
+        },
+      ],
+    };
+
+    const { state, migratedFrom } = migrate(v1);
+    expect(migratedFrom).toBe(1);
+    expect(state.schemaVersion).toBe(2);
+
+    const normalized = normalizeState(state);
+    const session = normalized.state.sessions[0]!;
+    expect(session.exclusionsStep).toBe('done');
+    expect(session.filters.excludedBrands).toEqual([]);
+    expect(session.filters.excludedPhoneIds).toEqual([]);
+    expect(session.filters.budgetMax).toBe(1800);
+    expect(session.filters.minStorageGb).toBe(256);
+  });
+
   it('migracja z nieznanej wersji źródłowej nie pętli się', () => {
     const { state } = migrate({ schemaVersion: 0 });
-    expect(state.schemaVersion).toBe(1);
+    expect(state.schemaVersion).toBe(SCHEMA_VERSION);
   });
 
   it('stan z nowszej wersji nie jest nadpisywany, a aplikacja startuje od pustego', () => {

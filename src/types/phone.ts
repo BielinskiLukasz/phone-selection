@@ -166,6 +166,10 @@ export type PhoneScores = Record<CriterionId, number | null>;
 
 export interface Phone {
   id: string;
+  /** Ustandaryzowana nazwa marki — do filtra wykluczeń (etap 11, E11-02); nie trafia na anonimową kartę. */
+  brand: string;
+  /** Nazwa modelu bez marki — do listy wykluczeń (etap 11, E11-02); nie trafia na anonimową kartę. */
+  modelName: string;
   status: PhoneStatus;
   reveal: Reveal;
   variant: Variant;

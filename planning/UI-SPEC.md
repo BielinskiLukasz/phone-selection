@@ -53,7 +53,7 @@ Nazwy widoków to ASCII, bez parametrów zapytania. Wejście na adres nieistniej
 - Sześć suwaków grup 0-5 z etykietami („Bateria i ładowanie: ważne” itd.) i wartością tekstową („3 z 5”).
 - Przy każdej grupie przycisk „Szczegóły”, który rozwija suwaki kryteriów w tej grupie.
 - Panel filtrów: **Budżet** (do 1500 / 1800 / 2000 zł) i **Pamięć** (dowolna / minimum 256 GB).
-- Licznik na żywo: „Pasuje 8 z 10 telefonów” (komunikat `aria-live="polite"`).
+- Licznik na żywo: „Pasuje 13 z 15 telefonów” (komunikat `aria-live="polite"`).
 - Przycisk **Pokaż wyniki**.
 - Ekran „Dostrojenie” (hybryda) to ten sam ekran z wartościami wyliczonymi z quizu, plakietką „Wyliczone z Twoich odpowiedzi” i przyciskiem **Przywróć wyliczone**.
 

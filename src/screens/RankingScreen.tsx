@@ -6,6 +6,7 @@ import { useAppState } from '@/features/state/StateProvider';
 import { useReveal } from '@/features/sessions/useReveal';
 import { specRows } from '@/lib/cardSpecs';
 import { groupScores as computeGroupScores, scoreRanges } from '@/lib/scoring';
+import { exclusionReason, includePhoneAgain } from '@/lib/exclusions';
 import { buildPool, meetsMicroSdFilter, meetsStorageFilter, withinSiteLimit } from '@/lib/pool';
 import { matchLabel } from '@/lib/matchDisplay';
 import { NO_DATA } from '@/lib/anonymize';
@@ -152,6 +153,8 @@ export function RankingScreen({ session }: RankingScreenProps) {
           if (!phone) return null;
 
           const pickOrder = reveal.orderOf(entry.phoneId);
+          const excluded = entry.excluded ?? exclusionReason(phone, snapshot.filters);
+          const isExcluded = excluded === 'brand' || excluded === 'model';
           const groups = entry.groupScores ?? fallbackGroups.get(entry.phoneId) ?? null;
           const expanded = open === entry.phoneId;
           const lowConfidence = Object.values(phone.scoreConfidence ?? {}).filter(
@@ -172,10 +175,15 @@ export function RankingScreen({ session }: RankingScreenProps) {
           return (
             <li
               key={entry.phoneId}
+              data-excluded={excluded ?? undefined}
               className={cn(
                 'surface screen-in overflow-hidden transition-[border-color,transform] duration-200 hover:-translate-y-px',
+                isExcluded && 'border-dashed bg-[var(--color-surface-2)]',
                 pickOrder && 'border-[var(--color-accent)]',
-                entry.place === 1 && !pickOrder && 'border-l-2 border-l-[var(--color-accent)]',
+                entry.place === 1 &&
+                  !pickOrder &&
+                  !isExcluded &&
+                  'border-l-2 border-l-[var(--color-accent)]',
               )}
               style={{ animationDelay: `${Math.min(entry.place * 30, 300)}ms` }}
             >
@@ -197,12 +205,26 @@ export function RankingScreen({ session }: RankingScreenProps) {
 
                 <span className="grid min-w-0 gap-1.5">
                   <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                    <span className="truncate text-[15px] font-semibold tracking-tight">
+                    <span
+                      className={cn(
+                        'truncate text-[15px] font-semibold tracking-tight',
+                        isExcluded && 'text-[var(--color-muted)] line-through',
+                      )}
+                    >
                       {phone.reveal.name}
                     </span>
                     {pickOrder ? (
                       <span className="num shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-2 py-0.5 text-[10px] font-bold tracking-[0.1em] text-[var(--color-on-accent)] uppercase">
                         {strings.rankingYourPick} {pickOrder}/{reveal.total}
+                      </span>
+                    ) : null}
+                    {excluded === 'brand' ? (
+                      <span className="num shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-2 py-0.5 text-[10px] font-semibold tracking-[0.08em] text-[var(--color-warn)]">
+                        {strings.rankingExcludedBrand}
+                      </span>
+                    ) : excluded === 'model' ? (
+                      <span className="num shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-2 py-0.5 text-[10px] font-semibold tracking-[0.08em] text-[var(--color-warn)]">
+                        {strings.rankingExcludedModel}
                       </span>
                     ) : null}
                     {entry.practicalTieWith ? (
@@ -261,6 +283,29 @@ export function RankingScreen({ session }: RankingScreenProps) {
               {/* Zawartość montowana tylko po rozwinięciu — brak ukrytych linków dla czytników. */}
               {expanded ? (
                 <div id={`ranking-${entry.phoneId}`} className="step-in">
+                  {isExcluded ? (
+                    <div className="flex flex-wrap items-center gap-3 border-t border-[var(--color-border)] bg-[var(--color-warn-soft)] px-[var(--pad-card)] py-3">
+                      <p className="min-w-0 flex-1 text-xs leading-relaxed text-[var(--color-warn)]">
+                        {strings.rankingExcludedExplain}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = includePhoneAgain(PHONES, snapshot.filters, phone.id);
+                          dispatch({
+                            type: 'session/exclusions',
+                            sessionId: session.id,
+                            excludedBrands: next.excludedBrands,
+                            excludedPhoneIds: next.excludedPhoneIds,
+                            step: 'done',
+                          });
+                        }}
+                        className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--radius-pill)] border border-[var(--color-warn)] bg-[var(--color-surface)] px-4 text-xs font-semibold text-[var(--color-text)] transition-colors duration-200 hover:border-[var(--color-accent)]"
+                      >
+                        {strings.rankingIncludeAgain}
+                      </button>
+                    </div>
+                  ) : null}
 
                   <div className="grid gap-6 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4 lg:grid-cols-2">
                     <section>
@@ -291,7 +336,7 @@ export function RankingScreen({ session }: RankingScreenProps) {
                       <div>
                         <h2 className="label-mono">{strings.cardsDetailsSpecs}</h2>
                         <dl className="mt-2 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-border)]">
-                          {specRows(phone, SPEC_LABELS).map((row) => (
+                          {specRows(phone, SPEC_LABELS, PHONES).map((row) => (
                             <div
                               key={row.key}
                               className="grid gap-0.5 bg-[var(--color-surface)] px-3 py-2 sm:grid-cols-[38%_minmax(0,1fr)] sm:gap-2"

@@ -12,13 +12,10 @@ describe('E9-05 · npm run stale-prices', () => {
     expect(RELEASE_MAX_AGE_DAYS).toBe(7);
     const ages = priceAges(POOL, RELEASE_DAY);
     expect(ages.length).toBe(POOL.length);
-    /* Etap 0: ceny z 14.11 (4 dni do 18.11); etap 10: nowe rekordy z 16.11 (2 dni) — wiek liczony per rekord. */
-    const daysFrom = (checkedAt: string) =>
-      Math.floor((RELEASE_DAY.getTime() - new Date(`${checkedAt}T00:00:00.000Z`).getTime()) / 86_400_000);
-    const expected = new Map(POOL.map((phone) => [phone.id, daysFrom(phone.price.checkedAt)]));
     for (const entry of ages) {
-      expect(entry.days, entry.id).toBe(expected.get(entry.id));
-      expect(entry.days).toBeLessThanOrEqual(RELEASE_MAX_AGE_DAYS);
+      const expected = entry.checkedAt === '2026-11-16' ? 2 : 4;
+      expect(entry.days, entry.id).toBe(expected);
+      expect(entry.days, entry.id).toBeLessThanOrEqual(RELEASE_MAX_AGE_DAYS);
     }
   });
 

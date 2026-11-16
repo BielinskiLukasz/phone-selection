@@ -11,6 +11,7 @@ import type {
   TopThreeAnswer,
   Weights,
 } from '@/types';
+import { exclusionReason, selectCardsFromFullRanking } from './exclusions';
 import { buildPool, inBudget } from './pool';
 import { clamp, criterionShares, deriveFromAnswers, round } from './weights';
 import {
@@ -155,9 +156,19 @@ export function rank(input: RankInput): RankResult {
   const pool = buildPool(phones, { ...filters, budgetMax });
 
   if (pool.length === 0) {
-    return { poolSize: 0, inBudgetCount: 0, ranked: [], cards: [], bestScore: null, empty: true };
+    return {
+      poolSize: 0,
+      inBudgetCount: 0,
+      excludedCount: 0,
+      fullRanking: [],
+      ranked: [],
+      cards: [],
+      bestScore: null,
+      empty: true,
+    };
   }
 
+  /* E11-04 (decyzja 3): normalizacja i S liczone na pełnej puli — wykluczenia nie zmieniają ocen. */
   const ranges = scoreRanges(pool, budgetMax);
   const blendFactor = typeof input.blend === 'number' ? input.blend : BLEND;
   const byId = new Map(pool.map((phone) => [phone.id, phone]));
@@ -175,6 +186,7 @@ export function rank(input: RankInput): RankResult {
       inBudget: within,
       overBudgetBy: within ? null : Math.round(phone.price.pln - budgetMax),
       practicalTieWith: null,
+      excluded: exclusionReason(phone, filters),
     };
   });
 
@@ -183,7 +195,7 @@ export function rank(input: RankInput): RankResult {
     entry.place = index + 1;
   });
 
-  /* „Praktyczny remis”: różnica mniejsza niż próg wobec sąsiada w kolejności. */
+  /* „Praktyczny remis” w pełnym rankingu: różnica mniejsza niż próg wobec sąsiada w kolejności. */
   entries.forEach((entry, index) => {
     const previous = entries[index - 1];
     const next = entries[index + 1];
@@ -194,16 +206,14 @@ export function rank(input: RankInput): RankResult {
     }
   });
 
-  /* Karty: najlepsze w budżecie, brakujące miejsca z puli powyżej budżetu (QUIZ-SPEC 2.5). */
-  const withinBudget = entries.filter((entry) => entry.inBudget);
-  const aboveBudget = entries.filter((entry) => !entry.inBudget);
-  const cards = [...withinBudget, ...aboveBudget]
-    .slice(0, CARD_COUNT)
-    .map((entry, index) => ({ ...entry, place: index + 1 }));
+  /* E11-04: karty to trzy najlepsze niewykluczone, z uzupełnieniem ponad budżetem tylko z niewykluczonych. */
+  const { cards, inBudgetCount, excludedCount } = selectCardsFromFullRanking(entries, CARD_COUNT);
 
   return {
     poolSize: pool.length,
-    inBudgetCount: withinBudget.length,
+    inBudgetCount,
+    excludedCount,
+    fullRanking: entries,
     ranked: entries,
     cards,
     bestScore: entries[0]?.score ?? null,

@@ -19,7 +19,7 @@ import {
   stepKey,
   totalQuestions,
 } from '@/features/quiz/quizFlow';
-import { countPool } from '@/lib/pool';
+import { remainingCount } from '@/lib/exclusions';
 import { ProgressBar } from '@/components/ProgressBar';
 import { OptionButton } from '@/components/OptionButton';
 import { TopThreePicker } from '@/components/TopThreePicker';
@@ -369,7 +369,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                 {session.filters.minStorageGb ? ` · min ${session.filters.minStorageGb} GB` : ' · pamięć dowolna'}
               </span>
               <span aria-live="polite" className="num ml-auto text-xs font-semibold text-[var(--color-accent-ink)]">
-                {sessionTexts.poolMatches(countPool(PHONES, session.filters), PHONES.length)}
+                {sessionTexts.poolMatches(remainingCount(PHONES, session.filters), PHONES.length)}
               </span>
             </div>
           </div>

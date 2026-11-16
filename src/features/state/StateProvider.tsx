@@ -185,6 +185,14 @@ export function useSessions() {
       dispatch({ type: 'session/top-three', sessionId, picks }),
     setFilters: (sessionId: string, filters: Partial<Filters>) =>
       dispatch({ type: 'session/filters', sessionId, filters }),
+    setExclusions: (
+      sessionId: string,
+      excludedBrands: string[],
+      excludedPhoneIds: string[],
+      step?: 'pending' | 'done',
+    ) => dispatch({ type: 'session/exclusions', sessionId, excludedBrands, excludedPhoneIds, step }),
+    setExclusionsStep: (sessionId: string, step: 'pending' | 'done') =>
+      dispatch({ type: 'session/exclusions-step', sessionId, step }),
     overrideWeights: (
       sessionId: string,
       weights?: Partial<Weights>,

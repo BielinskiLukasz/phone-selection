@@ -3,6 +3,7 @@ import { PHONES } from '@/data/phones';
 import { activeQuestions, isSkipAnswer } from '@/data/questions';
 import type { Filters, GroupImportance, Weights } from '@/types';
 import type { Mode, Session } from '@/types/state';
+import { normalizeExclusions } from './exclusions';
 import { DEFAULT_BUDGET, DEFAULT_WEIGHT, GROUP_BASE, GROUP_FACTOR } from './scoringConfig';
 
 /** Fabryki i pomocniki sesji (E3-01/E3-09) — współdzielone przez magazyn i reducer. */
@@ -28,7 +29,13 @@ export function flatGroupImportance(value: number = DEFAULT_WEIGHT): GroupImport
 }
 
 export function defaultFilters(): Filters {
-  return { budgetMax: DEFAULT_BUDGET, minStorageGb: null, requireMicroSd: false };
+  return {
+    budgetMax: DEFAULT_BUDGET,
+    minStorageGb: null,
+    requireMicroSd: false,
+    excludedBrands: [],
+    excludedPhoneIds: [],
+  };
 }
 
 /**
@@ -66,6 +73,7 @@ export function createSession(mode: Mode, now: Date = new Date(), id?: string): 
     updatedAt: stamp,
     mode,
     status: 'in_progress',
+    exclusionsStep: 'pending',
     answers: {},
     topThree: null,
     weights: neutralWeights(),
@@ -122,6 +130,10 @@ export function sanitizeSession(value: unknown): Session | null {
   if (!isSessionLike(value)) return null;
   const record = value as Partial<Session>;
   const base = createSession(record.mode ?? 'quiz');
+  const exclusions = normalizeExclusions(record.filters);
+  /* Starsze sesje (sprzed etapu 11) nie mają `exclusionsStep` — przyjmujemy `done`,
+     żeby wznawianie nie cofało użytkowniczki do ekranu wykluczeń. */
+  const exclusionsStep = record.exclusionsStep === 'pending' ? 'pending' : 'done';
 
   return {
     ...base,
@@ -131,10 +143,16 @@ export function sanitizeSession(value: unknown): Session | null {
     createdAt: typeof record.createdAt === 'string' ? record.createdAt : base.createdAt,
     updatedAt: typeof record.updatedAt === 'string' ? record.updatedAt : base.updatedAt,
     status: record.status === 'completed' ? 'completed' : 'in_progress',
+    exclusionsStep,
     answers: record.answers && typeof record.answers === 'object' ? record.answers : {},
     weights: { ...base.weights, ...(record.weights ?? {}) },
     groupImportance: { ...base.groupImportance, ...(record.groupImportance ?? {}) },
-    filters: { ...base.filters, ...(record.filters ?? {}) },
+    filters: {
+      ...base.filters,
+      ...(record.filters ?? {}),
+      excludedBrands: exclusions.excludedBrands,
+      excludedPhoneIds: exclusions.excludedPhoneIds,
+    },
     picks: (record.picks ?? []).filter(
       (pick): pick is { phoneId: string; at: string } =>
         typeof pick === 'object' && pick !== null && typeof pick.phoneId === 'string',

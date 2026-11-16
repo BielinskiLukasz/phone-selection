@@ -66,7 +66,6 @@ describe('E3-05 · reducer: utworzenie sesji', () => {
 
   it('E3-06 · snapshot zapisuje wersję danych, wagi i ważności grup', () => {
     const snapshot = sessionOf(withSession()).ranking!;
-    /* Etap 10: `_meta.generatedOn` = 16.11.2026 (nowe rekordy i przeliczone oceny baterii). */
     expect(snapshot.dataVersion).toBe('2026-11-16');
     expect(snapshot.weights.battery).toBe(2);
     expect(snapshot.groupImportance.camera).toBeCloseTo(1.3, 5);
@@ -131,25 +130,36 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
     expect(session.groupImportance.storage).toBe(3);
   });
 
-  it('4. filtr budżetu 1500 zł zmienia snapshot: od etapu 10 trzy karty w budżecie, żadna powyżej (D6)', () => {
-    const state = reducer(withSession(), {
+  it('4. filtr budżetu zmienia snapshot: 1500 zł daje 3 karty w budżecie (D6), a 1380 zł — dwie w budżecie i jedną powyżej', () => {
+    const state1500 = reducer(withSession(), {
       type: 'session/filters',
       sessionId: 's-1',
       filters: { budgetMax: 1500 },
       now: LATER,
     });
-    const snapshot = sessionOf(state).ranking!;
-    expect(snapshot.filters.budgetMax).toBe(1500);
-    expect(snapshot.inBudgetCount).toBe(3);
+    const snap1500 = sessionOf(state1500).ranking!;
+    expect(snap1500.filters.budgetMax).toBe(1500);
+    expect(snap1500.inBudgetCount).toBe(3);
+    expect(
+      snap1500.entries.filter(
+        (entry) => snap1500.cards.includes(entry.phoneId) && entry.overBudgetBy !== null,
+      ),
+    ).toEqual([]);
 
+    const stateTight = reducer(withSession(), {
+      type: 'session/filters',
+      sessionId: 's-1',
+      filters: { budgetMax: 1380 },
+      now: LATER,
+    });
+    const snapshot = sessionOf(stateTight).ranking!;
+    expect(snapshot.inBudgetCount).toBe(2);
     const over = snapshot.entries.filter(
       (entry) => snapshot.cards.includes(entry.phoneId) && entry.overBudgetBy !== null,
     );
-    /* Do etapu 9 w budżecie były dwa telefony i trzecią kartę dokładał najlepszy z puli (15T, +499 zł). */
-    expect(over.length).toBe(0);
-    for (const id of snapshot.cards) {
-      expect(snapshot.entries.find((entry) => entry.phoneId === id)!.overBudgetBy).toBeNull();
-    }
+    expect(over.length).toBe(1);
+    /* Wagi neutralne: ponad budżetem 1380 zł dokłada się najwyżej oceniony — 15T za 1999 zł (+619 zł). */
+    expect(over[0]!.overBudgetBy).toBe(619);
   });
 
   it('filtr pamięci 256 GB usuwa telefony 128 GB ze snapshotu', () => {
@@ -353,7 +363,14 @@ describe('E3-01 · pomocniki sesji', () => {
     expect(session.createdAt).toBe(NOW.toISOString());
     expect(neutralWeights().display).toBe(2);
     expect(neutralGroupImportance().camera).toBeCloseTo(1.3, 5);
-    expect(defaultFilters()).toEqual({ budgetMax: 2000, minStorageGb: null, requireMicroSd: false });
+    expect(session.exclusionsStep).toBe('pending');
+    expect(defaultFilters()).toEqual({
+      budgetMax: 2000,
+      minStorageGb: null,
+      requireMicroSd: false,
+      excludedBrands: [],
+      excludedPhoneIds: [],
+    });
   });
 
   it('identyfikatory sesji są unikalne i bezpieczne w adresie hashowym', () => {

@@ -80,10 +80,11 @@ export function StartScreen() {
   const words = strings.heroTitle.split(' ');
   const lastWord = words.pop() ?? '';
 
-  /* Wybór trybu tworzy prawdziwą sesję i otwiera jej pierwszy ekran (etap 3). */
+  /* E11-06: po wyborze trybu najpierw opcjonalny krok wykluczeń (`exclusionsStep = 'pending'`),
+     a po „Pomiń” lub „Dalej” właściwy ekran trybu (quiz / suwaki / hybryda). */
   const openSession = (mode: Mode) => {
     const id = startSession(mode);
-    window.location.hash = `#/s/${id}/${MODE_ENTRY_VIEW[mode]}`;
+    window.location.hash = `#/s/${id}/exclude`;
   };
 
   return (

@@ -47,6 +47,18 @@ function Harness({ withWifeAnswers = false }: { withWifeAnswers?: boolean }) {
       },
       'budżet 1500',
     ),
+    h(
+      'button',
+      {
+        'data-testid': 'budget-tight',
+        onClick: () => {
+          if (active) {
+            dispatch({ type: 'session/filters', sessionId: active.id, filters: { budgetMax: 1380 } });
+          }
+        },
+      },
+      'budżet ciasny',
+    ),
     active ? h(CardsScreen, { session: active as Session }) : null,
   );
 }
@@ -313,18 +325,18 @@ describe('E6-05/E6-06/E6-07 · wybór i ujawnienie', () => {
 });
 
 describe('E6-04/E6-08/E6-09 · etykiety, nawigacja i świeżość cen', () => {
-  it('6. budżet 1500 zł: od etapu 10 trzy telefony mieszczą się w budżecie, więc nie ma etykiety „Powyżej budżetu” (D6)', () => {
+  it('6. budżet 1500 zł daje komplet kart w budżecie (D6), a przy 2 telefonach w budżecie — etykietę „Powyżej budżetu o X zł”', () => {
     const view = open();
     expect(screen.queryByText(/Powyżej budżetu o/)).toBeNull();
 
     fireEvent.click(view.getByTestId('budget-1500'));
+    expect(screen.queryByText(/Powyżej budżetu o/)).toBeNull();
 
-    /* Do etapu 9 w budżecie były dwa telefony i trzecia karta dostawała etykietę; teraz są trzy
-       (Edge 60, Redmi Note 15 Pro, Galaxy A37). Logikę etykiety pilnują testy scoring/anonymize. */
-    expect(screen.queryByText(/Powyżej budżetu o \d+ zł/)).toBeNull();
+    fireEvent.click(view.getByTestId('budget-tight'));
+    expect(screen.getByText(/Powyżej budżetu o \d+ zł/)).toBeTruthy();
     expect(
-      screen.queryByText('Mało telefonów mieści się w budżecie — jedna propozycja jest droższa.'),
-    ).toBeNull();
+      screen.getByText('Mało telefonów mieści się w budżecie — jedna propozycja jest droższa.'),
+    ).toBeTruthy();
   });
 
   it('„Pokaż pełny ranking” pojawia się dopiero po pierwszym wyborze', () => {
@@ -346,7 +358,7 @@ describe('E6-04/E6-08/E6-09 · etykiety, nawigacja i świeżość cen', () => {
     const firstId = storedSessions()[0]!.id;
 
     fireEvent.click(screen.getByRole('button', { name: /Zacznij od nowa/ }));
-    expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/quiz$/);
+    expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/exclude$/);
 
     await flushStorage();
     const sessions = storedSessions();

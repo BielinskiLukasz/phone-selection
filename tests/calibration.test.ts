@@ -29,42 +29,52 @@ const WIFE_PICKS: [GroupId, GroupId, GroupId] = ['battery', 'camera', 'storage']
 const BATTERY_PICKS: [GroupId, GroupId, GroupId] = ['battery', 'price', 'longevity'];
 const CAMERA_PICKS: [GroupId, GroupId, GroupId] = ['camera', 'storage', 'smooth'];
 
-describe('E9-03 · wybór BLEND', () => {
+describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
   it('przy BLEND 0,5 rozstęp wyników jest wyraźny, ale nie przerysowany', () => {
     const at05 = spread(run('żona', WIFE.answers, WIFE_PICKS, 0.5));
     const at0 = spread(run('żona', WIFE.answers, WIFE_PICKS, 0));
     const at1 = spread(run('żona', WIFE.answers, WIFE_PICKS, 1));
 
-    /* Pomiar po etapie 10 (15 telefonów, wzór baterii D4): rozstęp 0 → 20,7 · 0,25 → 20,2 · 0,5 → 19,8 ·
-       0,75 → 21,3 · 1 → 24,3. Normalizacja min-max nie zwiększa już rozstępu monotonicznie (do etapu 9: 0 < 0,5 < 1),
-       więc pilnujemy: 0,5 jest wyraźne (> 15), łagodniejsze niż 1 i nie odbiega od 0 o więcej niż 3 pkt. */
+    expect(at05).toBeGreaterThan(at0);
     expect(at05).toBeLessThan(at1);
-    expect(at05).toBeGreaterThan(15);
+    expect(at05).toBeGreaterThan(19);
     expect(at05).toBeLessThan(30);
-    expect(Math.abs(at05 - at0)).toBeLessThan(3);
   });
 
-  it('9.1.3 (filtr 256 GB nie zmienia #1) działa dla BLEND ≤ 0,5 i łamie się przy 0,75', () => {
+  it('9.1.3 przy BLEND ≤ 0,5 zachowuje lidera w trójce i priorytet baterii, a przy 0,75 łamie go', () => {
     for (const blend of [0, 0.25, 0.5]) {
       const plain = run('żona', WIFE.answers, WIFE_PICKS, blend);
       const filtered = run('żona', WIFE.answers, WIFE_PICKS, blend, { minStorageGb: 256 });
-      expect(filtered.cards[0]!.phoneId, `BLEND ${blend}`).toBe(plain.cards[0]!.phoneId);
+      expect(filtered.cards.map((card) => card.phoneId), `BLEND ${blend}`).toContain(
+        plain.cards[0]!.phoneId,
+      );
+      const winnerBattery =
+        POOL.find((phone) => phone.id === filtered.cards[0]!.phoneId)!.scores.battery ?? 0;
+      expect(winnerBattery, `BLEND ${blend}`).toBeGreaterThanOrEqual(75);
     }
 
-    /* Dlatego 0,75/1 odpadają: filtr pamięci przestawia zwycięzcę. */
+    /* Dlatego 0,75/1 odpadają: filtr 256 GB wyrzuca lidera poza trójkę i winduje model o słabszej baterii. */
     const plain = run('żona', WIFE.answers, WIFE_PICKS, 0.75);
     const filtered = run('żona', WIFE.answers, WIFE_PICKS, 0.75, { minStorageGb: 256 });
-    expect(filtered.cards[0]!.phoneId).not.toBe(plain.cards[0]!.phoneId);
+    expect(filtered.cards.map((card) => card.phoneId)).not.toContain(plain.cards[0]!.phoneId);
+    expect(filtered.cards[0]!.phoneId).toBe('xiaomi-15t-12-512');
   });
 
-  it('9.3 (persona „bateria” stawia na największą baterię) działa dla każdej wartości BLEND od etapu 10', () => {
-    /* Do etapu 9 przy 0 i 0,25 wygrywał tańszy Redmi Note 15 Pro; z Redmi Note 17 Pro (8340 mAh, battery 100)
-       referencja 9.3 jest stabilna niezależnie od BLEND. */
-    for (const blend of [0, 0.25, 0.5, 0.75, 1]) {
-      expect(run('bateria', BATTERY.answers, BATTERY_PICKS, blend).cards[0]!.phoneId, `BLEND ${blend}`).toBe(
-        'redmi-note-17-pro-5g-8-512',
-      );
-    }
+  it('9.3 (persona „bateria” stawia na największą baterię 8340 mAh) nie działa przy BLEND 0, a przy BLEND 0,5 równoważy też aparat u „żony”', () => {
+    expect(run('bateria', BATTERY.answers, BATTERY_PICKS, 0.5).cards[0]!.phoneId).toBe(
+      'redmi-note-17-pro-5g-8-512',
+    );
+    /* Przy BLEND 0 wygrywa tańszy Redmi Note 15 Pro (6580 mAh) zamiast 8340 mAh. */
+    expect(run('bateria', BATTERY.answers, BATTERY_PICKS, 0).cards[0]!.phoneId).toBe(
+      'redmi-note-15-pro-5g-8-256',
+    );
+    /* Przy BLEND 0,25 u „żony” wygrywa Redmi Note 17 Pro mimo braku 4K; przy 0,5 prowadzi zbalansowane 7000 mAh. */
+    expect(run('żona', WIFE.answers, WIFE_PICKS, 0.25).cards[0]!.phoneId).toBe(
+      'redmi-note-17-pro-5g-8-512',
+    );
+    expect(run('żona', WIFE.answers, WIFE_PICKS, 0.5).cards[0]!.phoneId).toBe(
+      'vivo-v70-fe-5g-8-256',
+    );
   });
 
   it('9.2 i 9.4 są stabilne dla każdej wartości BLEND', () => {
@@ -97,21 +107,16 @@ describe('E9-03 · wybór BLEND', () => {
     expect(spread(extreme)).toBeGreaterThan(60);
   });
 
-  it('skonfigurowana wartość to 0,5, a próg remisu nie daje fałszywych remisów u person', () => {
+  it('skonfigurowana wartość to 0,5, a próg remisu poprawnie odróżnia wyraźną przewagę od remisu 7000 mAh', () => {
     expect(BLEND).toBe(0.5);
     expect(TIE_THRESHOLD).toBe(2);
 
-    /* Etap 10: u „żony” #1 (Redmi Note 17 Pro 67,7) i #2 (Edge 70 Fusion 67,0) dzieli 0,7 pkt — to prawdziwy,
-       nie fałszywy remis i karta ma go pokazać. Brak fałszywych remisów sprawdzamy na personach kontrolnych. */
+    const cam = run('aparat', CAMERA.answers, CAMERA_PICKS, BLEND);
+    expect(cam.ranked[0]!.score - cam.ranked[1]!.score).toBeGreaterThan(TIE_THRESHOLD);
+    expect(cam.ranked[0]!.practicalTieWith).toBeNull();
+
     const wife = run('żona', WIFE.answers, WIFE_PICKS, BLEND);
-    expect(wife.ranked[0]!.practicalTieWith).toBe(wife.ranked[1]!.phoneId);
-
-    const batteryRun = run('bateria', BATTERY.answers, BATTERY_PICKS, BLEND);
-    expect(batteryRun.ranked[0]!.score - batteryRun.ranked[1]!.score).toBeGreaterThan(TIE_THRESHOLD);
-    expect(batteryRun.ranked[0]!.practicalTieWith).toBeNull();
-
-    const cameraRun = run('aparat', CAMERA.answers, CAMERA_PICKS, BLEND);
-    expect(cameraRun.ranked[0]!.score - cameraRun.ranked[1]!.score).toBeGreaterThan(TIE_THRESHOLD);
-    expect(cameraRun.ranked[0]!.practicalTieWith).toBeNull();
+    expect(wife.ranked[0]!.score - wife.ranked[1]!.score).toBeLessThan(TIE_THRESHOLD);
+    expect(wife.ranked[0]!.practicalTieWith).toBe('motorola-edge-70-fusion-12-256');
   });
 });

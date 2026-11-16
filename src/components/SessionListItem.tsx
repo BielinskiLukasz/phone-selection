@@ -84,14 +84,19 @@ export function SessionListItem({ summary, index, isLast, onDelete, onCopyLink }
             <span className="label-mono">{strings.historySelectedLabel}</span>
             <ul className="flex flex-wrap gap-1.5">
               {summary.picks.map((pick, pickIndex) => (
-                <li key={`${pick.phoneId}-${pickIndex}`}>
+                <li key={`${pick.phoneId}-${pickIndex}`} className="flex flex-wrap items-center gap-1.5">
                   <span className="num inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[var(--color-accent)] bg-[var(--color-accent-soft)] px-2.5 py-1 text-[11px] text-[var(--color-accent-ink)]">
                     {pick.place ? `#${pick.place}` : <LockIcon className="h-3 w-3" />}
                     {pick.name}
-                    <span className="text-[10px] opacity-70">
-                      {summary.picks.length > 1 ? `${pickIndex + 1}/${summary.picks.length}` : ''}
+                    <span className="text-[10px] opacity-80">
+                      {sessionTexts.pickBadge(pickIndex + 1, summary.picks.length)}
                     </span>
                   </span>
+                  {pick.nowExcluded ? (
+                    <span className="num rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-warn)]">
+                      {strings.historyNowExcluded}
+                    </span>
+                  ) : null}
                 </li>
               ))}
             </ul>
@@ -118,6 +123,15 @@ export function SessionListItem({ summary, index, isLast, onDelete, onCopyLink }
             {summary.mode === 'sliders' ? strings.historyEmptyLead : strings.noSessionsYet}
           </p>
         )}
+
+        {summary.exclusionsText ? (
+          <p className="text-xs leading-relaxed text-[var(--color-muted)]">
+            <span className="font-semibold text-[var(--color-text)]">
+              {strings.historyExcludedLabel}
+            </span>{' '}
+            {summary.exclusionsText}
+          </p>
+        ) : null}
 
         <p className="num flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] tracking-[0.08em] text-[var(--color-muted)] uppercase">
           <span className="flex items-center gap-1.5">

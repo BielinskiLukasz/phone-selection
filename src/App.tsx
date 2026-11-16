@@ -6,6 +6,7 @@ import { StateProvider, useAppState } from '@/features/state/StateProvider';
 import { strings } from '@/data/strings';
 import { StartScreen } from '@/screens/StartScreen';
 import { SessionStubScreen } from '@/screens/SessionStubScreen';
+import { ExcludeScreen } from '@/screens/ExcludeScreen';
 import { QuizScreen } from '@/screens/QuizScreen';
 import { SlidersScreen } from '@/screens/SlidersScreen';
 import { CardsScreen } from '@/screens/CardsScreen';
@@ -17,6 +18,7 @@ import { ResumeScreen } from '@/screens/ResumeScreen';
 const titles: Record<string, string> = {
   home: strings.home,
   history: strings.history,
+  exclude: strings.exclude,
   quiz: strings.quiz,
   sliders: strings.sliders,
   tune: strings.tune,
@@ -81,6 +83,10 @@ function Screen({ route }: ScreenProps) {
       const found = session(route.sessionId);
       if (!found && !isPreviewSessionId(route.sessionId)) {
         return <MissingSessionScreen sessionId={route.sessionId} view={route.name} />;
+      }
+      /* Etap 11: opcjonalny krok wykluczeń marek i modeli przed pytaniami/suwakami. */
+      if (found && route.name === 'exclude') {
+        return <ExcludeScreen session={found} />;
       }
       /* Etap 4: prawdziwa sesja w trybie quiz/hybryda otwiera działający quiz. */
       if (found && route.name === 'quiz' && (found.mode === 'quiz' || found.mode === 'hybrid')) {

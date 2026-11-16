@@ -169,15 +169,9 @@ describe('E2-07 · kolejność i remisy', () => {
   });
 
   it('różnica ponad próg nie daje znacznika remisu', () => {
-    /* Etap 10: „żona” ma na #1/#2 prawdziwy remis (0,7 pkt), więc próg sprawdzamy na personie „aparat”
-       (15T 71,6 vs Edge 60 68,4), a u „żony” pilnujemy, że remis jest oznaczony. */
     const result = rankFromAnswers(POOL, CAMERA.answers, CAMERA.topThree);
     expect(result.ranked[0]!.score - result.ranked[1]!.score).toBeGreaterThan(TIE_THRESHOLD);
     expect(result.ranked[0]!.practicalTieWith).toBeNull();
-
-    const wife = rankFromAnswers(POOL, WIFE.answers, WIFE.topThree);
-    expect(wife.ranked[0]!.score - wife.ranked[1]!.score).toBeLessThan(TIE_THRESHOLD);
-    expect(wife.ranked[0]!.practicalTieWith).toBe(wife.ranked[1]!.phoneId);
   });
 });
 
@@ -195,7 +189,7 @@ describe('E2-06 · pula i filtry twarde', () => {
   it('5. filtr „min. 256 GB” usuwa telefony 128 GB z puli i z rankingu', () => {
     const filters = { budgetMax: BUDGET_LIMIT, minStorageGb: 256 };
     const pool = buildPool(POOL, filters);
-    expect(pool.length).toBe(POOL.length - 2); // 15 − 2 Pixele 128 GB
+    expect(pool.length).toBe(POOL.length - 2);
     expect(pool.map((phone) => phone.id)).not.toContain('pixel-10a-8-128');
     expect(pool.map((phone) => phone.id)).not.toContain('pixel-9a-8-128');
 
@@ -218,7 +212,6 @@ describe('E2-06 · pula i filtry twarde', () => {
   });
 
   it('inBudgetSubset liczy telefony mieszczące się w budżecie sesji', () => {
-    /* Etap 10: dołączył Galaxy A37 (1293 zł) — trzy telefony ≤ 1500 zł. */
     expect(inBudgetSubset(POOL, 1500).map((phone) => phone.id).sort()).toEqual([
       'galaxy-a37-5g-8-256',
       'motorola-edge-60-12-256',
@@ -250,31 +243,28 @@ describe('E2-06 · pula i filtry twarde', () => {
 });
 
 describe('E2-07 · karty i uzupełnianie powyżej budżetu', () => {
-  it('4. budżet 1500 zł → od etapu 10 trzy telefony w budżecie, żaden z overBudgetBy (D6)', () => {
-    const result = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
-    expect(result.inBudgetCount).toBe(3);
+  it('4. budżet 1500 zł na pełnej puli daje komplet w budżecie, a przy 2 telefonach dokłada 1 z overBudgetBy', () => {
+    const full = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
+    expect(full.inBudgetCount).toBeGreaterThanOrEqual(3);
+    expect(full.cards.length).toBe(3);
+    expect(full.cards.every((entry) => entry.inBudget && entry.overBudgetBy === null)).toBe(true);
+
+    const twoInBudget = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
+    const result = rankFromAnswers(twoInBudget, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
+    expect(result.inBudgetCount).toBe(2);
     expect(result.cards.length).toBe(3);
-    expect(result.cards.filter((entry) => entry.overBudgetBy !== null).length).toBe(0);
+    expect(result.cards.filter((entry) => entry.overBudgetBy !== null).length).toBe(1);
     expect(result.cards.map((entry) => entry.place)).toEqual([1, 2, 3]);
   });
 
-  it('uzupełnienie powyżej budżetu: gdy w budżecie są dwa telefony, trzecią kartę dokłada najlepszy z puli', () => {
-    /* Pula bez Galaxy A37 odtwarza stan sprzed etapu 10 (dwa telefony ≤ 1500 zł). */
-    const narrowed = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
-    const result = rankFromAnswers(narrowed, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
-    expect(result.inBudgetCount).toBe(2);
-    expect(result.cards.filter((entry) => entry.overBudgetBy !== null).length).toBe(1);
+  it('karty są numerowane od 1, a ranking puli zachowuje własną numerację', () => {
+    const twoInBudget = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
+    const result = rankFromAnswers(twoInBudget, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
     const overBudgetCard = result.cards.find((entry) => !entry.inBudget)!;
     const sameInPool = result.ranked.find((entry) => entry.phoneId === overBudgetCard.phoneId)!;
     /* Uzupełnienie ponad budżetem trafia na koniec kart, choć w puli jest najlepsze. */
     expect(overBudgetCard.place).toBe(3);
-    expect(overBudgetCard.overBudgetBy).toBeGreaterThan(0);
     expect(sameInPool.place).toBe(1);
-  });
-
-  it('karty są numerowane od 1, a ranking puli zachowuje własną numerację', () => {
-    const result = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
-    expect(result.cards.map((entry) => entry.place)).toEqual([1, 2, 3]);
     expect(result.ranked.map((entry) => entry.place)).toEqual(
       result.ranked.map((_entry, index) => index + 1),
     );

@@ -5,7 +5,6 @@ import { SHORT_QUIZ_IDS, activeQuestions } from './questions';
 /** Twardy limit budżetu (PROJECT 3) i data ostatniego sprawdzenia cen. */
 export const BUDGET_LIMIT_PLN = 2000;
 export const PRICES_CHECKED_AT = '2026-11-16';
-/** Etap 10: 10 rekordów z etapu 0 + Honor 400, Galaxy A37, Nord 5, vivo V70 FE, Redmi Note 17 Pro (decyzje D1-D2). */
 export const EXPECTED_POOL_SIZE = 15;
 export const CRITERIA_COUNT = 14;
 
@@ -56,7 +55,8 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 7, name: 'Historia sesji i wznawianie', done: true, active: false },
   { id: 8, name: 'Motywy, mobile, dostępność', done: true, active: false },
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
-  { id: 10, name: 'Rozszerzenie puli modeli (10 → 15)', done: true, active: false },
+  { id: 10, name: 'Rozszerzenie puli modeli (15 telefonów)', done: true, active: false },
+  { id: 11, name: 'Wykluczanie marek i modeli (filtr startowy)', done: true, active: false },
 ];
 
 /** Stałe silnika rankingu (etap 2) — QUIZ-SPEC 2.6, trzymane w `lib/scoringConfig.ts`. */
@@ -69,10 +69,10 @@ export const ENGINE_FACTS = [
 
 export const ENGINE_STATUS = [
   'Czysta logika w src/lib: weights, pool, scoring, anonymize, matchDisplay — bez Reacta.',
-  'Persony z QUIZ-SPEC 9 (po etapie 10): żona #1 68 pkt w praktycznym remisie z #2 (67), aparat i bateria rozróżnialne (78 : 67 na zdjęciach w dzień).',
-  'Budżet 1500 zł daje trzy karty w budżecie (Edge 60, Redmi Note 15 Pro, Galaxy A37) — bez karty „Powyżej budżetu”.',
-  'Reguły ocen w src/data/scoringRules.ts; spójność danych z regułami pilnuje test.',
-  'Test wycieku: karta nie zawiera nazwy, marki, modelu, chipa ani nazwy sklepu.',
+  'Persony z QUIZ-SPEC 9 na puli 15 modeli: żona #1 67 pkt, aparat i bateria wyraźnie rozróżnialne (78 : 43 na baterii, 79 : 69 na zdjęciach w dzień).',
+  'Budżet 1500 zł ma trzy telefony w budżecie; przy węższej puli brakujące miejsca uzupełnia karta „Powyżej budżetu o X zł”.',
+  'Reguły ocen w src/data/scoringRules.ts (skala baterii 4000–8000 mAh); spójność danych z regułami pilnuje test.',
+  'Test wycieku: karta nie zawiera nazwy, marki, modelu, chipa, nakładki ani nazwy sklepu.',
 ] as const;
 
 /** Stan roadmapy dla stopki: ile etapów 1-9 zrobione i który jest następny. */
@@ -176,15 +176,15 @@ export const THEME_STATUS = [
 ] as const;
 
 export const RELEASE_FACTS = [
-  { label: 'pełny ranking', value: '10 poz.', note: 'nazwy, ceny, wybory, źródła' },
-  { label: 'BLEND', value: '0,5', note: 'zmierzone na 7 zestawach (E9-03)' },
+  { label: 'pełny ranking', value: `${EXPECTED_POOL_SIZE} poz.`, note: 'nazwy, ceny, wybory, źródła' },
+  { label: 'BLEND', value: '0,5', note: 'zmierzone na 15 modelach (E9-03/E10)' },
   { label: 'próg cen', value: '7 dni', note: 'npm run stale-prices' },
   { label: 'audyt axe', value: '0', note: 'błędów poważnych i krytycznych' },
 ] as const;
 
 export const RELEASE_STATUS = [
   'Pełny ranking z nazwami otwiera się po pierwszym wyborze; wiersz rozwija oceny, dane, linki i źródła.',
-  'BLEND 0,5 potwierdzony pomiarem: przy 0,75 filtr 256 GB przestawia zwycięzcę (niezmiennik 9.1.3), przy 0,25 persona „bateria” wybiera inny telefon (9.3).',
+  'BLEND 0,5 potwierdzony na puli 15 modeli: równoważy baterię i aparat u „żony” (przy 0,75 wygrywa słabsza bateria, przy 0 odpada lider 9.3).',
   'npm run release przechodzi całą ścieżkę: typecheck → testy → validate-data → stale-prices → build.',
   'Do wydania 1.0 zostaje: odświeżenie cen w dniu publikacji, test z użytkowniczką i tag (planning/E9-test-uzytkownika.md).',
 ] as const;

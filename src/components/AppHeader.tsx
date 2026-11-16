@@ -11,7 +11,16 @@ interface AppHeaderProps {
 }
 
 /** Kolejność ekranów — użyta dla paska postępu nawigacji w nagłówku. */
-const PROGRESS_ORDER = ['home', 'quiz', 'sliders', 'tune', 'cards', 'ranking', 'history'] as const;
+const PROGRESS_ORDER = [
+  'home',
+  'exclude',
+  'quiz',
+  'sliders',
+  'tune',
+  'cards',
+  'ranking',
+  'history',
+] as const;
 
 export function AppHeader({ theme, onToggleTheme, route }: AppHeaderProps) {
   const index = Math.max(0, PROGRESS_ORDER.indexOf(route.name as (typeof PROGRESS_ORDER)[number]));

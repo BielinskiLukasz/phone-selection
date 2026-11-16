@@ -107,7 +107,7 @@ describe('E7-01 · lista historii', () => {
     const firstName = PHONES.find((phone) => phone.id === FIRST_CARD)!.reveal.name;
     expect(item('222222').textContent).toContain(firstName);
     expect(item('111111').textContent).not.toContain(firstName);
-    expect(within(item('333333')).getAllByText(/^[12]\/2$/).length).toBe(2);
+    expect(within(item('333333')).getAllByText(/^Wybór [12]\/2$/).length).toBe(2);
     expect(within(item('333333')).getByText(/dopasowanie pierwszego wyboru \d+%/)).toBeTruthy();
   });
 

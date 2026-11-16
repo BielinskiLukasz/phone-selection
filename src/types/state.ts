@@ -1,5 +1,6 @@
 import type {
   Answers,
+  ExclusionReason,
   Filters,
   GroupId,
   GroupImportance,
@@ -8,12 +9,13 @@ import type {
 } from './ranking';
 
 /**
- * Stan aplikacji i model sesji (E3-01) — PROJECT 9, QUIZ-SPEC 7, UI-SPEC 10.
+ * Stan aplikacji i model sesji (E3-01, E11-01) — PROJECT 9, QUIZ-SPEC 7, UI-SPEC 10.
  * Wszystko, co trwałe, żyje w `localStorage` pod kluczem `wybor-telefonu:v1`.
  */
 
 export type Mode = 'quiz' | 'sliders' | 'hybrid';
 export type SessionStatus = 'in_progress' | 'completed';
+export type ExclusionsStep = 'pending' | 'done';
 export type Theme = 'light' | 'dark';
 
 /** Kolejność w tablicy = numer wyboru („Wybór 1/2”, „Wybór 2/2”). */
@@ -32,6 +34,8 @@ export interface RankingSnapshotEntry {
   practicalTieWith: string | null;
   /** GroupScore dla sześciu grup — mini-paski w pełnym rankingu (UI-SPEC 3.6). */
   groupScores?: Record<GroupId, number>;
+  /** Powód wykluczenia w chwili zapisu snapshotu (etap 11). */
+  excluded?: ExclusionReason;
 }
 
 /**
@@ -44,12 +48,14 @@ export interface RankingSnapshot {
   dataVersion: string | null;
   poolSize: number;
   inBudgetCount: number;
+  /** Ile telefonów z puli pominięto na kartach z powodu wykluczeń (etap 11). */
+  excludedCount?: number;
   bestScore: number | null;
   weights: Weights;
   groupImportance: GroupImportance;
   filters: Filters;
   entries: RankingSnapshotEntry[];
-  /** phoneId trzech kart, w kolejności wyświetlania. */
+  /** phoneId trzech kart (wśród niewykluczonych), w kolejności wyświetlania. */
   cards: string[];
 }
 
@@ -59,6 +65,8 @@ export interface Session {
   updatedAt: string;
   mode: Mode;
   status: SessionStatus;
+  /** Opcjonalny krok wykluczeń na starcie: `pending` przed Pomiń/Dalej, potem `done` (E11-01/06). */
+  exclusionsStep: ExclusionsStep;
   answers: Answers;
   topThree: TopThreeAnswer | null;
   weights: Weights;

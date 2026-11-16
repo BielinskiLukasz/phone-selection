@@ -28,6 +28,8 @@ export const PLANNING_STAGES: readonly PlanningDoc[] = [
   { file: 'ETAP-7-historia-sesji.md', label: 'Etap 7', note: 'historia sesji', kind: 'stage', stage: 7 },
   { file: 'ETAP-8-motywy-mobile-a11y.md', label: 'Etap 8', note: 'motywy, mobile, a11y', kind: 'stage', stage: 8 },
   { file: 'ETAP-9-pelny-ranking-i-wydanie.md', label: 'Etap 9', note: 'pełny ranking i wydanie', kind: 'stage', stage: 9 },
+  { file: 'ETAP-10-rozszerzenie-puli-modeli.md', label: 'Etap 10', note: 'rozszerzenie puli do 15 modeli', kind: 'stage', stage: 10 },
+  { file: 'ETAP-11-wykluczanie-marek-i-modeli.md', label: 'Etap 11', note: 'wykluczanie marek i modeli', kind: 'stage', stage: 11 },
 ] as const;
 
 export const PLANNING_DOCS: readonly PlanningDoc[] = [...PLANNING_SPECS, ...PLANNING_STAGES];

@@ -51,12 +51,18 @@ export function buildPhone(seed: PhoneSeed): Phone {
     CRITERION_IDS.map((id: CriterionId) => [id, 'medium'] as const),
   ) as Phone['scoreConfidence'];
 
+  const brand = seed.brand ?? 'TestBrand';
+  const prefix = new RegExp(`^${brand.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+`, 'i');
+  const modelName = seed.name.replace(prefix, '').trim() || seed.name;
+
   return {
     id: seed.id,
+    brand,
+    modelName,
     status: seed.status ?? 'ok',
     reveal: {
       name: seed.name,
-      brand: seed.brand ?? 'TestBrand',
+      brand,
       shopLinks: [{ label: 'sklep-testowy', url }],
     },
     variant: {

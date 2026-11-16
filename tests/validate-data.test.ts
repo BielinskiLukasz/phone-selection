@@ -9,6 +9,8 @@ function sampleData() {
     phones: [
       {
         id: 'example-phone',
+        brand: 'Example',
+        modelName: 'phone',
         reveal: {
           name: 'Example phone',
           brand: 'Example',
@@ -82,5 +84,19 @@ describe('phone data validation', () => {
     const result = validatePhoneData({ _meta: { generatedOn: null }, phones: [] }, today);
     expect(result.errors).toEqual([]);
     expect(result.warnings.length).toBe(1);
+  });
+
+  it('E11-02: wymaga ustandaryzowanych pól brand i modelName bez powtórzonej marki', () => {
+    const missingBrand = sampleData();
+    (missingBrand.phones[0] as Record<string, unknown>).brand = '';
+    expect(validatePhoneData(missingBrand, today).errors.some((e) => e.includes('.brand'))).toBe(true);
+
+    const missingModel = sampleData();
+    (missingModel.phones[0] as Record<string, unknown>).modelName = '';
+    expect(validatePhoneData(missingModel, today).errors.some((e) => e.includes('.modelName'))).toBe(true);
+
+    const repeatedBrand = sampleData();
+    repeatedBrand.phones[0]!.modelName = 'Example phone';
+    expect(validatePhoneData(repeatedBrand, today).errors.some((e) => e.includes('.modelName'))).toBe(true);
   });
 });

@@ -41,9 +41,11 @@ function describe(route: Route, knownSessions: readonly string[] = []): Readout 
     default:
       return {
         screen:
-          route.name === 'quiz'
-            ? strings.quiz
-            : route.name === 'sliders'
+          route.name === 'exclude'
+            ? strings.exclude
+            : route.name === 'quiz'
+              ? strings.quiz
+              : route.name === 'sliders'
               ? strings.sliders
               : route.name === 'tune'
                 ? strings.tune

@@ -29,6 +29,7 @@ export type {
   Answers,
   BudgetOption,
   CriterionShares,
+  ExclusionReason,
   FactKey,
   Filters,
   GroupImportance,

@@ -1,15 +1,17 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { PHONES, phoneById } from '@/data/phones';
 import { GROUPS } from '@/data/criteria';
 import { strings } from '@/data/strings';
 import { useAppState } from '@/features/state/StateProvider';
 import { groupSliderState, isGroupModified } from '@/features/sliders/sliderModel';
-import { buildPool, inBudgetSubset } from '@/lib/pool';
+import { excludedInPoolCount, remainingPhones, type ExclusionSelection } from '@/lib/exclusions';
+import { inBudgetSubset } from '@/lib/pool';
 import { matchLabel } from '@/lib/matchDisplay';
 import type { CriterionId, GroupId } from '@/types';
 import type { Session } from '@/types/state';
 import { GroupSlider } from '@/components/GroupSlider';
 import { FilterPanel } from '@/components/FilterPanel';
+import { ExclusionSheet } from '@/components/ExclusionSheet';
 import { Badge } from '@/components/Badge';
 import { RouteChip } from '@/components/RouteChip';
 import {
@@ -34,11 +36,17 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
   const { dispatch } = useAppState();
   const headingRef = useRef<HTMLHeadingElement>(null);
 
+  const [exclusionsOpen, setExclusionsOpen] = useState(false);
+
   const states = useMemo(() => groupSliderState(session), [session]);
-  const pool = useMemo(() => buildPool(PHONES, session.filters), [session.filters]);
+  const remaining = useMemo(() => remainingPhones(PHONES, session.filters), [session.filters]);
+  const excludedCount = useMemo(
+    () => excludedInPoolCount(PHONES, session.filters),
+    [session.filters],
+  );
   const inBudget = useMemo(
-    () => inBudgetSubset(pool, session.filters.budgetMax).length,
-    [pool, session.filters.budgetMax],
+    () => inBudgetSubset(remaining, session.filters.budgetMax).length,
+    [remaining, session.filters.budgetMax],
   );
 
   const answersCount = Object.keys(session.answers).length;
@@ -81,6 +89,17 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
 
   function setMicroSd(value: boolean) {
     dispatch({ type: 'session/filters', sessionId: session.id, filters: { requireMicroSd: value } });
+  }
+
+  function saveExclusions(next: ExclusionSelection) {
+    dispatch({
+      type: 'session/exclusions',
+      sessionId: session.id,
+      excludedBrands: next.excludedBrands,
+      excludedPhoneIds: next.excludedPhoneIds,
+      step: 'done',
+    });
+    setExclusionsOpen(false);
   }
 
   function finish() {
@@ -188,11 +207,13 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
         <FilterPanel
           filters={session.filters}
           total={PHONES.length}
-          matches={pool.length}
+          matches={remaining.length}
           inBudget={inBudget}
+          excludedCount={excludedCount}
           onBudget={setBudget}
           onStorage={setStorage}
           onMicroSd={setMicroSd}
+          onOpenExclusions={() => setExclusionsOpen(true)}
         />
       </div>
 
@@ -318,6 +339,14 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
               : 'wartości neutralne'}
         </span>
       </footer>
+
+      <ExclusionSheet
+        open={exclusionsOpen}
+        phones={PHONES}
+        filters={session.filters}
+        onSave={saveExclusions}
+        onCancel={() => setExclusionsOpen(false)}
+      />
     </div>
   );
 }

@@ -41,8 +41,12 @@ function decimal(value: number): string {
   return String(value).replace('.', ',');
 }
 
-export function specRows(phone: Phone, labels: SpecLabels): SpecRow[] {
-  const tokens = collectForbiddenTokens(phone);
+export function specRows(
+  phone: Phone,
+  labels: SpecLabels,
+  pool: readonly Phone[] = [],
+): SpecRow[] {
+  const tokens = collectForbiddenTokens(phone, pool);
   const clean = (text: string): string => redact(text, tokens).trim();
   const { specs } = phone;
 

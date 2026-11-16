@@ -40,12 +40,11 @@ function expectedScore(phone: Phone, criterion: (typeof OBJECTIVE)[number]): num
 }
 
 describe('reguły ocen obiektywnych', () => {
-  it('pojemność baterii: 4000 mAh = 0, 8000 mAh = 100 (etap 10, D4)', () => {
+  it('pojemność baterii (D4, etap 10): 4000 mAh = 0, 8000 mAh = 100, powyżej obcięte do 100', () => {
     expect(batteryCapacityScore(4000)).toBe(0);
     expect(batteryCapacityScore(6000)).toBe(50);
     expect(batteryCapacityScore(7000)).toBe(75);
     expect(batteryCapacityScore(8000)).toBe(100);
-    /* 8340 mAh (Redmi Note 17 Pro) nie dostaje premii ponad 100. */
     expect(batteryCapacityScore(8340)).toBe(100);
     expect(batteryCapacityScore(null)).toBeNull();
   });
@@ -157,8 +156,20 @@ describe('spójność ocen w phones.json z regułami', () => {
     const xiaomi = phoneById('xiaomi-15t-12-512');
     expect(xiaomi.scores.display).toBe(80);
     expect(xiaomi.scores.updates).toBe(71);
-    /* Etap 10 (D4): pojemność 5500 mAh = 37,5 zamiast 50 → 0,5 × 37,5 + 0,5 × 59 = 48. */
-    expect(xiaomi.scores.battery).toBe(48);
+    expect(xiaomi.scores.battery).toBe(48); // 0,5 × 37,5 (5500 mAh w skali 4000–8000) + 0,5 × 59
     expect(xiaomi.specs.peakNits).toBe(3200);
+  });
+
+  it('nowe modele etapu 10 mają spójne oceny z etykiet UE i reguły D4 (8000 mAh)', () => {
+    expect(chargingScore(90, false)).toBe(100);
+    expect(chargingScore(66, false)).toBe(68);
+    expect(durabilityScore('IP65')).toBe(55);
+    expect(updatesScore(5, 6)).toBe(79);
+    expect(phoneById('redmi-note-17-pro-5g-8-512').scores.battery).toBe(100);
+    expect(phoneById('vivo-v70-fe-5g-8-256').scores.battery).toBe(83);
+    expect(phoneById('vivo-v70-fe-5g-8-256').scores.charging).toBe(100);
+    expect(phoneById('honor-400-8-256').scores.updates).toBe(86);
+    expect(phoneById('oneplus-nord-5-5g-8-256').scores.charging).toBe(87);
+    expect(phoneById('galaxy-a37-5g-8-256').scores.durability).toBe(90);
   });
 });

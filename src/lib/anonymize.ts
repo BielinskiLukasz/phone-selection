@@ -2,7 +2,7 @@ import { CRITERIA, groupOf, labelOf } from '@/data/criteria';
 import type { AnonCard, AnonCriterion, AnonFact, FactKey, Phone, Specs } from '@/types';
 import type { RankResult, RankedPhone } from '@/types';
 import type { RankingSnapshot } from '@/types/state';
-import { DEFAULT_BUDGET, NEUTRAL_SCORE } from './scoringConfig';
+import { DEFAULT_BUDGET, NEUTRAL_SCORE, TIE_THRESHOLD } from './scoringConfig';
 import { matchDisplay } from './matchDisplay';
 import { rawScore } from './scoring';
 
@@ -314,13 +314,14 @@ const UI_VOCABULARY = new Set([
 const KNOWN_FORBIDDEN = [
   'samsung', 'galaxy', 'google', 'pixel', 'xiaomi', 'redmi', 'poco', 'motorola', 'moto',
   'nothing', 'realme', 'oneplus', 'oppo', 'vivo', 'huawei', 'honor', 'iphone', 'apple',
-  'snapdragon', 'dimensity', 'tensor', 'exynos', 'mediatek', 'kirin', 'qualcomm', 'miui',
-  'hyperos', 'oneui', 'coloros', 'ios', 'sony', 'lytia', 'gorilla', 'corning', 'crystalres',
-  'victus', 'leica', 'zeiss', 'hasselblad', 'allegro', 'empik', 'sferis', 'morele', 'mediaexpert', 'komputronik', 'proshop',
-  'mediamarkt', 'x-kom',
-  /* Etap 10: nakładki i serie nowych marek oraz sklepy/porównywarki z nowych źródeł cen. */
-  'magicos', 'oxygenos', 'originos', 'funtouch', 'nord', 'ceneo', 'skapiec', 'neonet', 'oleole', 'kaufland',
-  'e-smartphone', 'siglo', 'honorstore',
+  'snapdragon', 'dimensity', 'tensor', 'exynos', 'mediatek', 'kirin', 'qualcomm', 'adreno',
+  'xclipse', 'miui', 'hyperos', 'oneui', 'coloros', 'magicos', 'oxygenos', 'originos',
+  'funtouch', 'nothingos', 'realmeui', 'helloui', 'ios', 'supervooc', 'vooc', 'flashcharge',
+  'supercharge', 'turbopower', 'hypercharge', 'bluevolt', 'harcourt', 'auralight',
+  'aquatouch', 'pantone', 'sony', 'lytia', 'isocell', 'gorilla', 'corning', 'crystalres',
+  'victus', 'leica', 'zeiss', 'hasselblad', 'allegro', 'empik', 'sferis', 'morele',
+  'mediaexpert', 'komputronik', 'proshop', 'mediamarkt', 'x-kom', 'neonet', 'oleole',
+  'avans', 'kaufland', 'amazon', 'ceneo', 'siglo', 'mobile-city', 'euro.com',
 ] as const;
 
 /**
@@ -351,6 +352,8 @@ export function collectForbiddenTokens(phone: Phone, pool: readonly Phone[] = []
   const tokens = new Set<string>(KNOWN_FORBIDDEN);
 
   for (const record of [phone, ...pool]) {
+    addTokens(tokens, record.brand);
+    addTokens(tokens, record.modelName);
     addTokens(tokens, record.reveal.name);
     addTokens(tokens, record.reveal.brand);
     addTokens(tokens, record.specs.chip);
@@ -508,7 +511,7 @@ export function toAnonCards(
 /** Snapshot sesji → wpisy w kształcie `RankedPhone` (karty liczone w etapie 2/3). */
 export function rankedFromSnapshot(snapshot: RankingSnapshot): RankedPhone[] {
   const byId = new Map(snapshot.entries.map((entry) => [entry.phoneId, entry]));
-  return snapshot.cards.flatMap((phoneId, index) => {
+  const cards: RankedPhone[] = snapshot.cards.flatMap((phoneId, index) => {
     const entry = byId.get(phoneId);
     if (!entry) return [];
     return [
@@ -517,14 +520,27 @@ export function rankedFromSnapshot(snapshot: RankingSnapshot): RankedPhone[] {
         place: index + 1,
         score: entry.score,
         matchPercent: entry.matchPercent,
-        groupScores: {} as RankedPhone['groupScores'],
+        groupScores: entry.groupScores ?? ({} as RankedPhone['groupScores']),
         normalized: {},
         inBudget: entry.inBudget,
         overBudgetBy: entry.overBudgetBy,
-        practicalTieWith: entry.practicalTieWith,
+        practicalTieWith: null,
+        excluded: entry.excluded ?? null,
       },
     ];
   });
+
+  cards.forEach((card, index) => {
+    const previous = cards[index - 1];
+    const next = cards[index + 1];
+    if (previous && Math.abs(previous.score - card.score) < TIE_THRESHOLD) {
+      card.practicalTieWith = previous.phoneId;
+    } else if (next && Math.abs(card.score - next.score) < TIE_THRESHOLD) {
+      card.practicalTieWith = next.phoneId;
+    }
+  });
+
+  return cards;
 }
 
 /** Karty anonimowe ze snapshotu rankingu zapisanego w sesji (E6-01). */
@@ -538,20 +554,28 @@ export function toAnonCardsFromSnapshot(
 }
 
 function snapshotRankResult(ranked: RankedPhone[], snapshot: RankingSnapshot): RankResult {
+  const fullRanking: RankedPhone[] = snapshot.entries.map((entry) => ({
+    phoneId: entry.phoneId,
+    place: entry.place,
+    score: entry.score,
+    matchPercent: entry.matchPercent,
+    groupScores: entry.groupScores ?? ({} as RankedPhone['groupScores']),
+    normalized: {},
+    inBudget: entry.inBudget,
+    overBudgetBy: entry.overBudgetBy,
+    practicalTieWith: entry.practicalTieWith,
+    excluded: entry.excluded ?? null,
+  }));
+  const excludedCount =
+    snapshot.excludedCount ??
+    fullRanking.filter((entry) => entry.excluded === 'brand' || entry.excluded === 'model').length;
+
   return {
     poolSize: snapshot.poolSize,
     inBudgetCount: snapshot.inBudgetCount,
-    ranked: snapshot.entries.map((entry) => ({
-      phoneId: entry.phoneId,
-      place: entry.place,
-      score: entry.score,
-      matchPercent: entry.matchPercent,
-      groupScores: {} as RankedPhone['groupScores'],
-      normalized: {},
-      inBudget: entry.inBudget,
-      overBudgetBy: entry.overBudgetBy,
-      practicalTieWith: entry.practicalTieWith,
-    })),
+    excludedCount,
+    fullRanking,
+    ranked: fullRanking,
     cards: ranked,
     bestScore: snapshot.bestScore,
     empty: snapshot.entries.length === 0,

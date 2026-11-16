@@ -5,7 +5,7 @@ import { useSyncExternalStore } from 'react';
  * adresy żyją w hashu i działają po odświeżeniu (UI-SPEC 2).
  */
 
-export const SESSION_VIEWS = ['quiz', 'sliders', 'tune', 'cards', 'ranking'] as const;
+export const SESSION_VIEWS = ['exclude', 'quiz', 'sliders', 'tune', 'cards', 'ranking'] as const;
 export type SessionView = (typeof SESSION_VIEWS)[number];
 
 /** Identyfikatory sesji rozpoznawane na etapie szkieletu (podgląd, nie zapis). */
@@ -19,7 +19,7 @@ export type Route =
   | { name: 'missing-session'; sessionId: string; view: SessionView }
   | { name: 'not-found'; path: string };
 
-const SESSION_PATTERN = /^\/s\/([^/]+)\/(quiz|sliders|tune|cards|ranking)$/;
+const SESSION_PATTERN = /^\/s\/([^/]+)\/(exclude|quiz|sliders|tune|cards|ranking)$/;
 
 export function isRouteHash(hash: string): boolean {
   return hash === '' || hash.startsWith('#/');

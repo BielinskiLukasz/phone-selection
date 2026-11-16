@@ -1,12 +1,14 @@
-import { phoneById } from '@/data/phones';
+import { PHONES, phoneById } from '@/data/phones';
 import { SHORT_QUIZ_IDS } from '@/data/questions';
+import { exclusionReason, formatExclusionsSummary } from '@/lib/exclusions';
 import { quizProgress } from '@/lib/session';
 import { MODE_LABEL } from '@/types/state';
 import type { Session } from '@/types/state';
 
 /**
- * Model listy historii (E7-01…E7-03) — czysta logika.
- * Nazwy telefonów pokazujemy tylko przy wyborach: te karty są już odsłonięte (PROJECT 8).
+ * Model listy historii (E7-01…E7-03, E11-10) — czysta logika.
+ * Nazwy telefonów pokazujemy przy wyborach (już odsłoniętych, PROJECT 8) oraz przy
+ * wykluczeniach świadomie ustawionych przez użytkowniczkę w danej sesji.
  */
 
 export interface PickSummary {
@@ -15,6 +17,8 @@ export interface PickSummary {
   brand: string;
   place: number | null;
   at: string;
+  /** Telefon był wcześniej wybrany, a później wykluczony (ETAP-11, test akceptacyjny 8). */
+  nowExcluded: boolean;
 }
 
 export interface SessionSummary {
@@ -29,10 +33,12 @@ export interface SessionSummary {
   progress: { answered: number; total: number } | null;
   picks: PickSummary[];
   picksText: string | null;
+  /** „Xiaomi, Pixel 9a 8/128 GB” ze snapshotu sesji albo `null` (E11-10). */
+  exclusionsText: string | null;
   dataVersion: string | null;
   computedAt: string | null;
   bestMatchPercent: number | null;
-  /** Ekran, na którym wznawiamy tę sesję. */
+  /** Ekran, na którym wznawiamy tę sesję (wznawianie nigdy nie wraca do `exclude`, E11-06). */
   resumeView: 'quiz' | 'sliders' | 'tune';
   canResume: boolean;
 }
@@ -66,7 +72,10 @@ export function absoluteDate(iso: string): string {
   });
 }
 
-/** Ekran wznowienia: hybryda wraca do dostrojenia, gdy krótki quiz jest wypełniony. */
+/**
+ * Ekran wznowienia: hybryda wraca do dostrojenia, gdy krótki quiz jest wypełniony.
+ * Gdy krok wykluczeń ma status `done`, wznowienie nie wraca do `exclude` (E11-06).
+ */
 export function resumeViewFor(session: Session): 'quiz' | 'sliders' | 'tune' {
   if (session.mode === 'sliders') return 'sliders';
   if (session.mode === 'quiz') return 'quiz';
@@ -80,16 +89,20 @@ export function summarizeSession(
   statusLabels: { inProgress: string; completed: string },
 ): SessionSummary {
   const progress = session.mode === 'sliders' ? null : quizProgress(session);
+  const snapshotFilters = session.ranking?.filters ?? session.filters;
   const picks: PickSummary[] = session.picks.map((pick) => {
     const phone = phoneById(pick.phoneId);
-    const place =
-      session.ranking?.entries.find((entry) => entry.phoneId === pick.phoneId)?.place ?? null;
+    const snapshotEntry = session.ranking?.entries.find((entry) => entry.phoneId === pick.phoneId);
+    const place = snapshotEntry?.place ?? null;
+    const excluded =
+      snapshotEntry?.excluded ?? (phone ? exclusionReason(phone, snapshotFilters) : null);
     return {
       phoneId: pick.phoneId,
       name: phone?.reveal.name ?? pick.phoneId,
       brand: phone?.reveal.brand ?? '',
       place,
       at: pick.at,
+      nowExcluded: excluded === 'brand' || excluded === 'model',
     };
   });
 
@@ -97,6 +110,7 @@ export function summarizeSession(
   const firstEntry = firstPick
     ? session.ranking?.entries.find((entry) => entry.phoneId === firstPick.phoneId)
     : undefined;
+  const exclusionsText = formatExclusionsSummary(PHONES, snapshotFilters);
 
   return {
     id: session.id,
@@ -116,6 +130,7 @@ export function summarizeSession(
         : picks.length === 1
           ? `${firstPick?.name ?? '—'}${firstPick?.place ? ` · miejsce ${firstPick.place}` : ''}`
           : `${picks.length} wybory: ${picks.map((pick) => pick.name).join(', ')}`,
+    exclusionsText,
     dataVersion: session.ranking?.dataVersion ?? null,
     computedAt: session.ranking?.computedAt ?? null,
     bestMatchPercent: firstEntry?.matchPercent ?? null,

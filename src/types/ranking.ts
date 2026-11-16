@@ -65,10 +65,17 @@ export interface TopThreeAnswer {
 /** questionId -> optionId. */
 export type Answers = Record<string, string>;
 
+/** Powód wykluczenia telefonu w opcjonalnym filtrze startowym (etap 11). */
+export type ExclusionReason = 'brand' | 'model' | null;
+
 export interface Filters {
   budgetMax: number;
   minStorageGb?: number | null;
   requireMicroSd?: boolean;
+  /** Wykluczone marki (porównywane bez rozróżniania wielkości liter; obejmuje przyszłe modele). */
+  excludedBrands?: string[];
+  /** Wykluczone pojedyncze modele (`phone.id`). */
+  excludedPhoneIds?: string[];
 }
 
 /** Waga kryterium wewnątrz grupy, skala 0-5. */
@@ -94,18 +101,25 @@ export interface RankedPhone {
   overBudgetBy: number | null;
   /** Id telefonu, z którym ten wynik to „praktyczny remis”. */
   practicalTieWith: string | null;
+  /** Powód wykluczenia: `null` = bierze udział w kartach, `'brand'` / `'model'` = tylko w pełnym rankingu. */
+  excluded?: ExclusionReason;
 }
 
 export interface RankResult {
   poolSize: number;
+  /** Liczba niewykluczonych telefonów z puli mieszczących się w budżecie sesji. */
   inBudgetCount: number;
-  /** Cała pula, posortowana. */
+  /** Liczba telefonów w puli pominiętych na kartach z powodu wykluczeń (etap 11). */
+  excludedCount: number;
+  /** Pełny ranking całej puli po filtrach twardych, z miejscem ogólnym i polem `excluded` (E11-04). */
+  fullRanking: RankedPhone[];
+  /** Alias `fullRanking` dla zgodności wstecznej — cała pula, posortowana. */
   ranked: RankedPhone[];
-  /** Trzy karty (mniej, gdy pula jest mniejsza), z uzupełnieniem powyżej budżetu. */
+  /** Trzy najlepsze niewykluczone karty (mniej, gdy niewykluczonych jest mniej), numerowane 1-3. */
   cards: RankedPhone[];
-  /** Najlepszy wynik w puli — do skalowania w szczegółach. */
+  /** Najlepszy wynik w pełnej puli — stabilny niezależnie od wykluczeń. */
   bestScore: number | null;
-  /** Pula pusta po filtrach. */
+  /** Pula pusta po filtrach twardych. */
   empty: boolean;
 }
 

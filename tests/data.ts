@@ -2,7 +2,7 @@ import phonesData from '../src/data/phones.json';
 import type { Phone } from '../src/types';
 
 /**
- * Pula testowa = prawdziwe dane z `src/data/phones.json` (15 telefonów od etapu 10; ceny z 14.11 i 16.11.2026).
+ * Pula testowa = prawdziwe dane z `src/data/phones.json` (15 telefonów po etapie 10).
  * Jeden rzut na granicy JSON → typy: rekordy są heterogeniczne (np. `refreshHz` bywa
  * zakresem „60-120”), a kształt pilnuje `tests/phones-schema.test.ts` i `validate-data`.
  */

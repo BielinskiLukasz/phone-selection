@@ -26,6 +26,7 @@ import {
   zoomFactor,
 } from '../src/lib/anonymize';
 import { matchDisplay, matchLabel } from '../src/lib/matchDisplay';
+import { specRows } from '../src/lib/cardSpecs';
 import type { AnonCard, Phone } from '../src/types';
 
 const result = rankFromAnswers(POOL, WIFE.answers, WIFE.topThree);
@@ -44,23 +45,39 @@ function factOf(card: AnonCard, key: string): string {
 }
 
 describe('E2-12 · test wycieku nazw', () => {
-  it('karta żadnego telefonu nie zawiera nazwy, marki, modelu ani tokena chipa', () => {
+  it('karta i pełne dane (specRows) żadnego z 15 telefonów nie zawierają nazwy, marki, nakładki ani chipa', () => {
+    const labels = {
+      display: 'Ekran',
+      performance: 'Wydajność',
+      battery: 'Bateria',
+      charging: 'Ładowanie',
+      charger: 'Ładowarka',
+      weight: 'Waga',
+      storage: 'Pamięć',
+      updates: 'Aktualizacje',
+      durability: 'Odporność',
+      connectivity: 'Łączność',
+    };
     for (const phone of POOL) {
+      const tokens = collectForbiddenTokens(phone, POOL);
       const card = cardFor(phone);
-      const leaks = findLeaks(card, collectForbiddenTokens(phone, POOL));
-      expect(leaks, `Wyciek w karcie ${phone.id}: ${leaks.join(', ')}`).toEqual([]);
+      const rows = specRows(phone, labels, POOL);
+      const leaks = [...findLeaks(card, tokens), ...findLeaks(rows, tokens)];
+      expect(leaks, `Wyciek w karcie/specRows ${phone.id}: ${leaks.join(', ')}`).toEqual([]);
       expect(() => assertNoLeak(card, phone, POOL)).not.toThrow();
     }
   });
 
   it('karty z rankingu nie mają pól reveal ani linków do sklepów', () => {
-    const serialized = JSON.stringify(cards);
+    /* `phoneId` to wewnętrzny slug do zapisu wyboru, nierenderowany na karcie (por. LEAK_IGNORED_KEYS). */
+    const visiblePayload = cards.map(({ phoneId: _ignored, ...rest }) => rest);
+    const serialized = JSON.stringify(visiblePayload);
     for (const key of ['reveal', 'brand', 'shopLinks', 'sources']) {
       expect(serialized).not.toContain(`"${key}"`);
     }
     for (const phone of POOL) {
       expect(serialized).not.toContain(phone.reveal.name);
-      expect(serialized).not.toContain(phone.reveal.brand);
+      expect(serialized.toLowerCase()).not.toContain(phone.reveal.brand.toLowerCase());
       for (const link of phone.reveal.shopLinks) {
         const url = typeof link === 'string' ? link : link.url;
         expect(serialized).not.toContain(url);
@@ -95,9 +112,30 @@ describe('E2-12 · test wycieku nazw', () => {
     }
   });
 
-  it('tokeny pochodzą z reveal, specs.chip i nazw sklepów całej puli', () => {
+  it('tokeny pochodzą z reveal, specs.chip i nazw sklepów całej puli (w tym marek z etapu 10)', () => {
     const tokens = collectForbiddenTokens(phoneById('xiaomi-15t-12-512'), POOL);
-    for (const expected of ['xiaomi', '15t', 'dimensity', 'mediatek', 'samsung', 'motorola']) {
+    for (const expected of [
+      'xiaomi',
+      '15t',
+      'dimensity',
+      'mediatek',
+      'samsung',
+      'motorola',
+      'honor',
+      'magicos',
+      'supercharge',
+      'oneplus',
+      'nord',
+      'oxygenos',
+      'supervooc',
+      'vivo',
+      'v70',
+      'originos',
+      'flashcharge',
+      'bluevolt',
+      'a37',
+      'neonet',
+    ]) {
       expect(tokens, expected).toContain(expected);
     }
   });
@@ -344,13 +382,16 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
       expect(card.overBudgetBy).toBeNull();
     }
 
-    /* D6 (etap 10): karta „Powyżej budżetu” tylko wtedy, gdy w budżecie są mniej niż trzy telefony.
-       Od etapu 10 w budżecie 1500 zł są trzy (Edge 60, Redmi Note 15 Pro, Galaxy A37) → żadna karta nie jest oznaczona. */
-    const tight = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
-    const flagged = toAnonCards(POOL, tight, 1500).filter((card) => card.overBudgetBy !== null);
-    expect(tight.inBudgetCount).toBe(3);
-    expect(flagged.length).toBe(0);
-    for (const card of toAnonCards(POOL, tight, 1500)) expect(card.pricePln).toBeLessThanOrEqual(1500);
+    /* Pełna pula po etapie 10 ma 3 telefony ≤ 1500 zł → żadna karta nie przekracza budżetu (D6). */
+    const full1500 = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
+    expect(toAnonCards(POOL, full1500, 1500).filter((card) => card.overBudgetBy !== null)).toEqual([]);
+
+    /* Gdy w budżecie są tylko 2 telefony, trzecia karta ma kwotę przekroczenia. */
+    const twoInBudget = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
+    const tight = rankFromAnswers(twoInBudget, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
+    const flagged = toAnonCards(twoInBudget, tight, 1500).filter((card) => card.overBudgetBy !== null);
+    expect(flagged.length).toBe(1);
+    expect(flagged[0]!.overBudgetBy).toBe(Math.round(flagged[0]!.pricePln - 1500));
   });
 
   it('szczegóły kryteriów: ocena, pewność, uzasadnienie i znacznik szacunku', () => {
@@ -368,8 +409,7 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     expect(value.score).toBeGreaterThan(0);
 
     const battery = redmi.criteria.find((criterion) => criterion.id === 'battery')!;
-    /* Etap 10 (D4): 6580 mAh → pojemność 64,5 zamiast 86 → 0,5 × 64,5 + 0,5 × 50 = 57. */
-    expect(battery.score).toBe(57);
+    expect(battery.score).toBe(57); // 6580 mAh przy skali 4000–8000 mAh (D4) + wytrzymałość 50
     expect(battery.label).toBe('Czas pracy na baterii');
     expect(battery.basis.length).toBeGreaterThan(20);
   });

@@ -227,11 +227,29 @@ export function validatePhoneData(data: unknown, now = new Date()) {
       ids.add(value.id);
     }
 
+    /* E11-02: ustandaryzowane brand i modelName (bez marki) do listy wykluczeń. */
+    if (!nonEmptyString(value.brand)) {
+      errors.push(`${path}.brand wymaga ustandaryzowanej nazwy marki.`);
+    }
+    if (!nonEmptyString(value.modelName)) {
+      errors.push(`${path}.modelName wymaga nazwy modelu bez marki.`);
+    } else if (
+      nonEmptyString(value.brand) &&
+      value.modelName.trim().toLowerCase().startsWith(`${value.brand.trim().toLowerCase()} `)
+    ) {
+      errors.push(`${path}.modelName nie może powtarzać nazwy marki (${value.brand}).`);
+    }
+
     if (!isRecord(value.reveal)) {
       errors.push(`${path}.reveal musi być obiektem.`);
     } else {
       if (!nonEmptyString(value.reveal.name) || !nonEmptyString(value.reveal.brand)) {
         errors.push(`${path}.reveal wymaga name i brand.`);
+      } else if (
+        nonEmptyString(value.brand) &&
+        value.brand.trim() !== value.reveal.brand.trim()
+      ) {
+        errors.push(`${path}.brand musi zgadzać się z reveal.brand.`);
       }
       const links = value.reveal.shopLinks;
       if (!Array.isArray(links) || links.length === 0) {

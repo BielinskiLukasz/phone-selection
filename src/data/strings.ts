@@ -1,3 +1,5 @@
+import { EXPECTED_POOL_SIZE, PRICES_CHECKED_AT } from './pool';
+
 /**
  * Wszystkie teksty interfejsu w jednym module (UI-SPEC 1.4 — tylko polski).
  * Komponenty nie zawierają literałów językowych.
@@ -49,7 +51,7 @@ export const strings = {
   proposal: 'Propozycja',
   matchLabel: 'Dopasowanie',
   priceLabel: 'Cena',
-  priceNote: 'cena z 14.11.2026',
+  priceNote: `cena z ${PRICES_CHECKED_AT.split('-').reverse().join('.')}`,
   hiddenName: 'nazwa ukryta',
   redacted: '—',
   anonFeatureRows: [
@@ -120,8 +122,7 @@ export const strings = {
     'Adres „demo” to podgląd szkieletu, nie zapisana sesja. Zapis sesji pojawi się w etapie 3.',
   storageWarning:
     'Ta przeglądarka nie pozwala zapisać postępu (np. tryb prywatny). Możesz kontynuować, ale po zamknięciu strony odpowiedzi znikną.',
-  dataWarning:
-    'Ceny i oceny pochodzą z 14.11.2026. Przed zakupem sprawdź aktualną cenę w sklepie.',
+  dataWarning: `Ceny i oceny pochodzą z ${PRICES_CHECKED_AT.split('-').reverse().join('.')}. Przed zakupem sprawdź aktualną cenę w sklepie.`,
   errorTitle: 'Coś poszło nie tak',
   errorNote: 'Odśwież stronę albo wróć na start.',
   reload: 'Odśwież stronę',
@@ -340,10 +341,61 @@ export const strings = {
   footerNote:
     'Statyczna strona na GitHub Pages. Bez backendu, bez trackerów, stan w Twojej przeglądarce.',
   planningDocs: 'Dokumenty planistyczne',
+
+  /* Etap 11 — wykluczanie marek i modeli (opcjonalny filtr startowy) */
+  exclude: 'Wykluczenia',
+  excludeEyebrow: 'krok opcjonalny · przed pytaniami',
+  excludeTitle: 'Wykluczenia marek i modeli',
+  excludeLead:
+    'Możesz pominąć wybrane marki albo pojedyncze modele — nie trafią do trzech propozycji, ale zobaczysz je później w pełnym rankingu z oznaczeniem.',
+  excludeAnonymityNote:
+    'Włączenie listy pokaże nazwy marek i modeli z puli (bez ich cech i cen). Jeśli wolisz pełną anonimowość, kliknij Pomiń.',
+  excludeToggleLabel: 'Chcę coś wykluczyć',
+  excludeToggleHint: 'Domyślnie wszystkie telefony z puli biorą udział w wyborze.',
+  excludeBrandsLabel: 'Marki',
+  excludeBrandsHint: 'Kliknij markę, aby pominąć wszystkie jej modele (także dodane w przyszłości).',
+  excludeModelsToggleShow: 'Wybierz pojedyncze modele',
+  excludeModelsToggleHide: 'Ukryj pojedyncze modele',
+  excludeModelsWholeBrand: 'cała marka',
+  excludeClear: 'Wyczyść wykluczenia',
+  excludeSkip: 'Pomiń',
+  excludeContinue: 'Dalej',
+  excludeSave: 'Zapisz wykluczenia',
+  excludeCancel: 'Anuluj',
+  excludeLoading: 'Ładowanie listy marek i modeli…',
+  excludeZeroError: 'Nie można wykluczyć wszystkich telefonów — zostaw przynajmniej jeden.',
+  excludeFilterLabel: 'Wykluczenia',
+  excludeFilterNone: 'Brak — cała pula bierze udział',
+  excludeFilterOpen: 'Wyklucz marki lub modele',
+  excludeChange: 'Zmień wykluczenia',
+  excludeToastUpdated: 'Wykluczenia zaktualizowane — propozycje dobrane ponownie.',
+  excludeSheetTitle: 'Wyklucz marki lub modele',
+  excludeSheetNote:
+    'Zmiana wykluczeń nie przelicza ocen dopasowania — zmienia tylko to, które telefony trafiają do trzech propozycji.',
+  rankingExcludedBrand: 'Wykluczony (marka)',
+  rankingExcludedModel: 'Wykluczony (model)',
+  rankingExcludedExplain:
+    'Wykluczony przez Ciebie, dlatego nie pokazaliśmy go wśród trzech propozycji.',
+  rankingIncludeAgain: 'Uwzględnij ponownie',
+  historyExcludedLabel: 'Wykluczono:',
+  historyNowExcluded: 'Teraz wykluczony',
 } as const;
 
 /** Treści zaślepek: co dany ekran będzie zawierał i w którym etapie (ROADMAP). */
 export const screenPlans = {
+  exclude: {
+    stage: 11,
+    stageName: 'Wykluczanie marek i modeli',
+    done: true,
+    previewNote:
+      'To makieta podglądowa. Opcjonalny krok wykluczeń pojawia się po wyborze trybu na stronie startowej.',
+    items: [
+      'Przełącznik „Chcę coś wykluczyć” i informacja o ujawnieniu nazw z puli.',
+      'Chipy marek z liczbą modeli oraz rozwijana lista pojedynczych modeli.',
+      'Podsumowanie „Zostanie X z N telefonów” i blokada przy zerze pozostałych.',
+      'Przyciski „Pomiń” (pełna anonimowość) i „Dalej”.',
+    ],
+  },
   quiz: {
     stage: 4,
     stageName: 'Tryb quiz',
@@ -368,7 +420,7 @@ export const screenPlans = {
       'Sześć suwaków grup 0–5 z etykietami i wartością tekstową („3 z 5”).',
       'Przycisk „Szczegóły” rozwijający suwaki kryteriów w grupie.',
       'Panel filtrów: budżet (1500 / 1800 / 2000 zł) i minimalna pamięć.',
-      'Licznik na żywo „Pasuje N z 15 telefonów” w aria-live.',
+      `Licznik na żywo „Pasuje ${EXPECTED_POOL_SIZE - 2} z ${EXPECTED_POOL_SIZE} telefonów” w aria-live.`,
     ],
   },
   tune: {
@@ -509,4 +561,27 @@ export const sessionTexts = {
   },
   answeredSummary: (answered: number, total: number, skipped: number): string =>
     `${answered} z ${total} pytań · ${skipped} × „nie wiem”`,
+  excludeRemaining: (remaining: number, total: number): string => {
+    const verb =
+      remaining === 1 ? 'Zostanie' : remaining >= 2 && remaining <= 4 ? 'Zostaną' : 'Zostanie';
+    return `${verb} ${remaining} z ${total} telefonów`;
+  },
+  excludeFewWarning: (remaining: number): string =>
+    remaining === 1
+      ? 'Zostaje tylko 1 telefon — na ekranie propozycji zobaczysz jedną kartę.'
+      : `Zostają tylko ${remaining} telefony — na ekranie propozycji zobaczysz ${remaining} karty.`,
+  cardsExcludedSkipped: (count: number): string => {
+    const noun =
+      count === 1
+        ? '1 wykluczony telefon'
+        : count >= 2 && count <= 4
+          ? `${count} wykluczone telefony`
+          : `${count} wykluczonych telefonów`;
+    return `Pominęliśmy ${noun} (zobaczysz je w pełnym rankingu).`;
+  },
+  filterExcludedCount: (count: number): string => {
+    const noun =
+      count === 1 ? '1 telefon' : count >= 2 && count <= 4 ? `${count} telefony` : `${count} telefonów`;
+    return `Pominięto ${noun}`;
+  },
 } as const;

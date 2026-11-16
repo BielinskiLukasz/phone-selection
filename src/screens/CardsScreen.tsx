@@ -7,9 +7,11 @@ import { useAppState } from '@/features/state/StateProvider';
 import { useReveal } from '@/features/sessions/useReveal';
 import { toAnonCardsFromSnapshot } from '@/lib/anonymize';
 import { specRows } from '@/lib/cardSpecs';
+import type { ExclusionSelection } from '@/lib/exclusions';
 import { PhoneCardAnon } from '@/components/PhoneCardAnon';
 import { PhoneCardRevealed } from '@/components/PhoneCardRevealed';
 import { ConfirmSheet } from '@/components/ConfirmSheet';
+import { ExclusionSheet } from '@/components/ExclusionSheet';
 import { Toast } from '@/components/Toast';
 import { Reveal } from '@/components/Reveal';
 import { Badge } from '@/components/Badge';
@@ -43,6 +45,7 @@ export function CardsScreen({ session }: CardsScreenProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const [pending, setPending] = useState<string | null>(null);
+  const [exclusionsOpen, setExclusionsOpen] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
 
   const snapshot = session.ranking;
@@ -54,7 +57,7 @@ export function CardsScreen({ session }: CardsScreenProps) {
     () =>
       cards.map((card) => {
         const phone = phoneById(card.phoneId);
-        return phone ? specRows(phone, SPEC_LABELS) : [];
+        return phone ? specRows(phone, SPEC_LABELS, PHONES) : [];
       }),
     [cards],
   );
@@ -71,6 +74,12 @@ export function CardsScreen({ session }: CardsScreenProps) {
   const pendingCard = cards.find((card) => card.phoneId === pending) ?? null;
   const answersView = session.mode === 'sliders' ? 'sliders' : session.mode === 'hybrid' ? 'tune' : 'quiz';
   const fewInBudget = snapshot !== null && snapshot.inBudgetCount < 3 && cards.length === 3;
+  const excludedCount = snapshot
+    ? (snapshot.excludedCount ??
+      snapshot.entries.filter(
+        (entry) => entry.excluded === 'brand' || entry.excluded === 'model',
+      ).length)
+    : 0;
 
   function confirmPick() {
     if (!pending) return;
@@ -79,10 +88,22 @@ export function CardsScreen({ session }: CardsScreenProps) {
     setPending(null);
   }
 
+  function saveExclusions(next: ExclusionSelection) {
+    /* E11-08: `session/exclusions` nie przelicza ocen — tylko wybiera karty z `entries`. */
+    dispatch({
+      type: 'session/exclusions',
+      sessionId: session.id,
+      excludedBrands: next.excludedBrands,
+      excludedPhoneIds: next.excludedPhoneIds,
+      step: 'done',
+    });
+    setExclusionsOpen(false);
+    setToast(strings.excludeToastUpdated);
+  }
+
   function startOver() {
     const id = startSession(session.mode);
-    window.location.hash =
-      session.mode === 'sliders' ? `#/s/${id}/sliders` : `#/s/${id}/quiz`;
+    window.location.hash = `#/s/${id}/exclude`;
   }
 
   return (
@@ -118,6 +139,23 @@ export function CardsScreen({ session }: CardsScreenProps) {
       <p className="mt-3 max-w-prose text-base leading-relaxed text-[var(--color-muted)]">
         {strings.cardsIntro}
       </p>
+
+      {/* E11-08: informacja o pominiętych wykluczonych telefonach i szybka zmiana */}
+      {excludedCount > 0 ? (
+        <div
+          role="status"
+          className="mt-4 flex flex-wrap items-center gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-xs leading-relaxed text-[var(--color-muted)]"
+        >
+          <span className="min-w-0 flex-1">{sessionTexts.cardsExcludedSkipped(excludedCount)}</span>
+          <button
+            type="button"
+            onClick={() => setExclusionsOpen(true)}
+            className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--radius-pill)] border border-[var(--color-border-strong)] bg-[var(--color-surface-2)] px-4 text-xs font-semibold text-[var(--color-text)] transition-colors duration-200 hover:border-[var(--color-accent)]"
+          >
+            {strings.excludeChange}
+          </button>
+        </div>
+      ) : null}
 
       {fewInBudget ? (
         <p className="num mt-4 inline-flex items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-3 py-2 text-[11px] tracking-[0.08em] text-[var(--color-warn)] uppercase">
@@ -229,6 +267,16 @@ export function CardsScreen({ session }: CardsScreenProps) {
           {strings.cardsChangeAnswers}
         </a>
 
+        {excludedCount === 0 && snapshot ? (
+          <button
+            type="button"
+            onClick={() => setExclusionsOpen(true)}
+            className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]"
+          >
+            {strings.excludeChange}
+          </button>
+        ) : null}
+
         {reveal.total > 0 ? (
           <a
             href={`#/s/${session.id}/ranking`}
@@ -256,6 +304,14 @@ export function CardsScreen({ session }: CardsScreenProps) {
         cancelLabel={strings.cardsConfirmBack}
         onConfirm={confirmPick}
         onCancel={() => setPending(null)}
+      />
+
+      <ExclusionSheet
+        open={exclusionsOpen}
+        phones={PHONES}
+        filters={snapshot?.filters ?? session.filters}
+        onSave={saveExclusions}
+        onCancel={() => setExclusionsOpen(false)}
       />
 
       <Toast message={toast} onClose={() => setToast(null)} />

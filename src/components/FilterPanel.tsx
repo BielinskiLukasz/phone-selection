@@ -7,9 +7,11 @@ interface FilterPanelProps {
   total: number;
   matches: number;
   inBudget: number;
+  excludedCount?: number;
   onBudget: (value: number) => void;
   onStorage: (value: number | null) => void;
   onMicroSd: (value: boolean) => void;
+  onOpenExclusions?: () => void;
 }
 
 const BUDGETS = [1500, 1800, 2000] as const;
@@ -59,11 +61,14 @@ export function FilterPanel({
   total,
   matches,
   inBudget,
+  excludedCount = 0,
   onBudget,
   onStorage,
   onMicroSd,
+  onOpenExclusions,
 }: FilterPanelProps) {
   const overBudgetMessage = sessionTexts.overBudgetMessage(inBudget);
+  const fewRemaining = matches > 0 && matches < 3 && excludedCount > 0;
 
   return (
     <section className="surface overflow-hidden p-0" aria-labelledby="filtry-naglowek">
@@ -142,10 +147,36 @@ export function FilterPanel({
         </div>
       </div>
 
-      {matches === 0 || overBudgetMessage ? (
+      {/* E11-07: wiersz „Wykluczenia” otwierający okno wyboru marek i modeli */}
+      {onOpenExclusions ? (
+        <div className="flex flex-wrap items-center gap-3 border-t border-[var(--color-border)] px-[var(--pad-card)] py-3">
+          <div className="min-w-0 flex-1">
+            <span className="label-mono">{strings.excludeFilterLabel}</span>
+            <p className="mt-0.5 text-xs text-[var(--color-muted)]">
+              {excludedCount > 0
+                ? sessionTexts.filterExcludedCount(excludedCount)
+                : strings.excludeFilterNone}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onOpenExclusions}
+            className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-2)]"
+          >
+            {excludedCount > 0 ? strings.excludeChange : strings.excludeFilterOpen}
+          </button>
+        </div>
+      ) : null}
+
+      {matches === 0 || fewRemaining || overBudgetMessage ? (
         <div className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-3">
           {matches === 0 ? (
             <p className="text-sm text-[var(--color-warn)]">{strings.noPhonesMatch}</p>
+          ) : null}
+          {fewRemaining ? (
+            <p className="text-xs text-[var(--color-warn)]">
+              {sessionTexts.excludeFewWarning(matches)}
+            </p>
           ) : null}
           {overBudgetMessage ? (
             <p className="text-xs leading-relaxed text-[var(--color-muted)]">{overBudgetMessage}</p>

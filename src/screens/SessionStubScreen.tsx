@@ -14,6 +14,7 @@ import { SessionPanel } from '@/components/SessionPanel';
 import type { Session } from '@/types/state';
 
 const titles: Record<SessionView, string> = {
+  exclude: strings.exclude,
   quiz: strings.quiz,
   sliders: strings.sliders,
   tune: strings.tune,
@@ -22,6 +23,7 @@ const titles: Record<SessionView, string> = {
 };
 
 const icons: Record<SessionView, ReactNode> = {
+  exclude: <SlidersIcon className="h-7 w-7" />,
   quiz: <ListIcon className="h-7 w-7" />,
   sliders: <SlidersIcon className="h-7 w-7" />,
   tune: <UpdateIcon className="h-7 w-7" />,

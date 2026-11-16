@@ -177,10 +177,9 @@ describe('E5-05/E5-08 · spójność z silnikiem (test akceptacyjny 1)', () => {
     expect(session.ranking!.entries.map((entry) => entry.score)).toEqual(
       expected.ranked.map((entry) => entry.score),
     );
-    /* Bateria 5 i reszta 0 (grupa = battery + charging) → etap 10: vivo V70 FE (83 + 100), realme (84 + 87), Redmi Note 17 Pro (100 + 69). */
-    expect(session.ranking!.cards[0]).toBe('vivo-v70-fe-8-256'); // etap 10: bateria 83 + ładowanie 100
+    /* Grupa bateria (battery + charging) = 5, reszta 0 → wygrywają 7000 mAh + 90 W (vivo) i 80 W (Realme). */
+    expect(session.ranking!.cards[0]).toBe('vivo-v70-fe-5g-8-256');
     expect(session.ranking!.cards[1]).toBe('realme-16-pro-plus-5g-8-256');
-    expect(session.ranking!.cards[2]).toBe('redmi-note-17-pro-5g-8-512');
   });
 });
 

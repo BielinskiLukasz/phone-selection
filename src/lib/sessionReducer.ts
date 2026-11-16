@@ -2,6 +2,7 @@ import { DATA_VERSION, PHONES } from '@/data/phones';
 import type { Answers, Filters, GroupId, GroupImportance, Phone, Weights } from '@/types';
 import type {
   AppState,
+  ExclusionsStep,
   Mode,
   NoticeCode,
   RankingSnapshot,
@@ -9,9 +10,15 @@ import type {
   SessionStatus,
   Theme,
 } from '@/types/state';
+import {
+  exclusionReason,
+  normalizeExclusions,
+  selectCardsFromFullRanking,
+} from './exclusions';
 import { createSession, nowIso, sortSessions, trimSessions } from './session';
 import { mergeSessions } from './historyTransfer';
 import { rank } from './scoring';
+import { CARD_COUNT } from './scoringConfig';
 import { deriveFromAnswers } from './weights';
 import { MAX_SESSIONS } from './storage';
 
@@ -40,6 +47,17 @@ export type Action =
       now?: Date;
     }
   | { type: 'session/filters'; sessionId: string; filters: Partial<Filters>; now?: Date }
+  | {
+      /** E11-08: zmienia wykluczenia BEZ przeliczania ocen/S — tylko dobiera karty z `entries`. */
+      type: 'session/exclusions';
+      sessionId: string;
+      excludedBrands: string[];
+      excludedPhoneIds: string[];
+      step?: ExclusionsStep;
+      phones?: readonly Phone[];
+      now?: Date;
+    }
+  | { type: 'session/exclusions-step'; sessionId: string; step: ExclusionsStep; now?: Date }
   | {
       type: 'session/override-weights';
       sessionId: string;
@@ -96,11 +114,12 @@ export function computeRankingSnapshot(
     dataVersion: DATA_VERSION,
     poolSize: result.poolSize,
     inBudgetCount: result.inBudgetCount,
+    excludedCount: result.excludedCount,
     bestScore: result.bestScore,
     weights: session.weights,
     groupImportance: session.groupImportance,
     filters: session.filters,
-    entries: result.ranked.map((entry) => ({
+    entries: result.fullRanking.map((entry) => ({
       phoneId: entry.phoneId,
       place: entry.place,
       score: entry.score,
@@ -109,8 +128,49 @@ export function computeRankingSnapshot(
       overBudgetBy: entry.overBudgetBy,
       practicalTieWith: entry.practicalTieWith,
       groupScores: entry.groupScores,
+      excluded: entry.excluded ?? null,
     })),
     cards: result.cards.map((card) => card.phoneId),
+  };
+}
+
+/**
+ * E11-08 (test akceptacyjny 7): aktualizuje wykluczenia na istniejącym snapshocie
+ * bez ponownego liczenia normalizacji, `groupScores` ani `S` — zmienia tylko flagę
+ * `excluded` oraz wybiera nowe trzy karty z zapisanego pełnego rankingu.
+ */
+export function applyExclusionsToSnapshot(
+  snapshot: RankingSnapshot,
+  filters: Filters,
+  phones: readonly Phone[] = PHONES,
+): RankingSnapshot {
+  const byId = new Map(phones.map((phone) => [phone.id, phone]));
+  const normalized = normalizeExclusions(filters);
+  const nextFilters: Filters = {
+    ...snapshot.filters,
+    excludedBrands: normalized.excludedBrands,
+    excludedPhoneIds: normalized.excludedPhoneIds,
+  };
+
+  const entries = snapshot.entries.map((entry) => {
+    const phone = byId.get(entry.phoneId);
+    const excluded = phone
+      ? exclusionReason(phone, nextFilters)
+      : normalized.excludedPhoneIds.includes(entry.phoneId)
+        ? ('model' as const)
+        : null;
+    return { ...entry, excluded };
+  });
+
+  const { cards, inBudgetCount, excludedCount } = selectCardsFromFullRanking(entries, CARD_COUNT);
+
+  return {
+    ...snapshot,
+    filters: nextFilters,
+    inBudgetCount,
+    excludedCount,
+    entries,
+    cards: cards.map((card) => card.phoneId),
   };
 }
 
@@ -146,11 +206,17 @@ function recompute(session: Session, now: Date, phones: readonly Phone[] = PHONE
   }
 
   const derived = deriveFromAnswers(session.answers, session.topThree);
+  const exclusions = normalizeExclusions(session.filters);
   const next: Session = {
     ...session,
     weights: derived.weights,
     groupImportance: derived.groupImportance,
-    filters: { ...derived.filters, requireMicroSd: session.filters.requireMicroSd === true },
+    filters: {
+      ...derived.filters,
+      requireMicroSd: session.filters.requireMicroSd === true,
+      excludedBrands: exclusions.excludedBrands,
+      excludedPhoneIds: exclusions.excludedPhoneIds,
+    },
   };
   return { ...next, ranking: computeRankingSnapshot(next, phones, now) };
 }
@@ -165,7 +231,12 @@ export function reducer(state: AppState, action: Action): AppState {
       /* Link do wznowienia: te same odpowiedzi, ranking liczony AKTUALNYMI danymi (E7-06). */
       const seeded: Session = action.answers
         ? recompute(
-            { ...base, answers: action.answers, topThree: action.topThree ? { picks: action.topThree } : null },
+            {
+              ...base,
+              exclusionsStep: 'done',
+              answers: action.answers,
+              topThree: action.topThree ? { picks: action.topThree } : null,
+            },
             now,
           )
         : base;
@@ -196,7 +267,11 @@ export function reducer(state: AppState, action: Action): AppState {
         action.sessionId,
         (session) =>
           recompute(
-            { ...session, answers: { ...session.answers, [action.questionId]: action.optionId } },
+            {
+              ...session,
+              exclusionsStep: 'done',
+              answers: { ...session.answers, [action.questionId]: action.optionId },
+            },
             action.now ?? new Date(),
           ),
         action.now ?? new Date(),
@@ -208,7 +283,11 @@ export function reducer(state: AppState, action: Action): AppState {
         action.sessionId,
         (session) =>
           recompute(
-            { ...session, topThree: action.picks ? { picks: action.picks } : null },
+            {
+              ...session,
+              exclusionsStep: 'done',
+              topThree: action.picks ? { picks: action.picks } : null,
+            },
             action.now ?? new Date(),
           ),
         action.now ?? new Date(),
@@ -219,10 +298,52 @@ export function reducer(state: AppState, action: Action): AppState {
         state,
         action.sessionId,
         (session) => {
-          const filters: Filters = { ...session.filters, ...action.filters };
-          const next = { ...session, filters };
+          const merged: Filters = { ...session.filters, ...action.filters };
+          const exclusions = normalizeExclusions(merged);
+          const filters: Filters = {
+            ...merged,
+            excludedBrands: exclusions.excludedBrands,
+            excludedPhoneIds: exclusions.excludedPhoneIds,
+          };
+          const next: Session = { ...session, filters };
           return { ...next, ranking: computeRankingSnapshot(next, PHONES, action.now ?? new Date()) };
         },
+        action.now ?? new Date(),
+      );
+
+    case 'session/exclusions':
+      return withSession(
+        state,
+        action.sessionId,
+        (session) => {
+          const normalized = normalizeExclusions({
+            excludedBrands: action.excludedBrands,
+            excludedPhoneIds: action.excludedPhoneIds,
+          });
+          const filters: Filters = {
+            ...session.filters,
+            excludedBrands: normalized.excludedBrands,
+            excludedPhoneIds: normalized.excludedPhoneIds,
+          };
+          const phones = action.phones ?? PHONES;
+          const next: Session = {
+            ...session,
+            exclusionsStep: action.step ?? session.exclusionsStep,
+            filters,
+          };
+          const ranking = session.ranking
+            ? applyExclusionsToSnapshot(session.ranking, filters, phones)
+            : computeRankingSnapshot(next, phones, action.now ?? new Date());
+          return { ...next, ranking };
+        },
+        action.now ?? new Date(),
+      );
+
+    case 'session/exclusions-step':
+      return withSession(
+        state,
+        action.sessionId,
+        (session) => ({ ...session, exclusionsStep: action.step }),
         action.now ?? new Date(),
       );
 
@@ -233,6 +354,7 @@ export function reducer(state: AppState, action: Action): AppState {
         (session) => {
           const next: Session = {
             ...session,
+            exclusionsStep: 'done',
             manualOverride: true,
             weights: { ...session.weights, ...(action.weights ?? {}) },
             groupImportance: { ...session.groupImportance, ...(action.groupImportance ?? {}) },

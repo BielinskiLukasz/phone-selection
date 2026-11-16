@@ -51,8 +51,21 @@ async function auditEveryScreen(theme: 'light' | 'dark'): Promise<void> {
   expect(document.documentElement.dataset.theme).toBe(theme);
   await audit(`${theme}: start`);
 
-  /* Quiz: nagłówek bloku i pytanie z radiogroup. */
+  /* Krok 0 (etap 11): wykluczenia zwinięte i rozwinięte, potem quiz. */
   fireEvent.click(screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }));
+  goto(window.location.hash);
+  await audit(`${theme}: wykluczenia — zwinięte`);
+
+  fireEvent.click(screen.getByRole('switch'));
+  await settle(80);
+  await audit(`${theme}: wykluczenia — chipy marek`);
+
+  fireEvent.click(
+    screen.getByRole('button', { name: new RegExp(strings.excludeModelsToggleShow) }),
+  );
+  await audit(`${theme}: wykluczenia — pojedyncze modele`);
+
+  fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
   goto(window.location.hash);
   await audit(`${theme}: quiz — nagłówek bloku`);
 
@@ -63,6 +76,8 @@ async function auditEveryScreen(theme: 'light' | 'dark'): Promise<void> {
   /* Suwaki: grupy, rozwinięte kryteria, filtry. */
   goto('#/');
   fireEvent.click(screen.getByRole('button', { name: /Samodzielnie ustaw, co jest ważne/ }));
+  goto(window.location.hash);
+  fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
   goto(window.location.hash);
   await audit(`${theme}: suwaki`);
 
@@ -178,10 +193,16 @@ describe('test akceptacyjny 4 · przejście samą klawiaturą', () => {
       }
     }
 
-    /* Start → quiz → odpowiedź spacją → krok dalej. */
+    /* Start → wykluczenia (Pomiń) → quiz → odpowiedź spacją → krok dalej. */
     const startButton = screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ });
     startButton.focus();
     fireEvent.click(startButton); // przeglądarka odpala click dla Enter/Space na button
+    goto(window.location.hash);
+
+    const skipButton = screen.getAllByRole('button', { name: strings.excludeSkip })[0]!;
+    skipButton.focus();
+    expect(document.activeElement).toBe(skipButton);
+    fireEvent.click(skipButton);
     goto(window.location.hash);
 
     fireEvent.click(screen.getByRole('button', { name: new RegExp(strings.next) }));

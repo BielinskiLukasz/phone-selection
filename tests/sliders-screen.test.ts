@@ -6,7 +6,7 @@ import { SlidersScreen } from '../src/screens/SlidersScreen';
 import { QuizScreen } from '../src/screens/QuizScreen';
 import { STORAGE_KEY } from '../src/lib/storage';
 import { PHONES } from '../src/data/phones';
-import { buildPool } from '../src/lib/pool';
+import { buildPool, inBudgetSubset } from '../src/lib/pool';
 import { sessionTexts, strings } from '../src/data/strings';
 import type { Mode, Session } from '../src/types/state';
 
@@ -127,7 +127,7 @@ describe('E5-05 · ekran suwaków', () => {
     expect(session.groupImportance.battery).toBe(5);
     expect(session.groupImportance.camera).toBe(0);
     expect(session.manualOverride).toBe(true);
-    expect(session.ranking.cards[0]).toBe('vivo-v70-fe-8-256'); // etap 10: bateria 83 + ładowanie 100
+    expect(session.ranking.cards[0]).toBe('vivo-v70-fe-5g-8-256');
     expect(session.ranking.entries.length).toBe(PHONES.length);
   });
 
@@ -142,20 +142,25 @@ describe('E5-05 · ekran suwaków', () => {
 });
 
 describe('E5-03/E5-04 · filtry i licznik na żywo', () => {
-  it('budżet 1500 zł zmienia licznik i dokłada komunikat o uzupełnieniu powyżej budżetu', () => {
+  it('budżet 1500 zł zmienia licznik (3 w budżecie bez ostrzeżenia, D6), a z microSD ostrzega o uzupełnieniu', () => {
     open();
     expect(screen.getByText(sessionTexts.poolMatches(PHONES.length, PHONES.length))).toBeTruthy();
 
     fireEvent.click(screen.getByRole('radio', { name: /do 1500 zł/ }));
 
     const expected = buildPool(PHONES, { budgetMax: 1500 }).length;
+    expect(inBudgetSubset(PHONES, 1500).length).toBe(3);
     expect(screen.getByText(sessionTexts.poolMatches(expected, PHONES.length))).toBeTruthy();
-    /* Etap 10 (D6): w budżecie 1500 zł są trzy telefony, więc komunikat o droższej propozycji nie pojawia się. */
+    expect(screen.queryByText(/W tym budżecie mieszcz/)).toBeNull();
+
+    /* Po zawężeniu do microSD zostaje 1 telefon w budżecie → pojawia się komunikat o dopłacie. */
+    fireEvent.click(screen.getByRole('radio', { name: /musi mieć/ }));
+    expect(screen.getByText(sessionTexts.poolMatches(1, PHONES.length))).toBeTruthy();
     expect(
-      screen.queryByText(
-        'W tym budżecie mieszczą się tylko dwa telefony. Trzecia propozycja jest droższa.',
+      screen.getByText(
+        'W tym budżecie mieści się tylko jeden telefon. Pozostałe propozycje są droższe.',
       ),
-    ).toBeNull();
+    ).toBeTruthy();
   });
 
   it('pamięć „minimum 256 GB” odrzuca telefony 128 GB', () => {
@@ -163,7 +168,7 @@ describe('E5-03/E5-04 · filtry i licznik na żywo', () => {
     fireEvent.click(screen.getByRole('radio', { name: /minimum 256 GB/ }));
 
     const expected = buildPool(PHONES, { budgetMax: 2000, minStorageGb: 256 }).length;
-    expect(expected).toBe(PHONES.length - 2); // 15 − 2 Pixele 128 GB
+    expect(expected).toBe(PHONES.length - 2);
     expect(screen.getByText(sessionTexts.poolMatches(expected, PHONES.length))).toBeTruthy();
   });
 

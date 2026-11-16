@@ -15,8 +15,9 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[x]` zrobione |
 | 7 | Historia sesji i wznawianie | `[x]` zrobione |
 | 8 | Motywy, mobile, dostępność | `[x]` zrobione |
-| 9 | Pełny ranking, szlify i wydanie | `[ ]` |
-| 10 | Rozszerzenie puli modeli (10 → 15) | `[x]` zrobione 16.11.2026 (E10-11 — odświeżenie cen — w dniu wydania razem z E9-04) |
+| 9 | Pełny ranking, szlify i wydanie | `[~]` w toku (kod gotowy, czeka test i wydanie v1.0) |
+| 10 | Rozszerzenie puli modeli (10 → 15, przed v1.0) | `[x]` zrobione |
+| 11 | Wykluczanie marek i modeli (opcjonalny filtr startowy) | `[x]` zrobione |
 
 ---
 
@@ -191,7 +192,7 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 
 ## Etap 9 — Pełny ranking, szlify i wydanie
 
-- [x] Przycisk „Pokaż pełny ranking” (cała pula z nazwami — 15 telefonów od etapu 10) po wyborze zwycięzcy
+- [x] Przycisk „Pokaż pełny ranking” (wszystkie 15 telefonów z nazwami) po wyborze zwycięzcy
 - [x] Kalibracja stałych rankingu na prawdziwych danych
 - [~] Odświeżenie cen i dat przed wydaniem (narzędzia gotowe: `npm run stale-prices`, próg 7 dni; ceny z 14.11.2026 są świeże, odświeżenie w dniu publikacji)
 - [~] Przejście całego procesu przez żonę (test użyteczności), poprawki — protokół i arkusz obserwacji: `E9-test-uzytkownika.md`
@@ -200,43 +201,30 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 
 **Stan po etapie 9 (część techniczna):** ekran `#/s/:id/ranking` (`src/screens/RankingScreen.tsx`) z wszystkimi telefonami z puli: miejsce, `S`, dopasowanie z opisem, cena z datą, odznaki „Twój wybór n/m”, znacznik praktycznego remisu, mini-paski sześciu grup (GroupScore ze snapshotu, z odtworzeniem z wag dla starszych zapisów), rozwijany wiersz z 14 ocenami i pewnością, pełnymi danymi, linkami do sklepów, innymi odczytami ceny i źródłami; sekcja „Poza pulą” z powodem odrzucenia (limit 2000 zł / pamięć / microSD) oraz ostrzeżenie, gdy `dataVersion` snapshotu różni się od `_meta.generatedOn`. Kalibracja (E9-03) zmierzona na 7 zestawach odpowiedzi: `BLEND = 0,5` potwierdzone (0,75 łamie niezmiennik 9.1.3, 0,25 referencję 9.3), wnioski w QUIZ-SPEC 2.6, pomiar zamknięty testem `tests/calibration.test.ts`. Narzędzia wydania: `npm run stale-prices` (próg 7 dni, kod 1 przy przeterminowanych cenach) i `npm run release` (typecheck → testy → validate-data → stale-prices → build). Meta: tytuł, opis, `og:*`, `color-scheme`, dwa `theme-color`, ikona jako inline SVG (bez zewnętrznego zasobu), `noscript`, stan danych w stopce (liczba telefonów, data cen, limit). **Zostaje:** odświeżenie cen w dniu wydania, test z użytkowniczką i poprawki (protokół: `E9-test-uzytkownika.md`), tag `v1.0` i sprawdzenie adresu Pages na telefonie.
 
+## Etap 10 — Rozszerzenie puli modeli (10 → 15, przed v1.0)
+
+**Cel:** zweryfikować 21 kandydatów względem zasad projektu i rozszerzyć pulę przed wydaniem v1.0 (decyzje D1–D6 w [`ETAP-10-rozszerzenie-puli-modeli.md`](./ETAP-10-rozszerzenie-puli-modeli.md)).
+
+- [x] Audyt 21 modeli i decyzje D1–D6: dodano **Honor 400 5G 8/256 GB** (1599 zł), **OnePlus Nord 5 5G 8/256 GB** (1600,99 zł), **Samsung Galaxy A37 5G 8/256 GB** (1359 zł; drugi odczyt 1299 zł), **vivo V70 FE 5G 8/256 GB** (1799 zł, D1) i **Xiaomi Redmi Note 17 Pro 5G 8/512 GB** (1799 zł promo Media Expert / Ceneo od 1579 zł, D2); **Xiaomi 15T** zostaje jako **12/512 GB** (D3); odrzucono iPhone 16e (>2000 zł) oraz 5 modeli z 2024 r. (Nord 4, Edge 50 Neo, Nothing 2a, Redmi Note 14 Pro+, Honor 200)
+- [x] D4: zmiana sufitu pojemności baterii w `src/data/scoringRules.ts` z 7000 na **8000 mAh** (`BATTERY_CAPACITY_SPAN_MAH = 4000`: 4000 mAh = 0, 8000 mAh = 100) i przeliczenie `scores.battery` wszystkich 15 rekordów
+- [x] Rozszerzenie `KNOWN_FORBIDDEN` w `src/lib/anonymize.ts` (nakładki `MagicOS`/`OxygenOS`/`OriginOS`, technologie ładowania, układy i sklepy) oraz przekazanie pełnej puli `PHONES` do `specRows` w `src/lib/cardSpecs.ts`
+- [x] Dynamiczne `EXPECTED_POOL_SIZE = 15` i `PRICES_CHECKED_AT = '2026-11-16'` w `src/data/pool.ts` i `src/data/strings.ts`
+- [x] D6 i kalibracja: aktualizacja niezmiennika 9.1.4 (3 telefony ≤ 1500 zł → komplet kart w budżecie), potwierdzenie `BLEND = 0,5` oraz aktualizacja testów i dokumentacji
+
+**Stan po etapie 10:** `src/data/phones.json` zawiera **15 rekordów** ze statusem `ok` i zerem `scoresEstimatedNeutral`; walidator zgłasza **0 błędów** i 1 dotychczasowe ostrzeżenie (`specs.nfc: null` w Realme); `npm run data-gaps -- --strict` i `npm run stale-prices` zielone (wszystkie ceny ≤ 2 dni); zero wycieków marek/nakładek w kartach i `specRows`; wszystkie 27 plików testowych zielone. Nowa referencja person: żona `#1 vivo V70 FE (67 pkt)`, `#2 Edge 70 Fusion (67 pkt, praktyczny remis)`, `#3 Redmi Note 17 Pro 5G (65 pkt)`; aparat `#1 Xiaomi 15T (71 pkt)`; bateria `#1 Redmi Note 17 Pro 5G (65 pkt)`.
+
+## Etap 11 — Wykluczanie marek i modeli (opcjonalny filtr startowy)
+
+**Cel:** opcjonalny krok startowy `#/s/:id/exclude` przed pytaniami/suwakami pozwalający wykluczyć całe marki lub pojedyncze modele z trzech propozycji przy zachowaniu ich w pełnym rankingu z oznaczeniem ([`ETAP-11-wykluczanie-marek-i-modeli.md`](./ETAP-11-wykluczanie-marek-i-modeli.md)).
+
+- [x] Schemat v2 (`migrations[1]`): `Filters.excludedBrands`, `Filters.excludedPhoneIds`, `Session.exclusionsStep: 'pending' | 'done'`
+- [x] Ustandaryzowane pola `brand` i `modelName` (bez marki) we wszystkich 15 rekordach `phones.json` + walidacja w `scripts/validate-data.ts` (oraz domknięcie luk w 5 nowych modelach: `peakNits: 1900` i `chargingTests` w Galaxy A37, `ramType` i `updatesYears` w Nord 5, vivo V70 FE i Redmi Note 17 Pro 5G)
+- [x] `src/lib/exclusions.ts` + `rank().fullRanking`: normalizacja i `S` na pełnej puli, karty z trzech najlepszych niewykluczonych (uzupełnienie powyżej budżetu tylko z niewykluczonych), blokada przy 0 i ostrzeżenie przy 1–2 pozostałych
+- [x] `ExcludeScreen` (`#/s/:id/exclude`), `ExclusionPicker` i `ExclusionSheet` z leniwym ładowaniem katalogu nazw (`src/data/exclusionCatalog.ts`), integracja ze Startem, `FilterPanel`, `CardsScreen` (zmiana bez przeliczania `S`), `RankingScreen` (plakietki „Wykluczony (marka)/(model)” + „Uwzględnij ponownie”) i `HistoryScreen` („Wykluczono: …” + „Teraz wykluczony”)
+- [x] Testy akceptacyjne 1–9 w `tests/exclusions.test.ts`, audyt `axe-core` w obu motywach i test wycieku nazw po kliknięciu „Pomiń”
+
 ---
 
 ## Zasada pracy
-
-## Etap 10 — Rozszerzenie puli modeli (10 → 15)
-
-**Cel:** dołączyć telefony z przeglądu listy 21 modeli bez zmiany logiki rankingu. Plan i decyzje D1-D6:
-[`ETAP-10-rozszerzenie-puli-modeli.md`](./ETAP-10-rozszerzenie-puli-modeli.md).
-
-- [x] E10-01/02 Pięć rekordów w `phones.json` + `_meta` (Honor 400, Galaxy A37 5G, OnePlus Nord 5, vivo V70 FE, Redmi Note 17 Pro 5G 8/512)
-- [x] E10-03/04 `EXPECTED_POOL_SIZE = 15`, `PRICES_CHECKED_AT`, teksty liczników i stanu silnika, wiersz etapu 10 w stopce
-- [x] E10-05 Słownik anonimizacji: `magicos`, `oxygenos`, `originos`, `funtouch`, `nord`, `ceneo`, `skapiec`, `neonet`, `oleole`, `kaufland`, `e-smartphone`, `siglo`, `honorstore`
-- [x] E10-06/07 Testy liczebności, person (9.1 referencja, 9.1.4 wg D6, 9.3), kalibracji, reguł (D4), wersji danych — 348 testów zielonych
-- [x] E10-08 QUIZ-SPEC 2.6 i 9.1-9.4 — ponowny pomiar
-- [x] D4: `BATTERY_CAPACITY_SPAN_MAH = 4000` (8000 mAh = 100), `battery` przeliczone dla wszystkich 15 rekordów
-- [ ] E10-11 Odświeżenie cen całej puli jednego dnia (w dniu wydania, razem z E9-04): strony sklepów zamiast odczytu indeksu Ceneo dla nowych rekordów, podmiana `shopLinks` z porównywarki na sklepy, rozstrzygnięcie ceny A37 (1293 vs 1582 zł), promocja Edge 70 Fusion po 30.11
-- [ ] Potwierdzić liczbę wersji systemu dla Redmi Note 17 Pro (dziś `updates` 86 z jednej składowej; przy 4 wersjach → 71, co może odwrócić remis #1/#2 u „żony”)
-- [ ] `chargerInBox` dla pięciu nowych rekordów (dziś `null` — 5 ostrzeżeń walidatora, bez wpływu na oceny)
-
-**Stan po etapie 10:** walidator 0 błędów, 6 ostrzeżeń (NFC Realme + 5 × `chargerInBox: null`), 15 rekordów `ok`,
-zero ocen neutralnych. Wytrzymałość baterii nowych rekordów z etykiety UE (GSMArena/EPREL): Honor 400 56:28 h → 54,9,
-A37 53:00 h → 43,3, Nord 5 49:12 h → 30,7, V70 FE 67:21 h → 91,2, Note 17 Pro 72:01 h → 100. Oceny `battery` po D4:
-A57 44, Pixel 10a 53, A56 45, Redmi Note 15 Pro 57, Edge 60 50, 15T 48, Edge 70 Fusion 78, Pixel 9a 49, Nothing (3a) 55,
-Realme 84, Honor 400 44, A37 34, Nord 5 30, V70 FE 83, Note 17 Pro 100. **Referencje person** (QUIZ-SPEC 9): żona
-#1 Redmi Note 17 Pro 67,7 · #2 Edge 70 Fusion 67,0 (praktyczny remis) · #3 Realme 65,3; aparat #1 15T 71,6; bateria
-#1 Note 17 Pro 71,2; budżet 1500 zł → trzy karty w budżecie (Edge 60, Redmi Note 15 Pro, A37). `BLEND = 0,5` potwierdzone
-(9.1.3 łamie się od 0,75). Aparaty nowych modeli bez testów DXOMARK — pewność `low` z opisem luki; vivo V70 FE
-`photoDay`/`photoIndoor` `medium` (werdykt GSMArena).
-
-| Model | Cena | Specyfikacja | Oceny | Uwagi |
-|---|---|---|---|---|
-| Honor 400 8/256 | `[x]` 1599,00 zł (16.11, odczyt Ceneo) | `[x]` | `[x]` | GSMArena: 5300 mAh (EU), 66 W, IP65, 6 wersji + 6 lat; etykieta UE A, 56:28 h |
-| Galaxy A37 5G 8/256 | `[~]` 1293,00 zł (rozbieżność 1582 zł) | `[x]` | `[x]` | Exynos 1480, 5000 mAh, 45 W, IP68, 6 + 6 lat do 03/2032; etykieta UE A, 53:00 h |
-| OnePlus Nord 5 8/256 | `[x]` 1709,00 zł | `[x]` | `[x]` | SD 8s Gen 3, 5200 mAh (EU), 80 W, IP65, 4 + 6 lat; etykieta UE B, 49:12 h |
-| vivo V70 FE 8/256 | `[x]` 1699,00 zł | `[x]` | `[x]` | Dimensity 7360 Turbo, 7000 mAh, 90 W, IP68/IP69, 4 + 6 lat; EPREL B, 67:21 h; GSMArena Active Use 20:41 h |
-| Redmi Note 17 Pro 5G 8/512 | `[x]` 1659,00 zł | `[x]` | `[~]` | SD 6s Gen 4, 8340 mAh, 67 W, IP66/IP68 (test PL), bez 4K; `updates` z jednej składowej (6 lat poprawek) |
-
----
 
 Po każdym etapie aktualizujemy ten plik (statusy, „Stan danych”) i `PROJECT.md`, jeśli zmieniła się decyzja.

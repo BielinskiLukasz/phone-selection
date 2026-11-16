@@ -15,7 +15,7 @@ import { newSessionId, sanitizeSession, sortSessions, trimSessions } from './ses
 export const STORAGE_KEY = 'wybor-telefonu:v1';
 export const BACKUP_KEY = 'wybor-telefonu:backup';
 export const THEME_KEY = 'wybor-telefonu:theme';
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 export const MAX_SESSIONS = 50;
 export const SAVE_DEBOUNCE_MS = 300;
 
@@ -89,6 +89,36 @@ export const migrations: Record<number, Migration> = {
       activeSessionId: typeof raw.activeId === 'string' ? raw.activeId : null,
       theme: raw.dark === true ? 'dark' : 'light',
       notices: [],
+    };
+  },
+  /* E11-01 · v1 → v2: domyślne puste wykluczenia i `exclusionsStep: 'done'` dla istniejących sesji. */
+  1: (raw) => {
+    const entries = Array.isArray(raw.sessions) ? raw.sessions : [];
+    const sessions = entries.map((entry) => {
+      if (typeof entry !== 'object' || entry === null) return entry;
+      const session = entry as Record<string, unknown>;
+      const rawFilters =
+        typeof session.filters === 'object' && session.filters !== null
+          ? (session.filters as Record<string, unknown>)
+          : {};
+      const filters = {
+        ...rawFilters,
+        excludedBrands: Array.isArray(rawFilters.excludedBrands) ? rawFilters.excludedBrands : [],
+        excludedPhoneIds: Array.isArray(rawFilters.excludedPhoneIds)
+          ? rawFilters.excludedPhoneIds
+          : [],
+      };
+      return {
+        ...session,
+        exclusionsStep: session.exclusionsStep === 'pending' ? 'pending' : 'done',
+        filters,
+      };
+    });
+
+    return {
+      ...raw,
+      schemaVersion: 2,
+      sessions,
     };
   },
 };

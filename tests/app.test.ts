@@ -51,7 +51,13 @@ describe('Etap 1 — szkielet aplikacji', () => {
     fireEvent.click(
       screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }),
     );
+    /* E11-06: najpierw opcjonalny krok wykluczeń; „Pomiń” otwiera właściwy quiz. */
+    expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/exclude$/);
+    goTo(window.location.hash);
+    expect(heading(strings.excludeTitle)).toBeTruthy();
+    fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
     expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/quiz$/);
+    goTo(window.location.hash);
 
     // nagłówek pierwszego bloku, nie zaślepka
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Bateria i ładowanie');
@@ -111,10 +117,13 @@ describe('Etap 1 — szkielet aplikacji', () => {
   test('DoD etapu 6: od Startu przez quiz do ujawnienia nazwy', async () => {
     render(createElement(App));
 
-    // 1. Start → tryb Quiz tworzy sesję
+    // 1. Start → tryb Quiz → opcjonalny krok wykluczeń → Pomiń → quiz
     fireEvent.click(
       screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }),
     );
+    expect(window.location.hash).toMatch(/^#\/s\/\d+\/exclude$/);
+    act(() => window.dispatchEvent(new Event('hashchange')));
+    fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
     expect(window.location.hash).toMatch(/^#\/s\/\d+\/quiz$/);
     act(() => window.dispatchEvent(new Event('hashchange')));
 

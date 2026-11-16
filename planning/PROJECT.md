@@ -37,34 +37,25 @@ Lista wejściowa została zmieniona decyzjami użytkownika (14.11.2026):
 - **Pixel 8a** wypada (model uznany za stary), jego miejsce zajmuje **Redmi Note 15 Pro 5G**.
 - **Galaxy A55** wypada (brak w sprzedaży), jego miejsce zajmuje **Realme 16 Pro+ 5G**.
 - Do danych trafiają wyłącznie telefony **nowe**, z polskiej dystrybucji.
+- **Rozszerzenie w Etapie 10 (16.11.2026, przed wydaniem v1.0 — decyzje D1–D5):** pula powiększona z 10 do **15 modeli**. Dodano **Honor 400 5G 8/256 GB**, **OnePlus Nord 5 5G 8/256 GB**, **Samsung Galaxy A37 5G 8/256 GB**, **vivo V70 FE 5G 8/256 GB** (D1) oraz **Xiaomi Redmi Note 17 Pro 5G 8/512 GB** (D2). **Xiaomi 15T** zostaje w wersji **12/512 GB** (D3). Odrzucono: **iPhone 16e 128 GB** (cena ~2849–2999 zł > limit 2000 zł) oraz starsze/wycofywane modele z 2024 r. (**Nothing Phone (2a)**, **Honor 200**, **OnePlus Nord 4**, **Motorola Edge 50 Neo**, **Redmi Note 14 Pro+ 5G**).
 
-| # | Model | Cena (14.11.2026) | Status |
-|---|---|---|---|
-| 1 | Samsung Galaxy A57 8/256 GB | 1729,00 zł | ok |
-| 2 | Google Pixel 10a 8/128 GB | 1899,99 zł | ok |
-| 3 | Samsung Galaxy A56 5G 8/256 GB | 1718,99 zł | ok |
-| 4 | Xiaomi Redmi Note 15 Pro 5G 8/256 GB | 1299,00 zł | ok |
-| 5 | Motorola Edge 60 12/256 GB | 1399,00 zł | ok |
-| 6 | Xiaomi 15T 12/512 GB | 1999,00 zł | ok |
-| 7 | Motorola Edge 70 Fusion 12/256 GB | 1658,12 zł | ok (aukcja sprawdzona, promocja do 30.11.2026) |
-| 8 | Google Pixel 9a 8/128 GB | 1749,99 zł | ok |
-| 9 | Nothing Phone (3a) 12/256 GB | 1779,00 zł | ok |
-| 10 | Realme 16 Pro+ 5G 8/256 GB | 1959,99 zł | do potwierdzenia na stronie oferty (adres linku bez „plus”) |
-
-**Etap 10 (16.11.2026) — rozszerzenie puli do 15 telefonów** na podstawie przeglądu listy 21 modeli
-([ETAP-10-rozszerzenie-puli-modeli.md](./ETAP-10-rozszerzenie-puli-modeli.md)), decyzje użytkownika D1-D6:
-vivo dopuszczone jako marka (D1), Redmi Note 17 Pro dodany mimo słabego chipu i braku 4K (D2), Xiaomi 15T
-zostaje 12/512 (D3), wzór pojemności baterii 4000-8000 mAh (D4), przed v1.0 (D5), nowe brzmienie 9.1.4 (D6).
-Odrzucone: Edge 50 Neo, Nothing Phone (2a), Honor 200, OnePlus Nord 4 (modele z 2024 r. zastąpione
-następcami lub bez ofert w PL) i iPhone 16e (powyżej limitu 2000 zł).
-
-| # | Model | Cena (16.11.2026, odczyt Ceneo) | Status |
-|---|---|---|---|
-| 11 | Honor 400 8/256 GB | 1599,00 zł (sklep HONOR / Media Expert / RTV Euro AGD) | ok — link do sklepu do podmiany przy odświeżeniu cen |
-| 12 | Samsung Galaxy A37 5G 8/256 GB | 1293,00 zł (28 ofert) | ok — rozbieżność z migawką strony produktu (1582 zł) do rozstrzygnięcia w dniu wydania |
-| 13 | OnePlus Nord 5 8/256 GB | 1709,00 zł (e-smartphone.pl) | ok |
-| 14 | vivo V70 FE 5G 8/256 GB | 1699,00 zł (6 ofert) | ok |
-| 15 | Xiaomi Redmi Note 17 Pro 5G 8/512 GB | 1659,00 zł (12 ofert; RRP 2199 zł) | ok — liczba wersji systemu niepotwierdzona (`updates` z jednej składowej) |
+| # | Model | Cena | Data sprawdzenia | Status |
+|---|---|---|---|---|
+| 1 | Samsung Galaxy A57 5G 8/256 GB | 1729,00 zł | 14.11.2026 | ok |
+| 2 | Google Pixel 10a 8/128 GB | 1899,99 zł | 14.11.2026 | ok |
+| 3 | Samsung Galaxy A56 5G 8/256 GB | 1718,99 zł | 14.11.2026 | ok |
+| 4 | Xiaomi Redmi Note 15 Pro 5G 8/256 GB | 1299,00 zł | 14.11.2026 | ok |
+| 5 | Motorola Edge 60 12/256 GB | 1399,00 zł | 14.11.2026 | ok |
+| 6 | Xiaomi 15T 12/512 GB | 1999,00 zł | 14.11.2026 | ok (D3: zostaje 12/512 GB) |
+| 7 | Motorola Edge 70 Fusion 12/256 GB | 1658,12 zł | 14.11.2026 | ok (promocja do 30.11.2026) |
+| 8 | Google Pixel 9a 8/128 GB | 1749,99 zł | 14.11.2026 | ok |
+| 9 | Nothing Phone (3a) 12/256 GB | 1779,00 zł | 14.11.2026 | ok |
+| 10 | Realme 16 Pro+ 5G 8/256 GB | 1959,99 zł | 14.11.2026 | ok (potwierdzony w A1) |
+| 11 | Honor 400 5G 8/256 GB | 1599,00 zł | 16.11.2026 | ok (etap 10; wariant UE 5300 mAh) |
+| 12 | OnePlus Nord 5 5G 8/256 GB | 1600,99 zł | 16.11.2026 | ok (etap 10; wariant UE 5200 mAh) |
+| 13 | Samsung Galaxy A37 5G 8/256 GB | 1359,00 zł | 16.11.2026 | ok (etap 10; drugi odczyt 1299 zł) |
+| 14 | vivo V70 FE 5G 8/256 GB | 1799,00 zł | 16.11.2026 | ok (etap 10, D1; wariant PL 7000 mAh) |
+| 15 | Xiaomi Redmi Note 17 Pro 5G 8/512 GB | 1799,00 zł | 16.11.2026 | ok (etap 10, D2; promo Media Expert do 19.11.2026, Ceneo od 1579 zł) |
 
 Aktualny stan zebranych danych: `src/data/phones.json` i sekcja „Stan danych” w [ROADMAP.md](./ROADMAP.md).
 
@@ -97,7 +88,7 @@ Start ──► wybór trybu ──► (quiz | suwaki | hybryda) ──► ranki
                                │
         ┌──────────────────────┼───────────────────────────┐
         ▼                      ▼                           ▼
- wybór innej karty      quiz od nowa            „Pokaż pełny ranking” (cała pula — 15 telefonów od etapu 10, z nazwami)
+ wybór innej karty      quiz od nowa            „Pokaż pełny ranking” (15 telefonów, z nazwami)
  (kolejny wybór, 1/2)   (nowa sesja w historii)
 ```
 
@@ -182,7 +173,7 @@ Każdy telefon ma w `scores` ocenę 0-100 na kryterium, w `basis` uzasadnienie z
 
 | Kryterium | Wzór |
 |---|---|
-| `battery` | `0,5 × pojemność + 0,5 × wytrzymałość`; pojemność = `(mAh − 4000) / 4000 × 100` (4000 mAh = 0, 8000 mAh = 100; **etap 10, decyzja D4** — do etapu 9 zakres kończył się na 7000 mAh, bo pula ma telefony 7000-8340 mAh); wytrzymałość = ocena z testów i recenzji (0-100), preferowane źródło: etykieta energetyczna UE „wytrzymałość na cyklu” (reguła C1) |
+| `battery` | `0,5 × pojemność + 0,5 × wytrzymałość`; pojemność = `(mAh − 4000) / 4000 × 100` (4000 mAh = 0, **8000 mAh = 100**, powyżej obcięte do 100 — decyzja D4 z etapu 10, premia dla ogniw >7000 mAh; 7000 mAh = 75); wytrzymałość = ocena z testów i recenzji (0-100) |
 | `charging` | `(W − 15) / 75 × 100`, +8 pkt za ładowanie bezprzewodowe (23 W ≈ 11, 45 W = 40, 68 W ≈ 71, 90 W = 100) |
 | `updates` | `lata / 7 × 100`, gdzie lata = średnia z liczby dużych aktualizacji systemu i lat poprawek (7 lat = 100, 6 lat ≈ 86, 3+4 lata ≈ 50) |
 | `storage` | 128 GB = 40, 256 GB = 75, 512 GB = 100 (slot microSD dałby bonus, żaden telefon z listy go nie ma) |
