@@ -13,7 +13,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 4 | Tryb quiz | `[x]` zrobione |
 | 5 | Tryb suwaków i hybryda | `[x]` zrobione |
 | 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[x]` zrobione |
-| 7 | Historia sesji i wznawianie | `[ ]` |
+| 7 | Historia sesji i wznawianie | `[x]` zrobione |
 | 8 | Motywy, mobile, dostępność | `[ ]` |
 | 9 | Pełny ranking, szlify i wydanie | `[ ]` |
 
@@ -168,12 +168,14 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 
 ## Etap 7 — Historia sesji i wznawianie
 
-- [ ] Lista sesji (data, tryb, status, ostatni wybór)
-- [ ] Wznawianie nieukończonych, podgląd ukończonych, usuwanie
-- [ ] Start nowego quizu bez utraty poprzednich
-- [ ] (opcjonalnie) link do wznowienia w hashu i eksport/import historii do pliku
+- [x] Lista sesji (data, tryb, status, ostatni wybór)
+- [x] Wznawianie nieukończonych, podgląd ukończonych, usuwanie
+- [x] Start nowego quizu bez utraty poprzednich
+- [x] (opcjonalnie) link do wznowienia w hashu i eksport/import historii do pliku
 
 **DoD:** można rozpocząć trzy sesje, przeglądać je i wznowić nieukończoną.
+
+**Stan po etapie 7:** `#/history` z osią czasu od najnowszej (`SessionListItem`: data względna i pełna, tryb, status, postęp quizu, wybrane telefony z miejscem i dopasowaniem, wersja danych snapshotu), **Wznów** na pierwsze pytanie bez odpowiedzi, **Podgląd** ukończonej sesji na kartach ze snapshotu (nie nowy ranking), **Usuń** z potwierdzeniem w oknie u dołu, stan pusty z przyciskiem Start, nowa sesja nie rusza starych. Opcje weszły do zakresu: **E7-06** link `#/r/<kod>` (base64url z `{v, mode, answers, topThree}`, bez `picks`, bo te odkrywałyby nazwy; otwarcie tworzy nową sesję i liczy ranking aktualnymi danymi) oraz **E7-07** eksport i import pliku JSON z walidacją i scalaniem bez duplikatów (ten sam `id` wygrywa nowszym `updatedAt`, limit 50). Nowe moduły: `lib/resumeLink.ts`, `lib/historyTransfer.ts`, `features/history/historyModel.ts`, akcja reducera `history/import` i `session/create` z odpowiedziami. Testy akceptacyjne 1-6 zielone (`tests/history-transfer.test.ts`, `tests/history-screen.test.ts`).
 
 ## Etap 8 — Motywy, mobile, dostępność
 

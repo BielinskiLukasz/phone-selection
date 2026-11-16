@@ -14,6 +14,7 @@ export const DEMO_SESSION_IDS = ['demo', 'preview'] as const;
 export type Route =
   | { name: 'home' }
   | { name: 'history' }
+  | { name: 'resume'; code: string }
   | { name: SessionView; sessionId: string }
   | { name: 'missing-session'; sessionId: string; view: SessionView }
   | { name: 'not-found'; path: string };
@@ -30,6 +31,10 @@ export function parseHash(hash: string): Route {
 
   if (path === '/' || path === '') return { name: 'home' };
   if (path === '/history') return { name: 'history' };
+
+  /* Link do wznowienia z innego urządzenia (E7-06). */
+  const resumeMatch = /^\/r\/([A-Za-z0-9_-]+)$/.exec(path);
+  if (resumeMatch) return { name: 'resume', code: resumeMatch[1] ?? '' };
 
   const match = SESSION_PATTERN.exec(path);
   if (match) {
@@ -55,6 +60,8 @@ export function routeToHash(route: Route): string {
       return '#/';
     case 'history':
       return '#/history';
+    case 'resume':
+      return `#/r/${route.code}`;
     case 'missing-session':
       return `#/s/${route.sessionId}/${route.view}`;
     case 'not-found':

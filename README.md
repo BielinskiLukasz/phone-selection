@@ -8,6 +8,9 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 7 — Historia sesji i wznawianie**: lista od najnowszej z osią czasu, Wznów / Podgląd / Usuń
+  z potwierdzeniem, eksport i import historii jako plik JSON ze scalaniem bez duplikatów oraz link
+  `#/r/<kod>` do przeniesienia odpowiedzi na drugie urządzenie.
 - **Etap 6 — Ranking, anonimowe karty, wybór i ujawnienie**: trzy karty z dopasowaniem, ceną z datą
   i sześcioma cechami, rozwijane szczegóły z ocenami i pewnością, okno potwierdzenia z pułapką
   fokusu, ujawnienie nazwy i linków do sklepów, wielokrotny wybór z plakietkami „Wybór n/m”.
@@ -79,6 +82,7 @@ src/
 │   ├── PhoneCardAnon.tsx  PhoneCardRevealed.tsx                # karty przed i po ujawnieniu (E6-02/06)
 │   ├── DetailsAccordion.tsx  ScoreBar.tsx  ConfidenceIcon.tsx  # szczegóły karty (E6-03)
 │   ├── ConfirmSheet.tsx  Toast.tsx                             # potwierdzenie wyboru i komunikat (E6-05)
+│   ├── SessionListItem.tsx                                     # wiersz historii z osią czasu (E7-01)
 │   ├── NoticeStack.tsx                     # banery stanów krańcowych zapisu
 │   ├── ScreenShell.tsx                     # ramka ekranu-zaślepki + pager
 │   ├── AnonCardPreview.tsx  ModeRow.tsx    # makiety UI-SPEC 3.1 i 3.4
@@ -105,14 +109,17 @@ src/
 │   ├── matchDisplay.ts           # sposób pokazywania „% dopasowania” (E2-09)
 │   ├── session.ts                # fabryki sesji, postęp quizu, limit i sortowanie (E3-01/09)
 │   ├── storage.ts                # klucz v1, migracje, stany awaryjne, zapis (E3-02…04)
+│   ├── resumeLink.ts             # kod `#/r/<kod>`: base64url, walidacja, bez wyborów (E7-06)
+│   ├── historyTransfer.ts        # eksport/import JSON, walidacja, scalanie bez duplikatów (E7-07)
 │   ├── sessionReducer.ts         # akcje na sesjach + snapshot rankingu (E3-05/06)
 │   └── cardSpecs.ts              # „pełne dane” karty bez pola reveal (E6-03)
 ├── features/
+│   ├── history/historyModel.ts   # podsumowania sesji, daty względne, ekran wznowienia (E7-01)
 │   ├── quiz/quizFlow.ts          # kroki quizu, licznik, wznawianie (E4-01)
 │   ├── sliders/sliderModel.ts    # skala, etykiety, udziały, punkt odniesienia (E5-01/02)
 │   ├── state/StateProvider.tsx    # kontekst, debounce zapisu, sync kart (E3-07/08)
 │   └── sessions/useReveal.ts      # plakietki „Wybór 1/2”, „2/2” (E3-10)
-├── screens/                      # Start, QuizScreen, SlidersScreen, CardsScreen, zaślepki, Historia, 404
+├── screens/                      # Start, Quiz, Sliders, Cards, History, Resume, zaślepki, 404
 ├── App.tsx  main.tsx  index.css
 tests/app.test.ts                 # test dymny na App: routing, motyw, anonimizacja, błędy
 tests/data.ts                     # pula testowa = phones.json + klony (remis, microSD, 2100 zł)
@@ -133,6 +140,8 @@ tests/quiz-screen.test.ts         # ekran quizu: odpowiedzi, wstecz, klawiatura,
 tests/sliderModel.test.ts         # model suwaków + równoważność trzech trybów (E5, DoD)
 tests/sliders-screen.test.ts      # suwaki, filtry, licznik, hybryda, „Przywróć wyliczone”
 tests/cards-screen.test.ts        # karty, test wycieku w DOM, wybór, ujawnienie, etykiety
+tests/history-transfer.test.ts    # eksport/import, scalanie, link do wznowienia, model listy
+tests/history-screen.test.ts      # lista, wznawianie, podgląd, usuwanie, wejście z #/r/<kod>
 tests/personas.ts                 # odpowiedzi person jako stałe (E2-11)
 tests/validate-data.test.ts       # testy walidatora danych
 planning/                         # PROJECT.md, UI-SPEC.md, ROADMAP.md, opisy etapów
@@ -241,7 +250,7 @@ wraz z `basis.zoom` (które cytuje źródło mówiące „brak teleobiektywu”)
 | 8 | `null` w `scores.value` → silnik liczy `value` z ceny i nie zawiesza się | ✅ |
 
 Pokrycie: `npx vitest run --coverage --coverage.include='src/lib/**'` → 98,5% linii (DoD: ≥ 90%).
-Cała suite: **263 testów** w 19 plikach.
+Cała suite: **291 testów** w 21 plikach.
 
 ## Wdrożenie (GitHub Pages)
 
@@ -345,6 +354,24 @@ Anonimowość pilnowana testem wycieku (E6-11): skanowane są węzły tekstu, at
 `aria-*`, `data-*` i `href`, tytuł dokumentu oraz hash adresu — lista tokenów budowana jest z
 `reveal` i `specs.chip` całej puli. Zadanie opcjonalne E6-10 (osobny `reveal.json`) zostało
 pominięte świadomie: build jest jednoplikowy, więc i tak wcieliłby dane w `dist/index.html`.
+
+## Etap 7 — historia sesji i wznawianie
+
+`#/history` pokazuje sesje od najnowszej na osi czasu: tryb, status („W trakcie” / „Ukończona”),
+data względna („dziś 14:32”, „wczoraj”, „3 dni temu”) i pełna w `title`, postęp quizu z paskiem
+(„pytanie 2 z 18”), a przy wyborach — nazwy wybranych telefonów z miejscem w rankingu i procentem
+dopasowania (te karty są już odsłonięte, więc nazwy wolno pokazać). **Wznów** otwiera ekran trybu na
+pierwszym pytaniu bez odpowiedzi (hybryda z wypełnionym krótkim quizem wraca do dostrojenia),
+**Podgląd** otwiera karty ukończonej sesji **ze snapshotu** — z informacją „dane z 14.11.2026”, więc
+wynik jest stały w czasie. **Usuń** wymaga potwierdzenia w oknie u dołu.
+
+Przenoszenie między urządzeniami (opcje E7-06/E7-07 weszły do zakresu):
+
+| Mechanizm | Jak działa |
+|---|---|
+| **Link do wznowienia** `#/r/<kod>` | `base64url` z `{ v, mode, answers, topThree }` — **bez `picks`**, bo wybory odkrywałyby nazwy. Otwarcie tworzy **nową** sesję z tymi odpowiedziami i liczy ranking aktualnymi danymi; uszkodzony albo nowszy kod daje komunikat i powrót na start |
+| **Eksport** | plik `wybor-telefonu-historia-RRRR-MM-DD.json` z znacznikiem aplikacji, wersją i sesjami od najnowszej |
+| **Import** | walidacja pliku (obca aplikacja, nowsza wersja, uszkodzone wpisy), scalanie bez duplikatów: ten sam `id` wygrywa nowszym `updatedAt`, potem limit 50 najnowszych; wynik w banerze („1 nowych, 1 bez zmian (duplikaty)”) |
 
 ## Stan danych (etap 0 — domknięty)
 

@@ -19,6 +19,10 @@ interface Readout {
 }
 
 function describe(route: Route, knownSessions: readonly string[] = []): Readout {
+  if (route.name === 'resume') {
+    return { screen: strings.resumeLinkTitle, status: 'ready', session: '—' };
+  }
+
   if (route.name !== 'home' && route.name !== 'history' && route.name !== 'not-found') {
     const exists =
       knownSessions.includes(route.sessionId) || isPreviewSessionId(route.sessionId);

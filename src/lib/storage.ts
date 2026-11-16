@@ -257,13 +257,13 @@ export function loadState(storage: StorageAdapter | null = browserStorage()): Lo
 
 /** Zapis bez komunikatów — one są wyłącznie stanem uruchomieniowym. */
 export function serialize(state: AppState): string {
-  return JSON.stringify({ ...state, notices: [] });
+  return JSON.stringify({ ...state, notices: [], lastImport: null });
 }
 
 /** Zapis bez snapshotów rankingu — druga próba, gdy magazyn zgłasza limit. */
 export function serializeSlim(state: AppState): string {
   const sessions = state.sessions.map((session) => ({ ...session, ranking: null }));
-  return JSON.stringify({ ...state, sessions, notices: [] });
+  return JSON.stringify({ ...state, sessions, notices: [], lastImport: null });
 }
 
 export function saveState(

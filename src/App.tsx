@@ -11,6 +11,7 @@ import { SlidersScreen } from '@/screens/SlidersScreen';
 import { CardsScreen } from '@/screens/CardsScreen';
 import { HistoryScreen } from '@/screens/HistoryScreen';
 import { MissingSessionScreen, NotFoundScreen } from '@/screens/ErrorScreens';
+import { ResumeScreen } from '@/screens/ResumeScreen';
 
 const titles: Record<string, string> = {
   home: strings.home,
@@ -22,6 +23,7 @@ const titles: Record<string, string> = {
   ranking: strings.ranking,
   'missing-session': strings.missingSession,
   'not-found': strings.unknownRoute,
+  resume: strings.resumeLinkTitle,
 };
 
 /** Etap 3: stan sesji w kontekście, routing hashowy i layout z etapu 1. */
@@ -70,6 +72,8 @@ function Screen({ route }: ScreenProps) {
       return <HistoryScreen />;
     case 'not-found':
       return <NotFoundScreen path={route.path} />;
+    case 'resume':
+      return <ResumeScreen code={route.code} />;
     case 'missing-session':
       return <MissingSessionScreen sessionId={route.sessionId} view={route.view} />;
     default: {

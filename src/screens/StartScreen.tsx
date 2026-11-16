@@ -63,7 +63,8 @@ const ROUTE_MAP = [
   { hash: '#/s/demo/tune', label: strings.tune, kind: 'stub' },
   { hash: '#/s/demo/cards', label: strings.cards, kind: 'stub' },
   { hash: '#/s/demo/ranking', label: strings.ranking, kind: 'stub' },
-  { hash: '#/history', label: strings.history, kind: 'stub' },
+  { hash: '#/history', label: strings.history, kind: 'ready' },
+  { hash: '#/r/kod-z-drugiego-urządzenia', label: strings.resumeLinkTitle, kind: 'ready' },
   { hash: '#/s/2f9c1a/quiz', label: strings.missingSession, kind: 'error' },
   { hash: '#/ustawienia', label: strings.unknownRoute, kind: 'error' },
 ] as const;
@@ -316,7 +317,13 @@ export function StartScreen() {
                           : 'bg-[var(--color-accent-soft)] text-[var(--color-accent-ink)]'
                     }`}
                   >
-                    {entry.kind === 'error' ? 'błąd' : entry.kind === 'stub' ? strings.routeWorks : 'start'}
+                    {entry.kind === 'error'
+                      ? 'błąd'
+                      : entry.kind === 'stub'
+                        ? strings.routeWorks
+                        : entry.kind === 'ready'
+                          ? 'gotowy'
+                          : 'start'}
                   </span>
                   <span className="shrink-0 text-[var(--color-border-strong)] transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[var(--color-accent)]">
                     <ArrowRightIcon className="h-4 w-4" />

@@ -215,6 +215,44 @@ export const strings = {
   cardsSpecConnectivity: 'Łączność',
   cardsSpecCharger: 'Ładowarka w zestawie',
 
+  /* Etap 7 — historia sesji i wznawianie (UI-SPEC 3.7) */
+  historyLead:
+    'Wszystkie wybory zapisane w tej przeglądarce: wznów przerwany quiz, zajrzyj do ukończonej sesji albo ją usuń.',
+  historyNew: 'Nowa sesja',
+  historyExport: 'Eksportuj',
+  historyImport: 'Importuj z pliku',
+  historyTransferNote:
+    'Eksport zapisuje sesje jako plik JSON — to kopia zapasowa i sposób na przeniesienie historii na inny komputer.',
+  historyResume: 'Wznów',
+  historyPreviewAction: 'Podgląd',
+  historyDelete: 'Usuń',
+  historyDeleteTitle: 'Usunąć tę sesję?',
+  historyDeleteBody:
+    'Usuniemy odpowiedzi, wagi, filtry i wybory tej sesji z tej przeglądarki. Tego nie da się cofnąć.',
+  historyDeleteConfirm: 'Usuń sesję',
+  historyDeleteCancel: 'Zostaw',
+  historyDeleted: 'Sesja usunięta.',
+  historyCopyLink: 'Link do wznowienia',
+  historyLinkCopied: 'Link skopiowany — otwórz go na drugim urządzeniu.',
+  historyLinkCopyFailed: 'Nie udało się skopiować linku — skopiuj adres z paska przeglądarki.',
+  historySelectedLabel: 'Wybrano',
+  historyProgressLabel: 'postęp',
+  historyDataFrom: 'dane z',
+  historyRankingFrom: 'ranking liczony',
+  historyEmptyLead:
+    'Zapis sesji działa w tej przeglądarce. Gdy wybierzesz tryb na starcie, sesja pojawi się tutaj z postępem i wyborami.',
+  resumeLinkTitle: 'Odtwarzamy sesję z linku',
+  resumeLinkNote:
+    'Za chwilę otworzy się nowa sesja z tymi samymi odpowiedziami. Ranking liczymy aktualnymi danymi, więc wynik może się różnić od tego z drugiego urządzenia.',
+  resumeLinkErrorTitle: 'Nie udało się otworzyć tego linku',
+  resumeLinkErrorNote:
+    'Link jest uszkodzony, pochodzi z nowszej wersji albo skopiował się niecały. Możesz zacząć nowy wybór na starcie.',
+  resumeLinkOpen: 'Otwórz odtworzoną sesję',
+  resumeLinkAnswers: 'odpowiedzi w linku',
+  resumeLinkCreated: 'Nowa sesja z odpowiedziami z linku — ranking policzony aktualnymi danymi.',
+  historyImportDone: 'Historia scalona.',
+  historyImportFailed: 'Nie udało się wczytać pliku.',
+
   /* Motyw (UI-SPEC 6) */
   themeToDark: 'Przełącz na ciemny motyw',
   themeToLight: 'Przełącz na jasny motyw',
@@ -349,7 +387,7 @@ export const screenPlans = {
   },
   history: {
     stage: 7,
-    done: false,
+    done: true,
     stageName: 'Historia sesji i wznawianie',
     items: [
       'Lista sesji od najnowszej: data, tryb, status, ostatni wybór, postęp quizu.',
@@ -414,6 +452,29 @@ export const sessionTexts = {
     count === 1
       ? 'Tylko jeden telefon spełnia te warunki — pokazujemy jedną propozycję.'
       : `Tylko ${count} telefony spełniają te warunki — pokazujemy ${count} propozycje.`,
+  historyStats: (stats: {
+    total: number;
+    inProgress: number;
+    completed: number;
+    picks: number;
+    lastUpdated: string | null;
+  }): string => {
+    const parts = [
+      `${stats.total} ${stats.total === 1 ? 'sesja' : stats.total < 5 ? 'sesje' : 'sesji'}`,
+      `${stats.inProgress} w trakcie`,
+      `${stats.completed} ${stats.completed === 1 ? 'ukończona' : 'ukończone'}`,
+      `${stats.picks} ${stats.picks === 1 ? 'wybór' : 'wybory'}`,
+    ];
+    return stats.lastUpdated ? `${parts.join(' · ')} · ostatnia ${stats.lastUpdated}` : parts.join(' · ');
+  },
+  importResult: (added: number, updated: number, duplicates: number): string => {
+    const parts = [
+      added > 0 ? `${added} nowych` : null,
+      updated > 0 ? `${updated} zaktualizowane` : null,
+      duplicates > 0 ? `${duplicates} bez zmian (duplikaty)` : null,
+    ].filter((part): part is string => part !== null);
+    return parts.length > 0 ? parts.join(', ') : 'brak nowych sesji w pliku';
+  },
   answeredSummary: (answered: number, total: number, skipped: number): string =>
     `${answered} z ${total} pytań · ${skipped} × „nie wiem”`,
 } as const;

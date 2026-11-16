@@ -75,11 +75,20 @@ export type NoticeCode =
   | 'quota-exceeded'
   | 'sessions-trimmed';
 
+export interface ImportSummary {
+  added: number;
+  updated: number;
+  duplicates: number;
+  at: string;
+}
+
 export interface AppState {
   schemaVersion: number;
   sessions: Session[];
   activeSessionId: string | null;
   theme: Theme;
+  /** Wynik ostatniego importu historii (E7-07); nie jest zapisywany do magazynu. */
+  lastImport?: ImportSummary | null;
   /** Komunikaty do pokazania; nie są zapisywane do magazynu. */
   notices: NoticeCode[];
 }

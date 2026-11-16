@@ -52,7 +52,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 4, name: 'Tryb quiz', done: true, active: false },
   { id: 5, name: 'Tryb suwaków i hybryda', done: true, active: false },
   { id: 6, name: 'Ranking, anonimowe karty, wybór', done: true, active: false },
-  { id: 7, name: 'Historia sesji i wznawianie', done: false, active: false },
+  { id: 7, name: 'Historia sesji i wznawianie', done: true, active: false },
   { id: 8, name: 'Motywy, mobile, dostępność', done: false, active: false },
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
 ];
@@ -143,6 +143,20 @@ export const CARDS_STATUS = [
   'Potwierdzenie w oknie u dołu: pułapka fokusu, zamknięcie klawiszem Esc, fokus wraca na kartę.',
   'Każdy wybór zostaje w sesji: po odświeżeniu karty są odsłonięte z tymi samymi numerami.',
   'W ciemnym motywie szczegóły (oceny i pełne dane) są widoczne od razu, bez rozwijania.',
+] as const;
+
+export const HISTORY_FACTS = [
+  { label: 'limit historii', value: '50', note: 'najnowsze sesje' },
+  { label: 'kopia zapasowa', value: 'JSON', note: 'eksport i import' },
+  { label: 'link do wznowienia', value: '#/r/…', note: 'base64url, bez wyborów' },
+  { label: 'podgląd sesji', value: 'snapshot', note: 'dane z dnia zapisu' },
+] as const;
+
+export const HISTORY_STATUS = [
+  'Lista od najnowszej z osią czasu: tryb, status, postęp quizu i wybrane telefony z miejscem w rankingu.',
+  'Wznów otwiera pierwsze pytanie bez odpowiedzi, Podgląd — karty ze snapshotu, nie nowy ranking.',
+  'Usuwanie z potwierdzeniem; eksport i import scalają bez duplikatów (ten sam id wygrywa nowszą wersją).',
+  'Link do wznowienia przenosi odpowiedzi i trójkę G1 na drugie urządzenie — bez wyborów, żeby nie odkrywać nazw.',
 ] as const;
 
 export const CONSOLE_COMMANDS = [

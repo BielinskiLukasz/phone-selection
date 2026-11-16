@@ -1,5 +1,5 @@
 import { DATA_VERSION, PHONES } from '@/data/phones';
-import type { Filters, GroupId, GroupImportance, Phone, Weights } from '@/types';
+import type { Answers, Filters, GroupId, GroupImportance, Phone, Weights } from '@/types';
 import type {
   AppState,
   Mode,
@@ -10,6 +10,7 @@ import type {
   Theme,
 } from '@/types/state';
 import { createSession, nowIso, sortSessions, trimSessions } from './session';
+import { mergeSessions } from './historyTransfer';
 import { rank } from './scoring';
 import { deriveFromAnswers } from './weights';
 import { MAX_SESSIONS } from './storage';
@@ -20,7 +21,16 @@ import { MAX_SESSIONS } from './storage';
  */
 
 export type Action =
-  | { type: 'session/create'; mode: Mode; id?: string; now?: Date }
+  | {
+      type: 'session/create';
+      mode: Mode;
+      id?: string;
+      now?: Date;
+      /** Link do wznowienia (E7-06): odpowiedzi i trójka z innego urządzenia. */
+      answers?: Answers;
+      topThree?: [GroupId, GroupId, GroupId] | null;
+    }
+  | { type: 'history/import'; sessions: Session[]; now?: Date }
   | { type: 'session/activate'; sessionId: string | null }
   | { type: 'session/answer'; sessionId: string; questionId: string; optionId: string; now?: Date }
   | {
@@ -150,11 +160,19 @@ export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'session/create': {
       const now = action.now ?? new Date();
-      const session: Session = {
-        ...createSession(action.mode, now, action.id),
-        ranking: null,
+      const base = createSession(action.mode, now, action.id);
+      /* Link do wznowienia: te same odpowiedzi, ranking liczony AKTUALNYMI danymi (E7-06). */
+      const seeded: Session = action.answers
+        ? recompute(
+            { ...base, answers: action.answers, topThree: action.topThree ? { picks: action.topThree } : null },
+            now,
+          )
+        : base;
+      const session: Session = { ...seeded, ranking: seeded.ranking ?? null };
+      const withRanking: Session = {
+        ...session,
+        ranking: session.ranking ?? computeRankingSnapshot(session, PHONES, now),
       };
-      const withRanking: Session = { ...session, ranking: computeRankingSnapshot(session, PHONES, now) };
       const trimmed = trimSessions([...state.sessions, withRanking], MAX_SESSIONS);
 
       return {
@@ -282,6 +300,24 @@ export function reducer(state: AppState, action: Action): AppState {
         },
         action.now ?? new Date(),
       );
+
+    /* E7-07: scalanie importu bez duplikatów — ten sam id wygrywa nowszą wersją. */
+    case 'history/import': {
+      const merged = mergeSessions(state.sessions, action.sessions);
+      const notices: NoticeCode[] = [...state.notices];
+      if (merged.trimmed > 0 && !notices.includes('sessions-trimmed')) notices.push('sessions-trimmed');
+      return {
+        ...state,
+        sessions: merged.sessions,
+        notices,
+        lastImport: {
+          added: merged.added,
+          updated: merged.updated,
+          duplicates: merged.duplicates,
+          at: nowIso(action.now ?? new Date()),
+        },
+      };
+    }
 
     case 'session/delete': {
       const sessions = state.sessions.filter((session) => session.id !== action.sessionId);
