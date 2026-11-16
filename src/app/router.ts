@@ -33,12 +33,8 @@ export function parseHash(hash: string): Route {
 
   const match = SESSION_PATTERN.exec(path);
   if (match) {
-    const sessionId = match[1] ?? '';
-    const view = match[2] as SessionView;
-    const known = (DEMO_SESSION_IDS as readonly string[]).includes(sessionId);
-    return known
-      ? { name: view, sessionId }
-      : { name: 'missing-session', sessionId, view };
+    /* Router jest czysty: o tym, czy sesja istnieje, decyduje stan aplikacji (etap 3). */
+    return { name: match[2] as SessionView, sessionId: match[1] ?? '' };
   }
 
   return { name: 'not-found', path };
@@ -46,6 +42,11 @@ export function parseHash(hash: string): Route {
 
 export function isSessionRoute(route: Route): route is { name: SessionView; sessionId: string } {
   return (SESSION_VIEWS as readonly string[]).includes(route.name);
+}
+
+/** Identyfikatory podglądu szkieletu — nie są zapisanymi sesjami. */
+export function isPreviewSessionId(sessionId: string): boolean {
+  return (DEMO_SESSION_IDS as readonly string[]).includes(sessionId);
 }
 
 export function routeToHash(route: Route): string {

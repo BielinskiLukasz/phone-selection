@@ -10,6 +10,8 @@ import {
   UpdateIcon,
 } from '@/components/Icons';
 import { CardsMock, QuizMock, RankingMock, SlidersMock } from './mocks';
+import { SessionPanel } from '@/components/SessionPanel';
+import type { Session } from '@/types/state';
 
 const titles: Record<SessionView, string> = {
   quiz: strings.quiz,
@@ -30,10 +32,12 @@ const icons: Record<SessionView, ReactNode> = {
 interface SessionStubScreenProps {
   view: SessionView;
   sessionId: string;
+  /** Sesja z magazynu; `null` dla identyfikatorów podglądu (demo/preview). */
+  session: Session | null;
 }
 
 /** Ekrany-zaślepki sesji (E1-07): adres, plan zawartości, makieta, pager. */
-export function SessionStubScreen({ view, sessionId }: SessionStubScreenProps) {
+export function SessionStubScreen({ view, sessionId, session }: SessionStubScreenProps) {
   const plan = screenPlans[view as PlanScreenKey];
   const index = SESSION_VIEWS.indexOf(view);
   const prev = index > 0 ? SESSION_VIEWS[index - 1] : undefined;
@@ -67,10 +71,13 @@ export function SessionStubScreen({ view, sessionId }: SessionStubScreenProps) {
         nextLabel: next ? titles[next] : undefined,
       }}
     >
-      <p className="num mb-6 rounded-[var(--radius-card)] bg-[var(--color-surface-2)] px-4 py-3 text-[11px] leading-relaxed tracking-[0.06em] text-[var(--color-muted)]">
-        {strings.demoSessionNote}
-      </p>
+      {session ? null : (
+        <p className="num mb-6 rounded-[var(--radius-card)] bg-[var(--color-surface-2)] px-4 py-3 text-[11px] leading-relaxed tracking-[0.06em] text-[var(--color-muted)]">
+          {strings.demoSessionNote}
+        </p>
+      )}
       {mock}
+      <SessionPanel session={session} hash={`#/s/${sessionId}/${view}`} />
     </ScreenShell>
   );
 }

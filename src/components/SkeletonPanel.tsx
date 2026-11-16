@@ -5,17 +5,22 @@ import {
   CONSOLE_COMMANDS,
   ENGINE_FACTS,
   ENGINE_STATUS,
+  STORAGE_STATUS,
   daysSincePriceCheck,
   formatDate,
   pool,
 } from '@/data/pool';
 import { Reveal } from './Reveal';
-import { CheckIcon, TerminalIcon, AlertIcon } from './Icons';
+import { Badge } from './Badge';
+import { CheckIcon, TerminalIcon, AlertIcon, HistoryIcon } from './Icons';
+import { useAppState } from '@/features/state/StateProvider';
+import { MAX_SESSIONS, SCHEMA_VERSION, STORAGE_KEY } from '@/lib/storage';
 
 /** Stan szkieletu: potok CI, dane, komendy i testy akceptacyjne etapu 1. */
 export function SkeletonPanel() {
   const days = daysSincePriceCheck();
   const stale = days > 30;
+  const { sessions, persistent, unfinished } = useAppState();
 
   const facts = [
     { label: 'Pula telefonów', value: `${pool.count} / ${pool.expected}`, note: pool.statusNote },
@@ -160,6 +165,63 @@ export function SkeletonPanel() {
         </dl>
         <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
           {ENGINE_STATUS.map((line) => (
+            <li
+              key={line}
+              className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"
+            >
+              <span className="mt-px shrink-0 text-[var(--color-ok)]">
+                <CheckIcon className="h-4 w-4" />
+              </span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      {/* Zapis w przeglądarce — etap 3 */}
+      <Reveal delay={40} className="surface mt-6 p-0">
+        <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] px-[var(--pad-card)] py-3">
+          <span className="label-mono flex items-center gap-2">
+            <HistoryIcon className="h-4 w-4" />
+            {strings.storageTitle} · etap 3
+          </span>
+          <Badge tone={persistent ? 'accent' : 'warn'}>
+            {persistent ? strings.storagePersistent : strings.storageMemoryMode}
+          </Badge>
+          <span className="num ml-auto hidden text-[11px] text-[var(--color-muted)] sm:block">
+            src/lib/storage.ts · src/lib/sessionReducer.ts
+          </span>
+        </div>
+        <dl className="grid gap-px bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { label: 'klucz', value: STORAGE_KEY, note: `schemat v${SCHEMA_VERSION}` },
+            {
+              label: strings.sessionsStored,
+              value: String(sessions.length),
+              note: `limit ${MAX_SESSIONS} najnowszych`,
+            },
+            {
+              label: 'w trakcie',
+              value: String(sessions.filter((item) => item.status === 'in_progress').length),
+              note: unfinished ? 'baner „Wznów” na starcie' : 'brak do wznowienia',
+            },
+            {
+              label: 'ukończone',
+              value: String(sessions.filter((item) => item.status === 'completed').length),
+              note: 'z snapshotem rankingu',
+            },
+          ].map((item) => (
+            <div key={item.label} className="bg-[var(--color-surface)] p-3">
+              <dt className="label-mono truncate">{item.label}</dt>
+              <dd className="num mt-1.5 truncate text-lg font-bold tracking-tight" title={item.value}>
+                {item.value}
+              </dd>
+              <dd className="mt-0.5 text-[11px] leading-snug text-[var(--color-muted)]">{item.note}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
+          {STORAGE_STATUS.map((line) => (
             <li
               key={line}
               className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"

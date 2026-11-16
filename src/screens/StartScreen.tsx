@@ -1,5 +1,8 @@
-import { strings } from '@/data/strings';
+import { sessionTexts, strings } from '@/data/strings';
 import { pool } from '@/data/pool';
+import { MODE_ENTRY_VIEW, MODE_LABEL, type Mode } from '@/types/state';
+import { useAppState } from '@/features/state/StateProvider';
+import { NoticeStack } from '@/components/NoticeStack';
 import { AnonCardPreview } from '@/components/AnonCardPreview';
 import { ModeRow } from '@/components/ModeRow';
 import { Reveal } from '@/components/Reveal';
@@ -7,7 +10,6 @@ import { SkeletonPanel } from '@/components/SkeletonPanel';
 import { RouterConsole } from '@/components/RouterConsole';
 import { Badge } from '@/components/Badge';
 import {
-  AlertIcon,
   ArrowRightIcon,
   HistoryIcon,
   ListIcon,
@@ -16,27 +18,36 @@ import {
   SlidersIcon,
 } from '@/components/Icons';
 
-interface StartScreenProps {
-  storageAvailable: boolean;
+interface ModeEntry {
+  mode: Mode;
+  /** Ekran podglądu szkieletu (bez zapisu sesji). */
+  preview: 'quiz' | 'sliders' | 'tune';
+  title: string;
+  description: string;
+  time: string;
+  icon: React.ReactNode;
 }
 
-const MODES = [
+const MODES: ModeEntry[] = [
   {
-    href: '#/s/demo/quiz',
+    mode: 'quiz',
+    preview: 'quiz',
     title: strings.quiz,
     description: strings.quizDescription,
     time: strings.quizTime,
     icon: <ListIcon className="h-5 w-5" />,
   },
   {
-    href: '#/s/demo/sliders',
+    mode: 'sliders',
+    preview: 'sliders',
     title: strings.sliders,
     description: strings.slidersDescription,
     time: strings.slidersTime,
     icon: <SlidersIcon className="h-5 w-5" />,
   },
   {
-    href: '#/s/demo/tune',
+    mode: 'hybrid',
+    preview: 'tune',
     title: strings.quizAndSliders,
     description: strings.hybridDescription,
     time: strings.hybridTime,
@@ -62,9 +73,16 @@ const DECK_BARS = [
   [69, 47, 74, 58, 62],
 ];
 
-export function StartScreen({ storageAvailable }: StartScreenProps) {
+export function StartScreen() {
+  const { sessions, unfinished, startSession, persistent } = useAppState();
   const words = strings.heroTitle.split(' ');
   const lastWord = words.pop() ?? '';
+
+  /* Wybór trybu tworzy prawdziwą sesję i otwiera jej pierwszy ekran (etap 3). */
+  const openSession = (mode: Mode) => {
+    const id = startSession(mode);
+    window.location.hash = `#/s/${id}/${MODE_ENTRY_VIEW[mode]}`;
+  };
 
   return (
     <>
@@ -163,36 +181,76 @@ export function StartScreen({ storageAvailable }: StartScreenProps) {
           </Reveal>
 
           <Reveal delay={50} className="mt-5 border-t border-[var(--color-border)]">
-            {MODES.map((mode, index) => (
-              <ModeRow key={mode.href} index={index + 1} {...mode} />
+            {MODES.map((entry, index) => (
+              <ModeRow
+                key={entry.mode}
+                index={index + 1}
+                title={entry.title}
+                description={entry.description}
+                time={entry.time}
+                icon={entry.icon}
+                onStart={() => openSession(entry.mode)}
+                previewHref={`#/s/demo/${entry.preview}`}
+              />
             ))}
           </Reveal>
         </section>
 
-        {/* ── Stan zapisu: brak sesji na etapie szkieletu ── */}
-        <Reveal delay={40} className="mt-8 grid gap-3">
-          <div className="surface flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-card)] bg-[var(--color-surface-2)] text-[var(--color-muted)]">
-              <HistoryIcon className="h-5 w-5" />
-            </span>
-            <div className="min-w-0">
-              <p className="text-sm font-semibold">{strings.noSessions}</p>
-              <p className="mt-0.5 text-xs leading-relaxed text-[var(--color-muted)]">
-                {strings.noSessionsNote}
-              </p>
-            </div>
-          </div>
+        {/* ── Stan zapisu: komunikaty magazynu i wznowienie sesji (etap 3) ── */}
+        <div className="mt-8 grid gap-3">
+          <NoticeStack />
 
-          {!storageAvailable ? (
-            <p
-              role="status"
-              className="flex items-start gap-2 rounded-[var(--radius-card)] bg-[var(--color-warn-soft)] px-4 py-3 text-xs leading-relaxed text-[var(--color-warn)]"
-            >
-              <AlertIcon className="mt-px h-4 w-4" />
-              {strings.storageWarning}
-            </p>
-          ) : null}
-        </Reveal>
+          {unfinished ? (
+            <Reveal className="surface flex flex-col gap-3 border-l-4 border-l-[var(--color-accent)] p-4 sm:flex-row sm:items-center">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-card)] bg-[var(--color-accent-soft)] text-[var(--color-accent-ink)]">
+                <HistoryIcon className="h-5 w-5" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold">{strings.resumeTitle}</p>
+                <p className="num mt-0.5 text-xs text-[var(--color-muted)]">
+                  {sessionTexts.resumeNote(
+                    MODE_LABEL[unfinished.mode],
+                    Object.keys(unfinished.answers).length,
+                    17,
+                  )}
+                  {unfinished.picks.length > 0
+                    ? ` · ${strings.sessionFieldPicks}: ${sessionTexts.picksList(unfinished.picks.length)}`
+                    : ''}
+                </p>
+              </div>
+              <div className="flex shrink-0 flex-wrap gap-2">
+                <a
+                  href={`#/s/${unfinished.id}/${MODE_ENTRY_VIEW[unfinished.mode]}`}
+                  className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 dark:text-[#08130c]"
+                >
+                  {strings.resumeAction}
+                  <ArrowRightIcon className="h-4 w-4" />
+                </a>
+                <a
+                  href="#/history"
+                  className="inline-flex min-h-11 items-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-sm transition-colors duration-200 hover:border-[var(--color-border-strong)]"
+                >
+                  {strings.historyLink}
+                </a>
+              </div>
+            </Reveal>
+          ) : (
+            <Reveal className="surface flex flex-col gap-3 p-4 sm:flex-row sm:items-center">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-card)] bg-[var(--color-surface-2)] text-[var(--color-muted)]">
+                <HistoryIcon className="h-5 w-5" />
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold">{strings.noSessionsYet}</p>
+                <p className="mt-0.5 text-xs leading-relaxed text-[var(--color-muted)]">
+                  {sessionTexts.historyStub(sessions.length)}
+                </p>
+              </div>
+              <span className="num ml-auto hidden shrink-0 text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase sm:block">
+                {persistent ? strings.storagePersistent : strings.storageMemoryMode}
+              </span>
+            </Reveal>
+          )}
+        </div>
 
         {/* ── Jak to działa ── */}
         <section className="mt-16 sm:mt-20" aria-labelledby="how-heading">
@@ -271,7 +329,7 @@ export function StartScreen({ storageAvailable }: StartScreenProps) {
             <p className="max-w-prose text-sm leading-relaxed text-[var(--color-muted)]">
               {strings.routerConsoleNote}
             </p>
-            <RouterConsole />
+            <RouterConsole knownSessions={sessions.map((item) => item.id)} />
           </Reveal>
         </section>
 

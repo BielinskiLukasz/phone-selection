@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { Layout } from '@/app/Layout';
-import { useHashRoute } from '@/app/router';
+import { isPreviewSessionId, useHashRoute } from '@/app/router';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { useTheme } from '@/features/theme/useTheme';
+import { StateProvider, useAppState } from '@/features/state/StateProvider';
 import { strings } from '@/data/strings';
 import { StartScreen } from '@/screens/StartScreen';
 import { SessionStubScreen } from '@/screens/SessionStubScreen';
@@ -21,12 +21,21 @@ const titles: Record<string, string> = {
   'not-found': strings.unknownRoute,
 };
 
-/** Etap 1: szkielet aplikacji — router hashowy, layout, motyw, ekrany-zaślepki. */
+/** Etap 3: stan sesji w kontekście, routing hashowy i layout z etapu 1. */
 export default function App() {
-  const route = useHashRoute();
-  const { theme, toggle, storageAvailable } = useTheme();
+  return (
+    <ErrorBoundary>
+      <StateProvider>
+        <Shell />
+      </StateProvider>
+    </ErrorBoundary>
+  );
+}
 
-  /* Tytuł karty i powrót na górę przy zmianie ekranu. */
+function Shell() {
+  const route = useHashRoute();
+  const { state, dispatch } = useAppState();
+
   useEffect(() => {
     const label = titles[route.name] ?? strings.appName;
     document.title = label === strings.home ? strings.appName : `${label} · ${strings.appName}`;
@@ -34,30 +43,40 @@ export default function App() {
   }, [route]);
 
   return (
-    <ErrorBoundary>
-      <Layout route={route} theme={theme} onToggleTheme={toggle}>
-        <Screen route={route} storageAvailable={storageAvailable} />
-      </Layout>
-    </ErrorBoundary>
+    <Layout
+      route={route}
+      theme={state.theme}
+      onToggleTheme={() => dispatch({ type: 'theme/toggle' })}
+    >
+      <Screen route={route} />
+    </Layout>
   );
 }
 
 interface ScreenProps {
   route: ReturnType<typeof useHashRoute>;
-  storageAvailable: boolean;
 }
 
-function Screen({ route, storageAvailable }: ScreenProps) {
+function Screen({ route }: ScreenProps) {
+  const { session } = useAppState();
+
   switch (route.name) {
     case 'home':
-      return <StartScreen storageAvailable={storageAvailable} />;
+      return <StartScreen />;
     case 'history':
       return <HistoryScreen />;
-    case 'missing-session':
-      return <MissingSessionScreen sessionId={route.sessionId} view={route.view} />;
     case 'not-found':
       return <NotFoundScreen path={route.path} />;
-    default:
-      return <SessionStubScreen view={route.name} sessionId={route.sessionId} />;
+    case 'missing-session':
+      return <MissingSessionScreen sessionId={route.sessionId} view={route.view} />;
+    default: {
+      const found = session(route.sessionId);
+      if (!found && !isPreviewSessionId(route.sessionId)) {
+        return <MissingSessionScreen sessionId={route.sessionId} view={route.name} />;
+      }
+      return (
+        <SessionStubScreen view={route.name} sessionId={route.sessionId} session={found} />
+      );
+    }
   }
 }

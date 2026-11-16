@@ -1,5 +1,5 @@
 import { strings } from '@/data/strings';
-import type { Theme } from '@/features/theme/useTheme';
+import type { Theme } from '@/types/state';
 import { MoonIcon, SunIcon } from './Icons';
 
 interface ThemeToggleProps {

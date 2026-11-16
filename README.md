@@ -8,6 +8,9 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 3 — Sesje i zapis w przeglądarce**: wersjonowany stan w `localStorage` (sesje, odpowiedzi,
+  wagi, filtry, snapshoty rankingu, wybory, motyw), migracje, tryb awaryjny w pamięci, kopia
+  uszkodzonych danych, limit 50 sesji, synchronizacja kart i reducer z akcjami na sesjach.
 - **Etap 2 — Silnik rankingu**: czysta logika (typy, kryteria i grupy, pytania, wagi, pula,
   normalizacja, ranking, remisy, anonimizacja kart, wyświetlanie dopasowania) — bez ani jednej
   zależności od Reacta, z pokryciem linii `src/lib` 98,5%.
@@ -56,12 +59,15 @@ src/
 │   ├── router.ts                 # router hashowy: parseHash, useHashRoute (E1-07)
 │   └── Layout.tsx                # nagłówek, kontener max-w-3xl, stopka (E1-08)
 ├── components/
-│   ├── AppHeader.tsx  ThemeToggle.tsx      # szkielet motywu
+│   ├── AppHeader.tsx  ThemeToggle.tsx      # nagłówek i przełącznik motywu (ze stanu)
+│   ├── SessionPanel.tsx                    # odczyt zapisanej sesji + krok testowy etapu 3
+│   ├── NoticeStack.tsx                     # banery stanów krańcowych zapisu
 │   ├── ScreenShell.tsx                     # ramka ekranu-zaślepki + pager
 │   ├── AnonCardPreview.tsx  ModeRow.tsx    # makiety UI-SPEC 3.1 i 3.4
 │   ├── Badge.tsx  EmptyState.tsx  RouteChip.tsx  Reveal.tsx  ErrorBoundary.tsx
 │   └── SkeletonPanel.tsx                   # stan etapu: CI, dane, komendy, testy akceptacyjne
 ├── types/
+│   ├── state.ts                  # AppState, Session, Pick, RankingSnapshot, NoticeCode
 │   ├── criteria.ts               # CriterionId, GroupId, ScoreConfidence
 │   ├── phone.ts                  # Phone, Specs, CameraSpecs, Price, Reveal, PhonesData
 │   ├── ranking.ts                # QuizQuestion, Weights, Filters, RankedPhone, AnonCard
@@ -78,8 +84,13 @@ src/
 │   ├── pool.ts                   # filtry twarde, pula kandydatów, countPool (E2-06)
 │   ├── scoring.ts                # value, normalizacja, GroupScore, S, ranking, karty (E2-07)
 │   ├── anonymize.ts              # toAnonCard, fakty karty, redakcja, test wycieku (E2-08)
-│   └── matchDisplay.ts           # sposób pokazywania „% dopasowania” (E2-09)
-├── features/theme/useTheme.ts    # data-theme + localStorage
+│   ├── matchDisplay.ts           # sposób pokazywania „% dopasowania” (E2-09)
+│   ├── session.ts                # fabryki sesji, postęp quizu, limit i sortowanie (E3-01/09)
+│   ├── storage.ts                # klucz v1, migracje, stany awaryjne, zapis (E3-02…04)
+│   └── sessionReducer.ts         # akcje na sesjach + snapshot rankingu (E3-05/06)
+├── features/
+│   ├── state/StateProvider.tsx    # kontekst, debounce zapisu, sync kart (E3-07/08)
+│   └── sessions/useReveal.ts      # plakietki „Wybór 1/2”, „2/2” (E3-10)
 ├── screens/                      # Start, zaślepki sesji, Historia, 404, brak sesji
 ├── App.tsx  main.tsx  index.css
 tests/app.test.ts                 # test dymny na App: routing, motyw, anonimizacja, błędy
@@ -93,6 +104,9 @@ tests/scoring.test.ts             # value, normalizacja, S, remisy, pula, karty 
 tests/persona.test.ts             # persony: żona / aparat / bateria, niezmienniki 9.1-9.4
 tests/anonymize.test.ts           # test wycieku nazw, formaty faktów, parsowanie opisów
 tests/phones-schema.test.ts       # phones.json zgodny z typami i walidatorem (E2-10)
+tests/storage.test.ts             # magazyn: klucz, migracje, awarie, limit sesji (E3)
+tests/sessionReducer.test.ts      # reducer, snapshoty, wybory, selektory (E3)
+tests/state.test.ts               # dostawca stanu: trwałość, motyw, sync kart, awarie
 tests/personas.ts                 # odpowiedzi person jako stałe (E2-11)
 tests/validate-data.test.ts       # testy walidatora danych
 planning/                         # PROJECT.md, UI-SPEC.md, ROADMAP.md, opisy etapów
@@ -110,6 +124,10 @@ vitest.config.ts                  # konfiguracja testów (osobno od vite.config.
 | `#/s/:id/cards` | Trzy karty | zaślepka z makietami kart (etap 6) |
 | `#/s/:id/ranking` | Pełny ranking | zaślepka (etap 9) |
 | `#/history` | Historia sesji | zaślepka z pustym stanem (etap 7) |
+
+Wybór trybu na starcie tworzy **prawdziwą sesję** (etap 3) i otwiera `#/s/<id>/…`; stan sesji
+widać w panelu na ekranie, a zapis przeżywa odświeżenie. Identyfikatory `demo` i `preview` nadal
+służą wyłącznie do podglądu szkieletu i nie są zapisywane.
 
 Routing jest **hashowy**, więc odświeżenie dowolnego adresu działa — GitHub Pages nie ma fallbacku
 SPA. Identyfikatory `demo` i `preview` otwierają podgląd szkieletu; każdy inny `:id` kończy się
@@ -187,7 +205,7 @@ wraz z `basis.zoom` (które cytuje źródło mówiące „brak teleobiektywu”)
 | 8 | `null` w `scores.value` → silnik liczy `value` z ceny i nie zawiesza się | ✅ |
 
 Pokrycie: `npx vitest run --coverage --coverage.include='src/lib/**'` → 98,5% linii (DoD: ≥ 90%).
-Cała suite: **127 testów** w 9 plikach.
+Cała suite: **171 testów** w 12 plikach.
 
 ## Wdrożenie (GitHub Pages)
 
@@ -197,6 +215,42 @@ Cała suite: **127 testów** w 9 plikach.
 3. Wypchnięcie do `main` uruchamia `.github/workflows/deploy.yml`:
    `checkout → setup-node (22) → npm ci → lint → typecheck → test → validate-data → build →
    upload-pages-artifact → deploy-pages` (uprawnienia `pages: write`, `id-token: write`).
+
+## Etap 3 — sesje i zapis w przeglądarce
+
+Stan żyje w `localStorage` pod kluczem **`wybor-telefonu:v1`** (`_state.schemaVersion = 1`) i zawiera
+sesje, aktywną sesję, motyw oraz komunikaty uruchomieniowe (niezapisywane). Zapis jest z opóźnieniem
+300 ms i natychmiastowy przy `visibilitychange` oraz `pagehide`.
+
+| Sytuacja | Zachowanie |
+|---|---|
+| Brak / blokada `localStorage` | tryb w pamięci, `persistent = false`, baner z UI-SPEC 9 |
+| Uszkodzony JSON | pusty stan, kopia surowych danych pod `wybor-telefonu:backup`, baner i „Zacznij od nowa” |
+| Przekroczony limit zapisu | druga próba bez snapshotów rankingu, potem tryb w pamięci + komunikat |
+| Stan z nowszej wersji schematu | dane zostają nienaruszone, aplikacja startuje od pustego stanu |
+| Starsza wersja schematu | `migrations[wersja]` przekształca stan bez utraty sesji |
+| Więcej niż 50 sesji | zostaje 50 najnowszych, komunikat o przycięciu |
+| Zmiana w drugiej karcie | zdarzenie `storage` → przeładowanie stanu, ostatni zapis wygrywa |
+
+Reducer (`src/lib/sessionReducer.ts`) obsługuje akcje: `session/create`, `answer`, `top-three`,
+`filters`, `override-weights`, `compute-ranking`, `pick`, `status`, `reset-progress`, `delete`,
+`activate`, `theme/set`, `theme/toggle`, `notice/dismiss`, `state/replace`, `state/reset`.
+`compute-ranking` zapisuje snapshot: miejsca, `S`, `% dopasowania`, flagę `overBudgetBy`, wagi,
+ważności grup, filtry i `dataVersion` z `_meta.generatedOn` — więc wynik w historii nie zmienia się
+po aktualizacji cen (PROJECT 9). Ręczna korekta suwakami ustawia `manualOverride` i ma pierwszeństwo
+przed mapowaniem odpowiedzi (QUIZ-SPEC 7).
+
+### Testy akceptacyjne etapu 3
+
+| # | Kryterium | Stan |
+|---|---|---|
+| 1 | Utworzenie sesji, dwie odpowiedzi i odświeżenie → odpowiedzi zachowane | ✅ test reducera + test dostawcy stanu |
+| 2 | Niepoprawny JSON → pusty stan, kopia pod kluczem zapasowym, komunikat | ✅ |
+| 3 | Błąd zapisu → działanie w pamięci i baner z UI-SPEC 9 | ✅ |
+| 4 | Zmiana w drugiej karcie → stan po zdarzeniu `storage` | ✅ |
+| 5 | Dwa wybory → `useReveal` zwraca `1/2` i `2/2` w kolejności dodania | ✅ |
+| 6 | Zmiana `phones.json` po zapisaniu rankingu → snapshot bez zmian | ✅ |
+| 7 | Stan o starszej wersji schematu → migracja bez utraty sesji | ✅ |
 
 ## Dane telefonów i aktualizacja cen
 

@@ -9,7 +9,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 0 | Dane telefonów i specyfikacja rankingu | `[~]` w toku |
 | 1 | Szkielet projektu i deploy | `[x]` zrobione |
 | 2 | Silnik rankingu (czysta logika + testy) | `[x]` zrobione |
-| 3 | Sesje i zapis w przeglądarce | `[ ]` |
+| 3 | Sesje i zapis w przeglądarce | `[x]` zrobione |
 | 4 | Tryb quiz | `[ ]` |
 | 5 | Tryb suwaków i hybryda | `[ ]` |
 | 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[ ]` |
@@ -106,12 +106,14 @@ Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i brak
 
 **Cel:** trwały stan z wersjonowanym schematem.
 
-- [ ] `storage.ts`: odczyt/zapis `localStorage`, walidacja, migracje (`schemaVersion`)
-- [ ] Model `Session` (tryb, odpowiedzi, wagi, filtry, snapshot rankingu, wybory)
-- [ ] Obsługa braku/uszkodzenia danych (bezpieczny reset z komunikatem)
-- [ ] Hook `useSessions` (utworzenie, aktualizacja, wznowienie)
+- [x] `storage.ts`: odczyt/zapis `localStorage`, walidacja, migracje (`schemaVersion`)
+- [x] Model `Session` (tryb, odpowiedzi, wagi, filtry, snapshot rankingu, wybory)
+- [x] Obsługa braku/uszkodzenia danych (bezpieczny reset z komunikatem)
+- [x] Hook `useSessions` (utworzenie, aktualizacja, wznowienie)
 
 **DoD:** odświeżenie strony nie gubi postępu; uszkodzony zapis nie wywraca aplikacji.
+
+**Stan po etapie 3:** klucz `wybor-telefonu:v1` (schemat v1) z migracjami, zapis z opóźnieniem 300 ms i natychmiastowy przy `visibilitychange`/`pagehide`, kopia uszkodzonych danych pod `wybor-telefonu:backup`, tryb w pamięci przy braku `localStorage`, limit 50 najnowszych sesji, synchronizacja kart zdarzeniem `storage` (ostatni zapis wygrywa), snapshot rankingu z `dataVersion` z `_meta.generatedOn`, `useReveal` z plakietkami 1/2 i 2/2. 7 z 7 testów akceptacyjnych etapu 3 zielone (171 testów w projekcie, 97% linii w `src/lib`).
 
 ## Etap 4 — Tryb quiz
 

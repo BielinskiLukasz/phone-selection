@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { parseHash, type Route } from '@/app/router';
+import { isPreviewSessionId, parseHash, type Route } from '@/app/router';
 import { strings } from '@/data/strings';
 import { ArrowRightIcon } from './Icons';
 
@@ -18,14 +18,20 @@ interface Readout {
   session: string;
 }
 
-function describe(route: Route): Readout {
+function describe(route: Route, knownSessions: readonly string[] = []): Readout {
+  if (route.name !== 'home' && route.name !== 'history' && route.name !== 'not-found') {
+    const exists =
+      knownSessions.includes(route.sessionId) || isPreviewSessionId(route.sessionId);
+    if (!exists) {
+      return { screen: strings.missingSession, status: 'error', session: route.sessionId };
+    }
+  }
+
   switch (route.name) {
     case 'home':
       return { screen: strings.home, status: 'ready', session: '—' };
     case 'history':
       return { screen: strings.history, status: 'stub', session: '—' };
-    case 'missing-session':
-      return { screen: strings.missingSession, status: 'error', session: route.sessionId };
     case 'not-found':
       return { screen: strings.unknownRoute, status: 'error', session: '—' };
     default:
@@ -52,8 +58,8 @@ const statusStyles: Record<Readout['status'], string> = {
   error: 'bg-[var(--color-warn-soft)] text-[var(--color-warn)]',
 };
 
-/** Interaktywny podgląd działania routera hashowego (E1-07). */
-export function RouterConsole() {
+/** Interaktywny podgląd działania routera hashowego (E1-07) + stan sesji (etap 3). */
+export function RouterConsole({ knownSessions = [] }: { knownSessions?: readonly string[] }) {
   const [value, setValue] = useState('#/s/demo/quiz');
 
   const hash = useMemo(() => {
@@ -63,7 +69,7 @@ export function RouterConsole() {
   }, [value]);
 
   const route = useMemo(() => parseHash(hash), [hash]);
-  const readout = describe(route);
+  const readout = describe(route, knownSessions);
   const statusLabel =
     readout.status === 'ready'
       ? strings.routerStatusReady

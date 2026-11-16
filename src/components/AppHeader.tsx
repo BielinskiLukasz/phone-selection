@@ -1,7 +1,7 @@
 import { strings } from '@/data/strings';
 import type { Route } from '@/app/router';
 import { ThemeToggle } from './ThemeToggle';
-import type { Theme } from '@/features/theme/useTheme';
+import type { Theme } from '@/types/state';
 import { cn } from '@/utils/cn';
 
 interface AppHeaderProps {

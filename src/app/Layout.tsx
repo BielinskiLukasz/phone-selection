@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react';
 import { AppHeader } from '@/components/AppHeader';
 import type { Route } from '@/app/router';
-import type { Theme } from '@/features/theme/useTheme';
 import { strings } from '@/data/strings';
-import { ROADMAP_STAGES } from '@/data/pool';
+import { ROADMAP_STAGES, roadmapStatus } from '@/data/pool';
+import { PLANNING_SPECS, PLANNING_STAGES, docUrl } from '@/data/docs';
+import type { Theme } from '@/types/state';
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,9 +12,6 @@ interface LayoutProps {
   theme: Theme;
   onToggleTheme: () => void;
 }
-
-const PLANNING_DOCS = ['PROJECT.md', 'UI-SPEC.md', 'ROADMAP.md', 'ETAP-1-szkielet-i-deploy.md'];
-const REPO_PLANNING = 'https://github.com/BielinskiLukasz/phone-selection/tree/main/planning';
 
 /** Wspólny układ (E1-08): nagłówek, kontener max-w-3xl, stopka ze stanem etapów. */
 export function Layout({ children, route, theme, onToggleTheme }: LayoutProps) {
@@ -42,23 +40,57 @@ export function Layout({ children, route, theme, onToggleTheme }: LayoutProps) {
       <footer className="border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface)_55%,transparent)]">
         <div className="mx-auto w-full max-w-3xl px-5 pt-10 pb-28 sm:pb-10">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
+            <div className="min-w-0">
               <p className="num text-[11px] tracking-[0.16em] text-[var(--color-muted)] uppercase">
-                {strings.planningDocs}
+                {strings.planningDocs} · {strings.docsSpecs}
               </p>
               <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
-                {PLANNING_DOCS.map((doc) => (
-                  <li key={doc}>
+                {PLANNING_SPECS.map((doc) => (
+                  <li key={doc.file}>
                     <a
-                      href={`${REPO_PLANNING}/${doc}`}
+                      href={docUrl(doc.file)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title={doc.note}
                       className="num text-xs text-[var(--color-muted)] underline decoration-[var(--color-border-strong)] underline-offset-4 transition-colors duration-200 hover:text-[var(--color-accent-ink)]"
                     >
-                      {doc}
+                      {doc.label}
                     </a>
                   </li>
                 ))}
+              </ul>
+
+              <p className="num mt-4 text-[11px] tracking-[0.16em] text-[var(--color-muted)] uppercase">
+                {strings.docsStages}
+              </p>
+              <ul className="mt-2 flex flex-wrap gap-1.5">
+                {PLANNING_STAGES.map((doc) => {
+                  const done = ROADMAP_STAGES.some(
+                    (stage) => stage.id === doc.stage && stage.done,
+                  );
+                  return (
+                    <li key={doc.file}>
+                      <a
+                        href={docUrl(doc.file)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={`${doc.note}${done ? ' — zrobione' : ''}`}
+                        className={`num inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border px-2.5 py-1 text-[11px] transition-colors duration-200 ${
+                          done
+                            ? 'border-[var(--color-accent)] bg-[var(--color-accent-soft)] text-[var(--color-accent-ink)]'
+                            : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text)]'
+                        }`}
+                      >
+                        {doc.label}
+                        <span
+                          className={`h-1.5 w-1.5 rounded-full ${
+                            done ? 'bg-[var(--color-accent)]' : 'bg-[var(--color-border-strong)]'
+                          }`}
+                        />
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -82,7 +114,8 @@ export function Layout({ children, route, theme, onToggleTheme }: LayoutProps) {
                 ))}
               </ol>
               <p className="num mt-2 text-[11px] text-[var(--color-muted)]">
-                etap 1 z 9 · {ROADMAP_STAGES.filter((s) => s.done).length} ukończone
+                {strings.roadmapNext} {roadmapStatus().next} · {roadmapStatus().done}{' '}
+                {strings.roadmapDone} z {roadmapStatus().total}
               </p>
             </div>
           </div>

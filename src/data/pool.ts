@@ -46,7 +46,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 0, name: 'Dane telefonów i specyfikacja rankingu', done: true, active: false },
   { id: 1, name: 'Szkielet projektu i deploy', done: true, active: false },
   { id: 2, name: 'Silnik rankingu', done: true, active: false },
-  { id: 3, name: 'Sesje i zapis w przeglądarce', done: false, active: false },
+  { id: 3, name: 'Sesje i zapis w przeglądarce', done: true, active: false },
   { id: 4, name: 'Tryb quiz', done: false, active: false },
   { id: 5, name: 'Tryb suwaków i hybryda', done: false, active: false },
   { id: 6, name: 'Ranking, anonimowe karty, wybór', done: false, active: false },
@@ -68,6 +68,32 @@ export const ENGINE_STATUS = [
   'Persony z QUIZ-SPEC 9 na prawdziwych danych: żona #1 71 pkt, bateria i aparat rozróżnialne.',
   'Budżet 1500 zł daje dwie karty w budżecie i jedną „Powyżej budżetu o 158 zł”.',
   'Test wycieku: karta nie zawiera nazwy, marki, modelu, chipa ani nazwy sklepu.',
+] as const;
+
+/** Stan roadmapy dla stopki: ile etapów 1-9 zrobione i który jest następny. */
+export function roadmapStatus(stages: readonly { id: number; done: boolean }[] = ROADMAP_STAGES): {
+  done: number;
+  total: number;
+  next: number;
+  /** Etap 0 (dane) jest poza numeracją etapów 1-9 — raportujemy go osobno. */
+  dataStageDone: boolean;
+} {
+  const delivery = stages.filter((stage) => stage.id >= 1);
+  const done = delivery.filter((stage) => stage.done).length;
+  const nextStage = delivery.find((stage) => !stage.done);
+  return {
+    done,
+    total: delivery.length,
+    next: nextStage ? nextStage.id : delivery.length,
+    dataStageDone: stages.some((stage) => stage.id === 0 && stage.done),
+  };
+}
+
+export const STORAGE_STATUS = [
+  'Zapis z opóźnieniem 300 ms, natychmiastowy przy chowaniu karty i przy pagehide.',
+  'Migracje schematu i kopia uszkodzonych danych pod kluczem zapasowym.',
+  'Synchronizacja kart zdarzeniem storage — ostatni zapis wygrywa.',
+  'Snapshot rankingu z wersją danych: wynik w historii nie zmienia się po aktualizacji cen.',
 ] as const;
 
 export const CONSOLE_COMMANDS = [

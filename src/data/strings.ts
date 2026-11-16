@@ -132,6 +132,61 @@ export const strings = {
   themeLight: 'jasny',
   themeDark: 'ciemny',
 
+  /* Etap 3 — sesje i zapis w przeglądarce */
+  sessionPanelTitle: 'Stan sesji',
+  sessionPanelNote:
+    'Każda zmiana trafia do localStorage pod kluczem „wybor-telefonu:v1” (z opóźnieniem 300 ms, natychmiast przy zamknięciu karty). Odświeżenie strony nie gubi postępu.',
+  sessionPreviewNote:
+    'To podgląd szkieletu — sesja „demo” nie jest zapisywana. Wybierz tryb na starcie, żeby utworzyć prawdziwą sesję.',
+  sessionFieldId: 'identyfikator',
+  sessionFieldMode: 'tryb',
+  sessionFieldStatus: 'status',
+  sessionFieldCreated: 'utworzono',
+  sessionFieldUpdated: 'zapisano',
+  sessionFieldAnswers: 'odpowiedzi',
+  sessionFieldWeights: 'ważności grup',
+  sessionFieldFilters: 'filtry',
+  sessionFieldRanking: 'snapshot rankingu',
+  sessionFieldPicks: 'wybory',
+  sessionFieldOverride: 'ręczna korekta',
+  statusInProgress: 'W trakcie',
+  statusCompleted: 'Ukończona',
+  snapshotNone: 'brak — pojawi się po pierwszej zmianie',
+  harnessTitle: 'Krok testowy zapisu',
+  harnessNote:
+    'Te przyciski wywołują akcje reducera z etapu 3, żeby sprawdzić trwałość zapisu w przeglądarce. Znikną, gdy gotowe będą ekrany quizu i kart.',
+  harnessAnswer: 'Zapisz przykładową odpowiedź',
+  harnessTopThree: 'Ustaw trzy najważniejsze',
+  harnessBudget: 'Budżet 1500 zł',
+  harnessStorage: 'Minimum 256 GB',
+  harnessRecompute: 'Przelicz ranking',
+  harnessPickFirst: 'Dodaj wybór propozycji #1',
+  harnessPickSecond: 'Dodaj wybór propozycji #2',
+  harnessComplete: 'Oznacz jako ukończoną',
+  harnessReset: 'Wyczyść odpowiedzi',
+  harnessDelete: 'Usuń sesję',
+  resumeTitle: 'Wróć do rozpoczętego wyboru',
+  resumeAction: 'Wznów',
+  noSessionsYet: 'Brak rozpoczętych wyborów',
+  storageTitle: 'Zapis w przeglądarce',
+  sessionsStored: 'Zapisane sesje',
+  storageKey: 'wybor-telefonu:v1',
+  storageMemoryMode: 'tryb w pamięci',
+  storagePersistent: 'zapis trwały',
+  noticeCorrupted:
+    'Zapis w przeglądarce był uszkodzony. Uruchomiliśmy pustą kopię stanu, a surowe dane zostawiliśmy pod kluczem zapasowym „wybor-telefonu:backup”.',
+  noticeQuota:
+    'Przeglądarka odmówiła zapisu (limit pamięci). Stan działa dalej, ale snapshoty rankingu nie zostały zachowane.',
+  noticeTrimmed: 'Zachowujemy 50 najnowszych sesji — najstarsze zostały przycięte.',
+  noticeDismiss: 'Zamknij',
+  noticeStartOver: 'Zacznij od nowa',
+  revealedBadge: 'Wybór',
+  anonymousBadge: 'anonimowa',
+  roadmapNext: 'następny etap',
+  roadmapDone: 'ukończone',
+  docsSpecs: 'specyfikacje',
+  docsStages: 'opisy etapów',
+
   footerNote:
     'Statyczna strona na GitHub Pages. Bez backendu, bez trackerów, stan w Twojej przeglądarce.',
   planningDocs: 'Dokumenty planistyczne',
@@ -201,3 +256,24 @@ export const screenPlans = {
 } as const;
 
 export type PlanScreenKey = keyof typeof screenPlans;
+
+/** Teksty z wartościami liczbowymi — trzymane obok `strings`, żeby nie było literałów w JSX. */
+export const sessionTexts = {
+  resumeNote: (mode: string, answered: number, total: number): string =>
+    answered > 0 ? `${mode} · pytanie ${answered} z ${total}` : `${mode} · brak odpowiedzi`,
+  progress: (answered: number, total: number): string => `pytanie ${answered} z ${total}`,
+  answersCount: (answered: number, total: number): string => `${answered} z ${total}`,
+  sessionsStored: (count: number): string => {
+    if (count === 0) return 'brak zapisanych sesji w tej przeglądarce';
+    const label = count === 1 ? 'sesja' : count < 5 ? 'sesje' : 'sesji';
+    return `${count} ${label} w tej przeglądarce`;
+  },
+  historyStub: (count: number): string =>
+    count === 0
+      ? 'Zapis sesji działa (etap 3), ale nie masz jeszcze żadnej — lista pojawi się w etapie 7.'
+      : `Zapis sesji działa (etap 3): ${sessionTexts.sessionsStored(count)}. Lista z podglądem i wznawianiem pojawi się w etapie 7.`,
+  snapshot: (count: number, dataVersion: string | null, computedAt: string): string =>
+    `${count} telefonów · dane z ${dataVersion ?? '—'} · liczone ${new Date(computedAt).toLocaleString('pl-PL')}`,
+  picksList: (count: number): string => (count === 0 ? 'brak' : `${count}`),
+  weightValue: (value: number): string => value.toFixed(1).replace('.', ','),
+} as const;
