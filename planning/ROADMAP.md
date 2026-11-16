@@ -16,6 +16,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 7 | Historia sesji i wznawianie | `[x]` zrobione |
 | 8 | Motywy, mobile, dostępność | `[x]` zrobione |
 | 9 | Pełny ranking, szlify i wydanie | `[ ]` |
+| 10 | Rozszerzenie puli modeli (10 → 15) | `[x]` zrobione 16.11.2026 (E10-11 — odświeżenie cen — w dniu wydania razem z E9-04) |
 
 ---
 
@@ -190,7 +191,7 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 
 ## Etap 9 — Pełny ranking, szlify i wydanie
 
-- [x] Przycisk „Pokaż pełny ranking” (10 telefonów z nazwami) po wyborze zwycięzcy
+- [x] Przycisk „Pokaż pełny ranking” (cała pula z nazwami — 15 telefonów od etapu 10) po wyborze zwycięzcy
 - [x] Kalibracja stałych rankingu na prawdziwych danych
 - [~] Odświeżenie cen i dat przed wydaniem (narzędzia gotowe: `npm run stale-prices`, próg 7 dni; ceny z 14.11.2026 są świeże, odświeżenie w dniu publikacji)
 - [~] Przejście całego procesu przez żonę (test użyteczności), poprawki — protokół i arkusz obserwacji: `E9-test-uzytkownika.md`
@@ -202,5 +203,40 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 ---
 
 ## Zasada pracy
+
+## Etap 10 — Rozszerzenie puli modeli (10 → 15)
+
+**Cel:** dołączyć telefony z przeglądu listy 21 modeli bez zmiany logiki rankingu. Plan i decyzje D1-D6:
+[`ETAP-10-rozszerzenie-puli-modeli.md`](./ETAP-10-rozszerzenie-puli-modeli.md).
+
+- [x] E10-01/02 Pięć rekordów w `phones.json` + `_meta` (Honor 400, Galaxy A37 5G, OnePlus Nord 5, vivo V70 FE, Redmi Note 17 Pro 5G 8/512)
+- [x] E10-03/04 `EXPECTED_POOL_SIZE = 15`, `PRICES_CHECKED_AT`, teksty liczników i stanu silnika, wiersz etapu 10 w stopce
+- [x] E10-05 Słownik anonimizacji: `magicos`, `oxygenos`, `originos`, `funtouch`, `nord`, `ceneo`, `skapiec`, `neonet`, `oleole`, `kaufland`, `e-smartphone`, `siglo`, `honorstore`
+- [x] E10-06/07 Testy liczebności, person (9.1 referencja, 9.1.4 wg D6, 9.3), kalibracji, reguł (D4), wersji danych — 348 testów zielonych
+- [x] E10-08 QUIZ-SPEC 2.6 i 9.1-9.4 — ponowny pomiar
+- [x] D4: `BATTERY_CAPACITY_SPAN_MAH = 4000` (8000 mAh = 100), `battery` przeliczone dla wszystkich 15 rekordów
+- [ ] E10-11 Odświeżenie cen całej puli jednego dnia (w dniu wydania, razem z E9-04): strony sklepów zamiast odczytu indeksu Ceneo dla nowych rekordów, podmiana `shopLinks` z porównywarki na sklepy, rozstrzygnięcie ceny A37 (1293 vs 1582 zł), promocja Edge 70 Fusion po 30.11
+- [ ] Potwierdzić liczbę wersji systemu dla Redmi Note 17 Pro (dziś `updates` 86 z jednej składowej; przy 4 wersjach → 71, co może odwrócić remis #1/#2 u „żony”)
+- [ ] `chargerInBox` dla pięciu nowych rekordów (dziś `null` — 5 ostrzeżeń walidatora, bez wpływu na oceny)
+
+**Stan po etapie 10:** walidator 0 błędów, 6 ostrzeżeń (NFC Realme + 5 × `chargerInBox: null`), 15 rekordów `ok`,
+zero ocen neutralnych. Wytrzymałość baterii nowych rekordów z etykiety UE (GSMArena/EPREL): Honor 400 56:28 h → 54,9,
+A37 53:00 h → 43,3, Nord 5 49:12 h → 30,7, V70 FE 67:21 h → 91,2, Note 17 Pro 72:01 h → 100. Oceny `battery` po D4:
+A57 44, Pixel 10a 53, A56 45, Redmi Note 15 Pro 57, Edge 60 50, 15T 48, Edge 70 Fusion 78, Pixel 9a 49, Nothing (3a) 55,
+Realme 84, Honor 400 44, A37 34, Nord 5 30, V70 FE 83, Note 17 Pro 100. **Referencje person** (QUIZ-SPEC 9): żona
+#1 Redmi Note 17 Pro 67,7 · #2 Edge 70 Fusion 67,0 (praktyczny remis) · #3 Realme 65,3; aparat #1 15T 71,6; bateria
+#1 Note 17 Pro 71,2; budżet 1500 zł → trzy karty w budżecie (Edge 60, Redmi Note 15 Pro, A37). `BLEND = 0,5` potwierdzone
+(9.1.3 łamie się od 0,75). Aparaty nowych modeli bez testów DXOMARK — pewność `low` z opisem luki; vivo V70 FE
+`photoDay`/`photoIndoor` `medium` (werdykt GSMArena).
+
+| Model | Cena | Specyfikacja | Oceny | Uwagi |
+|---|---|---|---|---|
+| Honor 400 8/256 | `[x]` 1599,00 zł (16.11, odczyt Ceneo) | `[x]` | `[x]` | GSMArena: 5300 mAh (EU), 66 W, IP65, 6 wersji + 6 lat; etykieta UE A, 56:28 h |
+| Galaxy A37 5G 8/256 | `[~]` 1293,00 zł (rozbieżność 1582 zł) | `[x]` | `[x]` | Exynos 1480, 5000 mAh, 45 W, IP68, 6 + 6 lat do 03/2032; etykieta UE A, 53:00 h |
+| OnePlus Nord 5 8/256 | `[x]` 1709,00 zł | `[x]` | `[x]` | SD 8s Gen 3, 5200 mAh (EU), 80 W, IP65, 4 + 6 lat; etykieta UE B, 49:12 h |
+| vivo V70 FE 8/256 | `[x]` 1699,00 zł | `[x]` | `[x]` | Dimensity 7360 Turbo, 7000 mAh, 90 W, IP68/IP69, 4 + 6 lat; EPREL B, 67:21 h; GSMArena Active Use 20:41 h |
+| Redmi Note 17 Pro 5G 8/512 | `[x]` 1659,00 zł | `[x]` | `[~]` | SD 6s Gen 4, 8340 mAh, 67 W, IP66/IP68 (test PL), bez 4K; `updates` z jednej składowej (6 lat poprawek) |
+
+---
 
 Po każdym etapie aktualizujemy ten plik (statusy, „Stan danych”) i `PROJECT.md`, jeśli zmieniła się decyzja.

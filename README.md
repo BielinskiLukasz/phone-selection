@@ -106,7 +106,7 @@ src/
 │   ├── ranking.ts                # QuizQuestion, Weights, Filters, RankedPhone, AnonCard
 │   └── index.ts                  # barrel z JAWNYM re-eksportem (bez `export *` → brak TS2308)
 ├── data/
-│   ├── phones.json               # pula 10 telefonów (ceny z 14.11.2026, schemaVersion 1)
+│   ├── phones.json               # pula 15 telefonów (etap 10; ceny z 14.11 i 16.11.2026, schemaVersion 1)
 │   ├── criteria.ts               # 14 kryteriów w 6 grupach: id, etykiety, opisy (E2-02)
 │   ├── questions.ts              # 18 pytań quizu + krok G1, opcje „pomiń” (E2-03)
 │   ├── strings.ts                # wszystkie polskie teksty (UI-SPEC 1.4)
@@ -237,10 +237,11 @@ i `specs.chip`; `phoneId` jest na liście pomijanych kluczy, bo to wewnętrzny s
 zapisu wyborów, a nie treść renderowana na karcie.
 
 **Dane**: persony i niezmienniki liczą się na prawdziwej puli z `src/data/phones.json`
-(10 telefonów, ceny z 14.11.2026). Wynik zgodny ze stanem referencyjnym QUIZ-SPEC 9.1:
-persona „żona” daje #1 Edge 70 Fusion **71 pkt**, #2 Edge 60 **58**, #3 Realme 16 Pro+ **56**,
-a przy budżecie 1500 zł karty to Edge 60, Redmi Note 15 Pro i Edge 70 Fusion z etykietą
-„Powyżej budżetu o 158 zł”. Test różnicujący 9.4 wychodzi 78 : 75 na `photoDay`, tak jak w spec.
+(15 telefonów od etapu 10; ceny z 14.11 i 16.11.2026). Wynik zgodny ze stanem referencyjnym QUIZ-SPEC 9.1
+po etapie 10: persona „żona” daje #1 Redmi Note 17 Pro **68 pkt**, #2 Edge 70 Fusion **67** (praktyczny
+remis), #3 Realme 16 Pro+ **65**, a przy budżecie 1500 zł wszystkie trzy karty mieszczą się w budżecie
+(Edge 60, Redmi Note 15 Pro, Galaxy A37 — niezmiennik 9.1.4 w brzmieniu D6). Test różnicujący 9.4 wychodzi
+78 : 67 na `photoDay` i 80 : 59 na `battery`, tak jak w spec.
 
 Silnik czyta **oba zapisy specyfikacji**: produkcyjny płaski (`displayInch`, `panel`,
 `refreshHz`, `updatesYears`, aparaty jako opisy) i ustrukturyzowany (`display: { sizeInches, … }`,
@@ -320,7 +321,7 @@ zapisują się natychmiast (przejście po ~250 ms), „Wstecz” pokazuje wcześ
 i powrót (także po odświeżeniu) ustawiają się na pierwszym pytaniu bez odpowiedzi. Kroki: nagłówki
 sześciu bloków → pytania A-F → **G1 „trzy najważniejsze rzeczy”** (numeracja 1-3, ponowne dotknięcie
 zdejmuje, „Pomiń ten krok” zostawia ważności ze wzoru) → **podsumowanie** z ważnościami grup,
-filtrami, licznikiem „Pasuje N z 10 telefonów” i ostrzeżeniem „wynik mało spersonalizowany” przy
+filtrami, licznikiem „Pasuje N z 15 telefonów” i ostrzeżeniem „wynik mało spersonalizowany” przy
 większości odpowiedzi „nie wiem” → `Pokaż wyniki` liczy ranking, domyka sesję i prowadzi do
 `#/s/<id>/cards` (w hybrydzie: krótki zestaw 7 pytań i `#/s/<id>/tune`).
 
@@ -342,7 +343,7 @@ więc ręczna korekta jest widoczna od razu. „Szczegóły” rozwijają suwaki
 
 Skala 0-5 ma krok 0,1, bo wartości wyliczone z odpowiedzi bywają ułamkowe (1,3 / 1,7 / 2,5); dla
 dotyku są dodatkowo przyciski szybkiego wyboru 0-5. Filtry twarde: budżet (1500/1800/2000 zł),
-pamięć (dowolna / minimum 256 GB) i „musi mieć microSD”. Licznik „Pasuje X z 10 telefonów” działa
+pamięć (dowolna / minimum 256 GB) i „musi mieć microSD”. Licznik „Pasuje X z 15 telefonów” działa
 w `aria-live`, a przy budżecie, w którym mieszczą się mniej niż trzy telefony, pojawia się komunikat
 „W tym budżecie mieszczą się tylko dwa telefony. Trzecia propozycja jest droższa.” Pod filtrami jest
 podgląd na żywo: trzy najlepsze propozycje z procentem, ceną i flagą „+X zł” — bez nazw (te wracają
@@ -457,9 +458,9 @@ Aktualizacja cen po wydaniu: edycja `price.pln` / `price.checkedAt` / `price.url
 (stara cena do `price.otherObservations`) → `_meta.generatedOn` i `PRICES_CHECKED_AT` w
 `src/data/pool.ts` → `npm run validate-data` → `npm run stale-prices` → `npm test` → push.
 
-## Stan danych (etap 0 — domknięty)
+## Stan danych (etap 0 — domknięty; etap 10 — pula rozszerzona do 15)
 
-`phones.json` ma komplet 10 telefonów: ceny z 14.11.2026 (wszystkie ≤ 2000 zł), specyfikacje
+`phones.json` ma komplet 15 telefonów (10 z etapu 0 + Honor 400, Galaxy A37 5G, OnePlus Nord 5, vivo V70 FE, Redmi Note 17 Pro 5G — etap 10, 16.11.2026; wzór pojemności baterii 4000-8000 mAh, decyzja D4): ceny z 14.11 i 16.11.2026 (wszystkie ≤ 2000 zł), specyfikacje
 z oficjalnych stron producentów i niezależnych testów (GSMArena, mi.com FAQ, Motorola support,
 Trusted Reviews, Notebookcheck, 91mobiles, Tech Advisor, gadgets360), wszystkie rekordy ze statusem
 `ok` i **zero ocen „z braku danych”**. Walidator: 0 błędów, 1 ostrzeżenie (NFC w Realme — brak źródła).
@@ -483,7 +484,7 @@ i kalibracja `BLEND`. Szczegóły: [`Etap-0-todo.md`](Etap-0-todo.md).
 
 ## Dane telefonów i aktualizacja cen
 
-`src/data/phones.json` (`_meta.schemaVersion = 1`) zawiera 10 telefonów z cenami z 14.11.2026;
+`src/data/phones.json` (`_meta.schemaVersion = 1`) zawiera 15 telefonów (etap 10) z cenami z 14.11 i 16.11.2026;
 jeden rekord (`realme-16-pro-plus-5g-8-256`) ma status `needs_confirmation`. Zasady:
 
 - Dane wyłącznie ze źródeł (karty produktowe sklepów, strony producentów, niezależne testy).

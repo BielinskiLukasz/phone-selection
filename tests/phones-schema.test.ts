@@ -5,10 +5,11 @@ import type { Phone } from '../src/types';
 import { CRITERIA as CRITERIA_DEFS, CRITERION_IDS, GROUPS } from '../src/data/criteria';
 import { CRITERIA as VALIDATOR_CRITERIA, validatePhoneData } from '../scripts/validate-data';
 import { BUDGET_LIMIT } from '../src/lib/scoringConfig';
+import { EXPECTED_POOL_SIZE } from '../src/data/pool';
 
 /**
  * E2-10 · `phones.json` zgodny z typami i ze wspólnym walidatorem.
- * Pula jest pełna (10 telefonów, ceny z 14.11.2026), więc schemat sprawdzamy
+ * Pula jest pełna (15 telefonów od etapu 10; ceny z 14.11 i 16.11.2026), więc schemat sprawdzamy
  * na danych produkcyjnych, nie na zastępczych.
  */
 
@@ -75,8 +76,9 @@ describe('E2-10 · schemat danych', () => {
     expect((meta.rules ?? []).length).toBeGreaterThan(0);
   });
 
-  it('jest 10 telefonów, wszystkie nowe i w limicie 2000 zł', () => {
-    expect(POOL.length).toBe(10);
+  it('jest 15 telefonów (etap 10), wszystkie nowe i w limicie 2000 zł', () => {
+    expect(POOL.length).toBe(EXPECTED_POOL_SIZE);
+    expect(POOL.length).toBe(15);
     for (const phone of POOL) {
       expect(phone.price.pln, phone.id).toBeLessThanOrEqual(BUDGET_LIMIT);
       expect(phone.price.pln, phone.id).toBeGreaterThan(0);

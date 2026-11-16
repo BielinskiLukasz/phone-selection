@@ -11,9 +11,10 @@
 /* ── Bateria ── */
 
 export const BATTERY_CAPACITY_FLOOR_MAH = 4000;
-export const BATTERY_CAPACITY_SPAN_MAH = 3000;
+/** Etap 10, decyzja D4: zakres rozszerzony z 3000 do 4000 mAh (8000 mAh = 100), bo pula ma telefony 7000-8340 mAh. */
+export const BATTERY_CAPACITY_SPAN_MAH = 4000;
 
-/** Pojemność: 4000 mAh = 0, 7000 mAh = 100. */
+/** Pojemność: 4000 mAh = 0, 8000 mAh = 100 (do etapu 9: 7000 mAh = 100). */
 export function batteryCapacityScore(mah: number | null | undefined): number | null {
   if (typeof mah !== 'number' || !Number.isFinite(mah)) return null;
   return clamp(((mah - BATTERY_CAPACITY_FLOOR_MAH) / BATTERY_CAPACITY_SPAN_MAH) * 100);

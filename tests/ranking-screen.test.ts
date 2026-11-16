@@ -75,7 +75,7 @@ describe('E9-01 · pełny ranking', () => {
   it('mieści komunikat o stanie danych i podsumowanie puli', () => {
     open();
     expect(
-      screen.getByText('Ranking dotyczy stanu danych z 14.11.2026. Ceny sprawdź w sklepie.'),
+      screen.getByText('Ranking dotyczy stanu danych z 16.11.2026. Ceny sprawdź w sklepie.'),
     ).toBeTruthy();
     expect(screen.getAllByText(sessionTexts.poolSummary(PHONES.length, PHONES.length)).length).toBeGreaterThan(0);
   });

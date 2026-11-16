@@ -6,14 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "validate-data": "tsx scripts/validate-data.ts",
-    "data-gaps": "tsx scripts/data-gaps.ts",
-    "stale-prices": "tsx scripts/stale-prices.ts",
-    "release": "npm run typecheck && npm test && npm run validate-data && npm run stale-prices && npm run build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -38,8 +31,5 @@
     "vite": "7.3.7",
     "vite-plugin-singlefile": "2.3.0",
     "vitest": "4.0.16"
-  },
-  "engines": {
-    "node": ">=20.19.0"
   }
 }

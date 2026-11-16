@@ -313,16 +313,18 @@ describe('E6-05/E6-06/E6-07 · wybór i ujawnienie', () => {
 });
 
 describe('E6-04/E6-08/E6-09 · etykiety, nawigacja i świeżość cen', () => {
-  it('6. budżet 1500 zł daje trzeciej karcie etykietę „Powyżej budżetu o X zł”', () => {
+  it('6. budżet 1500 zł: od etapu 10 trzy telefony mieszczą się w budżecie, więc nie ma etykiety „Powyżej budżetu” (D6)', () => {
     const view = open();
     expect(screen.queryByText(/Powyżej budżetu o/)).toBeNull();
 
     fireEvent.click(view.getByTestId('budget-1500'));
 
-    expect(screen.getByText(/Powyżej budżetu o \d+ zł/)).toBeTruthy();
+    /* Do etapu 9 w budżecie były dwa telefony i trzecia karta dostawała etykietę; teraz są trzy
+       (Edge 60, Redmi Note 15 Pro, Galaxy A37). Logikę etykiety pilnują testy scoring/anonymize. */
+    expect(screen.queryByText(/Powyżej budżetu o \d+ zł/)).toBeNull();
     expect(
-      screen.getByText('Mało telefonów mieści się w budżecie — jedna propozycja jest droższa.'),
-    ).toBeTruthy();
+      screen.queryByText('Mało telefonów mieści się w budżecie — jedna propozycja jest droższa.'),
+    ).toBeNull();
   });
 
   it('„Pokaż pełny ranking” pojawia się dopiero po pierwszym wyborze', () => {

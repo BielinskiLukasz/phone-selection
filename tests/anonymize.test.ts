@@ -344,10 +344,13 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
       expect(card.overBudgetBy).toBeNull();
     }
 
+    /* D6 (etap 10): karta „Powyżej budżetu” tylko wtedy, gdy w budżecie są mniej niż trzy telefony.
+       Od etapu 10 w budżecie 1500 zł są trzy (Edge 60, Redmi Note 15 Pro, Galaxy A37) → żadna karta nie jest oznaczona. */
     const tight = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
     const flagged = toAnonCards(POOL, tight, 1500).filter((card) => card.overBudgetBy !== null);
-    expect(flagged.length).toBe(1);
-    expect(flagged[0]!.overBudgetBy).toBe(460);
+    expect(tight.inBudgetCount).toBe(3);
+    expect(flagged.length).toBe(0);
+    for (const card of toAnonCards(POOL, tight, 1500)) expect(card.pricePln).toBeLessThanOrEqual(1500);
   });
 
   it('szczegóły kryteriów: ocena, pewność, uzasadnienie i znacznik szacunku', () => {
@@ -365,7 +368,8 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     expect(value.score).toBeGreaterThan(0);
 
     const battery = redmi.criteria.find((criterion) => criterion.id === 'battery')!;
-    expect(battery.score).toBe(68);
+    /* Etap 10 (D4): 6580 mAh → pojemność 64,5 zamiast 86 → 0,5 × 64,5 + 0,5 × 50 = 57. */
+    expect(battery.score).toBe(57);
     expect(battery.label).toBe('Czas pracy na baterii');
     expect(battery.basis.length).toBeGreaterThan(20);
   });

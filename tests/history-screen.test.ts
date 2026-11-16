@@ -121,7 +121,7 @@ describe('E7-01 · lista historii', () => {
     expect(preview.getAttribute('href')).toBe('#/s/222222/cards');
 
     /* Podgląd jest stały w czasie: dane z dnia zapisu, nie nowy ranking. */
-    expect(within(item('222222')).getAllByText(/dane z 2026-11-14/).length).toBeGreaterThan(0);
+    expect(within(item('222222')).getAllByText(/dane z 2026-11-16/).length).toBeGreaterThan(0);
   });
 
   it('4. usunięcie z potwierdzeniem znika z listy i z localStorage', async () => {

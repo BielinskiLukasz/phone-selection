@@ -66,11 +66,12 @@ describe('persony · podstawy', () => {
 describe('9.1 · persona „żona”', () => {
   it('trójka odpowiada stanowi referencyjnemu: bateria przed aparatem, pamięć 256 GB', () => {
     const ids = wife().cards.map((entry) => entry.phoneId);
-    expect(ids[0]).toBe('motorola-edge-70-fusion-12-256');
-    expect(ids[1]).toBe('realme-16-pro-plus-5g-8-256');
-    /* Korekta pasm G1 odpowiedziami podnosi aparat i pamięć: #3 to 15T, Edge 60 spada na #4. */
-    expect(ids[2]).toBe('xiaomi-15t-12-512');
-    expect(wife().ranked[3]!.phoneId).toBe('motorola-edge-60-12-256');
+    /* Stan referencyjny po etapie 10 (15 telefonów, wzór baterii D4): #1 Redmi Note 17 Pro (67,7)
+       w praktycznym remisie z Edge 70 Fusion (67,0), #3 realme 16 Pro+ (65,3), #4 vivo V70 FE (65,2). */
+    expect(ids[0]).toBe('redmi-note-17-pro-5g-8-512');
+    expect(ids[1]).toBe('motorola-edge-70-fusion-12-256');
+    expect(ids[2]).toBe('realme-16-pro-plus-5g-8-256');
+    expect(wife().ranked[3]!.phoneId).toBe('vivo-v70-fe-8-256');
     for (const entry of wife().cards) {
       expect(phoneOf(entry).variant.storageGb).toBeGreaterThanOrEqual(256);
     }
@@ -96,22 +97,29 @@ describe('9.1 · persona „żona”', () => {
     expect(filtered.cards[0]!.phoneId).toBe(wife().cards[0]!.phoneId);
   });
 
-  it('9.1.4 budżet 1500 zł → dwie karty w budżecie i jedna „Powyżej budżetu”', () => {
+  it('9.1.4 budżet 1500 zł → co najmniej dwie karty w budżecie; „Powyżej budżetu” tylko gdy w budżecie są mniej niż trzy telefony (D6)', () => {
     const result = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
-    expect(result.inBudgetCount).toBe(2);
     expect(result.cards.length).toBe(3);
 
-    const over = result.cards.filter((entry) => !entry.inBudget);
-    expect(over.length).toBe(1);
-    expect(over[0]!.overBudgetBy).toBeGreaterThan(0);
-    expect(phoneOf(over[0]!).price.pln).toBeGreaterThan(1500);
-
     const within = result.cards.filter((entry) => entry.inBudget);
-    expect(within.length).toBe(2);
+    const over = result.cards.filter((entry) => !entry.inBudget);
+    expect(within.length).toBeGreaterThanOrEqual(2);
     for (const entry of within) {
       expect(entry.overBudgetBy).toBeNull();
       expect(phoneOf(entry).price.pln).toBeLessThanOrEqual(1500);
     }
+
+    if (result.inBudgetCount >= 3) {
+      expect(over.length).toBe(0);
+    } else {
+      expect(over.length).toBe(1);
+      expect(over[0]!.overBudgetBy).toBeGreaterThan(0);
+      expect(phoneOf(over[0]!).price.pln).toBeGreaterThan(1500);
+    }
+
+    /* Stan referencyjny po etapie 10: trzy telefony ≤ 1500 zł (Edge 60, Redmi Note 15 Pro, Galaxy A37) → trzy karty w budżecie. */
+    expect(result.inBudgetCount).toBe(3);
+    expect(within.length).toBe(3);
   });
 
   it('priorytet baterii przed aparatem jest widoczny w ważnościach i w wyniku', () => {
@@ -140,8 +148,10 @@ describe('9.2 i 9.3 · persony kontrolne', () => {
 
   it('persona „bateria” stawia na telefon z największą baterią', () => {
     const result = battery();
-    expect(result.cards[0]!.phoneId).toBe('motorola-edge-70-fusion-12-256');
-    expect(phoneOf(result.cards[0]!).scores.battery).toBe(90);
+    /* Etap 10: największa bateria w puli to Redmi Note 17 Pro (8340 mAh, battery 100). */
+    expect(result.cards[0]!.phoneId).toBe('redmi-note-17-pro-5g-8-512');
+    const maxBattery = Math.max(...POOL.map((phone) => phone.scores.battery ?? 0));
+    expect(phoneOf(result.cards[0]!).scores.battery).toBe(maxBattery);
     expect(result.cards[0]!.groupScores.battery).toBeGreaterThan(
       result.cards[0]!.groupScores.camera,
     );
@@ -186,7 +196,7 @@ describe('persony · filtry i brzegi', () => {
     const realme = phoneById('realme-16-pro-plus-5g-8-256');
     expect(realme.status).toBe('ok');
     expect(realme.reveal.name).not.toContain('potwierdzenia');
-    expect(realme.scores.battery).toBe(96); // 7000 mAh + PCMark 19 h
+    expect(realme.scores.battery).toBe(84); // 7000 mAh (75 po D4) + PCMark 19 h (92)
     expect(realme.scoresEstimatedNeutral).toEqual([]);
     expect(wife().cards.map((entry) => entry.phoneId)).toContain(realme.id);
   });

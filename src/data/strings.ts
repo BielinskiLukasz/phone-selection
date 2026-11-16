@@ -368,7 +368,7 @@ export const screenPlans = {
       'Sześć suwaków grup 0–5 z etykietami i wartością tekstową („3 z 5”).',
       'Przycisk „Szczegóły” rozwijający suwaki kryteriów w grupie.',
       'Panel filtrów: budżet (1500 / 1800 / 2000 zł) i minimalna pamięć.',
-      'Licznik na żywo „Pasuje 8 z 10 telefonów” w aria-live.',
+      'Licznik na żywo „Pasuje N z 15 telefonów” w aria-live.',
     ],
   },
   tune: {

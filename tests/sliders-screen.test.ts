@@ -127,7 +127,7 @@ describe('E5-05 · ekran suwaków', () => {
     expect(session.groupImportance.battery).toBe(5);
     expect(session.groupImportance.camera).toBe(0);
     expect(session.manualOverride).toBe(true);
-    expect(session.ranking.cards[0]).toBe('realme-16-pro-plus-5g-8-256');
+    expect(session.ranking.cards[0]).toBe('vivo-v70-fe-8-256'); // etap 10: bateria 83 + ładowanie 100
     expect(session.ranking.entries.length).toBe(PHONES.length);
   });
 
@@ -150,11 +150,12 @@ describe('E5-03/E5-04 · filtry i licznik na żywo', () => {
 
     const expected = buildPool(PHONES, { budgetMax: 1500 }).length;
     expect(screen.getByText(sessionTexts.poolMatches(expected, PHONES.length))).toBeTruthy();
+    /* Etap 10 (D6): w budżecie 1500 zł są trzy telefony, więc komunikat o droższej propozycji nie pojawia się. */
     expect(
-      screen.getByText(
+      screen.queryByText(
         'W tym budżecie mieszczą się tylko dwa telefony. Trzecia propozycja jest droższa.',
       ),
-    ).toBeTruthy();
+    ).toBeNull();
   });
 
   it('pamięć „minimum 256 GB” odrzuca telefony 128 GB', () => {
@@ -162,8 +163,8 @@ describe('E5-03/E5-04 · filtry i licznik na żywo', () => {
     fireEvent.click(screen.getByRole('radio', { name: /minimum 256 GB/ }));
 
     const expected = buildPool(PHONES, { budgetMax: 2000, minStorageGb: 256 }).length;
-    expect(expected).toBe(8);
-    expect(screen.getByText(sessionTexts.poolMatches(8, PHONES.length))).toBeTruthy();
+    expect(expected).toBe(PHONES.length - 2); // 15 − 2 Pixele 128 GB
+    expect(screen.getByText(sessionTexts.poolMatches(expected, PHONES.length))).toBeTruthy();
   });
 
   it('„musi mieć microSD” zostawia jedyny telefon ze slotem', () => {

@@ -3,15 +3,17 @@
     "schemaVersion": 1,
     "currency": "PLN",
     "budgetMaxPln": 2000,
-    "generatedOn": "2026-11-14",
+    "generatedOn": "2026-11-16",
     "rules": [
       "Tylko dane ze źródeł; brak danych = null, nigdy wartość zgadywana.",
       "Ceny z pola price.pln podał użytkownik (sprawdzone ręcznie w sklepach, data w checkedAt); ostateczne odświeżenie cen tuż przed publikacją (ROADMAP, etap 9).",
       "Warianty pamięci zostają takie, jak na liście, z wyjątkami zdecydowanymi przez użytkownika: Pixel 10a i 9a w wersji 8/128 GB, Xiaomi 15T w wersji 12/512 GB. Zamiast Pixela 8a i Galaxy A55 do listy weszły Redmi Note 15 Pro 5G i Realme 16 Pro 5G.",
-      "Linki w price.url bez parametrów śledzących (utm_*, ceneo_cid)."
+      "Linki w price.url bez parametrów śledzących (utm_*, ceneo_cid).",
+      "Etap 10 (16.11.2026, decyzje D1-D6): do puli dołączone Honor 400 8/256, Galaxy A37 5G 8/256, OnePlus Nord 5 8/256, vivo V70 FE 8/256 i Redmi Note 17 Pro 5G 8/512; Xiaomi 15T zostaje 12/512 (D3). Ceny nowych rekordów z odczytu indeksu Ceneo z 16.11.2026 (strony sklepów do ponownego odczytu w dniu wydania, E10-11); ceny pierwszych 10 rekordów bez zmian (14.11.2026).",
+      "D4 (etap 10): wzór pojemności baterii zmieniony na (mAh − 4000) / 4000 × 100 (4000 mAh = 0, 8000 mAh = 100); oceny battery wszystkich rekordów przeliczone, wytrzymałość bez zmian."
     ],
-    "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja.",
-    "specsCompletedNote": "Uzupełnienia specyfikacji i ocen z oficjalnych stron producentów oraz niezależnych testów (GSMArena, mi.com FAQ, Motorola support, Trusted Reviews, Notebookcheck, 91mobiles, Tech Advisor, gadgets360): IP, waga, microSD, NFC, ładowanie, zawartość pudełka, polityka aktualizacji, ekran 15T, wytrzymałość baterii z testów. Oceny obiektywne przeliczone ze wzorów PROJECT 7.5 i reguł C1 (patrz planning/PROJECT.md 7.5). Ceny bez zmian — 14.11.2026."
+    "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria — pojemność 4000-8000 mAh od etapu 10, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja.",
+    "specsCompletedNote": "Uzupełnienia specyfikacji i ocen z oficjalnych stron producentów oraz niezależnych testów (GSMArena, mi.com FAQ, Motorola support, Trusted Reviews, Notebookcheck, 91mobiles, Tech Advisor, gadgets360): IP, waga, microSD, NFC, ładowanie, zawartość pudełka, polityka aktualizacji, ekran 15T, wytrzymałość baterii z testów. Oceny obiektywne przeliczone ze wzorów PROJECT 7.5 i reguł C1 (patrz planning/PROJECT.md 7.5). Ceny bez zmian — 14.11.2026. Etap 10: pięć nowych rekordów ze specyfikacją z GSMArena (w tym etykieta UE: wytrzymałość na cyklu i cykle), recenzji GSMArena/Notebookcheck/ITdaily/Uswitch/The Verge/Digit.in/gsmonline.pl oraz polskich kart sklepów; oceny aparatów nowych modeli bez testów DXOMARK — pewność low z opisem luki."
   },
   "phones": [
     {
@@ -38,7 +40,7 @@
         "variantOf": null
       },
       "price": {
-        "pln": 1729.0,
+        "pln": 1729,
         "source": "sferis.pl",
         "url": "https://www.sferis.pl/samsung-galaxy-a57-sm-a576b-8-256gb-5g-ds-gray-i688666",
         "checkedAt": "2026-11-14",
@@ -92,7 +94,7 @@
         "batteryEndurance": 62.7
       },
       "scores": {
-        "battery": 48,
+        "battery": 44,
         "charging": 40,
         "updates": 86,
         "storage": 75,
@@ -108,7 +110,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck chwali długi czas pracy, inne źródła nazywają baterię słabszym punktem; ocena środkowa",
+        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck chwali długi czas pracy, inne źródła nazywają baterię słabszym punktem; ocena środkowa; pojemność wg wzoru etapu 10 (D4): (5000 − 4000) / 4000 × 100 = 25, wytrzymałość 62,7 → 0,5 × 25 + 0,5 × 62,7 = 44",
         "charging": "45 W przewodowo, bez zasilacza w zestawie (chargerInBox: false) — (45 − 15) / 75 × 100 = 40",
         "updates": "6 lat aktualizacji systemu i zabezpieczeń",
         "storage": "256 GB, brak slotu microSD",
@@ -216,7 +218,7 @@
         "batteryEndurance": 79.3
       },
       "scores": {
-        "battery": 58,
+        "battery": 53,
         "charging": 28,
         "updates": 100,
         "storage": 40,
@@ -232,7 +234,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Tom's Guide: ok. 2 h dłużej niż 9a; Galaxus: 9a ok. 17 h w PCMark; Notebookcheck: duża żywotność baterii",
+        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Tom's Guide: ok. 2 h dłużej niż 9a; Galaxus: 9a ok. 17 h w PCMark; Notebookcheck: duża żywotność baterii; pojemność wg wzoru etapu 10 (D4): (5100 − 4000) / 4000 × 100 = 27,5, wytrzymałość 79,3 → 0,5 × 27,5 + 0,5 × 79,3 = 53",
         "charging": "30 W przewodowo + bezprzewodowe Qi; w pudełku kabel USB-C, igła SIM i dokumentacja — bez zasilacza (support.google.com)",
         "updates": "7 lat systemu i zabezpieczeń",
         "storage": "128 GB, brak slotu microSD",
@@ -335,7 +337,7 @@
         "batteryEndurance": 64.7
       },
       "scores": {
-        "battery": 49,
+        "battery": 45,
         "charging": 40,
         "updates": 86,
         "storage": 75,
@@ -351,7 +353,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): android.com.pl: dobre czasy pracy; rankingpro: ok. 1,5 dnia przy umiarkowanym użyciu",
+        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): android.com.pl: dobre czasy pracy; rankingpro: ok. 1,5 dnia przy umiarkowanym użyciu; pojemność wg wzoru etapu 10 (D4): (5000 − 4000) / 4000 × 100 = 25, wytrzymałość 64,7 → 0,5 × 25 + 0,5 × 64,7 = 45",
         "charging": "45 W przewodowo, bez zasilacza w zestawie (chargerInBox: false) — (45 − 15) / 75 × 100 = 40",
         "updates": "6 lat aktualizacji systemu i zabezpieczeń",
         "storage": "256 GB, brak slotu microSD",
@@ -415,7 +417,7 @@
         "variantOf": null
       },
       "price": {
-        "pln": 1299.0,
+        "pln": 1299,
         "source": "euro.com.pl",
         "url": "https://www.euro.com.pl/telefony-komorkowe/xiaomi-redmi-note-15-pro-5g-8-256gb-6-83-120hz-200mpix-czarny.bhtml",
         "checkedAt": "2026-11-14",
@@ -468,11 +470,11 @@
           "EPREL/etykieta energetyczna: 60 h 50 min na cyklu, klasa B, 1000 cykli (newmobile.com, nr 2470759)",
           "nanoreview: 47% w 30 min, pełne ładowanie 1:13"
         ],
-        "batteryEndurance": 50.0,
+        "batteryEndurance": 50,
         "chargerInBoxNote": "nanoreview podaje „Bundled charger: Yes, 45 W”, FAQ mi.com rozróżnia wersje z ładowarką i bez — dla PL zostaje false"
       },
       "scores": {
-        "battery": 68,
+        "battery": 57,
         "charging": 40,
         "updates": 71,
         "storage": 75,
@@ -488,7 +490,7 @@
         "value": null
       },
       "basis": {
-        "battery": "6580 mAh (50% wagi) + wytrzymałość (50%): etykieta EPREL 60 h 50 min na cyklu; tabletowo „świetna bateria na papierze”, w praktyce słabsze wyniki i problemy z oprogramowaniem",
+        "battery": "6580 mAh (50% wagi) + wytrzymałość (50%): etykieta EPREL 60 h 50 min na cyklu; tabletowo „świetna bateria na papierze”, w praktyce słabsze wyniki i problemy z oprogramowaniem; pojemność wg wzoru etapu 10 (D4): (6580 − 4000) / 4000 × 100 = 64,5, wytrzymałość 50 → 0,5 × 64,5 + 0,5 × 50 = 57",
         "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
         "updates": "4 duże aktualizacje Androida + 6 lat poprawek (nanoreview, gsmspecs): średnia 5 lat → 5/7 × 100 = 71",
         "storage": "256 GB, brak slotu microSD",
@@ -551,7 +553,7 @@
         "variantOf": null
       },
       "price": {
-        "pln": 1399.0,
+        "pln": 1399,
         "source": "euro.com.pl",
         "url": "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml",
         "checkedAt": "2026-11-14",
@@ -592,12 +594,12 @@
         "peakNits": 4500,
         "resolution": "1220x2712",
         "batteryNote": "GSMArena podaje w skrócie 5500 mAh, w recenzji i u innych źródeł 5200 mAh (wersja globalna) — zostaje 5200",
-        "batteryEndurance": 70.0,
+        "batteryEndurance": 70,
         "updatesOsGenerations": 3,
         "updatesSecurityYears": 4
       },
       "scores": {
-        "battery": 55,
+        "battery": 50,
         "charging": 71,
         "updates": 50,
         "storage": 80,
@@ -613,7 +615,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5200 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck: wyróżnia się długim czasem pracy; Tabletowo: obiecujące wstępne wyniki",
+        "battery": "5200 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck: wyróżnia się długim czasem pracy; Tabletowo: obiecujące wstępne wyniki; pojemność wg wzoru etapu 10 (D4): (5200 − 4000) / 4000 × 100 = 30, wytrzymałość 70 → 0,5 × 30 + 0,5 × 70 = 50",
         "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
         "updates": "3 duże aktualizacje systemu + 4 lata poprawek",
         "storage": "256 GB + slot microSD (bonus 5 pkt, PROJECT 7.5) — jedyny telefon w puli z kartą pamięci",
@@ -676,7 +678,7 @@
         "variantOf": "decyzja użytkownika: wariant 512 GB zamiast 256 GB (podobne ceny)"
       },
       "price": {
-        "pln": 1999.0,
+        "pln": 1999,
         "source": "komputronik.pl",
         "url": "https://www.komputronik.pl/product/983816/telefon-xiaomi-15t-12-512gb-black.html",
         "checkedAt": "2026-11-14",
@@ -725,7 +727,7 @@
         "batteryCycles": 1600
       },
       "scores": {
-        "battery": 55,
+        "battery": 48,
         "charging": 69,
         "updates": 71,
         "storage": 100,
@@ -741,7 +743,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5500 mAh (50% wagi) + wytrzymałość 59 (50%) z GSMArena: klasa A, 57:44 h szacowanej wytrzymałości → 0,5 × 50 + 0,5 × 59 = 55",
+        "battery": "5500 mAh (50% wagi) + wytrzymałość 59 (50%) z GSMArena: klasa A, 57:44 h szacowanej wytrzymałości → 0,5 × 37,5 + 0,5 × 59 = 48; pojemność wg wzoru etapu 10 (D4): (5500 − 4000) / 4000 × 100 = 37,5",
         "charging": "67 W przewodowo (mi.com): (67 − 15) / 75 × 100 = 69; bez ładowania bezprzewodowego i bez zasilacza w pudełku",
         "updates": "4 duże aktualizacje + 6 lat poprawek (GSMArena, deklaracja Xiaomi): średnia 5 lat → 71",
         "storage": "512 GB, brak slotu microSD",
@@ -865,7 +867,7 @@
         "batteryEndurance": 80
       },
       "scores": {
-        "battery": 90,
+        "battery": 78,
         "charging": 71,
         "updates": 57,
         "storage": 75,
@@ -881,7 +883,7 @@
         "value": null
       },
       "basis": {
-        "battery": "7000 mAh (50% wagi) + wytrzymałość 80 (50%) z PCMark 17 h 34 min (91mobiles) → 0,5 × 100 + 0,5 × 80 = 90; recenzje: bateria na cały dzień i dłużej",
+        "battery": "7000 mAh (50% wagi) + wytrzymałość 80 (50%) z PCMark 17 h 34 min (91mobiles) → 0,5 × 75 + 0,5 × 80 = 78; recenzje: bateria na cały dzień i dłużej; pojemność wg wzoru etapu 10 (D4): (7000 − 4000) / 4000 × 100 = 75",
         "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
         "updates": "3 duże aktualizacje systemu + 5 lata poprawek",
         "storage": "256 GB, brak slotu microSD",
@@ -991,7 +993,7 @@
         "batteryEndurance": 71.3
       },
       "scores": {
-        "battery": 54,
+        "battery": 49,
         "charging": 19,
         "updates": 100,
         "storage": 40,
@@ -1007,7 +1009,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Galaxus: PCMark ok. 17 h; producent: ponad 30 h w typowym użyciu",
+        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Galaxus: PCMark ok. 17 h; producent: ponad 30 h w typowym użyciu; pojemność wg wzoru etapu 10 (D4): (5100 − 4000) / 4000 × 100 = 27,5, wytrzymałość 71,3 → 0,5 × 27,5 + 0,5 × 71,3 = 49",
         "charging": "23 W przewodowo + bezprzewodowe Qi; w pudełku kabel, igła SIM i dokumentacja — bez zasilacza (support.google.com)",
         "updates": "7 lat systemu i zabezpieczeń",
         "storage": "128 GB, brak slotu microSD",
@@ -1066,7 +1068,7 @@
         "variantOf": null
       },
       "price": {
-        "pln": 1779.0,
+        "pln": 1779,
         "source": "proshop.pl",
         "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300",
         "checkedAt": "2026-11-14",
@@ -1121,7 +1123,7 @@
         "batteryEndurance": 84.7
       },
       "scores": {
-        "battery": 59,
+        "battery": 55,
         "charging": 47,
         "updates": 43,
         "storage": 75,
@@ -1137,7 +1139,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): gsmManiaK: 7-8 h ekranu, w nocy traci ok. 1%",
+        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): gsmManiaK: 7-8 h ekranu, w nocy traci ok. 1%; pojemność wg wzoru etapu 10 (D4): (5000 − 4000) / 4000 × 100 = 25, wytrzymałość 84,7 → 0,5 × 25 + 0,5 × 84,7 = 55",
         "charging": "50 W przewodowo; ładowarki w zestawie brak lub nieznana",
         "updates": "3 duże aktualizacje Androida (polityka Nothing, Tech Advisor/Visermark); lata poprawek rozbieżne (4 vs 6), więc ocena z samych wersji: 3/7 × 100 = 43",
         "storage": "256 GB, brak slotu microSD",
@@ -1260,7 +1262,7 @@
         "confirmationNote": "Specyfikacja Pro+ zweryfikowana po potwierdzeniu użytkownika; wariant `ifItIsPlainPro` zostaje jako historia rozbieżności oferty"
       },
       "scores": {
-        "battery": 96,
+        "battery": 84,
         "charging": 87,
         "updates": 50,
         "storage": 75,
@@ -1276,7 +1278,7 @@
         "value": null
       },
       "basis": {
-        "battery": "7000 mAh (50% wagi) + wytrzymałość 92 (50%) z PCMark 19 h (91mobiles, najlepszy w grupie) → 0,5 × 100 + 0,5 × 92 = 96",
+        "battery": "7000 mAh (50% wagi) + wytrzymałość 92 (50%) z PCMark 19 h (91mobiles, najlepszy w grupie) → 0,5 × 75 + 0,5 × 92 = 84; pojemność wg wzoru etapu 10 (D4): (7000 − 4000) / 4000 × 100 = 75",
         "charging": "80 W przewodowo (gadgets360, phonedroid, Notebookcheck): (80 − 15) / 75 × 100 = 87; bez ładowania bezprzewodowego",
         "updates": "3 aktualizacje systemu + 4 lata poprawek (91mobiles): średnia 3,5 → 3,5/7 × 100 = 50",
         "storage": "256 GB, brak slotu microSD",
@@ -1315,6 +1317,780 @@
         "photoMotion": "low",
         "selfie": "low",
         "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "honor-400-8-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Honor 400 8/256 GB",
+        "brand": "Honor",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/183748074",
+            "note": "porównywarka: oficjalny sklep HONOR, Media Expert, RTV Euro AGD — link do sklepu do podmiany przy odświeżeniu cen (E10-11)"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "Honor 400 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1599,
+        "source": "oficjalny sklep HONOR / Media Expert / RTV Euro AGD (odczyt Ceneo)",
+        "url": "https://www.ceneo.pl/183748074",
+        "checkedAt": "2026-11-16",
+        "providedBy": "claude (odczyt indeksu Ceneo i gsmManiaK; strona sklepu do ponownego odczytu w dniu wydania)",
+        "note": "złoty, 8/256 GB; cena regularna w sieciach (Media Expert, RTV Euro AGD, OleOle, sklep HONOR); kupon newslettera HONOR obniża do ok. 1439 zł — kupony nie wchodzą do price.pln",
+        "otherObservations": [
+          {
+            "pln": 1499,
+            "source": "sklep HONOR Polska (promocja, gsmManiaK)",
+            "url": "https://www.gsmmaniak.pl/1693992/honor-400-super-cena/",
+            "checkedAt": "2026-10-10",
+            "providedBy": "claude (artykuł)",
+            "note": "promocja sklepu producenta, z kuponem 1439 zł"
+          },
+          {
+            "pln": 1432.59,
+            "source": "skapiec.pl (najniższa z 3 ofert, złoty)",
+            "url": "https://www.skapiec.pl/site/cat/200/comp/948728598",
+            "checkedAt": "2026-11-16",
+            "providedBy": "claude (odczyt indeksu)",
+            "note": "oferta marketplace — nie przyjęta jako referencyjna"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.55,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1264x2736",
+        "peakNits": 5000,
+        "ppi": 460,
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": null,
+        "microSd": false,
+        "chip": "Qualcomm Snapdragon 7 Gen 3 (4 nm)",
+        "batteryMah": 5300,
+        "batteryType": "Si/C",
+        "chargingW": 66,
+        "wirelessCharging": false,
+        "chargerInBox": null,
+        "ip": "IP65",
+        "ipNote": "IP65 w Europie (GSMArena, Les Numériques); IP66 zależnie od rynku; jedna oferta Allegro podaje IP67 — niezgodna z oficjalną specyfikacją",
+        "weightG": 184,
+        "thicknessMm": 7.3,
+        "dimensionsMm": "156,5 x 74,6 x 7,3",
+        "frame": "plastik, tył plastik, szkło z przodu",
+        "cameras": {
+          "main": "200 MP f/1.9 1/1,4″ z OIS",
+          "ultrawide": "12 MP f/2.2 112° z AF",
+          "macro": null,
+          "selfie": "50 MP f/2.0",
+          "telephoto": null
+        },
+        "video": "4K",
+        "os": "Android 15, MagicOS 9 (aktualizowany do MagicOS 10)",
+        "updatesYears": null,
+        "updatesOsGenerations": 6,
+        "updatesSecurityYears": 6,
+        "updatesNote": "GSMArena: „up to 6 major OS updates”; Trusted Reviews (via Notebookcheck): „guaranteed six years of software updates” — przyjęto 6 wersji + 6 lat poprawek",
+        "sim": "nanoSIM + eSIM (lub 2× nanoSIM)",
+        "nfc": true,
+        "bluetooth": "5.4",
+        "batteryCycles": 1200,
+        "batteryTests": [
+          "Etykieta UE (GSMArena): klasa efektywności A, wytrzymałość 56:28 h na cyklu, 1200 cykli",
+          "GSMArena Active Use Score: 12:29 h"
+        ],
+        "batteryEndurance": 54.9,
+        "chargingTests": "GSMArena: 66 W, 44% w 15 min, pełne ładowanie w 46 min",
+        "displayNote": "6,55″ AMOLED 120 Hz, 1264x2736, 5000 nitów szczytowo (specyfikacja), 1550 nitów zmierzone (GSMArena); Trusted Reviews: „truly excellent display”",
+        "sourceNote": "specyfikacja z GSMArena (wariant europejski 5300 mAh / 66 W, model DNY-NX9); wariant ROW ma 6000 mAh / 80 W — nie dotyczy polskiej dystrybucji"
+      },
+      "scores": {
+        "battery": 44,
+        "charging": 68,
+        "updates": 86,
+        "storage": 75,
+        "durability": 55,
+        "smoothness": 70,
+        "display": 84,
+        "photoDay": 76,
+        "photoIndoor": 70,
+        "photoMotion": 66,
+        "selfie": 72,
+        "video": 68,
+        "zoom": 50,
+        "value": null
+      },
+      "basis": {
+        "battery": "5300 mAh (50% wagi): pojemność (5300 − 4000) / 4000 × 100 = 32,5 + wytrzymałość 54,9 (50%) z etykiety UE 56:28 h na cyklu (GSMArena: 100 × (56,47 − 40) / 30) → 0,5 × 32,5 + 0,5 × 54,9 = 44; GSMArena Active Use Score 12:29 h — „stamina is decent” (Trusted Reviews)",
+        "charging": "66 W przewodowo (GSMArena, wariant EU): (66 − 15) / 75 × 100 = 68; bez ładowania bezprzewodowego (Les Numériques); zawartość pudełka niepotwierdzona (chargerInBox: null)",
+        "updates": "6 wersji systemu + 6 lat poprawek (GSMArena „up to 6 major OS updates”, Trusted Reviews „six years of software support”): średnia 6 → 6/7 × 100 = 86",
+        "storage": "256 GB, brak slotu microSD (GSMArena)",
+        "durability": "IP65 w Europie (GSMArena, Les Numériques) = 55 pkt wg reguły C1; etykieta UE: odporność na upadki klasa B (180 upadków) — nie wchodzi do wzoru",
+        "smoothness": "Snapdragon 7 Gen 3, AnTuTu v10 864 tys. (GSMArena) — klasa między Exynosem 1680 (A57) a Snapdragonem 7 Gen 4 (realme); Trusted Reviews: nakładka MagicOS mniej intuicyjna, bez zarzutów do płynności",
+        "display": "5000 nitów szczytowo (specyfikacja) i 1550 nitów zmierzone (GSMArena) → próg C1 ≥3000 nitów = 80, podniesione o 4 za pomiar i oceny recenzji (Trusted Reviews: „truly excellent display”, Notebookcheck)",
+        "photoDay": "200 MP 1/1,4″ z OIS + 12 MP szeroki kąt z AF, selfie 50 MP, wideo 4K (GSMArena); Trusted Reviews: „very good 200MP main camera”; brak teleobiektywu; bez niezależnych testów porównawczych (DXOMARK/PhoneArena) — ocena z klasy sprzętu i werdyktów recenzji",
+        "photoIndoor": "200 MP 1/1,4″ z OIS (duża matryca pomaga przy słabym świetle); bez niezależnych testów porównawczych w słabym świetle — ocena z klasy sprzętu, pewność low",
+        "photoMotion": "PDAF na głównym aparacie, OIS; bez niezależnych testów autofokusu w ruchu — ocena z klasy sprzętu, pewność low",
+        "selfie": "selfie 50 MP f/2.0 z nagrywaniem 4K (GSMArena); bez niezależnych testów porównawczych — ocena z klasy sprzętu",
+        "video": "4K z tyłu i z przodu, OIS + gyro-EIS (GSMArena); bez niezależnych testów stabilizacji — ocena z klasy sprzętu",
+        "zoom": "brak teleobiektywu (zoom 2x z kadrowania matrycy 200 MP); bez niezależnych testów przybliżenia — ocena z klasy sprzętu",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.gsmarena.com/honor_400_5g-13799.php",
+        "https://www.notebookcheck.net/Honor-400.1062842.0.html",
+        "https://www.lesnumeriques.com/telephone-portable/honor-400-p76665/test.html",
+        "https://www.telepolis.pl/telefony/honor/400",
+        "https://www.gsmmaniak.pl/1693992/honor-400-super-cena/",
+        "https://www.ceneo.pl/183748074",
+        "https://www.skapiec.pl/site/cat/200/comp/948728598"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "galaxy-a37-5g-8-256",
+      "status": "ok",
+      "reveal": {
+        "name": "Samsung Galaxy A37 5G 8/256 GB",
+        "brand": "Samsung",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/194801077",
+            "note": "porównywarka (28 sklepów) — link do sklepu do podmiany przy odświeżeniu cen (E10-11)"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "Samsung Galaxy A37 5G 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1293,
+        "source": "ceneo.pl (najniższa z 28 ofert, szary)",
+        "url": "https://www.ceneo.pl/194801077",
+        "checkedAt": "2026-11-16",
+        "providedBy": "claude (odczyt indeksu Ceneo; strona sklepu do ponownego odczytu w dniu wydania)",
+        "note": "szary, 8/256 GB; lista kategorii Ceneo podaje „od 1293 zł w 28 sklepach”, snapshot strony produktu — 1582 zł; rozbieżność do rozstrzygnięcia przy E10-11",
+        "otherObservations": [
+          {
+            "pln": 1582,
+            "source": "ceneo.pl (snapshot strony produktu)",
+            "url": "https://www.ceneo.pl/194801077",
+            "checkedAt": "2026-11-16",
+            "providedBy": "claude (odczyt indeksu)",
+            "note": "„aktualnie najniższa cena” na stronie produktu"
+          },
+          {
+            "pln": 1299,
+            "source": "Media Expert (gsmManiaK)",
+            "url": "https://www.gsmmaniak.pl/1646233/samsung-galaxy-a57-a37-5g-premiera-specyfikacja-cena-w-polsce/",
+            "checkedAt": "2026-03-25",
+            "providedBy": "claude (artykuł)",
+            "note": "cena premierowa w sieci; RRP 2269 zł"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.7,
+        "panel": "Super AMOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2340",
+        "peakNits": 1900,
+        "ppi": 385,
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "chip": "Exynos 1480 (4 nm)",
+        "batteryMah": 5000,
+        "chargingW": 45,
+        "wirelessCharging": false,
+        "chargerInBox": null,
+        "ip": "IP68",
+        "weightG": 196,
+        "thicknessMm": 7.4,
+        "dimensionsMm": "162,9 x 78,2 x 7,4",
+        "glass": "Gorilla Glass Victus+ (przód i tył)",
+        "frame": "plastik",
+        "cameras": {
+          "main": "50 MP z OIS",
+          "ultrawide": "8 MP",
+          "macro": "5 MP",
+          "selfie": "12 MP",
+          "telephoto": null
+        },
+        "video": "4K (30 kl./s)",
+        "os": "Android 16, One UI 8.5",
+        "updatesYears": null,
+        "updatesOsGenerations": 6,
+        "updatesSecurityYears": 6,
+        "updatesNote": "Notebookcheck: 6 lat aktualizacji Androida i 6 lat poprawek bezpieczeństwa (do 03/2032); karta Media Expert: „6 aktualizacji systemu i 6 lat aktualizacji zabezpieczeń”",
+        "sim": "nanoSIM + eSIM (2 aktywne)",
+        "nfc": true,
+        "bluetooth": "5.4",
+        "batteryCycles": 1200,
+        "batteryTests": [
+          "Etykieta UE (GSMArena, EPREL): klasa efektywności A, wytrzymałość 53:00 h na cyklu, 1200 cykli",
+          "GSMArena Active Use Score: 13:49 h; Notebookcheck: „dependable battery life”"
+        ],
+        "batteryEndurance": 43.3,
+        "chargingTests": "Notebookcheck: 50% w 21 min, 80% w 38 min, 100% w 68 min (45 W)",
+        "displayNote": "6,7″ Super AMOLED 120 Hz, 1200 nitów HBM / 1900 nitów szczytowo (GSMArena), 1246 nitów zmierzone (GSMArena); Notebookcheck: „bright 120 Hz AMOLED”",
+        "sourceNote": "specyfikacja z recenzji GSMArena (specs at a glance) i Notebookcheck; polska karta Media Expert potwierdza aparaty 50 + 8 + 5 / 12 MP i politykę aktualizacji"
+      },
+      "scores": {
+        "battery": 34,
+        "charging": 40,
+        "updates": 86,
+        "storage": 75,
+        "durability": 90,
+        "smoothness": 60,
+        "display": 78,
+        "photoDay": 72,
+        "photoIndoor": 66,
+        "photoMotion": 62,
+        "selfie": 60,
+        "video": 64,
+        "zoom": 40,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (50% wagi): pojemność (5000 − 4000) / 4000 × 100 = 25 + wytrzymałość 43,3 (50%) z etykiety UE 53:00 h na cyklu (GSMArena/EPREL: 100 × (53 − 40) / 30) → 0,5 × 25 + 0,5 × 43,3 = 34; Notebookcheck: „dependable battery life”",
+        "charging": "45 W przewodowo (GSMArena, Notebookcheck: 100% w 68 min): (45 − 15) / 75 × 100 = 40; bez ładowania bezprzewodowego; zawartość pudełka niepotwierdzona (chargerInBox: null)",
+        "updates": "6 wersji systemu + 6 lat poprawek do 03/2032 (Notebookcheck, karta Media Expert): średnia 6 → 6/7 × 100 = 86",
+        "storage": "256 GB UFS 3.1, brak slotu microSD (GSMArena)",
+        "durability": "IP68 (GSMArena: zanurzenie do 1,5 m przez 30 min; Notebookcheck) = 90 pkt wg PROJECT 7.5; Gorilla Glass Victus+ z przodu i z tyłu",
+        "smoothness": "Exynos 1480, AnTuTu v10 ok. 698 tys. (GSMArena) — wolniejszy od Exynosa 1580 (A56, 62 pkt) i 1680 (A57, 68 pkt); Notebookcheck: „polished One UI software”",
+        "display": "1900 nitów szczytowo → próg C1 1500-2999 = 70; pomiar GSMArena 1246 nitów i oceny recenzji (Notebookcheck: „bright 120 Hz AMOLED”) podnoszą do 78 — poniżej A56 (82), bo niższa jasność szczytowa",
+        "photoDay": "50 MP z OIS + 8 MP szeroki kąt + 5 MP makro, selfie 12 MP, wideo 4K@30 (GSMArena, Media Expert); Notebookcheck: „reliable main camera”; brak teleobiektywu; bez niezależnych testów porównawczych odczytanych dla tego modelu — ocena z klasy sprzętu (ten sam segment co A56, 4 pkt niżej za słabszy szeroki kąt)",
+        "photoIndoor": "50 MP z OIS; bez niezależnych testów w słabym świetle — ocena z klasy sprzętu (poniżej A56), pewność low",
+        "photoMotion": "PDAF + OIS; bez niezależnych testów autofokusu w ruchu — ocena z klasy sprzętu, pewność low",
+        "selfie": "selfie 12 MP (GSMArena); bez niezależnych testów — ocena z klasy sprzętu (jak A56/A57)",
+        "video": "4K tylko 30 kl./s, OIS (GSMArena); bez niezależnych testów stabilizacji — ocena z klasy sprzętu",
+        "zoom": "brak teleobiektywu (zoom 2x z kadrowania); bez niezależnych testów przybliżenia — ocena z klasy sprzętu",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.gsmarena.com/samsung_galaxy_a37-review-2952.php",
+        "https://www.gsmarena.com/compare.php3?idPhone1=14378",
+        "https://www.notebookcheck.net/Samsung-Galaxy-A37-5G.1262295.0.html",
+        "https://www.telepolis.pl/telefony/samsung/galaxy-a37-5g",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-a37-5g-8-256gb-6-7-120hz-szary-sm-a376",
+        "https://www.91mobiles.com/hub/samsung-galaxy-a57-a37-battery-capacity-revealed-eu-energy-label/",
+        "https://www.gsmmaniak.pl/1646233/samsung-galaxy-a57-a37-5g-premiera-specyfikacja-cena-w-polsce/",
+        "https://www.ceneo.pl/194801077"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "oneplus-nord-5-8-256",
+      "status": "ok",
+      "reveal": {
+        "name": "OnePlus Nord 5 8/256 GB",
+        "brand": "OnePlus",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/185352039",
+            "note": "porównywarka (e-smartphone.pl, Siglo.pl, Proshop) — link do sklepu do podmiany przy odświeżeniu cen (E10-11)"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "OnePlus Nord 5 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1709,
+        "source": "e-smartphone.pl (odczyt Ceneo)",
+        "url": "https://www.ceneo.pl/185352039",
+        "checkedAt": "2026-11-16",
+        "providedBy": "claude (odczyt indeksu Ceneo; strona sklepu do ponownego odczytu w dniu wydania)",
+        "note": "Marble Sands, 8/256 GB; sklep z oceną 4,8/5 na Ceneo; oferta Siglo.pl 1685 zł (szary) uznana za równoważną",
+        "otherObservations": [
+          {
+            "pln": 1685,
+            "source": "Siglo.pl (odczyt Ceneo, szary)",
+            "url": "https://www.ceneo.pl/185352075",
+            "checkedAt": "2026-11-16",
+            "providedBy": "claude (odczyt indeksu)",
+            "note": "wysyłka od 10,49 zł"
+          },
+          {
+            "pln": 1499,
+            "source": "Proshop (promocja, gsmManiaK)",
+            "url": "https://www.gsmmaniak.pl/1641122/oneplus-nord-5-nowa-aktualizacja-i-promocja/",
+            "checkedAt": "2026-03-05",
+            "providedBy": "claude (artykuł)",
+            "note": "promocja czasowa; Media Expert 2100 zł, Media Markt 2099 zł w tym samym czasie"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.83,
+        "panel": "AMOLED",
+        "refreshHz": 144,
+        "resolution": "1272x2800",
+        "peakNits": 1800,
+        "ppi": 450,
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "chip": "Qualcomm Snapdragon 8s Gen 3 (4 nm)",
+        "batteryMah": 5200,
+        "chargingW": 80,
+        "wirelessCharging": false,
+        "chargerInBox": null,
+        "ip": "IP65",
+        "weightG": 211,
+        "thicknessMm": 8.1,
+        "dimensionsMm": "163,4 x 77 x 8,1",
+        "glass": "Gorilla Glass 7i",
+        "frame": "plastik, tył plastik",
+        "cameras": {
+          "main": "50 MP f/1.8 1/1,56″ z OIS",
+          "ultrawide": "8 MP f/2.2 116° z AF",
+          "macro": null,
+          "selfie": "50 MP f/2.0 z AF",
+          "telephoto": null
+        },
+        "video": "4K (30/60 kl./s)",
+        "os": "Android 15, OxygenOS 15",
+        "updatesYears": null,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "GSMArena: „up to 4 major OS updates”; ITdaily/Uswitch/The Verge: 4 wersje Androida i 6 lat poprawek (do 07/2031)",
+        "sim": "2× nanoSIM (bez eSIM — The Verge)",
+        "nfc": true,
+        "bluetooth": "5.4",
+        "batteryCycles": 1200,
+        "batteryTests": [
+          "Etykieta UE (GSMArena): klasa efektywności B, wytrzymałość 49:12 h na cyklu, 1200 cykli",
+          "GSMArena Active Use Score: 13:47 h; The Verge: „dzień z zapasem, około połowy drugiego”"
+        ],
+        "batteryEndurance": 30.7,
+        "chargingTests": "GSMArena: 80 W, 100% w 54 min",
+        "displayNote": "6,83″ AMOLED 144 Hz, 1272x2800, 1400 nitów HBM / 1800 nitów szczytowo (GSMArena), 1330 nitów zmierzone (GSMArena); Uswitch: „bright, 144 Hz OLED”",
+        "sourceNote": "specyfikacja z GSMArena dla wariantu europejskiego (5200 mAh, modele CPH2709/CPH2707); wariant indyjski ma 6800 mAh — nie dotyczy polskiej dystrybucji"
+      },
+      "scores": {
+        "battery": 30,
+        "charging": 87,
+        "updates": 71,
+        "storage": 75,
+        "durability": 55,
+        "smoothness": 82,
+        "display": 80,
+        "photoDay": 68,
+        "photoIndoor": 62,
+        "photoMotion": 60,
+        "selfie": 76,
+        "video": 66,
+        "zoom": 35,
+        "value": null
+      },
+      "basis": {
+        "battery": "5200 mAh w wersji europejskiej (50% wagi): pojemność (5200 − 4000) / 4000 × 100 = 30 + wytrzymałość 30,7 (50%) z etykiety UE 49:12 h na cyklu (GSMArena: 100 × (49,2 − 40) / 30) → 0,5 × 30 + 0,5 × 30,7 = 30; GSMArena Active Use Score 13:47 h",
+        "charging": "80 W przewodowo, 100% w 54 min (GSMArena): (80 − 15) / 75 × 100 = 87; bez ładowania bezprzewodowego (ITdaily); zawartość pudełka niepotwierdzona (chargerInBox: null)",
+        "updates": "4 wersje systemu + 6 lat poprawek do 07/2031 (GSMArena, ITdaily, Uswitch): średnia 5 → 5/7 × 100 = 71",
+        "storage": "256 GB UFS 3.1, brak slotu microSD (GSMArena)",
+        "durability": "IP65 (GSMArena, ITdaily: „a fall into the bath could be fatal”) = 55 pkt wg reguły C1; Gorilla Glass 7i; etykieta UE: upadki klasa C (90 upadków)",
+        "smoothness": "Snapdragon 8s Gen 3, AnTuTu v10 1,51 mln (GSMArena) — drugi najszybszy chip w puli po Dimensity 8400 Ultra (15T, 1,86 mln); Uswitch: „flagship-grade performance”, OxygenOS bez zarzutów do płynności",
+        "display": "1800 nitów szczytowo → próg C1 1500-2999 = 70, +5 za 144 Hz = 75; pomiar GSMArena 1330 nitów i oceny recenzji (Uswitch: „rich, vivid visuals on a bright, 144 Hz OLED”) podnoszą do 80",
+        "photoDay": "50 MP f/1.8 1/1,56″ z OIS + 8 MP szeroki kąt z AF, selfie 50 MP z AF, wideo 4K@60 (GSMArena); ITdaily: „disappointing cameras”, The Verge: wyróżnia się tylko selfie; brak teleobiektywu; bez niezależnych testów porównawczych (DXOMARK/PhoneArena) — ocena z klasy sprzętu obniżona o werdykty recenzji",
+        "photoIndoor": "50 MP 1/1,56″ z OIS; recenzje (ITdaily) krytyczne wobec aparatów; bez niezależnych testów w słabym świetle — ocena z klasy sprzętu, pewność low",
+        "photoMotion": "PDAF + OIS; bez niezależnych testów autofokusu w ruchu — ocena z klasy sprzętu, pewność low",
+        "selfie": "selfie 50 MP f/2.0 z autofokusem i wideo 4K (GSMArena); The Verge: „above-average selfie camera” — najmocniejszy element aparatu; brak testów porównawczych, pewność medium",
+        "video": "4K@30/60 z tyłu i z przodu, gyro-EIS, OIS na głównym (GSMArena); bez niezależnych testów stabilizacji — ocena z klasy sprzętu",
+        "zoom": "brak teleobiektywu (zoom 2x z kadrowania matrycy 50 MP); bez niezależnych testów przybliżenia — ocena z klasy sprzętu",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.gsmarena.com/oneplus_nord_5_5g-13992.php",
+        "https://itdaily.com/reviews/workplace/oneplus-nord-5-tested/",
+        "https://www.uswitch.com/mobiles/reviews/oneplus-nord-5/",
+        "https://www.theverge.com/phones/712142/oneplus-nord-5-review",
+        "https://www.gsmmaniak.pl/1641122/oneplus-nord-5-nowa-aktualizacja-i-promocja/",
+        "https://www.ceneo.pl/185352039",
+        "https://www.ceneo.pl/185352075"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "medium",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "vivo-v70-fe-8-256",
+      "status": "ok",
+      "reveal": {
+        "name": "vivo V70 FE 5G 8/256 GB",
+        "brand": "vivo",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/195001184",
+            "note": "porównywarka (6 sklepów; w Polsce: Media Expert, RTV Euro AGD, x-kom, Neonet) — link do sklepu do podmiany przy odświeżeniu cen (E10-11)"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "vivo V70 FE 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1699,
+        "source": "ceneo.pl (najniższa z 6 ofert, jasnofioletowy)",
+        "url": "https://www.ceneo.pl/195001184",
+        "checkedAt": "2026-11-16",
+        "providedBy": "claude (odczyt indeksu Ceneo; strona sklepu do ponownego odczytu w dniu wydania)",
+        "note": "jasnofioletowy, 8/256 GB; premiera w Polsce 04.2026: 1799 zł promocyjnie, 2099 zł regularnie (mGSM)",
+        "otherObservations": [
+          {
+            "pln": 1547,
+            "source": "e-katalog.pl (najniższa z 37 ofert)",
+            "url": "https://e-katalog.pl/VIVO-V70-FE-256GB-8GB.htm",
+            "checkedAt": "2026-07-28",
+            "providedBy": "claude (odczyt indeksu)",
+            "note": "agregator; oferty nie zweryfikowane co do sklepu"
+          },
+          {
+            "pln": 1799,
+            "source": "Media Expert / RTV Euro AGD / x-kom / Neonet (premiera, mGSM)",
+            "url": "https://www.mgsm.pl/pl/aktualnosci/26269-vivo-v70-fe-i-vivo-v70-debiutuja-w-polsce/",
+            "checkedAt": "2026-04-02",
+            "providedBy": "claude (artykuł)",
+            "note": "cena promocyjna premiery; regularna 2099 zł"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.83,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1260x2800",
+        "peakNits": 1900,
+        "ppi": 449,
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "chip": "MediaTek Dimensity 7360 Turbo (4 nm)",
+        "batteryMah": 7000,
+        "batteryType": "Si/C",
+        "chargingW": 90,
+        "wirelessCharging": false,
+        "chargerInBox": null,
+        "ip": "IP68/IP69",
+        "weightG": 200,
+        "thicknessMm": 7.6,
+        "dimensionsMm": "163,7 x 76,2 x 7,6",
+        "frame": "plastik, tył plastik, szkło z przodu",
+        "cameras": {
+          "main": "200 MP f/1.9 1/1,56″ z OIS",
+          "ultrawide": "8 MP f/2.2 120°",
+          "macro": null,
+          "selfie": "32 MP f/2.2",
+          "telephoto": null
+        },
+        "video": "4K (przód i tył)",
+        "os": "Android 16, OriginOS 6",
+        "updatesYears": null,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "Digit.in (recenzja): „up to four years of OS updates along with six years of security patches”; Livemint: 4 lata OS + 6 lat poprawek",
+        "sim": "2× nanoSIM",
+        "nfc": true,
+        "bluetooth": "5.4",
+        "batteryCycles": 1600,
+        "batteryTests": [
+          "Etykieta UE (EPREL via Gadgets360/neoteo): klasa efektywności B, wytrzymałość 67:21 h na cyklu, 1600 cykli, pojemność znamionowa 6870 mAh",
+          "GSMArena Active Use Score: 20:41 h — „excellent battery life”"
+        ],
+        "batteryEndurance": 91.2,
+        "chargingTests": "GSMArena: 25% w 15 min, 49% w 30 min, pełne ładowanie w 62 min (90 W)",
+        "displayNote": "6,83″ AMOLED 120 Hz, 1260x2800, 1900 nitów HBM (GSMArena); GSMArena: „large, high-quality AMOLED display with HDR10+”; brak podanej jasności szczytowej",
+        "sourceNote": "specyfikacja z karty GSMArena (mirror gsmarena.ng) i recenzji GSMArena (lab tests); wariant globalny V2550 = polski"
+      },
+      "scores": {
+        "battery": 83,
+        "charging": 100,
+        "updates": 71,
+        "storage": 75,
+        "durability": 95,
+        "smoothness": 62,
+        "display": 76,
+        "photoDay": 68,
+        "photoIndoor": 70,
+        "photoMotion": 58,
+        "selfie": 70,
+        "video": 66,
+        "zoom": 42,
+        "value": null
+      },
+      "basis": {
+        "battery": "7000 mAh (50% wagi): pojemność (7000 − 4000) / 4000 × 100 = 75 + wytrzymałość 91,2 (50%) z etykiety UE 67:21 h na cyklu (EPREL: 100 × (67,35 − 40) / 30) → 0,5 × 75 + 0,5 × 91,2 = 83; GSMArena Active Use Score 20:41 h — najlepszy wynik w puli",
+        "charging": "90 W przewodowo, pełne ładowanie w 62 min (GSMArena): (90 − 15) / 75 × 100 = 100; specyfikacja nie wymienia ładowania bezprzewodowego; zawartość pudełka niepotwierdzona (chargerInBox: null)",
+        "updates": "4 wersje systemu + 6 lat poprawek (Digit.in, Livemint): średnia 5 → 5/7 × 100 = 71",
+        "storage": "256 GB UFS 3.1, brak slotu microSD (GSMArena, 91mobiles)",
+        "durability": "IP68/IP69 (GSMArena: zanurzenie do 1,5 m przez 2 h, strumienie pod ciśnieniem) bez MIL-STD = 95 pkt wg reguły C1; ramka plastikowa (91mobiles)",
+        "smoothness": "Dimensity 7360 Turbo, AnTuTu ok. 931 tys. (neoteo); GSMArena: „performance adequate but unremarkable, trails behind many direct competitors”; OriginOS 6 „smooth and feature-rich” — klasa Exynosa 1580 (A56, 62 pkt)",
+        "display": "1900 nitów HBM, jasność szczytowa nieznana → próg C1 1500-2999 = 70; GSMArena: „large, high-quality AMOLED display with HDR10+” podnosi do 76; brak niezależnego pomiaru jasności",
+        "photoDay": "200 MP 1/1,56″ z OIS + 8 MP szeroki kąt, selfie 32 MP, 4K przód i tył (GSMArena); GSMArena: „200MP main sensor can produce nice results, but its unreliable behavior in daylight … hold it back”; brak teleobiektywu; bez testów DXOMARK — ocena z werdyktu GSMArena",
+        "photoIndoor": "GSMArena: dobre wyniki „especially at night” z matrycy 200 MP 1/1,56″ z OIS — ocena wyżej niż w dzień; bez niezależnych testów porównawczych w liczbach",
+        "photoMotion": "PDAF + OIS; Digit.in: wykrywanie krawędzi w portretach „hit or miss”; bez niezależnych testów autofokusu w ruchu — ocena z klasy sprzętu, pewność low",
+        "selfie": "selfie 32 MP f/2.2 z nagrywaniem 4K (GSMArena); bez niezależnych testów porównawczych — ocena z klasy sprzętu",
+        "video": "4K z tyłu i z przodu, OIS + gyro-EIS (GSMArena, 91mobiles); bez niezależnych testów stabilizacji — ocena z klasy sprzętu",
+        "zoom": "brak teleobiektywu (zoom z kadrowania matrycy 200 MP); GSMArena: „weak zoom performance” — ocena poniżej klasy sprzętu; bez niezależnych testów w liczbach",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.gsmarena.com/vivo_v70_fe-review-2954p6.php",
+        "https://www.gsmarena.com/vivo_v70_fe-review-2954p3.php",
+        "https://www.gsmarena.ng/product/vivo-v70-fe-2026/",
+        "https://www.91mobiles.com/reviews/vivo-v70-fe-review/",
+        "https://www.digit.in/reviews/mobile-phones/vivo-v70-fe-review-where-it-shines-and-where-it-falls-short.html",
+        "https://www.gadgets360.com/mobiles/news/vivo-v70-fe-battery-durability-energy-efficiency-eprel-listing-10851162/amp",
+        "https://www.neoteo.com/en/vivo/v70-fe-8-gb/256-gb/global",
+        "https://www.mgsm.pl/pl/aktualnosci/26269-vivo-v70-fe-i-vivo-v70-debiutuja-w-polsce/",
+        "https://www.ceneo.pl/195001184"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "low"
+      },
+      "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "redmi-note-17-pro-5g-8-512",
+      "status": "ok",
+      "reveal": {
+        "name": "Xiaomi Redmi Note 17 Pro 5G 8/512 GB",
+        "brand": "Xiaomi",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/200380839",
+            "note": "porównywarka (12 sklepów, m.in. e-smartphone.pl) — link do sklepu do podmiany przy odświeżeniu cen (E10-11)"
+          }
+        ]
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 512,
+        "fromList": "Xiaomi Redmi Note 17 Pro 5G 8/512 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1659,
+        "source": "ceneo.pl (najniższa z 12 ofert, fioletowy)",
+        "url": "https://www.ceneo.pl/200380839",
+        "checkedAt": "2026-11-16",
+        "providedBy": "claude (odczyt indeksu Ceneo; strona sklepu do ponownego odczytu w dniu wydania)",
+        "note": "fioletowy, 8/512 GB; oficjalna cena Xiaomi Polska 2199 zł (15.09.2026), w sklepach 1659-1799 zł; wariant czarny od 1579 zł",
+        "otherObservations": [
+          {
+            "pln": 1579,
+            "source": "ceneo.pl (czarny, najniższa oferta)",
+            "url": "https://www.ceneo.pl/Smartfony/p:Xiaomi.htm",
+            "checkedAt": "2026-11-16",
+            "providedBy": "claude (odczyt indeksu)",
+            "note": "lista kategorii"
+          },
+          {
+            "pln": 1799,
+            "source": "e-smartphone.pl (odczyt Ceneo)",
+            "url": "https://www.ceneo.pl/200380839",
+            "checkedAt": "2026-11-16",
+            "providedBy": "claude (odczyt indeksu)",
+            "note": "sklep z oceną 4,8/5"
+          },
+          {
+            "pln": 2199,
+            "source": "Xiaomi Polska (cena oficjalna, oxygen.pl)",
+            "url": "https://oxygen.pl/redmi-note-17-premiera-ceny-specyfikacja",
+            "checkedAt": "2026-09-15",
+            "providedBy": "claude (artykuł)",
+            "note": "cena premierowa 8/512 GB; 6/256 GB — 1799 zł"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.83,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1280x2772",
+        "peakNits": 3500,
+        "ppi": 447,
+        "ramGb": 8,
+        "storageGb": 512,
+        "storageType": "UFS 3.1",
+        "ramType": "LPDDR4X",
+        "microSd": false,
+        "chip": "Qualcomm Snapdragon 6s Gen 4 (4 nm)",
+        "batteryMah": 8340,
+        "batteryType": "Si/C",
+        "chargingW": 67,
+        "wirelessCharging": false,
+        "chargerInBox": null,
+        "ip": "IP66/IP68",
+        "ipNote": "GSMArena: IP68 w wersji EU (IP68/IP69K poza UE); test gsmonline.pl (egzemplarz polski): IP66 i IP68 — przyjęto zapis z testu polskiego; wg reguły C1 IP66/IP68 = 88, IP68 = 90 (różnica 2 pkt)",
+        "weightG": 223,
+        "thicknessMm": 8.6,
+        "dimensionsMm": "163,5 x 78,3 x 8,6",
+        "glass": "Gorilla Glass Victus 2",
+        "frame": "plastik, tył plastik",
+        "cameras": {
+          "main": "50 MP f/1.8 1/2,76″ z OIS",
+          "ultrawide": "8 MP f/2.2 120°",
+          "macro": null,
+          "selfie": "16 MP f/2.4",
+          "telephoto": null
+        },
+        "video": "1080p (30 kl./s) — bez 4K",
+        "os": "Android 16, HyperOS 3",
+        "updatesYears": null,
+        "updatesOsGenerations": null,
+        "updatesSecurityYears": 6,
+        "updatesNote": "gsmonline.pl (test): „producent zapowiada do sześciu lat aktualizacji zabezpieczeń”; liczba wersji systemu niepotwierdzona — brak deklaracji w źródłach dla tego modelu (Redmi Note 15 Pro ma 4 wersje)",
+        "sim": "2× nanoSIM + eSIM (2 aktywne)",
+        "nfc": true,
+        "bluetooth": "5.1",
+        "batteryCycles": 1000,
+        "batteryTests": [
+          "Etykieta UE (GSMArena): klasa efektywności B, wytrzymałość 72:01 h na cyklu, 1000 cykli",
+          "GSMArena Active Use Score: 17:32 h; gsmonline.pl: „genialna bateria”"
+        ],
+        "batteryEndurance": 100,
+        "chargingTests": "GSMArena: 67 W, 50% w 34 min",
+        "displayNote": "6,83″ AMOLED 120 Hz, 1280x2772, 1800 nitów HBM / 3500 nitów szczytowo (GSMArena); gsmonline.pl: „wielki AMOLED jest bardzo mocnym punktem”; brak niezależnego pomiaru jasności",
+        "sourceNote": "specyfikacja z GSMArena (wariant globalny 8340 mAh, model 2607DRA18G); wariant 9000 mAh dotyczy Chin; NFC w Polsce potwierdzone testem gsmonline.pl"
+      },
+      "scores": {
+        "battery": 100,
+        "charging": 69,
+        "updates": 86,
+        "storage": 100,
+        "durability": 88,
+        "smoothness": 45,
+        "display": 82,
+        "photoDay": 62,
+        "photoIndoor": 56,
+        "photoMotion": 54,
+        "selfie": 50,
+        "video": 40,
+        "zoom": 35,
+        "value": null
+      },
+      "basis": {
+        "battery": "8340 mAh (50% wagi): pojemność (8340 − 4000) / 4000 × 100 = 108,5 → obcięte do 100 + wytrzymałość 100 (50%) z etykiety UE 72:01 h na cyklu (GSMArena: 100 × (72,02 − 40) / 30 = 106,7 → 100) → 0,5 × 100 + 0,5 × 100 = 100; GSMArena Active Use Score 17:32 h",
+        "charging": "67 W przewodowo, 50% w 34 min (GSMArena): (67 − 15) / 75 × 100 = 69; bez ładowania bezprzewodowego; zawartość pudełka niepotwierdzona (chargerInBox: null)",
+        "updates": "znana tylko jedna składowa: 6 lat poprawek bezpieczeństwa (gsmonline.pl) → 6/7 × 100 = 86 wg reguły C1 „aktualizacje przy jednej składowej”; brak deklaracji liczby wersji systemu — po jej potwierdzeniu (prawdopodobnie 4, jak Redmi Note 15 Pro) ocena spadnie do ok. 71",
+        "storage": "512 GB UFS 3.1, brak slotu microSD (GSMArena) = 100",
+        "durability": "IP66 i IP68 (test gsmonline.pl; GSMArena dla EU: IP68) = 88 pkt wg reguły C1; Gorilla Glass Victus 2; etykieta UE: upadki klasa A (270 upadków) — nie wchodzi do wzoru",
+        "smoothness": "Snapdragon 6s Gen 4 (4× A78 + 4× A55, Adreno 710) z LPDDR4X; gsmonline.pl: „nie jest demonem AnTuTu … to nie jest telefon dla graczy”, reklamy w aplikacjach systemowych — poniżej Dimensity 7400 Ultra z Redmi Note 15 Pro (50 pkt)",
+        "display": "3500 nitów szczytowo → próg C1 ≥3000 nitów = 80, +2 za ocenę recenzji (gsmonline.pl: „wielki AMOLED jest bardzo mocnym punktem”); brak niezależnego pomiaru jasności",
+        "photoDay": "50 MP f/1.8 1/2,76″ z OIS + 8 MP szeroki kąt, selfie 16 MP, wideo tylko 1080p (GSMArena) — mniejsza matryca niż w Redmi Note 15 Pro (200 MP); brak teleobiektywu; bez niezależnych testów porównawczych aparatu — ocena z klasy sprzętu, pewność low",
+        "photoIndoor": "matryca 1/2,76″ z OIS — mała jak na klasę; bez niezależnych testów w słabym świetle — ocena z klasy sprzętu, pewność low",
+        "photoMotion": "PDAF + OIS; bez niezależnych testów autofokusu w ruchu — ocena z klasy sprzętu, pewność low",
+        "selfie": "selfie 16 MP f/2.4, wideo 1080p (GSMArena); bez niezależnych testów — ocena z klasy sprzętu",
+        "video": "brak nagrywania 4K — maksymalnie 1080p@30 z tyłu i z przodu (GSMArena; gsmonline.pl: „brak nagrywania 4K wygląda w 2026 roku zwyczajnie biednie”); gyro-EIS; ocena najniższa w puli",
+        "zoom": "brak teleobiektywu (zoom 2x z kadrowania matrycy 50 MP); bez niezależnych testów przybliżenia — ocena z klasy sprzętu",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.gsmarena.com/xiaomi_redmi_note_17_pro-14844.php",
+        "https://gsmonline.pl/artykuly/test-redmi-note-17-pro-5g-genialna-bateria-i-wyglad-ale-to-nie-jest-telefon-dla-graczy",
+        "https://www.telepolis.pl/telefony/xiaomi/redmi-note-17-pro-5g",
+        "https://oxygen.pl/redmi-note-17-premiera-ceny-specyfikacja",
+        "https://www.ceneo.pl/200380839",
+        "https://www.ceneo.pl/Smartfony/Popularne_modele:Redmi_Note_17_Pro_5G.htm"
+      ],
+      "scoreConfidence": {
+        "battery": "medium",
+        "charging": "high",
+        "updates": "low",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "medium",
+        "display": "medium",
+        "photoDay": "low",
+        "photoIndoor": "low",
+        "photoMotion": "low",
+        "selfie": "low",
+        "video": "high",
         "zoom": "low"
       },
       "scoresEstimatedNeutral": []

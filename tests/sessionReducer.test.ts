@@ -66,7 +66,8 @@ describe('E3-05 · reducer: utworzenie sesji', () => {
 
   it('E3-06 · snapshot zapisuje wersję danych, wagi i ważności grup', () => {
     const snapshot = sessionOf(withSession()).ranking!;
-    expect(snapshot.dataVersion).toBe('2026-11-14');
+    /* Etap 10: `_meta.generatedOn` = 16.11.2026 (nowe rekordy i przeliczone oceny baterii). */
+    expect(snapshot.dataVersion).toBe('2026-11-16');
     expect(snapshot.weights.battery).toBe(2);
     expect(snapshot.groupImportance.camera).toBeCloseTo(1.3, 5);
     expect(snapshot.entries.length).toBe(PHONES.length);
@@ -130,7 +131,7 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
     expect(session.groupImportance.storage).toBe(3);
   });
 
-  it('4. filtr budżetu 1500 zł zmienia snapshot: dwie karty w budżecie, jedna powyżej', () => {
+  it('4. filtr budżetu 1500 zł zmienia snapshot: od etapu 10 trzy karty w budżecie, żadna powyżej (D6)', () => {
     const state = reducer(withSession(), {
       type: 'session/filters',
       sessionId: 's-1',
@@ -139,14 +140,16 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
     });
     const snapshot = sessionOf(state).ranking!;
     expect(snapshot.filters.budgetMax).toBe(1500);
-    expect(snapshot.inBudgetCount).toBe(2);
+    expect(snapshot.inBudgetCount).toBe(3);
 
     const over = snapshot.entries.filter(
       (entry) => snapshot.cards.includes(entry.phoneId) && entry.overBudgetBy !== null,
     );
-    expect(over.length).toBe(1);
-    /* Wagi neutralne: ponad budżetem dokłada się najlepszy z puli — tu 15T za 1999 zł. */
-    expect(over[0]!.overBudgetBy).toBe(499);
+    /* Do etapu 9 w budżecie były dwa telefony i trzecią kartę dokładał najlepszy z puli (15T, +499 zł). */
+    expect(over.length).toBe(0);
+    for (const id of snapshot.cards) {
+      expect(snapshot.entries.find((entry) => entry.phoneId === id)!.overBudgetBy).toBeNull();
+    }
   });
 
   it('filtr pamięci 256 GB usuwa telefony 128 GB ze snapshotu', () => {

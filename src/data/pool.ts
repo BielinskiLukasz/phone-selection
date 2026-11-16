@@ -4,8 +4,9 @@ import { SHORT_QUIZ_IDS, activeQuestions } from './questions';
 
 /** Twardy limit budżetu (PROJECT 3) i data ostatniego sprawdzenia cen. */
 export const BUDGET_LIMIT_PLN = 2000;
-export const PRICES_CHECKED_AT = '2026-11-14';
-export const EXPECTED_POOL_SIZE = 10;
+export const PRICES_CHECKED_AT = '2026-11-16';
+/** Etap 10: 10 rekordów z etapu 0 + Honor 400, Galaxy A37, Nord 5, vivo V70 FE, Redmi Note 17 Pro (decyzje D1-D2). */
+export const EXPECTED_POOL_SIZE = 15;
 export const CRITERIA_COUNT = 14;
 
 export const CI_PIPELINE = [
@@ -55,6 +56,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 7, name: 'Historia sesji i wznawianie', done: true, active: false },
   { id: 8, name: 'Motywy, mobile, dostępność', done: true, active: false },
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
+  { id: 10, name: 'Rozszerzenie puli modeli (10 → 15)', done: true, active: false },
 ];
 
 /** Stałe silnika rankingu (etap 2) — QUIZ-SPEC 2.6, trzymane w `lib/scoringConfig.ts`. */
@@ -67,8 +69,8 @@ export const ENGINE_FACTS = [
 
 export const ENGINE_STATUS = [
   'Czysta logika w src/lib: weights, pool, scoring, anonymize, matchDisplay — bez Reacta.',
-  'Persony z QUIZ-SPEC 9: żona #1 69 pkt, aparat i bateria rozróżnialne (78 : 75 na zdjęciach w dzień).',
-  'Budżet 1500 zł daje dwie karty w budżecie i jedną „Powyżej budżetu o 460 zł”.',
+  'Persony z QUIZ-SPEC 9 (po etapie 10): żona #1 68 pkt w praktycznym remisie z #2 (67), aparat i bateria rozróżnialne (78 : 67 na zdjęciach w dzień).',
+  'Budżet 1500 zł daje trzy karty w budżecie (Edge 60, Redmi Note 15 Pro, Galaxy A37) — bez karty „Powyżej budżetu”.',
   'Reguły ocen w src/data/scoringRules.ts; spójność danych z regułami pilnuje test.',
   'Test wycieku: karta nie zawiera nazwy, marki, modelu, chipa ani nazwy sklepu.',
 ] as const;
@@ -126,7 +128,7 @@ export const SLIDERS_FACTS = [
 
 export const SLIDERS_STATUS = [
   'Suwak grupy ustawia ważność G_g, nie średnią kryteriów — znacznik na torze pokazuje wartość wyliczoną z odpowiedzi.',
-  'Licznik „Pasuje X z 10 telefonów” w aria-live reaguje na każdą zmianę filtrów.',
+  `Licznik „Pasuje X z ${EXPECTED_POOL_SIZE} telefonów” w aria-live reaguje na każdą zmianę filtrów.`,
   'Hybryda: krótki quiz (7 pytań) → dostrojenie z plakietką i przyciskiem „Przywróć wyliczone”.',
   'Wszystkie trzy tryby kończą się tym samym kształtem sesji: weights, groupImportance, filters, ranking.',
 ] as const;

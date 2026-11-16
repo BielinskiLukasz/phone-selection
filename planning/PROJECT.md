@@ -51,6 +51,21 @@ Lista wejściowa została zmieniona decyzjami użytkownika (14.11.2026):
 | 9 | Nothing Phone (3a) 12/256 GB | 1779,00 zł | ok |
 | 10 | Realme 16 Pro+ 5G 8/256 GB | 1959,99 zł | do potwierdzenia na stronie oferty (adres linku bez „plus”) |
 
+**Etap 10 (16.11.2026) — rozszerzenie puli do 15 telefonów** na podstawie przeglądu listy 21 modeli
+([ETAP-10-rozszerzenie-puli-modeli.md](./ETAP-10-rozszerzenie-puli-modeli.md)), decyzje użytkownika D1-D6:
+vivo dopuszczone jako marka (D1), Redmi Note 17 Pro dodany mimo słabego chipu i braku 4K (D2), Xiaomi 15T
+zostaje 12/512 (D3), wzór pojemności baterii 4000-8000 mAh (D4), przed v1.0 (D5), nowe brzmienie 9.1.4 (D6).
+Odrzucone: Edge 50 Neo, Nothing Phone (2a), Honor 200, OnePlus Nord 4 (modele z 2024 r. zastąpione
+następcami lub bez ofert w PL) i iPhone 16e (powyżej limitu 2000 zł).
+
+| # | Model | Cena (16.11.2026, odczyt Ceneo) | Status |
+|---|---|---|---|
+| 11 | Honor 400 8/256 GB | 1599,00 zł (sklep HONOR / Media Expert / RTV Euro AGD) | ok — link do sklepu do podmiany przy odświeżeniu cen |
+| 12 | Samsung Galaxy A37 5G 8/256 GB | 1293,00 zł (28 ofert) | ok — rozbieżność z migawką strony produktu (1582 zł) do rozstrzygnięcia w dniu wydania |
+| 13 | OnePlus Nord 5 8/256 GB | 1709,00 zł (e-smartphone.pl) | ok |
+| 14 | vivo V70 FE 5G 8/256 GB | 1699,00 zł (6 ofert) | ok |
+| 15 | Xiaomi Redmi Note 17 Pro 5G 8/512 GB | 1659,00 zł (12 ofert; RRP 2199 zł) | ok — liczba wersji systemu niepotwierdzona (`updates` z jednej składowej) |
+
 Aktualny stan zebranych danych: `src/data/phones.json` i sekcja „Stan danych” w [ROADMAP.md](./ROADMAP.md).
 
 ## 4. Stack
@@ -82,7 +97,7 @@ Start ──► wybór trybu ──► (quiz | suwaki | hybryda) ──► ranki
                                │
         ┌──────────────────────┼───────────────────────────┐
         ▼                      ▼                           ▼
- wybór innej karty      quiz od nowa            „Pokaż pełny ranking” (10 telefonów, z nazwami)
+ wybór innej karty      quiz od nowa            „Pokaż pełny ranking” (cała pula — 15 telefonów od etapu 10, z nazwami)
  (kolejny wybór, 1/2)   (nowa sesja w historii)
 ```
 
@@ -167,7 +182,7 @@ Każdy telefon ma w `scores` ocenę 0-100 na kryterium, w `basis` uzasadnienie z
 
 | Kryterium | Wzór |
 |---|---|
-| `battery` | `0,5 × pojemność + 0,5 × wytrzymałość`; pojemność = `(mAh − 4000) / 3000 × 100` (4000 mAh = 0, 7000 mAh = 100); wytrzymałość = ocena z testów i recenzji (0-100) |
+| `battery` | `0,5 × pojemność + 0,5 × wytrzymałość`; pojemność = `(mAh − 4000) / 4000 × 100` (4000 mAh = 0, 8000 mAh = 100; **etap 10, decyzja D4** — do etapu 9 zakres kończył się na 7000 mAh, bo pula ma telefony 7000-8340 mAh); wytrzymałość = ocena z testów i recenzji (0-100), preferowane źródło: etykieta energetyczna UE „wytrzymałość na cyklu” (reguła C1) |
 | `charging` | `(W − 15) / 75 × 100`, +8 pkt za ładowanie bezprzewodowe (23 W ≈ 11, 45 W = 40, 68 W ≈ 71, 90 W = 100) |
 | `updates` | `lata / 7 × 100`, gdzie lata = średnia z liczby dużych aktualizacji systemu i lat poprawek (7 lat = 100, 6 lat ≈ 86, 3+4 lata ≈ 50) |
 | `storage` | 128 GB = 40, 256 GB = 75, 512 GB = 100 (slot microSD dałby bonus, żaden telefon z listy go nie ma) |

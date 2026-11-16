@@ -318,6 +318,9 @@ const KNOWN_FORBIDDEN = [
   'hyperos', 'oneui', 'coloros', 'ios', 'sony', 'lytia', 'gorilla', 'corning', 'crystalres',
   'victus', 'leica', 'zeiss', 'hasselblad', 'allegro', 'empik', 'sferis', 'morele', 'mediaexpert', 'komputronik', 'proshop',
   'mediamarkt', 'x-kom',
+  /* Etap 10: nakładki i serie nowych marek oraz sklepy/porównywarki z nowych źródeł cen. */
+  'magicos', 'oxygenos', 'originos', 'funtouch', 'nord', 'ceneo', 'skapiec', 'neonet', 'oleole', 'kaufland',
+  'e-smartphone', 'siglo', 'honorstore',
 ] as const;
 
 /**

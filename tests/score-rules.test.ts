@@ -40,10 +40,13 @@ function expectedScore(phone: Phone, criterion: (typeof OBJECTIVE)[number]): num
 }
 
 describe('reguły ocen obiektywnych', () => {
-  it('pojemność baterii: 4000 mAh = 0, 7000 mAh = 100', () => {
+  it('pojemność baterii: 4000 mAh = 0, 8000 mAh = 100 (etap 10, D4)', () => {
     expect(batteryCapacityScore(4000)).toBe(0);
-    expect(batteryCapacityScore(5500)).toBe(50);
-    expect(batteryCapacityScore(7000)).toBe(100);
+    expect(batteryCapacityScore(6000)).toBe(50);
+    expect(batteryCapacityScore(7000)).toBe(75);
+    expect(batteryCapacityScore(8000)).toBe(100);
+    /* 8340 mAh (Redmi Note 17 Pro) nie dostaje premii ponad 100. */
+    expect(batteryCapacityScore(8340)).toBe(100);
     expect(batteryCapacityScore(null)).toBeNull();
   });
 
@@ -154,7 +157,8 @@ describe('spójność ocen w phones.json z regułami', () => {
     const xiaomi = phoneById('xiaomi-15t-12-512');
     expect(xiaomi.scores.display).toBe(80);
     expect(xiaomi.scores.updates).toBe(71);
-    expect(xiaomi.scores.battery).toBe(55);
+    /* Etap 10 (D4): pojemność 5500 mAh = 37,5 zamiast 50 → 0,5 × 37,5 + 0,5 × 59 = 48. */
+    expect(xiaomi.scores.battery).toBe(48);
     expect(xiaomi.specs.peakNits).toBe(3200);
   });
 });

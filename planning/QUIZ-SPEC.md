@@ -99,6 +99,24 @@ S            = Σ_g ( G_g × GroupScore_g ) / Σ_g G_g   // 0-100
 wyników jest dość szeroki, żeby procenty różnicowały propozycje (u „żony” 69 / 67 / 62). Pomiary
 zamyka test `tests/calibration.test.ts` — zmiana stałej bez ponownego pomiaru wywali się w CI.
 
+**Ponowny pomiar po etapie 10 (16.11.2026: 15 telefonów, wzór pojemności baterii D4 — 8000 mAh = 100),
+persona „żona”:**
+
+| BLEND | rozstęp S („żona”) | niezmiennik 9.1.3 | persona „bateria” #1 |
+|---|---|---|---|
+| 0 | 20,7 pkt | ✅ | Redmi Note 17 Pro ✅ |
+| 0,25 | 20,2 pkt | ✅ | Redmi Note 17 Pro ✅ |
+| **0,5** | **19,8 pkt** | **✅** | **Redmi Note 17 Pro ✅** |
+| 0,75 | 21,3 pkt | ❌ (bez filtra #1 Edge 70 Fusion, z filtrem 256 GB — Xiaomi 15T) | Redmi Note 17 Pro ✅ |
+| 1 | 24,3 pkt | ❌ | Redmi Note 17 Pro ✅ |
+
+Wnioski: `BLEND = 0,5` zostaje (9.1.3 nadal łamie się od 0,75). Rozstęp nie rośnie już monotonicznie
+z `BLEND` (nowe maksima `battery`/`storage` i minimum `durability` spłaszczają normalizację), więc test
+pilnuje tylko „0,5 wyraźne (> 15 pkt), łagodniejsze niż 1, nie dalej niż 3 pkt od 0”. Referencja 9.3 jest
+teraz stabilna dla każdej wartości `BLEND` (Redmi Note 17 Pro ma największą baterię w puli). U „żony” #1
+i #2 dzieli 0,7 pkt — **prawdziwy praktyczny remis**, oznaczony na karcie; brak fałszywych remisów
+sprawdzamy na personach kontrolnych (bateria 71 : 65, aparat 72 : 68).
+
 Procent dopasowania na karcie to `round(S)` z opisem słownym („bardzo dobre / dobre / przeciętne”),
 a przeskalowanie względem najlepszego w puli jest w szczegółach — decyzja z sekcji 10.1 potwierdzona
 w E9-03: przy BLEND 0,5 trójka „żony” to 69 / 67 / 62, czyli 100% / 97% / 90% po przeskalowaniu,
@@ -226,7 +244,7 @@ Sesja zapisuje: `answers` (id pytania → id opcji), `topThree`, wyliczone `grou
 
 ## 9. Persony testowe i testy akceptacyjne
 
-Odpowiedzi persony zapisujemy w testach jako stałe. Wyniki poniżej to **stan referencyjny z danych na 14.11.2026**; testy sprawdzają **niezmienniki**, a nie dokładne liczby, żeby aktualizacja cen nie psuła testów.
+Odpowiedzi persony zapisujemy w testach jako stałe. Wyniki poniżej to **stan referencyjny z danych na 16.11.2026 (po etapie 10: 15 telefonów, wzór baterii D4)**; wcześniejsze liczby (14.11.2026, 10 telefonów) zostawione w nawiasach jako historia. Testy sprawdzają **niezmienniki**, a nie dokładne liczby, żeby aktualizacja cen nie psuła testów.
 
 ### 9.1 Persona „żona” (profil z `PROJECT.md`, sekcja 2)
 
@@ -241,25 +259,25 @@ Odpowiedzi persony zapisujemy w testach jako stałe. Wyniki poniżej to **stan r
 | F1 | Do 2000 zł, jeśli warto |
 | G1 | 1. Bateria i ładowanie, 2. Aparat, 3. Pamięć |
 
-Stan referencyjny (po domknięciu danych etapu 0 i korekcie pasm G1 odpowiedziami): **#1 Edge 70 Fusion (69 pkt), #2 Realme 16 Pro+ (67), #3 Xiaomi 15T (62)**, #4 Edge 60. Ważności grup persony: bateria 5, aparat 4,24, pamięć 3,36, aktualizacje i trwałość 1,7, ekran i płynność 1,7, cena 1,3. Pixel 10a i Pixel 9a (128 GB) nie wchodzą do trójki. Wcześniejszy stan (#1 71, #2 Edge 60 58, #3 Realme 56) obowiązywał przed uzupełnieniem specyfikacji i ocen ze źródeł.
+Stan referencyjny po etapie 10 (15 telefonów, wzór baterii D4): **#1 Redmi Note 17 Pro 5G 8/512 (67,7 pkt), #2 Edge 70 Fusion (67,0 — praktyczny remis z #1), #3 Realme 16 Pro+ (65,3)**, #4 vivo V70 FE (65,2), #5 Edge 60 (64,1), #6 Xiaomi 15T (63,8). Ważności grup persony bez zmian: bateria 5, aparat 4,24, pamięć 3,36, aktualizacje i trwałość 1,7, ekran i płynność 1,7, cena 1,3. Pixel 10a i Pixel 9a (128 GB) nie wchodzą do trójki. Co przesunęło #1: Redmi Note 17 Pro ma maksimum `battery` (100: 8340 mAh + etykieta UE 72 h) i `storage` (512 GB), a wzór D4 obniżył `battery` telefonów 7000 mAh ze 100 do 75 pojemności (Edge 70 Fusion 90 → 78, Realme 96 → 84); jego słaby aparat (62) nie wystarcza, by spaść poniżej Edge 70 Fusion przy wagach „żony”. Uwaga: `updates` Note 17 Pro (86) liczone z jednej składowej (6 lat poprawek, brak deklaracji liczby wersji) — po potwierdzeniu 4 wersji spadnie do 71, co może odwrócić remis z Edge 70 Fusion. (Stan z 14.11.2026, 10 telefonów: #1 Edge 70 Fusion 69, #2 Realme 67, #3 Xiaomi 15T 62, #4 Edge 60.)
 
 **Niezmienniki:**
 1. Żaden telefon z 128 GB nie jest w trójce przy `storage` w trójce najważniejszych.
 2. Średnia ocena `battery` w trójce ≥ średniej puli.
 3. Włączenie filtra „min. 256 GB” nie zmienia pozycji #1.
-4. Przy budżecie 1500 zł karty to dwa telefony w budżecie plus jeden z etykietą „Powyżej budżetu” (referencyjnie: Edge 60, Redmi Note 15 Pro oraz Realme 16 Pro+ „Powyżej budżetu o 460 zł”; przy wagach neutralnych dokłada się Xiaomi 15T „o 499 zł”).
+4. (D6, etap 10) Przy budżecie 1500 zł w trójce są **co najmniej dwie karty w budżecie**, a karta „Powyżej budżetu” pojawia się **tylko wtedy, gdy w budżecie są mniej niż trzy telefony**. Referencyjnie: w budżecie są trzy telefony (Edge 60 1399 zł, Redmi Note 15 Pro 1299 zł, Galaxy A37 1293 zł) → trzy karty w budżecie, bez etykiety. (Do etapu 9: Edge 60, Redmi Note 15 Pro oraz Realme „Powyżej budżetu o 460 zł”; mechanizm dokładania pilnuje test na puli bez Galaxy A37.)
 
 ### 9.2 Persona „aparat” (kontrolna)
 
-A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000; G1 = Aparat, Pamięć, Ekran i płynność. Referencyjnie: Xiaomi 15T (70 pkt), Edge 60 (66), Edge 70 Fusion (63), #4 Galaxy A57. Ważności: aparat 5, pamięć 4,12, ekran i płynność 3,12, bateria 0,9.
+A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000; G1 = Aparat, Pamięć, Ekran i płynność. Referencyjnie po etapie 10: Xiaomi 15T (71,6 pkt), Edge 60 (68,4), Edge 70 Fusion (64,7), #4 Honor 400 (63,9). Ważności: aparat 5, pamięć 4,12, ekran i płynność 3,12, bateria 0,9. (14.11.2026: 15T 70, Edge 60 66, Edge 70 Fusion 63, #4 Galaxy A57.)
 
 ### 9.3 Persona „bateria” (kontrolna)
 
-A1, A2 = 5, A3 = 1; B1-B6 = 1; C1 = 3; D1-D3 = 3; E1, E2 = 1; F1 = 2000; G1 = Bateria i ładowanie, Cena, Aktualizacje i trwałość. Referencyjnie: Edge 70 Fusion (67 pkt), Redmi Note 15 Pro (65), Edge 60 (61), #4 Realme 16 Pro+ (60 — mocna bateria, ale droga przy wadze grupy „Cena” = 4).
+A1, A2 = 5, A3 = 1; B1-B6 = 1; C1 = 3; D1-D3 = 3; E1, E2 = 1; F1 = 2000; G1 = Bateria i ładowanie, Cena, Aktualizacje i trwałość. Referencyjnie po etapie 10: Redmi Note 17 Pro (71,2 pkt — największa bateria w puli), vivo V70 FE (64,8), Redmi Note 15 Pro (64,1), #4 Edge 70 Fusion (63,5). Niezmiennik: #1 to telefon z najwyższą oceną `battery` w puli. (14.11.2026: Edge 70 Fusion 67, Redmi Note 15 Pro 65, Edge 60 61, #4 Realme 60.)
 
 ### 9.4 Test różnicujący (niezmiennik między personami)
 
-Średnia oceny `battery` w trójce persony „bateria” **>** analogiczna średnia persony „aparat”, a średnia oceny `photoDay` w trójce persony „aparat” **>** persony „bateria” (referencyjnie: `battery` 71,0 kontra 66,7 oraz `photoDay` 78,0 kontra 75,3). Jeśli test nie przechodzi, poprawiamy pytania, mapowanie albo `BLEND`, a nie oceny telefonów.
+Średnia oceny `battery` w trójce persony „bateria” **>** analogiczna średnia persony „aparat”, a średnia oceny `photoDay` w trójce persony „aparat” **>** persony „bateria” (referencyjnie po etapie 10: `battery` 80,0 kontra 58,7 oraz `photoDay` 78,0 kontra 66,7; 14.11.2026: 71,0 : 66,7 i 78,0 : 75,3). Jeśli test nie przechodzi, poprawiamy pytania, mapowanie albo `BLEND`, a nie oceny telefonów.
 
 ## 10. Otwarte kwestie
 

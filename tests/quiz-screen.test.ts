@@ -168,7 +168,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
 
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Podsumowanie odpowiedzi');
     expect(screen.getByText('krok G1 pominięty')).toBeTruthy();
-    expect(screen.getByText(/Pasuje 10 z 10 telefonów/)).toBeTruthy();
+    expect(screen.getByText(/Pasuje 15 z 15 telefonów/)).toBeTruthy();
 
     await flushStorage();
     const stored = storedState();
@@ -231,7 +231,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     await flushStorage();
     const stored = storedState();
     expect(stored.sessions[0].status).toBe('completed');
-    expect(stored.sessions[0].ranking.entries.length).toBe(10);
+    expect(stored.sessions[0].ranking.entries.length).toBe(15);
   });
 
   it('hybryda prowadzi krótki quiz i kończy na dostrojeniu', async () => {

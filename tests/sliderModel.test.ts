@@ -177,9 +177,10 @@ describe('E5-05/E5-08 · spójność z silnikiem (test akceptacyjny 1)', () => {
     expect(session.ranking!.entries.map((entry) => entry.score)).toEqual(
       expected.ranked.map((entry) => entry.score),
     );
-    /* Bateria 5 i reszta 0 → wygrywa najmocniejsza bateria w puli (Realme 96, Edge 70 Fusion 90). */
-    expect(session.ranking!.cards[0]).toBe('realme-16-pro-plus-5g-8-256');
-    expect(session.ranking!.cards[1]).toBe('motorola-edge-70-fusion-12-256');
+    /* Bateria 5 i reszta 0 (grupa = battery + charging) → etap 10: vivo V70 FE (83 + 100), realme (84 + 87), Redmi Note 17 Pro (100 + 69). */
+    expect(session.ranking!.cards[0]).toBe('vivo-v70-fe-8-256'); // etap 10: bateria 83 + ładowanie 100
+    expect(session.ranking!.cards[1]).toBe('realme-16-pro-plus-5g-8-256');
+    expect(session.ranking!.cards[2]).toBe('redmi-note-17-pro-5g-8-512');
   });
 });
 
@@ -268,7 +269,7 @@ describe('DoD · trzy tryby kończą się tym samym kształtem sesji (test akcep
       expect(session.ranking).not.toBeNull();
       expect(session.ranking!.entries.length).toBe(PHONES.length);
       expect(session.ranking!.cards.length).toBe(3);
-      expect(session.ranking!.dataVersion).toBe('2026-11-14');
+      expect(session.ranking!.dataVersion).toBe('2026-11-16');
     }
 
     expect(sliders.groupImportance).toEqual(quiz.groupImportance);
