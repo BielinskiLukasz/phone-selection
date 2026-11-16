@@ -101,6 +101,7 @@ export const strings = {
   requestedSession: 'Identyfikator sesji',
   requestedView: 'Ekran',
   plannedIn: 'Planowane w etapie',
+  stageDone: 'zrobione w etapie',
   willContain: 'Co się tu znajdzie',
   screenPager: 'Nawigacja po ekranach',
   backHome: 'Wróć na start',
@@ -124,6 +125,25 @@ export const strings = {
   errorTitle: 'Coś poszło nie tak',
   errorNote: 'Odśwież stronę albo wróć na start.',
   reload: 'Odśwież stronę',
+
+  /* Etap 4 — tryb quiz (UI-SPEC 3.2) */
+  quizScreenTitle: 'Quiz',
+  quizWhy: 'Dlaczego pytamy?',
+  quizSaveExit: 'Zapisz i wyjdź',
+  quizSavedNote: 'Zapisywane automatycznie po każdej odpowiedzi',
+  quizShowResults: 'Pokaż wyniki',
+  quizSkipStep: 'Pomiń ten krok',
+  quizTopThreeHint: 'Dotknij trzech rzeczy po kolei — kolejność ma znaczenie.',
+  quizSummaryTitle: 'Podsumowanie odpowiedzi',
+  quizSummaryNote:
+    'Wagi i filtry wyliczone z Twoich odpowiedzi. Ranking liczy się od razu, a odpowiedzi możesz zmienić nawet po zakończeniu.',
+  quizChangeAnswers: 'Zmień odpowiedzi',
+  quizLowPersonalization: 'Większość odpowiedzi to „nie wiem”, więc wynik jest ogólny.',
+  quizBackToQuestion: 'Wróć do pytań',
+  quizStepOfBlock: 'Blok',
+  quizResumeNote: 'Wznawiamy od pierwszego pytania bez odpowiedzi.',
+  quizGoToCards: 'Przejdź do propozycji',
+  quizKeyboardHint: 'Strzałki i spacja wybierają odpowiedź',
 
   /* Motyw (UI-SPEC 6) */
   themeToDark: 'Przełącz na ciemny motyw',
@@ -197,6 +217,9 @@ export const screenPlans = {
   quiz: {
     stage: 4,
     stageName: 'Tryb quiz',
+    done: true,
+    previewNote:
+      'To makieta podglądowa. Prawdziwy quiz uruchamia wybór trybu na stronie startowej — tworzy sesję i zapisuje odpowiedzi.',
     items: [
       'Ok. 14–16 pytań w blokach: bateria, aparat, pamięć, codzienność, budżet.',
       'Pasek postępu, licznik „Aparat · 5 z 17”, przycisk Wstecz.',
@@ -207,6 +230,7 @@ export const screenPlans = {
   },
   sliders: {
     stage: 5,
+    done: false,
     stageName: 'Tryb suwaków i hybryda',
     items: [
       'Sześć suwaków grup 0–5 z etykietami i wartością tekstową („3 z 5”).',
@@ -217,6 +241,7 @@ export const screenPlans = {
   },
   tune: {
     stage: 5,
+    done: false,
     stageName: 'Tryb suwaków i hybryda',
     items: [
       'Ten sam ekran co suwaki, z wartościami wyliczonymi z krótkiego quizu.',
@@ -226,6 +251,7 @@ export const screenPlans = {
   },
   cards: {
     stage: 6,
+    done: false,
     stageName: 'Ranking, anonimowe karty, wybór',
     items: [
       'Trzy anonimowe karty: miejsce, % dopasowania, cena z datą, sześć wierszy cech.',
@@ -236,6 +262,7 @@ export const screenPlans = {
   },
   ranking: {
     stage: 9,
+    done: false,
     stageName: 'Pełny ranking i wydanie',
     items: [
       'Wszystkie telefony w puli: miejsce, nazwa, cena, dopasowanie, mini-paski grup.',
@@ -246,6 +273,7 @@ export const screenPlans = {
   },
   history: {
     stage: 7,
+    done: false,
     stageName: 'Historia sesji i wznawianie',
     items: [
       'Lista sesji od najnowszej: data, tryb, status, ostatni wybór, postęp quizu.',
@@ -253,6 +281,16 @@ export const screenPlans = {
       'Pusty stan: „Nie masz jeszcze żadnych wyborów” i przycisk Start.',
     ],
   },
+} as const;
+
+/** Nazwy i podpisy bloków tematycznych quizu (QUIZ-SPEC 4). */
+export const quizBlocks = {
+  battery: { title: 'Bateria i ładowanie', subtitle: 'Jak długo telefon ma działać i jak szybko wracać do pełni.' },
+  camera: { title: 'Aparat', subtitle: 'Zdjęcia dziecka i rodziny: w domu, w ruchu, w dzień i z daleka.' },
+  storage: { title: 'Pamięć', subtitle: 'Ile zdjęć i filmów zmieści się w telefonie.' },
+  everyday: { title: 'Codzienność i trwałość', subtitle: 'Płynność działania, odporność i lata wsparcia.' },
+  display: { title: 'Ekran', subtitle: 'Czytelność w słońcu i wygoda oglądania.' },
+  budget: { title: 'Budżet', subtitle: 'Ile chcesz wydać i jak ważna jest opłacalność.' },
 } as const;
 
 export type PlanScreenKey = keyof typeof screenPlans;
@@ -276,4 +314,9 @@ export const sessionTexts = {
     `${count} telefonów · dane z ${dataVersion ?? '—'} · liczone ${new Date(computedAt).toLocaleString('pl-PL')}`,
   picksList: (count: number): string => (count === 0 ? 'brak' : `${count}`),
   weightValue: (value: number): string => value.toFixed(1).replace('.', ','),
+  blockCounter: (block: string, n: number, total: number): string => `${block} · ${n} z ${total}`,
+  poolMatches: (matches: number, total: number): string =>
+    `Pasuje ${matches} z ${total} ${total === 1 ? 'telefonu' : matches === 1 ? 'telefonów' : 'telefonów'}`,
+  answeredSummary: (answered: number, total: number, skipped: number): string =>
+    `${answered} z ${total} pytań · ${skipped} × „nie wiem”`,
 } as const;

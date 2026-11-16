@@ -6,6 +6,7 @@ import { StateProvider, useAppState } from '@/features/state/StateProvider';
 import { strings } from '@/data/strings';
 import { StartScreen } from '@/screens/StartScreen';
 import { SessionStubScreen } from '@/screens/SessionStubScreen';
+import { QuizScreen } from '@/screens/QuizScreen';
 import { HistoryScreen } from '@/screens/HistoryScreen';
 import { MissingSessionScreen, NotFoundScreen } from '@/screens/ErrorScreens';
 
@@ -73,6 +74,10 @@ function Screen({ route }: ScreenProps) {
       const found = session(route.sessionId);
       if (!found && !isPreviewSessionId(route.sessionId)) {
         return <MissingSessionScreen sessionId={route.sessionId} view={route.name} />;
+      }
+      /* Etap 4: prawdziwa sesja w trybie quiz/hybryda otwiera działający quiz. */
+      if (found && route.name === 'quiz' && (found.mode === 'quiz' || found.mode === 'hybrid')) {
+        return <QuizScreen session={found} />;
       }
       return (
         <SessionStubScreen view={route.name} sessionId={route.sessionId} session={found} />

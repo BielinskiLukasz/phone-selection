@@ -9,6 +9,7 @@ interface ScreenShellProps {
   hash: string;
   stage?: number;
   stageName?: string;
+  stageDone?: boolean;
   note?: string;
   plan?: readonly string[];
   icon?: ReactNode;
@@ -27,6 +28,7 @@ export function ScreenShell({
   hash,
   stage,
   stageName,
+  stageDone = false,
   note = strings.preview,
   plan,
   icon,
@@ -45,8 +47,8 @@ export function ScreenShell({
       <div className="flex flex-wrap items-center gap-2">
         <RouteChip hash={hash} tone="active" />
         {stage ? (
-          <Badge tone="outline">
-            {strings.plannedIn} {stage}
+          <Badge tone={stageDone ? 'accent' : 'outline'}>
+            {stageDone ? strings.stageDone : strings.plannedIn} {stage}
             {stageName ? ` · ${stageName}` : ''}
           </Badge>
         ) : null}

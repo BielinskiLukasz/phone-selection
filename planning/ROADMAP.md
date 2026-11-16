@@ -10,7 +10,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 1 | Szkielet projektu i deploy | `[x]` zrobione |
 | 2 | Silnik rankingu (czysta logika + testy) | `[x]` zrobione |
 | 3 | Sesje i zapis w przeglądarce | `[x]` zrobione |
-| 4 | Tryb quiz | `[ ]` |
+| 4 | Tryb quiz | `[x]` zrobione |
 | 5 | Tryb suwaków i hybryda | `[ ]` |
 | 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[ ]` |
 | 7 | Historia sesji i wznawianie | `[ ]` |
@@ -126,12 +126,14 @@ Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i brak
 
 ## Etap 4 — Tryb quiz
 
-- [ ] Finalna lista ~14–16 pytań z efektami
-- [ ] Bloki tematyczne, pasek postępu, nawigacja wstecz
-- [ ] Zapis po każdej odpowiedzi, możliwość przerwania i powrotu
-- [ ] Ekran podsumowania przed liczeniem rankingu
+- [x] Finalna lista ~14–16 pytań z efektami
+- [x] Bloki tematyczne, pasek postępu, nawigacja wstecz
+- [x] Zapis po każdej odpowiedzi, możliwość przerwania i powrotu
+- [x] Ekran podsumowania przed liczeniem rankingu
 
 **DoD:** pełne przejście quizu generuje wagi i filtry; przerwanie w połowie i powrót odtwarza stan.
+
+**Stan po etapie 4:** `src/features/quiz/quizFlow.ts` (czysta logika kroków: nagłówki bloków, pytania, G1, podsumowanie, `resumeIndex`), `src/screens/QuizScreen.tsx` oraz komponenty `ProgressBar`, `OptionButton`, `TopThreePicker`. Lista pytań wynika z QUIZ-SPEC (18 pytań, w tym warunkowe C3 — aktywne, bo Edge 60 ma slot microSD; ROADMAP mówił o ~14-16, ale QUIZ-SPEC jest źródłem prawdy). Hybryda prowadzi krótki zestaw 7 pytań i kończy na `#/s/:id/tune` (ekran etapu 5). Zapis po każdej odpowiedzi, auto-przejście po 250 ms, `Wstecz` z podświetloną odpowiedzią, radiogroup z obsługą strzałek i spacji, fokus na nagłówku pytania, ostrzeżenie przy większości „pomiń”, przycisk `Pokaż wyniki` liczony na `computeRanking` + status `completed`. Testy akceptacyjne 1-7 zielone (`tests/quizFlow.test.ts`, `tests/quiz-screen.test.ts`). **Zostaje E4-10**: przegląd treści pytań z użytkownikiem i żoną.
 
 ## Etap 5 — Tryb suwaków i hybryda
 

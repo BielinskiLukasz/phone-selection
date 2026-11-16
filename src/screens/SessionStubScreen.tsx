@@ -62,6 +62,8 @@ export function SessionStubScreen({ view, sessionId, session }: SessionStubScree
       hash={`#/s/${sessionId}/${view}`}
       stage={plan.stage}
       stageName={plan.stageName}
+      stageDone={plan.done}
+      note={plan.done && 'previewNote' in plan ? (plan.previewNote as string) : undefined}
       plan={plan.items}
       icon={icons[view]}
       pager={{

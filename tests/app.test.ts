@@ -45,6 +45,31 @@ describe('Etap 1 — szkielet aplikacji', () => {
     expect(links.some((text) => text.includes('#/s/demo/tune'))).toBe(true);
   });
 
+  test('E4-07: wybór trybu na starcie tworzy sesję i otwiera działający quiz', async () => {
+    render(createElement(App));
+
+    fireEvent.click(
+      screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }),
+    );
+    expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/quiz$/);
+
+    // nagłówek pierwszego bloku, nie zaślepka
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Bateria i ładowanie');
+    expect(screen.getByRole('progressbar')).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: /Dalej/ }));
+    expect(screen.getByRole('radiogroup')).toBeTruthy();
+
+    // zapis jest z opóźnieniem 300 ms
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 400));
+    });
+    const stored = JSON.parse(window.localStorage.getItem('wybor-telefonu:v1') ?? '{}');
+    expect((stored.sessions ?? []).length).toBe(1);
+    expect(stored.sessions[0].mode).toBe('quiz');
+    expect(stored.sessions[0].status).toBe('in_progress');
+  });
+
   test('routing hashowy pokazuje właściwe ekrany, także po odświeżeniu', () => {
     // Odświeżenie strony: adres istnieje zanim aplikacja wystartuje.
     window.location.hash = '#/history';

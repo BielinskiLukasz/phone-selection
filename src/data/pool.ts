@@ -1,4 +1,6 @@
 import phonesData from './phones.json';
+import { PHONES } from './phones';
+import { SHORT_QUIZ_IDS, activeQuestions } from './questions';
 
 /** Twardy limit budżetu (PROJECT 3) i data ostatniego sprawdzenia cen. */
 export const BUDGET_LIMIT_PLN = 2000;
@@ -47,7 +49,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 1, name: 'Szkielet projektu i deploy', done: true, active: false },
   { id: 2, name: 'Silnik rankingu', done: true, active: false },
   { id: 3, name: 'Sesje i zapis w przeglądarce', done: true, active: false },
-  { id: 4, name: 'Tryb quiz', done: false, active: false },
+  { id: 4, name: 'Tryb quiz', done: true, active: false },
   { id: 5, name: 'Tryb suwaków i hybryda', done: false, active: false },
   { id: 6, name: 'Ranking, anonimowe karty, wybór', done: false, active: false },
   { id: 7, name: 'Historia sesji i wznawianie', done: false, active: false },
@@ -95,6 +97,24 @@ export const STORAGE_STATUS = [
   'Migracje schematu i kopia uszkodzonych danych pod kluczem zapasowym.',
   'Synchronizacja kart zdarzeniem storage — ostatni zapis wygrywa.',
   'Snapshot rankingu z wersją danych: wynik w historii nie zmienia się po aktualizacji cen.',
+] as const;
+
+export const QUIZ_FACTS = [
+  {
+    label: 'pytania',
+    value: String(activeQuestions(PHONES).length),
+    note: 'bloki A-F + krok G1',
+  },
+  { label: 'bloki', value: '6', note: 'bateria, aparat, pamięć, codzienność, ekran, budżet' },
+  { label: 'krótki quiz', value: String(SHORT_QUIZ_IDS.length), note: 'podstawa hybrydy (etap 5)' },
+  { label: 'auto-przejście', value: '250 ms', note: 'zapis natychmiast, debounce 300 ms' },
+] as const;
+
+export const QUIZ_STATUS = [
+  'Odpowiedź od razu przelicza wagi, filtry i snapshot rankingu w sesji.',
+  'Wznowienie wraca na pierwsze pytanie bez odpowiedzi — także po odświeżeniu strony.',
+  'Krok G1 z numeracją 1-3; pominięcie zostawia ważności grup ze wzoru 0,5 + 0,4 × średnia.',
+  'Podsumowanie pokazuje ważności, filtry i liczbę pasujących telefonów przed przejściem do kart.',
 ] as const;
 
 export const CONSOLE_COMMANDS = [

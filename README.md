@@ -8,6 +8,9 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 4 — Tryb quiz**: przepływ bloków A-F z nagłówkami, krok G1 „trzy najważniejsze rzeczy”,
+  podsumowanie z ważnościami i filtrami, autozapis po każdej odpowiedzi, wznowienie od pierwszego
+  pytania bez odpowiedzi, radiogroup z obsługą klawiatury i przejście do rankingu.
 - **Etap 3 — Sesje i zapis w przeglądarce**: wersjonowany stan w `localStorage` (sesje, odpowiedzi,
   wagi, filtry, snapshoty rankingu, wybory, motyw), migracje, tryb awaryjny w pamięci, kopia
   uszkodzonych danych, limit 50 sesji, synchronizacja kart i reducer z akcjami na sesjach.
@@ -64,6 +67,8 @@ src/
 ├── components/
 │   ├── AppHeader.tsx  ThemeToggle.tsx      # nagłówek i przełącznik motywu (ze stanu)
 │   ├── SessionPanel.tsx                    # odczyt zapisanej sesji + krok testowy etapu 3
+│   ├── ProgressBar.tsx  OptionButton.tsx   # pasek postępu i odpowiedzi quizu (E4-02/03)
+│   ├── TopThreePicker.tsx                  # krok G1 z numeracją 1-3 (E4-05)
 │   ├── NoticeStack.tsx                     # banery stanów krańcowych zapisu
 │   ├── ScreenShell.tsx                     # ramka ekranu-zaślepki + pager
 │   ├── AnonCardPreview.tsx  ModeRow.tsx    # makiety UI-SPEC 3.1 i 3.4
@@ -92,9 +97,10 @@ src/
 │   ├── storage.ts                # klucz v1, migracje, stany awaryjne, zapis (E3-02…04)
 │   └── sessionReducer.ts         # akcje na sesjach + snapshot rankingu (E3-05/06)
 ├── features/
+│   ├── quiz/quizFlow.ts          # kroki quizu, licznik, wznawianie (E4-01)
 │   ├── state/StateProvider.tsx    # kontekst, debounce zapisu, sync kart (E3-07/08)
 │   └── sessions/useReveal.ts      # plakietki „Wybór 1/2”, „2/2” (E3-10)
-├── screens/                      # Start, zaślepki sesji, Historia, 404, brak sesji
+├── screens/                      # Start, QuizScreen, zaślepki sesji, Historia, 404, brak sesji
 ├── App.tsx  main.tsx  index.css
 tests/app.test.ts                 # test dymny na App: routing, motyw, anonimizacja, błędy
 tests/data.ts                     # pula testowa = phones.json + klony (remis, microSD, 2100 zł)
@@ -110,6 +116,8 @@ tests/phones-schema.test.ts       # phones.json zgodny z typami i walidatorem (E
 tests/storage.test.ts             # magazyn: klucz, migracje, awarie, limit sesji (E3)
 tests/sessionReducer.test.ts      # reducer, snapshoty, wybory, selektory (E3)
 tests/state.test.ts               # dostawca stanu: trwałość, motyw, sync kart, awarie
+tests/quizFlow.test.ts            # kroki quizu, licznik, wznawianie, „pomiń” (E4)
+tests/quiz-screen.test.ts         # ekran quizu: odpowiedzi, wstecz, klawiatura, G1, zakończenie
 tests/personas.ts                 # odpowiedzi person jako stałe (E2-11)
 tests/validate-data.test.ts       # testy walidatora danych
 planning/                         # PROJECT.md, UI-SPEC.md, ROADMAP.md, opisy etapów
@@ -208,7 +216,7 @@ wraz z `basis.zoom` (które cytuje źródło mówiące „brak teleobiektywu”)
 | 8 | `null` w `scores.value` → silnik liczy `value` z ceny i nie zawiesza się | ✅ |
 
 Pokrycie: `npx vitest run --coverage --coverage.include='src/lib/**'` → 98,5% linii (DoD: ≥ 90%).
-Cała suite: **171 testów** w 12 plikach.
+Cała suite: **225 testów** w 16 plikach.
 
 ## Wdrożenie (GitHub Pages)
 
@@ -254,6 +262,24 @@ przed mapowaniem odpowiedzi (QUIZ-SPEC 7).
 | 5 | Dwa wybory → `useReveal` zwraca `1/2` i `2/2` w kolejności dodania | ✅ |
 | 6 | Zmiana `phones.json` po zapisaniu rankingu → snapshot bez zmian | ✅ |
 | 7 | Stan o starszej wersji schematu → migracja bez utraty sesji | ✅ |
+
+## Etap 4 — tryb quiz
+
+Quiz działa od Startu do rankingu: wybór trybu tworzy sesję i otwiera `#/s/<id>/quiz`, odpowiedzi
+zapisują się natychmiast (przejście po ~250 ms), „Wstecz” pokazuje wcześniejszy wybór, przerwanie
+i powrót (także po odświeżeniu) ustawiają się na pierwszym pytaniu bez odpowiedzi. Kroki: nagłówki
+sześciu bloków → pytania A-F → **G1 „trzy najważniejsze rzeczy”** (numeracja 1-3, ponowne dotknięcie
+zdejmuje, „Pomiń ten krok” zostawia ważności ze wzoru) → **podsumowanie** z ważnościami grup,
+filtrami, licznikiem „Pasuje N z 10 telefonów” i ostrzeżeniem „wynik mało spersonalizowany” przy
+większości odpowiedzi „nie wiem” → `Pokaż wyniki` liczy ranking, domyka sesję i prowadzi do
+`#/s/<id>/cards` (w hybrydzie: krótki zestaw 7 pytań i `#/s/<id>/tune`).
+
+Dostępność: `radiogroup` z roving tabindex, strzałki/Home/End przesuwają fokus, spacja i Enter
+wybierają, fokus ląduje na nagłówku pytania po każdej zmianie kroku, licznik i komunikaty w
+`aria-live`, pola dotyku ≥ 44 px, główny przycisk w pasku przyklejonym do dołu poniżej 640 px.
+Opóźnienie auto-przejścia jest konfigurowalne przez `VITE_QUIZ_ADVANCE_MS` (w testach 10 ms).
+
+Do zamknięcia etapu zostaje **E4-10**: przegląd treści pytań z użytkownikiem i żoną (czytelność, ton).
 
 ## Stan danych (etap 0 — domknięty)
 
