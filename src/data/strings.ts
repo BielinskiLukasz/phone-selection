@@ -60,9 +60,9 @@ export const strings = {
   ],
 
   /* Panel szkieletu (Etap 1) */
-  skeletonTitle: 'Panel szkieletu',
+  skeletonTitle: 'Stan projektu',
   skeletonNote:
-    'Ta sekcja opisuje stan etapów 1-2 (szkielet i silnik rankingu) i zniknie, gdy gotowe będą quiz, karty i zapis sesji.',
+    'Ta sekcja opisuje stan wdrożenia (etapy 1-5) i zniknie, gdy gotowe będą karty, historia sesji i pełny ranking.',
   routesTitle: 'Mapa ekranów (routing hashowy)',
   routesNote: 'Każdy adres działa po odświeżeniu — GitHub Pages nie potrzebuje fallbacku SPA.',
   routeWorks: 'ekran-zaślepka',
@@ -144,6 +144,35 @@ export const strings = {
   quizResumeNote: 'Wznawiamy od pierwszego pytania bez odpowiedzi.',
   quizGoToCards: 'Przejdź do propozycji',
   quizKeyboardHint: 'Strzałki i spacja wybierają odpowiedź',
+
+  /* Etap 5 — suwaki i hybryda (UI-SPEC 3.3) */
+  slidersLead:
+    'Ustaw, jak ważna jest każda rzecz. Suwak grupy ustawia jej ważność w wyniku, a „Szczegóły” rozkładają ją na kryteria w środku grupy.',
+  slidersGroupHint: 'Jak ważna jest ta rzecz?',
+  slidersDetails: 'Szczegóły',
+  slidersHideDetails: 'Ukryj szczegóły',
+  slidersShares: 'udział w grupie',
+  computedBadge: 'Wyliczone z Twoich odpowiedzi',
+  restoreComputed: 'Przywróć wyliczone',
+  manualOverrideNote:
+    'Wartości zmienione ręcznie — ranking liczy się z nich, a nie z odpowiedzi na pytania.',
+  computedNote: 'Wartości wyliczone z odpowiedzi. Możesz je dostroić ręcznie.',
+  filtersTitle: 'Filtry twarde',
+  filtersNote: 'Te warunki odrzucają telefony zanim policzymy wynik.',
+  budgetLabel: 'Budżet',
+  storageLabel: 'Pamięć',
+  storageAny: 'dowolna',
+  storage256: 'minimum 256 GB',
+  microSdLabel: 'Karta microSD',
+  microSdRequired: 'musi mieć',
+  microSdAny: 'obojętnie',
+  previewTitle: 'Podgląd na żywo',
+  previewNote: 'Trzy najlepsze propozycje dla tych ustawień. Nazwy odkryjesz dopiero po wyborze.',
+  noPhonesMatch: 'Żaden telefon nie spełnia tych warunków',
+  changeFilters: 'Zmień filtry',
+  backToQuestions: 'Wróć do pytań',
+  tuneLead:
+    'Krótki quiz wyliczył te wartości. Dostroj je ręcznie, jeśli coś chcesz zmienić — ranking przelicza się na bieżąco.',
 
   /* Motyw (UI-SPEC 6) */
   themeToDark: 'Przełącz na ciemny motyw',
@@ -230,7 +259,9 @@ export const screenPlans = {
   },
   sliders: {
     stage: 5,
-    done: false,
+    done: true,
+    previewNote:
+      'To makieta podglądowa. Prawdziwe suwaki uruchamia wybór trybu „Suwaki” na stronie startowej.',
     stageName: 'Tryb suwaków i hybryda',
     items: [
       'Sześć suwaków grup 0–5 z etykietami i wartością tekstową („3 z 5”).',
@@ -241,7 +272,9 @@ export const screenPlans = {
   },
   tune: {
     stage: 5,
-    done: false,
+    done: true,
+    previewNote:
+      'To makieta podglądowa. Ekran dostrojenia otwiera się po krótkim quizu w trybie „Quiz + suwaki”.',
     stageName: 'Tryb suwaków i hybryda',
     items: [
       'Ten sam ekran co suwaki, z wartościami wyliczonymi z krótkiego quizu.',
@@ -315,6 +348,12 @@ export const sessionTexts = {
   picksList: (count: number): string => (count === 0 ? 'brak' : `${count}`),
   weightValue: (value: number): string => value.toFixed(1).replace('.', ','),
   blockCounter: (block: string, n: number, total: number): string => `${block} · ${n} z ${total}`,
+  overBudgetMessage: (inBudget: number): string => {
+    if (inBudget === 0) return 'W tym budżecie nie mieści się żaden telefon — propozycje będą droższe.';
+    if (inBudget === 1) return 'W tym budżecie mieści się tylko jeden telefon. Pozostałe propozycje są droższe.';
+    if (inBudget === 2) return 'W tym budżecie mieszczą się tylko dwa telefony. Trzecia propozycja jest droższa.';
+    return '';
+  },
   poolMatches: (matches: number, total: number): string =>
     `Pasuje ${matches} z ${total} ${total === 1 ? 'telefonu' : matches === 1 ? 'telefonów' : 'telefonów'}`,
   answeredSummary: (answered: number, total: number, skipped: number): string =>

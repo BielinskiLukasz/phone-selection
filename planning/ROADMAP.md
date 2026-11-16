@@ -11,7 +11,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 2 | Silnik rankingu (czysta logika + testy) | `[x]` zrobione |
 | 3 | Sesje i zapis w przeglądarce | `[x]` zrobione |
 | 4 | Tryb quiz | `[x]` zrobione |
-| 5 | Tryb suwaków i hybryda | `[ ]` |
+| 5 | Tryb suwaków i hybryda | `[x]` zrobione |
 | 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[ ]` |
 | 7 | Historia sesji i wznawianie | `[ ]` |
 | 8 | Motywy, mobile, dostępność | `[ ]` |
@@ -137,12 +137,14 @@ Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i brak
 
 ## Etap 5 — Tryb suwaków i hybryda
 
-- [ ] Suwaki ważności 0–5 dla kryteriów (czytelne także na telefonie)
-- [ ] Filtry: budżet, minimalna pamięć, „musi mieć microSD”
-- [ ] Hybryda: skrócony quiz → suwaki wypełnione wynikami
-- [ ] Podgląd na żywo, ile telefonów spełnia filtry
+- [x] Suwaki ważności 0–5 dla kryteriów (czytelne także na telefonie)
+- [x] Filtry: budżet, minimalna pamięć, „musi mieć microSD”
+- [x] Hybryda: skrócony quiz → suwaki wypełnione wynikami
+- [x] Podgląd na żywo, ile telefonów spełnia filtry
 
 **DoD:** każdy z trzech trybów kończy się tym samym obiektem wag i filtrów w sesji.
+
+**Stan po etapie 5:** `src/features/sliders/sliderModel.ts` (skala 0-5 z krokiem 0,1 — wartości wyliczone bywają ułamkowe, np. 1,3), komponenty `GroupSlider` (etykieta „3 z 5, ważne”, `aria-valuetext`, szybki wybór 0-5, znacznik wartości wyliczonej na torze), `CriterionSliders` (udziały w grupie) i `FilterPanel` (budżet 1500/1800/2000, pamięć dowolna/256 GB, microSD, licznik puli w `aria-live` oraz komunikat o uzupełnieniu powyżej budżetu). Ekran `SlidersScreen` obsługuje oba warianty: `#/s/:id/sliders` (start neutralny — ważności grup 2 wg QUIZ-SPEC 6) i `#/s/:id/tune` (wartości z krótkiego quizu, plakietka „Wyliczone z Twoich odpowiedzi”, `manualOverride` i „Przywróć wyliczone” przez nową akcję reducera `session/restore-computed`). Zgodnie z QUIZ-SPEC 6 suwak grupy ustawia `G_g` wprost, a suwaki kryteriów udziały `w_c`. Testy akceptacyjne 1-6 zielone (`tests/sliderModel.test.ts`, `tests/sliders-screen.test.ts`), w tym test równoważności trzech trybów (DoD).
 
 ## Etap 6 — Ranking, anonimowe karty, wybór i ujawnienie
 

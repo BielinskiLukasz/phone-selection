@@ -7,6 +7,8 @@ import {
   ENGINE_STATUS,
   QUIZ_FACTS,
   QUIZ_STATUS,
+  SLIDERS_FACTS,
+  SLIDERS_STATUS,
   STORAGE_STATUS,
   daysSincePriceCheck,
   formatDate,
@@ -14,7 +16,14 @@ import {
 } from '@/data/pool';
 import { Reveal } from './Reveal';
 import { Badge } from './Badge';
-import { CheckIcon, TerminalIcon, AlertIcon, HistoryIcon, ListIcon } from './Icons';
+import {
+  CheckIcon,
+  TerminalIcon,
+  AlertIcon,
+  HistoryIcon,
+  ListIcon,
+  SlidersIcon,
+} from './Icons';
 import { useAppState } from '@/features/state/StateProvider';
 import { MAX_SESSIONS, SCHEMA_VERSION, STORAGE_KEY } from '@/lib/storage';
 
@@ -257,6 +266,39 @@ export function SkeletonPanel() {
         </dl>
         <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
           {QUIZ_STATUS.map((line) => (
+            <li
+              key={line}
+              className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"
+            >
+              <span className="mt-px shrink-0 text-[var(--color-ok)]">
+                <CheckIcon className="h-4 w-4" />
+              </span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      {/* Suwaki i hybryda — etap 5 */}
+      <Reveal delay={40} className="surface mt-6 p-0">
+        <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] px-[var(--pad-card)] py-3">
+          <span className="label-mono flex items-center gap-2">
+            <SlidersIcon className="h-4 w-4" />
+            Suwaki i hybryda · etap 5
+          </span>
+          <Badge tone="accent">trzy tryby prowadzą do kart</Badge>
+        </div>
+        <dl className="grid gap-px bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+          {SLIDERS_FACTS.map((fact) => (
+            <div key={fact.label} className="bg-[var(--color-surface)] p-3">
+              <dt className="label-mono">{fact.label}</dt>
+              <dd className="num mt-1.5 text-lg font-bold tracking-tight">{fact.value}</dd>
+              <dd className="mt-0.5 text-[11px] leading-snug text-[var(--color-muted)]">{fact.note}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
+          {SLIDERS_STATUS.map((line) => (
             <li
               key={line}
               className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"

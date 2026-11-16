@@ -41,6 +41,7 @@ export type Action =
   | { type: 'session/pick'; sessionId: string; phoneId: string; now?: Date }
   | { type: 'session/status'; sessionId: string; status: SessionStatus; now?: Date }
   | { type: 'session/reset-progress'; sessionId: string; now?: Date }
+  | { type: 'session/restore-computed'; sessionId: string; now?: Date }
   | { type: 'session/delete'; sessionId: string }
   | { type: 'theme/set'; theme: Theme }
   | { type: 'theme/toggle' }
@@ -267,6 +268,18 @@ export function reducer(state: AppState, action: Action): AppState {
         state,
         action.sessionId,
         (session) => recompute(createSession(session.mode, action.now ?? new Date(), session.id), action.now ?? new Date()),
+        action.now ?? new Date(),
+      );
+
+    /* E5-07: „Przywróć wyliczone” — ręczna korekta znika, wagi wracają z odpowiedzi. */
+    case 'session/restore-computed':
+      return withSession(
+        state,
+        action.sessionId,
+        (session) => {
+          const restored: Session = { ...session, manualOverride: false };
+          return recompute(restored, action.now ?? new Date());
+        },
         action.now ?? new Date(),
       );
 

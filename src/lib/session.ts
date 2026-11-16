@@ -20,6 +20,13 @@ export function neutralGroupImportance(): GroupImportance {
   return importance;
 }
 
+/** Tryb suwaków: ważności grup startują na 2 (QUIZ-SPEC 6 — „grupy 2, kryteria 2”). */
+export function flatGroupImportance(value: number = DEFAULT_WEIGHT): GroupImportance {
+  const importance = {} as GroupImportance;
+  for (const id of GROUP_IDS) importance[id] = value;
+  return importance;
+}
+
 export function defaultFilters(): Filters {
   return { budgetMax: DEFAULT_BUDGET, minStorageGb: null, requireMicroSd: false };
 }
@@ -50,7 +57,8 @@ export function createSession(mode: Mode, now: Date = new Date(), id?: string): 
     answers: {},
     topThree: null,
     weights: neutralWeights(),
-    groupImportance: neutralGroupImportance(),
+    /* Suwaki ustawiają G_g wprost, więc start jest na skali suwaka (2), nie z wzoru (1,3). */
+    groupImportance: mode === 'sliders' ? flatGroupImportance() : neutralGroupImportance(),
     filters: defaultFilters(),
     ranking: null,
     picks: [],

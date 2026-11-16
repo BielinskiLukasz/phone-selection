@@ -50,7 +50,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 2, name: 'Silnik rankingu', done: true, active: false },
   { id: 3, name: 'Sesje i zapis w przeglądarce', done: true, active: false },
   { id: 4, name: 'Tryb quiz', done: true, active: false },
-  { id: 5, name: 'Tryb suwaków i hybryda', done: false, active: false },
+  { id: 5, name: 'Tryb suwaków i hybryda', done: true, active: false },
   { id: 6, name: 'Ranking, anonimowe karty, wybór', done: false, active: false },
   { id: 7, name: 'Historia sesji i wznawianie', done: false, active: false },
   { id: 8, name: 'Motywy, mobile, dostępność', done: false, active: false },
@@ -115,6 +115,20 @@ export const QUIZ_STATUS = [
   'Wznowienie wraca na pierwsze pytanie bez odpowiedzi — także po odświeżeniu strony.',
   'Krok G1 z numeracją 1-3; pominięcie zostawia ważności grup ze wzoru 0,5 + 0,4 × średnia.',
   'Podsumowanie pokazuje ważności, filtry i liczbę pasujących telefonów przed przejściem do kart.',
+] as const;
+
+export const SLIDERS_FACTS = [
+  { label: 'suwaki grup', value: '6', note: 'skala 0-5, krok 0,1' },
+  { label: 'kryteria', value: '14', note: 'udziały wewnątrz grupy' },
+  { label: 'filtry twarde', value: '3', note: 'budżet · pamięć · microSD' },
+  { label: 'tryby wyboru', value: '3 z 3', note: 'quiz, suwaki, hybryda' },
+] as const;
+
+export const SLIDERS_STATUS = [
+  'Suwak grupy ustawia ważność G_g, nie średnią kryteriów — znacznik na torze pokazuje wartość wyliczoną z odpowiedzi.',
+  'Licznik „Pasuje X z 10 telefonów” w aria-live reaguje na każdą zmianę filtrów.',
+  'Hybryda: krótki quiz (7 pytań) → dostrojenie z plakietką i przyciskiem „Przywróć wyliczone”.',
+  'Wszystkie trzy tryby kończą się tym samym kształtem sesji: weights, groupImportance, filters, ranking.',
 ] as const;
 
 export const CONSOLE_COMMANDS = [

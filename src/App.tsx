@@ -7,6 +7,7 @@ import { strings } from '@/data/strings';
 import { StartScreen } from '@/screens/StartScreen';
 import { SessionStubScreen } from '@/screens/SessionStubScreen';
 import { QuizScreen } from '@/screens/QuizScreen';
+import { SlidersScreen } from '@/screens/SlidersScreen';
 import { HistoryScreen } from '@/screens/HistoryScreen';
 import { MissingSessionScreen, NotFoundScreen } from '@/screens/ErrorScreens';
 
@@ -78,6 +79,13 @@ function Screen({ route }: ScreenProps) {
       /* Etap 4: prawdziwa sesja w trybie quiz/hybryda otwiera działający quiz. */
       if (found && route.name === 'quiz' && (found.mode === 'quiz' || found.mode === 'hybrid')) {
         return <QuizScreen session={found} />;
+      }
+      /* Etap 5: tryb suwaków i ekran dostrojenia po krótkim quizie (hybryda). */
+      if (found && route.name === 'sliders') {
+        return <SlidersScreen session={found} variant="sliders" />;
+      }
+      if (found && route.name === 'tune') {
+        return <SlidersScreen session={found} variant="tune" />;
       }
       return (
         <SessionStubScreen view={route.name} sessionId={route.sessionId} session={found} />

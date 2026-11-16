@@ -8,6 +8,9 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 5 — Tryb suwaków i hybryda**: sześć suwaków grup 0-5 z etykietą słowną i `aria-valuetext`,
+  rozwijane suwaki kryteriów z udziałami w grupie, panel filtrów (budżet, pamięć, microSD), licznik
+  puli na żywo, ekran dostrojenia po krótkim quizie z „Przywróć wyliczone” i flagą `manualOverride`.
 - **Etap 4 — Tryb quiz**: przepływ bloków A-F z nagłówkami, krok G1 „trzy najważniejsze rzeczy”,
   podsumowanie z ważnościami i filtrami, autozapis po każdej odpowiedzi, wznowienie od pierwszego
   pytania bez odpowiedzi, radiogroup z obsługą klawiatury i przejście do rankingu.
@@ -69,6 +72,7 @@ src/
 │   ├── SessionPanel.tsx                    # odczyt zapisanej sesji + krok testowy etapu 3
 │   ├── ProgressBar.tsx  OptionButton.tsx   # pasek postępu i odpowiedzi quizu (E4-02/03)
 │   ├── TopThreePicker.tsx                  # krok G1 z numeracją 1-3 (E4-05)
+│   ├── GroupSlider.tsx  CriterionSliders.tsx  FilterPanel.tsx  # suwaki i filtry (E5-01…04)
 │   ├── NoticeStack.tsx                     # banery stanów krańcowych zapisu
 │   ├── ScreenShell.tsx                     # ramka ekranu-zaślepki + pager
 │   ├── AnonCardPreview.tsx  ModeRow.tsx    # makiety UI-SPEC 3.1 i 3.4
@@ -98,9 +102,10 @@ src/
 │   └── sessionReducer.ts         # akcje na sesjach + snapshot rankingu (E3-05/06)
 ├── features/
 │   ├── quiz/quizFlow.ts          # kroki quizu, licznik, wznawianie (E4-01)
+│   ├── sliders/sliderModel.ts    # skala, etykiety, udziały, punkt odniesienia (E5-01/02)
 │   ├── state/StateProvider.tsx    # kontekst, debounce zapisu, sync kart (E3-07/08)
 │   └── sessions/useReveal.ts      # plakietki „Wybór 1/2”, „2/2” (E3-10)
-├── screens/                      # Start, QuizScreen, zaślepki sesji, Historia, 404, brak sesji
+├── screens/                      # Start, QuizScreen, SlidersScreen (suwaki + dostrojenie), zaślepki, Historia, 404
 ├── App.tsx  main.tsx  index.css
 tests/app.test.ts                 # test dymny na App: routing, motyw, anonimizacja, błędy
 tests/data.ts                     # pula testowa = phones.json + klony (remis, microSD, 2100 zł)
@@ -118,6 +123,8 @@ tests/sessionReducer.test.ts      # reducer, snapshoty, wybory, selektory (E3)
 tests/state.test.ts               # dostawca stanu: trwałość, motyw, sync kart, awarie
 tests/quizFlow.test.ts            # kroki quizu, licznik, wznawianie, „pomiń” (E4)
 tests/quiz-screen.test.ts         # ekran quizu: odpowiedzi, wstecz, klawiatura, G1, zakończenie
+tests/sliderModel.test.ts         # model suwaków + równoważność trzech trybów (E5, DoD)
+tests/sliders-screen.test.ts      # suwaki, filtry, licznik, hybryda, „Przywróć wyliczone”
 tests/personas.ts                 # odpowiedzi person jako stałe (E2-11)
 tests/validate-data.test.ts       # testy walidatora danych
 planning/                         # PROJECT.md, UI-SPEC.md, ROADMAP.md, opisy etapów
@@ -216,7 +223,7 @@ wraz z `basis.zoom` (które cytuje źródło mówiące „brak teleobiektywu”)
 | 8 | `null` w `scores.value` → silnik liczy `value` z ceny i nie zawiesza się | ✅ |
 
 Pokrycie: `npx vitest run --coverage --coverage.include='src/lib/**'` → 98,5% linii (DoD: ≥ 90%).
-Cała suite: **225 testów** w 16 plikach.
+Cała suite: **247 testów** w 18 plikach.
 
 ## Wdrożenie (GitHub Pages)
 
@@ -280,6 +287,23 @@ wybierają, fokus ląduje na nagłówku pytania po każdej zmianie kroku, liczni
 Opóźnienie auto-przejścia jest konfigurowalne przez `VITE_QUIZ_ADVANCE_MS` (w testach 10 ms).
 
 Do zamknięcia etapu zostaje **E4-10**: przegląd treści pytań z użytkownikiem i żoną (czytelność, ton).
+
+## Etap 5 — tryb suwaków i hybryda
+
+`#/s/:id/sliders` startuje neutralnie (ważności grup **2**, kryteria **2** — QUIZ-SPEC 6), a
+`#/s/:id/tune` (hybryda) pokazuje wartości wyliczone z krótkiego quizu z plakietką „Wyliczone z
+Twoich odpowiedzi”. Suwak grupy ustawia **ważność grupy `G_g` wprost** (nie średnią wag kryteriów) —
+mówi o tym wprost etykieta „Jak ważna jest ta rzecz?”, a na torze widać znacznik wartości wyliczonej,
+więc ręczna korekta jest widoczna od razu. „Szczegóły” rozwijają suwaki kryteriów, które ustawiają
+**udziały `w_c` wewnątrz grupy** (procentowy udział pokazywany obok).
+
+Skala 0-5 ma krok 0,1, bo wartości wyliczone z odpowiedzi bywają ułamkowe (1,3 / 1,7 / 2,5); dla
+dotyku są dodatkowo przyciski szybkiego wyboru 0-5. Filtry twarde: budżet (1500/1800/2000 zł),
+pamięć (dowolna / minimum 256 GB) i „musi mieć microSD”. Licznik „Pasuje X z 10 telefonów” działa
+w `aria-live`, a przy budżecie, w którym mieszczą się mniej niż trzy telefony, pojawia się komunikat
+„W tym budżecie mieszczą się tylko dwa telefony. Trzecia propozycja jest droższa.” Pod filtrami jest
+podgląd na żywo: trzy najlepsze propozycje z procentem, ceną i flagą „+X zł” — bez nazw (te wracają
+dopiero w etapie 6). „Przywróć wyliczone” cofa ręczną korektę i zdejmuje `manualOverride`.
 
 ## Stan danych (etap 0 — domknięty)
 
