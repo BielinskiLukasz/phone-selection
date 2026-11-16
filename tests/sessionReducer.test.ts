@@ -145,7 +145,8 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
       (entry) => snapshot.cards.includes(entry.phoneId) && entry.overBudgetBy !== null,
     );
     expect(over.length).toBe(1);
-    expect(over[0]!.overBudgetBy).toBe(158);
+    /* Wagi neutralne: ponad budżetem dokłada się najlepszy z puli — tu 15T za 1999 zł. */
+    expect(over[0]!.overBudgetBy).toBe(499);
   });
 
   it('filtr pamięci 256 GB usuwa telefony 128 GB ze snapshotu', () => {
@@ -362,15 +363,15 @@ describe('E3-01 · pomocniki sesji', () => {
     expect(newSessionId(() => 0.5)).toMatch(/^[a-z0-9-]+$/);
   });
 
-  it('postęp quizu liczy odpowiedzi bez „pomiń” (17 pytań przy obecnych danych)', () => {
+  it('postęp quizu liczy odpowiedzi bez „pomiń” (18 pytań, w tym warunkowe C3)', () => {
     const fresh = createSession('quiz', NOW, 'p-1');
-    expect(quizProgress(fresh)).toEqual({ answered: 0, total: 17 });
+    expect(quizProgress(fresh)).toEqual({ answered: 0, total: 18 });
 
     const answered: typeof fresh = {
       ...fresh,
       answers: { A1: 'A1-c', A2: 'A2-skip', B1: 'B1-a' },
     };
-    expect(quizProgress(answered)).toEqual({ answered: 2, total: 17 });
+    expect(quizProgress(answered)).toEqual({ answered: 2, total: 18 });
   });
 
   it('sesje sortują się od najnowszej, a walidacja rozróżnia rekord pełny od naprawialnego', () => {

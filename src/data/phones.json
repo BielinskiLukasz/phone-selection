@@ -10,7 +10,8 @@
       "Warianty pamięci zostają takie, jak na liście, z wyjątkami zdecydowanymi przez użytkownika: Pixel 10a i 9a w wersji 8/128 GB, Xiaomi 15T w wersji 12/512 GB. Zamiast Pixela 8a i Galaxy A55 do listy weszły Redmi Note 15 Pro 5G i Realme 16 Pro 5G.",
       "Linki w price.url bez parametrów śledzących (utm_*, ceneo_cid)."
     ],
-    "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja."
+    "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja.",
+    "specsCompletedNote": "Uzupełnienia specyfikacji i ocen z oficjalnych stron producentów oraz niezależnych testów (GSMArena, mi.com FAQ, Motorola support, Trusted Reviews, Notebookcheck, 91mobiles, Tech Advisor, gadgets360): IP, waga, microSD, NFC, ładowanie, zawartość pudełka, polityka aktualizacji, ekran 15T, wytrzymałość baterii z testów. Oceny obiektywne przeliczone ze wzorów PROJECT 7.5 i reguł C1 (patrz planning/PROJECT.md 7.5). Ceny bez zmian — 14.11.2026."
   },
   "phones": [
     {
@@ -87,7 +88,8 @@
         "chargerInBox": false,
         "chargingTests": "GSMArena: 36% w 15 min, 64% w 30 min, pełne ładowanie w 69 min",
         "thicknessMm": 6.9,
-        "dimensionsMm": "161,5 x 76,8 x 6,9"
+        "dimensionsMm": "161,5 x 76,8 x 6,9",
+        "batteryEndurance": 62.7
       },
       "scores": {
         "battery": 48,
@@ -107,10 +109,10 @@
       },
       "basis": {
         "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck chwali długi czas pracy, inne źródła nazywają baterię słabszym punktem; ocena środkowa",
-        "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "charging": "45 W przewodowo, bez zasilacza w zestawie (chargerInBox: false) — (45 − 15) / 75 × 100 = 40",
         "updates": "6 lat aktualizacji systemu i zabezpieczeń",
         "storage": "256 GB, brak slotu microSD",
-        "durability": "IP68 (strona sklepu)",
+        "durability": "IP68 (karty produktowe sferis.pl i morele.net) = 90 pkt wg PROJECT 7.5",
         "smoothness": "Exynos 1680; GSMArena: ok. 10-13% szybszy od Exynosa 1580 z A56",
         "display": "Super AMOLED+ 120 Hz, w recenzjach chwalony ekran (Notebookcheck, gsmManiaK)",
         "photoDay": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
@@ -209,7 +211,9 @@
         "batteryTests": [
           "Tom's Guide: czas pracy o ok. 2 godziny dłuższy niż w Pixelu 9a (przy tej samej baterii)",
           "producent: ok. 30 h w typowym użyciu"
-        ]
+        ],
+        "chargerInBox": false,
+        "batteryEndurance": 79.3
       },
       "scores": {
         "battery": 58,
@@ -229,10 +233,10 @@
       },
       "basis": {
         "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Tom's Guide: ok. 2 h dłużej niż 9a; Galaxus: 9a ok. 17 h w PCMark; Notebookcheck: duża żywotność baterii",
-        "charging": "30 W przewodowo + bezprzewodowe Qi; ładowarki w zestawie brak lub nieznana",
+        "charging": "30 W przewodowo + bezprzewodowe Qi; w pudełku kabel USB-C, igła SIM i dokumentacja — bez zasilacza (support.google.com)",
         "updates": "7 lat systemu i zabezpieczeń",
         "storage": "128 GB, brak slotu microSD",
-        "durability": "IP68",
+        "durability": "IP68 (specyfikacja Google, GSMArena) = 90 pkt wg PROJECT 7.5",
         "smoothness": "Tensor G4 (wydajność jak w 9a); recenzje chwalą czysty i płynny system",
         "display": "pOLED 120 Hz, do 3000 nitów",
         "photoDay": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
@@ -250,7 +254,8 @@
         "https://www.purepc.pl/premiera-google-pixel-10a",
         "https://www.benchmark.pl/google-pixel-10a-test-recenzja-i-opinia-7268558626128449a",
         "https://tomsguide.com/phones/google-pixel-phones/google-pixel-10a-vs-pixel-9a-whats-the-difference",
-        "https://spidersweb.pl/2026/03/google-pixel-10a-stary-procesor-i-nowe-bajery.html"
+        "https://spidersweb.pl/2026/03/google-pixel-10a-stary-procesor-i-nowe-bajery.html",
+        "https://support.google.com/pixelphone/answer/7158537"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -314,9 +319,9 @@
         "weightG": 198,
         "thicknessMm": 7.4,
         "cameras": {
-          "main": "50 MP z OIS",
-          "ultrawide": null,
-          "macro": null,
+          "main": "50 MP Sony IMX906 f/1.8 z OIS",
+          "ultrawide": "12 MP f/2.2, 123°",
+          "macro": "5 MP f/2.4",
           "selfie": "12 MP",
           "telephoto": null
         },
@@ -326,7 +331,8 @@
         "sim": "nanoSIM + eSIM",
         "nfc": true,
         "chargerInBox": false,
-        "chargingTests": "GSMArena: 38% w 15 min, 65% w 30 min, pełne ładowanie w 73 min"
+        "chargingTests": "GSMArena: 38% w 15 min, 65% w 30 min, pełne ładowanie w 73 min",
+        "batteryEndurance": 64.7
       },
       "scores": {
         "battery": 49,
@@ -346,18 +352,18 @@
       },
       "basis": {
         "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): android.com.pl: dobre czasy pracy; rankingpro: ok. 1,5 dnia przy umiarkowanym użyciu",
-        "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "charging": "45 W przewodowo, bez zasilacza w zestawie (chargerInBox: false) — (45 − 15) / 75 × 100 = 40",
         "updates": "6 lat aktualizacji systemu i zabezpieczeń",
         "storage": "256 GB, brak slotu microSD",
-        "durability": "IP67",
+        "durability": "IP67 (GSMArena, specyfikacja Samsung) = 80 pkt wg PROJECT 7.5",
         "smoothness": "Exynos 1580; GSMArena: Geekbench 6 ok. 3900 (wielordzeniowy)",
         "display": "Super AMOLED 120 Hz, „świetny ekran o wysokiej jasności” (android.com.pl)",
-        "photoDay": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
-        "photoIndoor": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
-        "photoMotion": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
-        "selfie": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
-        "video": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
-        "zoom": "50 MP z OIS; w teście eftm „najlepszy balans detali i kolorów” wśród średniaków, ale arecenze.cz zalicza A56 do telefonów z zastrzeżeniami wg DXOMARK",
+        "photoDay": "50 MP Sony IMX906 z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; PhoneArena camera score 122 (słabszy niż A55), GSMArena: miękkie zdjęcia z UW i w słabym świetle",
+        "photoIndoor": "50 MP Sony IMX906 z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; PhoneArena camera score 122 (słabszy niż A55), GSMArena: miękkie zdjęcia z UW i w słabym świetle",
+        "photoMotion": "50 MP Sony IMX906 z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; PhoneArena camera score 122 (słabszy niż A55), GSMArena: miękkie zdjęcia z UW i w słabym świetle",
+        "selfie": "50 MP Sony IMX906 z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; PhoneArena camera score 122 (słabszy niż A55), GSMArena: miękkie zdjęcia z UW i w słabym świetle",
+        "video": "50 MP Sony IMX906 z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; PhoneArena camera score 122 (słabszy niż A55), GSMArena: miękkie zdjęcia z UW i w słabym świetle",
+        "zoom": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; układ bez teleobiektywu (PhoneArena: „A telephoto would have been much more useful”), więc przybliżanie 2x z kadrowania",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -367,7 +373,10 @@
         "https://aio.lv/en/product--samsung-sm-a566bzkceub--11362017.md",
         "https://www.play.pl/dlafirm/produkty/samsung/samsung-galaxy-a56-5g",
         "https://android.com.pl/tech/919428-recenzja-samsung-galaxy-a56-5g/",
-        "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php"
+        "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php",
+        "https://www.gsmarena.com/samsung_galaxy_a56-review-2812.php",
+        "https://www.gsmarena.com/samsung_galaxy_a56-review-2812p5.php",
+        "https://www.phonearena.com/reviews/samsung-galaxy-a56-5g-review_id7068"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -423,13 +432,13 @@
         "ramGb": 8,
         "storageGb": 256,
         "storageType": "UFS 2.2",
-        "microSd": null,
+        "microSd": false,
         "batteryMah": 6580,
         "chargingW": 45,
         "chargerInBox": false,
-        "wirelessCharging": null,
+        "wirelessCharging": false,
         "ip": "IP66/IP68",
-        "ipNote": "wg strony producenta; niektóre źródła podają IP69, producent tego nie potwierdza",
+        "ipNote": "wg strony producenta IP66/IP68; nanoreview podaje IP69, producent tego nie potwierdza",
         "cameras": {
           "main": "200 MP",
           "ultrawide": null,
@@ -448,12 +457,24 @@
         "reviewNotes": [
           "tabletowo.pl: bateria „świetna na papierze”, wydajność i oprogramowanie budzą zastrzeżenia, pierwszy testowany egzemplarz miał problemy ze stabilnością (drugi działał dobrze)",
           "ppe.pl: bardzo jasny ekran i solidny aparat główny, ale „zbyt wiele kompromisów” (procesor, oprogramowanie)"
-        ]
+        ],
+        "weightG": 210,
+        "weightNote": "210 g ± 4 g wg oficjalnego FAQ mi.com; wymiary 163,61 × 78,09 × 7,96 mm",
+        "microSdNote": "brak slotu (GSMArena/nanoreview: „No card slot”); wariant bez 5G ma slot hybrydowy SIM/microSD",
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "4 duże aktualizacje Androida i 6 lat poprawek (nanoreview, gsmspecs: „up to 4 major Android upgrades”); do potwierdzenia na trust.mi.com dla wariantu PL",
+        "batteryTests": [
+          "EPREL/etykieta energetyczna: 60 h 50 min na cyklu, klasa B, 1000 cykli (newmobile.com, nr 2470759)",
+          "nanoreview: 47% w 30 min, pełne ładowanie 1:13"
+        ],
+        "batteryEndurance": 50.0,
+        "chargerInBoxNote": "nanoreview podaje „Bundled charger: Yes, 45 W”, FAQ mi.com rozróżnia wersje z ładowarką i bez — dla PL zostaje false"
       },
       "scores": {
         "battery": 68,
         "charging": 40,
-        "updates": 50,
+        "updates": 71,
         "storage": 75,
         "durability": 88,
         "smoothness": 50,
@@ -467,9 +488,9 @@
         "value": null
       },
       "basis": {
-        "battery": "6580 mAh (50% wagi) + wytrzymałość w użyciu (50%): tabletowo: „świetna bateria na papierze”, w praktyce słabsze wyniki, problemy z oprogramowaniem",
+        "battery": "6580 mAh (50% wagi) + wytrzymałość (50%): etykieta EPREL 60 h 50 min na cyklu; tabletowo „świetna bateria na papierze”, w praktyce słabsze wyniki i problemy z oprogramowaniem",
         "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
-        "updates": "brak potwierdzonej polityki aktualizacji, wartość neutralna 50",
+        "updates": "4 duże aktualizacje Androida + 6 lat poprawek (nanoreview, gsmspecs): średnia 5 lat → 5/7 × 100 = 71",
         "storage": "256 GB, brak slotu microSD",
         "durability": "IP66/IP68 (producent)",
         "smoothness": "Dimensity 7400 Ultra; recenzje: słabe oprogramowanie, AnTuTu nie ukończył testu, Geekbench 6 wielordzeniowy ok. 2930",
@@ -479,7 +500,7 @@
         "photoMotion": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
         "selfie": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
         "video": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
-        "zoom": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
+        "zoom": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; układ dwóch aparatów 200 MP + 8 MP, brak teleobiektywu (nanoreview/GSMArena); brak niezależnych testów przybliżenia",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -487,12 +508,16 @@
         "https://www.mi.com/pl/product/redmi-note-15-pro-5g/",
         "https://www.tabletowo.pl/recenzja-redmi-note-15-pro-5g-test-opinia/",
         "https://www.ppe.pl/recenzje/400734/redmi-note-15-pro-5g-test-smartfona-zbyt-wiele-kompromisow-w-tej-polce-cenowej.html",
-        "https://www.mymobileindia.com/?p=287744"
+        "https://www.mymobileindia.com/?p=287744",
+        "https://www.mi.com/global/support/faq/details/KA-651554/",
+        "https://nanoreview.net/en/phone/xiaomi-redmi-note-15-pro-5g",
+        "https://www.gsmspecs.com/xiaomi/xiaomi_redmi_note_15_pro-88643",
+        "https://www.newmobile.com/global/phones/xiaomi/redmi-note-15-pro-5g/specifications"
       ],
       "scoreConfidence": {
         "battery": "medium",
         "charging": "high",
-        "updates": "low",
+        "updates": "medium",
         "storage": "high",
         "durability": "high",
         "smoothness": "medium",
@@ -504,9 +529,7 @@
         "video": "low",
         "zoom": "low"
       },
-      "scoresEstimatedNeutral": [
-        "updates"
-      ]
+      "scoresEstimatedNeutral": []
     },
     {
       "id": "motorola-edge-60-12-256",
@@ -545,24 +568,40 @@
         "refreshHz": 120,
         "cameras": {
           "main": "50 MP (z adresu strony sklepu)",
-          "telephoto": "3x zoom optyczny (potrójny aparat tylny wg Notebookcheck)",
+          "telephoto": "10 MP 3x zoom optyczny",
           "selfie": null
         },
         "updates": "3 aktualizacje systemu Android i 4 lata poprawek zabezpieczeń (wg Tabletowo, dla premierowych modeli Edge 60 i Edge 60 Pro)",
         "updatesYears": 4,
         "updatesNote": "3 wersje Androida + 4 lata poprawek zabezpieczeń",
         "performanceNote": "wydajność „standardowa”; Notebookcheck zwraca uwagę na spowolnienia przy uruchamianiu aplikacji aparatu",
-        "ip": null,
-        "weightG": null,
+        "ip": "IP69/IP68",
+        "weightG": 179,
         "os": null,
-        "displayInch": 6.67
+        "displayInch": 6.67,
+        "ipNote": "IP69/IP68 wg oficjalnej specyfikacji producenta (pl-pl.support.motorola.com)",
+        "wirelessCharging": false,
+        "microSd": true,
+        "nfc": true,
+        "microSdNote": "slot microSD wg specyfikacji producenta; jedyny telefon w puli z kartą pamięci",
+        "updatesInterpretation": "updatesYears = lata poprawek bezpieczeństwa (4); liczba dużych wersji Androida (3) w polach updatesOsGenerations/updatesSecurityYears — model potwierdzony przez użytkownika (A4)",
+        "chargerInBox": false,
+        "militaryStandard": "MIL-STD-810H",
+        "glass": "Gorilla Glass 7i",
+        "panel": "P-OLED",
+        "peakNits": 4500,
+        "resolution": "1220x2712",
+        "batteryNote": "GSMArena podaje w skrócie 5500 mAh, w recenzji i u innych źródeł 5200 mAh (wersja globalna) — zostaje 5200",
+        "batteryEndurance": 70.0,
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 4
       },
       "scores": {
         "battery": 55,
         "charging": 71,
         "updates": 50,
-        "storage": 75,
-        "durability": 50,
+        "storage": 80,
+        "durability": 100,
         "smoothness": 55,
         "display": 88,
         "photoDay": 80,
@@ -577,8 +616,8 @@
         "battery": "5200 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck: wyróżnia się długim czasem pracy; Tabletowo: obiecujące wstępne wyniki",
         "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
         "updates": "3 duże aktualizacje systemu + 4 lata poprawek",
-        "storage": "256 GB, brak slotu microSD",
-        "durability": "brak potwierdzonej klasy IP w zebranych źródłach, wartość neutralna 50",
+        "storage": "256 GB + slot microSD (bonus 5 pkt, PROJECT 7.5) — jedyny telefon w puli z kartą pamięci",
+        "durability": "IP68/IP69 + MIL-STD-810H (GSMArena, Coolsmartphone) = 100 pkt wg PROJECT 7.5",
         "smoothness": "Notebookcheck i PurePC: wydajność przeciętna, spowolnienia przy aplikacji aparatu",
         "display": "zakrzywiony AMOLED, do 4000 nitów (Notebookcheck)",
         "photoDay": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
@@ -586,21 +625,26 @@
         "photoMotion": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
         "selfie": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
         "video": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
-        "zoom": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
+        "zoom": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 10 MP 3x (Coolsmartphone, Notebookcheck)",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
         "https://gsmonline.pl/artykuly/testujemy-motorole-edge-60-nasze-pierwsze-wrazenia",
         "https://www.tabletowo.pl/?p=972072",
         "https://www.notebookcheck.pl/Motorola-Edge-60.1041978.0.html",
-        "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml"
+        "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml",
+        "https://pl-pl.support.motorola.com/app/answers/detail/a_id/187187/~/specyfikacje--motorola-edge-60",
+        "https://en-emea.support.motorola.com/app/answers/detail/a_id/185974/~/specifications---motorola-edge-60",
+        "https://www.gsmarena.com/motorola_edge_60-13779.php",
+        "https://www.gsmarena.com/motorola_edge_60-review-2831.php",
+        "https://www.coolsmartphone.com/2025-08-19/motorola-edge-60-review/"
       ],
       "scoreConfidence": {
         "battery": "medium",
         "charging": "high",
         "updates": "high",
         "storage": "high",
-        "durability": "low",
+        "durability": "high",
         "smoothness": "medium",
         "display": "medium",
         "photoDay": "medium",
@@ -610,9 +654,7 @@
         "video": "medium",
         "zoom": "medium"
       },
-      "scoresEstimatedNeutral": [
-        "durability"
-      ]
+      "scoresEstimatedNeutral": []
     },
     {
       "id": "xiaomi-15t-12-512",
@@ -647,54 +689,88 @@
         "storageGb": 512,
         "chip": "MediaTek Dimensity 8400 Ultra",
         "batteryMah": 5500,
-        "updatesNote": "dla 15T Pro producent obiecuje 4 lata dużych aktualizacji Androida; dla 15T (bez Pro) do potwierdzenia",
+        "updatesNote": "GSMArena (recenzja 15T): „four future OS releases … security patches for a total of six years”; phonelifespan.tech podaje 4 wersje + 5 lat poprawek — rozbieżność opisana, przyjęto GSMArena",
         "updatesYears": null,
-        "chargingW": null,
-        "chargingNote": "90 W przewodowo i 50 W bezprzewodowo dotyczy modelu 15T Pro; moc ładowania zwykłego 15T do sprawdzenia",
-        "sourceNote": "większość publikacji dotyczy modelu 15T Pro; dla 15T zweryfikowane: procesor (m3.se) i bateria 5500 mAh (racunalniske-novice.com)"
+        "chargingW": 67,
+        "chargingNote": "67 W przewodowo, bez ładowania bezprzewodowego i bez zasilacza w zestawie (oficjalna specyfikacja mi.com); rozbieżność z materiałami o 15T Pro (90 W / 50 W Qi)",
+        "sourceNote": "większość publikacji dotyczy modelu 15T Pro; dla 15T zweryfikowane: procesor (m3.se) i bateria 5500 mAh (racunalniske-novice.com)",
+        "displayInch": 6.83,
+        "refreshHz": 120,
+        "panel": "AMOLED",
+        "displayNote": "6,83″ AMOLED 120 Hz, 3200 nitów (szczytowo), 1,5K, HDR10+/Dolby Vision (GSMArena)",
+        "weightG": 194,
+        "wirelessCharging": false,
+        "microSd": false,
+        "nfc": true,
+        "chargerInBox": false,
+        "ip": "IP68",
+        "cameras": {
+          "main": "50 MP Leica OIS",
+          "telephoto": "50 MP 2x OIS",
+          "ultrawide": "12 MP",
+          "selfie": "32 MP",
+          "macro": null
+        },
+        "peakNits": 3200,
+        "resolution": "1280x2772",
+        "glass": "Gorilla Glass 7i",
+        "ppi": 447,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "batteryTests": [
+          "GSMArena: klasa efektywności A, szacowana wytrzymałość 57:44 h, 1600 cykli ładowania",
+          "GSMArena: 67 W, 100% w ok. 50 min"
+        ],
+        "batteryEndurance": 59,
+        "batteryCycles": 1600
       },
       "scores": {
-        "battery": 50,
-        "charging": 50,
-        "updates": 50,
+        "battery": 55,
+        "charging": 69,
+        "updates": 71,
         "storage": 100,
-        "durability": 50,
+        "durability": 90,
         "smoothness": 85,
-        "display": 50,
+        "display": 80,
         "photoDay": 78,
         "photoIndoor": 74,
         "photoMotion": 72,
         "selfie": 68,
         "video": 70,
-        "zoom": 50,
+        "zoom": 60,
         "value": null
       },
       "basis": {
-        "battery": "5500 mAh (50% wagi) + wytrzymałość w użyciu (50%): brak testów czasu pracy dla 15T (dla 15T Pro: „dobrze, ale nie tak jak sugeruje specyfikacja”)",
-        "charging": "brak potwierdzonej mocy ładowania, wartość neutralna 50",
-        "updates": "brak potwierdzonej polityki aktualizacji, wartość neutralna 50",
+        "battery": "5500 mAh (50% wagi) + wytrzymałość 59 (50%) z GSMArena: klasa A, 57:44 h szacowanej wytrzymałości → 0,5 × 50 + 0,5 × 59 = 55",
+        "charging": "67 W przewodowo (mi.com): (67 − 15) / 75 × 100 = 69; bez ładowania bezprzewodowego i bez zasilacza w pudełku",
+        "updates": "4 duże aktualizacje + 6 lat poprawek (GSMArena, deklaracja Xiaomi): średnia 5 lat → 71",
         "storage": "512 GB, brak slotu microSD",
-        "durability": "brak potwierdzenia klasy IP dla 15T (15T Pro: IP68), wartość neutralna 50",
+        "durability": "IP68 (oficjalna specyfikacja mi.com) = 90 pkt wg PROJECT 7.5",
         "smoothness": "Dimensity 8400 Ultra, AnTuTu ok. 1,86 mln (m3.se)",
-        "display": "brak danych o ekranie 15T w zebranych źródłach, wartość neutralna 50",
-        "photoDay": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
-        "photoIndoor": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
-        "photoMotion": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
-        "selfie": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
-        "video": "ocena wyprowadzona z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw; konfiguracja aparatów 15T niezweryfikowana",
-        "zoom": "brak potwierdzonych danych, wartość neutralna 50",
+        "display": "6,83″ AMOLED 120 Hz, 3200 nitów, 1,5K (GSMArena); brak niezależnych pomiarów jakości, ocena z reguły sprzętowej C1 (≥3000 nitów → 80)",
+        "photoDay": "konfiguracja aparatów potwierdzona w specyfikacji (mi.com): główny 50 MP z OIS, teleobiektyw 50 MP 2x, szeroki kąt 12 MP, selfie 32 MP; oceny wyprowadzone z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw",
+        "photoIndoor": "konfiguracja aparatów potwierdzona w specyfikacji (mi.com): główny 50 MP z OIS, teleobiektyw 50 MP 2x, szeroki kąt 12 MP, selfie 32 MP; oceny wyprowadzone z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw",
+        "photoMotion": "konfiguracja aparatów potwierdzona w specyfikacji (mi.com): główny 50 MP z OIS, teleobiektyw 50 MP 2x, szeroki kąt 12 MP, selfie 32 MP; oceny wyprowadzone z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw",
+        "selfie": "konfiguracja aparatów potwierdzona w specyfikacji (mi.com): główny 50 MP z OIS, teleobiektyw 50 MP 2x, szeroki kąt 12 MP, selfie 32 MP; oceny wyprowadzone z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw",
+        "video": "konfiguracja aparatów potwierdzona w specyfikacji (mi.com): główny 50 MP z OIS, teleobiektyw 50 MP 2x, szeroki kąt 12 MP, selfie 32 MP; oceny wyprowadzone z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw",
+        "zoom": "teleobiektyw 50 MP 2x z OIS potwierdzony w specyfikacji; brak niezależnych testów przybliżenia, ocena z klasy sprzętu (porównywalnie z innymi telefonami z teleobiektywem 2x)",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
         "https://www.m3.se/article/2930431/xiaomi-15t-test-2.html",
-        "https://www.racunalniske-novice.com/en/test-xiaomi-15t-and-15t-pro-top-screen-good-performance-a-few-compromises/"
+        "https://www.racunalniske-novice.com/en/test-xiaomi-15t-and-15t-pro-top-screen-good-performance-a-few-compromises/",
+        "https://www.mi.com/pl/product/xiaomi-15t/specs/",
+        "https://www.mi.com/global/product/xiaomi-15t/specs/",
+        "https://www.gsmarena.com/xiaomi_15t_5g-14177.php",
+        "https://www.gsmarena.com/xiaomi_15t-review-2889.php",
+        "https://www.gsmarena.com/xiaomi_15t-review-2889p4.php"
       ],
       "scoreConfidence": {
-        "battery": "low",
-        "charging": "low",
-        "updates": "low",
+        "battery": "medium",
+        "charging": "high",
+        "updates": "medium",
         "storage": "high",
-        "durability": "low",
+        "durability": "high",
         "smoothness": "medium",
         "display": "low",
         "photoDay": "low",
@@ -704,14 +780,7 @@
         "video": "low",
         "zoom": "low"
       },
-      "scoresEstimatedNeutral": [
-        "battery",
-        "charging",
-        "updates",
-        "durability",
-        "display",
-        "zoom"
-      ]
+      "scoresEstimatedNeutral": []
     },
     {
       "id": "motorola-edge-70-fusion-12-256",
@@ -750,7 +819,7 @@
         "chip": "Qualcomm Snapdragon 7s Gen 3 (zapowiedź przedpremierowa mówiła o Gen 4; sklep, telepolis i nanoreview podają Gen 3)",
         "ramGb": 12,
         "storageGb": 256,
-        "microSd": null,
+        "microSd": false,
         "batteryMah": 7000,
         "batteryType": "węglowo-krzemowa",
         "chargingW": 68,
@@ -758,7 +827,7 @@
         "ip": "IP68/IP69",
         "militaryStandard": "MIL-STD-810H",
         "glass": "Gorilla Glass 7i (front), ramka z tworzywa",
-        "weightG": null,
+        "weightG": 193,
         "dimensionsMm": "163 x 76 x 7,99",
         "cameras": {
           "main": "50 MP Sony Lytia 710, f/1.8, OIS",
@@ -778,7 +847,7 @@
         "sourceNote": "Allegro, opis oferty X-KOM_PL (14.11.2026); kolor w nazwie „Orient Blue”, w parametrach „fioletowy”",
         "refreshNote": "kilka testów i m3.se podaje 144 Hz i szczytową jasność 5200 nitów; opis oferty Allegro podaje 120 Hz",
         "peakNits": 5200,
-        "weightNote": "źródła podają 177 g albo 193 g (opis oferty Allegro: 193 g) — do rozstrzygnięcia",
+        "weightNote": "193 g wg specyfikacji producenta, Notebookcheck i 91mobiles; Trusted Reviews zmierzyło 188 g w egzemplarzu testowym",
         "updatesOsGenerations": 3,
         "updatesSecurityYears": 5,
         "updatesNote": "3 duże aktualizacje systemu i 5 lat poprawek (zapowiedź producenta wg gsmmaniak.pl; tabletowo.pl: „trzy aktualizacje systemu”)",
@@ -787,10 +856,16 @@
           "android.com.pl: bateria wystarcza na cały dzień, brak ładowarki w zestawie, brak ładowania bezprzewodowego",
           "Expert Reviews: przeciętny procesor, plastikowa ramka, niezbyt długie wsparcie",
           "Notebookcheck: mocna bateria, smukła obudowa, IP68/IP69"
-        ]
+        ],
+        "microSdNote": "brak slotu microSD (Trusted Reviews FAQ, mygadgetreviewer: „Memory Card Slot No”)",
+        "batteryTests": [
+          "PCMark: 17 h 34 min (91mobiles) — w grupie porównawczej wyżej tylko realme 16 Pro+ (19 h)",
+          "ładowanie 20-100% w 49 min (91mobiles); Trusted Reviews: pełne ładowanie poniżej godziny"
+        ],
+        "batteryEndurance": 80
       },
       "scores": {
-        "battery": 88,
+        "battery": 90,
         "charging": 71,
         "updates": 57,
         "storage": 75,
@@ -806,7 +881,7 @@
         "value": null
       },
       "basis": {
-        "battery": "7000 mAh (50% wagi) + wytrzymałość w użyciu (50%): android.com.pl: bateria na cały dzień; Notebookcheck: mocna bateria; opinia klienta: ok. 2 dni",
+        "battery": "7000 mAh (50% wagi) + wytrzymałość 80 (50%) z PCMark 17 h 34 min (91mobiles) → 0,5 × 100 + 0,5 × 80 = 90; recenzje: bateria na cały dzień i dłużej",
         "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
         "updates": "3 duże aktualizacje systemu + 5 lata poprawek",
         "storage": "256 GB, brak slotu microSD",
@@ -826,7 +901,12 @@
         "https://android.com.pl/tech/1047367-recenzja-motorola-edge-70-fusion-test/",
         "https://www.gsmmaniak.pl/1640135/motorola-edge-70-fusion-bateria-7000mah-snapdragon-7s-gen-4-premiera-specyfikacja/amp/",
         "https://www.tabletowo.pl/recenzja-motorola-edge-70-fusion-test-opinia/",
-        "https://www.m3.se/article/3135967/motorola-edge-70-fusion-mobil-test.html"
+        "https://www.m3.se/article/3135967/motorola-edge-70-fusion-mobil-test.html",
+        "https://en-emea.support.motorola.com/app/answers/detail/a_id/192851/~/specifications---motorola-edge-70-fusion",
+        "https://www.motorola.com/rf/en/p/phones/motorola-edge/70-fusion/pmipmjm44md",
+        "https://www.trustedreviews.com/reviews/motorola-edge-70-fusion",
+        "https://www.notebookcheck.net/Motorola-Edge-70-Fusion.1251578.0.html",
+        "https://www.91mobiles.com/motorola-edge-70-fusion-price-in-india"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -906,7 +986,9 @@
           "producent: ponad 30 h w typowym użyciu"
         ],
         "polishLaunchPricePln": "8/128: 1799 zł, 8/256: 2299 zł (wg Komputronik, premiera 2025)",
-        "sourceNote": "benchmark.pl, komputronik.pl (porównanie z 10a), spidersweb.pl, galaxus.ch"
+        "sourceNote": "benchmark.pl, komputronik.pl (porównanie z 10a), spidersweb.pl, galaxus.ch",
+        "chargerInBox": false,
+        "batteryEndurance": 71.3
       },
       "scores": {
         "battery": 54,
@@ -926,12 +1008,12 @@
       },
       "basis": {
         "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Galaxus: PCMark ok. 17 h; producent: ponad 30 h w typowym użyciu",
-        "charging": "23 W przewodowo + bezprzewodowe Qi; ładowarki w zestawie brak lub nieznana",
+        "charging": "23 W przewodowo + bezprzewodowe Qi; w pudełku kabel, igła SIM i dokumentacja — bez zasilacza (support.google.com)",
         "updates": "7 lat systemu i zabezpieczeń",
         "storage": "128 GB, brak slotu microSD",
-        "durability": "IP68",
+        "durability": "IP68 (specyfikacja Google) = 90 pkt wg PROJECT 7.5",
         "smoothness": "Tensor G4, czysty Android",
-        "display": "pOLED 120 Hz",
+        "display": "pOLED 6,28″ 60-120 Hz (specyfikacja Google, GSMArena); brak niezależnych pomiarów jasności w zebranych źródłach — ocena z klasy panelu i odświeżania",
         "photoDay": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
         "photoIndoor": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
         "photoMotion": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
@@ -944,7 +1026,8 @@
         "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-Google-pixel-9a-5g-8-128gb-6-3-120hz-obsydian",
         "https://www.benchmark.pl/google-pixel-10a-test-recenzja-i-opinia-7268558626128449a",
         "https://nano.komputronik.pl/n/google-pixel-10a-vs-pixel-9a-porownanie/",
-        "https://www.galaxus.ch/en/page/jetzt-noch-in-klein-dann-passt-das-pixel-10a-im-test-41653"
+        "https://www.galaxus.ch/en/page/jetzt-noch-in-klein-dann-passt-das-pixel-10a-im-test-41653",
+        "https://support.google.com/pixelphone/answer/7158537"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -1005,7 +1088,7 @@
         "batteryMah": 5000,
         "chargingW": 50,
         "chargingNote": "producent: 50% w 19 min, 100% w 56 min; test gsmManiaK: pełne ładowanie w 63 min (ładowarka do 50 W)",
-        "chargerInBox": null,
+        "chargerInBox": false,
         "wirelessCharging": false,
         "ip": "IP64",
         "ipNote": "ochrona przed pyłem i zachlapaniem, bez pełnej wodoszczelności",
@@ -1020,19 +1103,27 @@
           "macro": null
         },
         "updatesYears": null,
-        "updatesNote": "gsmManiaK: 4 aktualizacje Androida; okres poprawek bezpieczeństwa do potwierdzenia",
+        "updatesNote": "3 duże aktualizacje Androida (Tech Advisor, Visermark, polityka Nothing); lata poprawek rozbieżne w źródłach: 4 lata (Tech Advisor, gsmManiaK) albo 6 lat (Visermark) — pole zostaje null",
         "fingerprint": "w ekranie (optyczny)",
         "nfc": true,
         "bluetooth": "5.4",
         "wifi": "Wi-Fi 6",
         "stereoSpeakers": true,
         "realWorldBattery": "gsmManiaK: dzień od rana do wieczora przy 7-8 h ekranu, w nocy traci do ok. 1%",
-        "sourceNote": "gsmmaniak.pl (test), telepolis.pl, gsmarena.com, phonearena.com"
+        "sourceNote": "gsmmaniak.pl (test), telepolis.pl, gsmarena.com, phonearena.com",
+        "boxContents": "telefon, kabel USB-C, igła SIM, dokumentacja — bez zasilacza (Tech Advisor, Beebom, Visermark)",
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": null,
+        "batteryTests": [
+          "Visermark: ok. 56 h aktywnego użycia, „dwa dni w realnym użyciu”",
+          "gsmManiaK: 7-8 h ekranu, w nocy ok. 1%"
+        ],
+        "batteryEndurance": 84.7
       },
       "scores": {
         "battery": 59,
         "charging": 47,
-        "updates": 57,
+        "updates": 43,
         "storage": 75,
         "durability": 55,
         "smoothness": 62,
@@ -1048,7 +1139,7 @@
       "basis": {
         "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): gsmManiaK: 7-8 h ekranu, w nocy traci ok. 1%",
         "charging": "50 W przewodowo; ładowarki w zestawie brak lub nieznana",
-        "updates": "4 aktualizacje Androida (gsmManiaK), okres poprawek bezpieczeństwa niepotwierdzony",
+        "updates": "3 duże aktualizacje Androida (polityka Nothing, Tech Advisor/Visermark); lata poprawek rozbieżne (4 vs 6), więc ocena z samych wersji: 3/7 × 100 = 43",
         "storage": "256 GB, brak slotu microSD",
         "durability": "IP64 (tylko zachlapania)",
         "smoothness": "Snapdragon 7s Gen 3; opinie: bardzo dobre dopracowanie",
@@ -1065,12 +1156,15 @@
         "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300",
         "https://www.gsmmaniak.pl/1558980/nothing-phone-3a-test-recenzja-opinia/amp/",
         "https://www.telepolis.pl/telefony/nothing/phone-3a",
-        "https://www.gsmarena.com/nothing_phone_(3a)-13672.php"
+        "https://www.gsmarena.com/nothing_phone_(3a)-13672.php",
+        "https://www.techadvisor.com/article/2624191/nothing-phone-3a-review.html",
+        "https://gadgets.beebom.com/reviews/nothing-phone-3a",
+        "https://www.visermark.com/post/nothing-phone-3a"
       ],
       "scoreConfidence": {
         "battery": "medium",
         "charging": "high",
-        "updates": "high",
+        "updates": "medium",
         "storage": "high",
         "durability": "high",
         "smoothness": "medium",
@@ -1086,9 +1180,9 @@
     },
     {
       "id": "realme-16-pro-plus-5g-8-256",
-      "status": "needs_confirmation",
+      "status": "ok",
       "reveal": {
-        "name": "Realme 16 Pro+ 5G 8/256 GB (do potwierdzenia: adres oferty to „16 pro 5g”)",
+        "name": "Realme 16 Pro+ 5G 8/256 GB",
         "brand": "Realme",
         "shopLinks": [
           {
@@ -1108,8 +1202,8 @@
         "source": "empik.com",
         "url": "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p",
         "checkedAt": "2026-11-14",
-        "providedBy": "user",
-        "note": "Użytkownik potwierdził, że to wersja Pro+ (14.11.2026). Adres oferty Empik zawiera „realme-16-pro-5g” bez „plus”, a Empik blokuje odczyt strony, więc nie mogłem tego sprawdzić. Oficjalne ceny premierowe: Pro 8/256 = 1799 zł, Pro+ 8/256 = 2299 zł. Cena 1959,99 zł pasuje do obniżonego Pro+ i do podniesionego Pro. Sprawdzić na stronie oferty: nazwa, procesor, bateria",
+        "providedBy": "user, potwierdzone przez claude (zgodność specyfikacji ze źródłami)",
+        "note": "Wersja Pro+ potwierdzona przez użytkownika (14.11.2026) i zgodna ze specyfikacją modelu: Snapdragon 7 Gen 4, 7000 mAh, 80 W, peryskop 50 MP 3,5x (gadgets360, Notebookcheck, 91mobiles). Adres oferty Empik nadal zawiera „realme-16-pro-5g” bez „plus” — cena 1959,99 zł pomiędzy premierowymi 1799 zł (Pro) i 2299 zł (Pro+)",
         "otherObservations": []
       },
       "specs": {
@@ -1124,9 +1218,9 @@
         "storageType": "UFS 3.1",
         "microSd": false,
         "batteryMah": 7000,
-        "chargingW": null,
-        "wirelessCharging": null,
-        "ip": null,
+        "chargingW": 80,
+        "wirelessCharging": false,
+        "ip": "IP68/IP69",
         "cameras": {
           "main": "200 MP (1/1,56″) z OIS",
           "ultrawide": "8 MP (116°)",
@@ -1137,7 +1231,7 @@
         "os": "Android 16, realme UI",
         "updatesYears": null,
         "sim": "2x nanoSIM + eSIM",
-        "weightG": 198,
+        "weightG": 203,
         "dimensionsMm": "162,45 x 76,17 x 8,49",
         "frame": "plastik",
         "sourceNote": "dane dla wersji Pro+ z polskich zapowiedzi i recenzji (gsmonline, purepc, gsmmaniak, tabletowo); obowiązują tylko, jeśli oferta jest faktycznie Pro+",
@@ -1148,14 +1242,29 @@
           "displayInch": 6.78,
           "refreshHz": 144,
           "cameras": "200 MP + 8 MP, selfie 50 MP, bez teleobiektywu"
-        }
+        },
+        "ipNote": "IP68/IP69 (Notebookcheck, 91mobiles); gadgets360 i phonedroid podają samo IP69",
+        "weightNote": "203 g (gadgets360, phonedroid, Notebookcheck); 91mobiles i Gomibo podają 198 g",
+        "peakNits": 6500,
+        "glass": "Gorilla Glass 7i",
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 4,
+        "updatesNote": "3 lata aktualizacji systemu + 4 lata poprawek (91mobiles); phonedroid podaje „5 years” — rozbieżność opisana",
+        "chargerInBox": false,
+        "chargerInBoxNote": "Gomibo (EU): „Charger not included”; 91mobiles (Indie): ładowarka w zestawie — dla dystrybucji PL przyjęto false",
+        "batteryTests": [
+          "PCMark: 19 h 00 min (91mobiles) — najlepszy wynik w grupie porównawczej",
+          "ładowanie 20-100% w 47 min (91mobiles); 80 W SuperVOOC"
+        ],
+        "batteryEndurance": 92,
+        "confirmationNote": "Specyfikacja Pro+ zweryfikowana po potwierdzeniu użytkownika; wariant `ifItIsPlainPro` zostaje jako historia rozbieżności oferty"
       },
       "scores": {
-        "battery": 75,
-        "charging": 50,
+        "battery": 96,
+        "charging": 87,
         "updates": 50,
         "storage": 75,
-        "durability": 50,
+        "durability": 95,
         "smoothness": 75,
         "display": 80,
         "photoDay": 74,
@@ -1167,11 +1276,11 @@
         "value": null
       },
       "basis": {
-        "battery": "7000 mAh (50% wagi) + wytrzymałość w użyciu (50%): brak testów czasu pracy w zebranych źródłach",
-        "charging": "brak potwierdzonej mocy ładowania, wartość neutralna 50",
-        "updates": "brak potwierdzonej polityki aktualizacji, wartość neutralna 50",
+        "battery": "7000 mAh (50% wagi) + wytrzymałość 92 (50%) z PCMark 19 h (91mobiles, najlepszy w grupie) → 0,5 × 100 + 0,5 × 92 = 96",
+        "charging": "80 W przewodowo (gadgets360, phonedroid, Notebookcheck): (80 − 15) / 75 × 100 = 87; bez ładowania bezprzewodowego",
+        "updates": "3 aktualizacje systemu + 4 lata poprawek (91mobiles): średnia 3,5 → 3,5/7 × 100 = 50",
         "storage": "256 GB, brak slotu microSD",
-        "durability": "brak potwierdzonej klasy IP, wartość neutralna 50",
+        "durability": "IP68/IP69 bez normy wojskowej (Notebookcheck, 91mobiles) = 95 pkt wg reguły C1/PROJECT 7.5",
         "smoothness": "Snapdragon 7 Gen 4 (LPDDR5X)",
         "display": "6,8″ AMOLED 144 Hz (jasność nieznana)",
         "photoDay": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
@@ -1186,14 +1295,19 @@
         "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p",
         "https://www.purepc.pl/realme-16-pro-plus-pierwsze-wrazenia",
         "https://www.gsmonline.pl/artykuly/realme-16-pro-i-16-pro-plus-pojawily-sie-w-polskim-sklepie-przed-premiera-jeden-ma-juz-cene",
-        "https://www.tabletowo.pl/?p=1051230"
+        "https://www.tabletowo.pl/?p=1051230",
+        "https://www.gadgets360.com/realme-16-pro-plus-5g-price-in-india-135417",
+        "https://www.phonedroid.net/realme-16-pro-plus--1502",
+        "https://www.notebookcheck.net/Realme-16-Pro.1238116.0.html",
+        "https://www.91mobiles.com/realme-16-pro-plus-price-in-india",
+        "https://www.gomibo.fr/en/realme-16-pro-plus-5g"
       ],
       "scoreConfidence": {
-        "battery": "low",
-        "charging": "low",
-        "updates": "low",
+        "battery": "medium",
+        "charging": "high",
+        "updates": "medium",
         "storage": "high",
-        "durability": "low",
+        "durability": "high",
         "smoothness": "medium",
         "display": "medium",
         "photoDay": "low",
@@ -1203,12 +1317,7 @@
         "video": "low",
         "zoom": "low"
       },
-      "scoresEstimatedNeutral": [
-        "battery",
-        "charging",
-        "updates",
-        "durability"
-      ]
+      "scoresEstimatedNeutral": []
     }
   ]
 }

@@ -101,6 +101,18 @@ function megapixelsOf(value: unknown): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+/** Czy wsparcie aktualizacjami jest opisane (pola składowe albo cytat ze źródła)? */
+function hasUpdatesInfo(specs: DataRecord): boolean {
+  const positive = (value: unknown): boolean =>
+    typeof value === 'number' && Number.isFinite(value) && value > 0;
+  if (positive(specs.updatesOsGenerations) || positive(specs.updatesSecurityYears)) return true;
+
+  const text = [specs.updates, specs.updatesNote]
+    .filter((part): part is string => typeof part === 'string')
+    .join(' ');
+  return /(\d+)\s*(?:duże|dużych)?\s*(?:aktualizacje|aktualizacji|generacje|wersje)/i.test(text);
+}
+
 /**
  * Walidacja `specs` w schemacie `schemaVersion: 1`.
  * Wartość niepoprawna to błąd, brak pola to ostrzeżenie (karta pokaże „brak danych”).
@@ -116,6 +128,8 @@ function validateSpecs(
     const raw = specs[field];
     /* refreshHz bywa zakresem ze źródeł („60-120”) — to poprawny zapis. */
     if (field === 'refreshHz' && typeof raw === 'string' && /\d/.test(raw)) continue;
+    /* Wsparcie może być opisane polami składowymi albo cytatem ze źródła — nie dublujemy ostrzeżenia. */
+    if (field === 'updatesYears' && hasUpdatesInfo(specs)) continue;
 
     const status = classifyNumber(optionalNumber(raw));
     if (status === 'ok') continue;

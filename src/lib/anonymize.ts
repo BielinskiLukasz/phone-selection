@@ -315,7 +315,7 @@ const KNOWN_FORBIDDEN = [
   'nothing', 'realme', 'oneplus', 'oppo', 'vivo', 'huawei', 'honor', 'iphone', 'apple',
   'snapdragon', 'dimensity', 'tensor', 'exynos', 'mediatek', 'kirin', 'qualcomm', 'miui',
   'hyperos', 'oneui', 'coloros', 'ios', 'sony', 'lytia', 'gorilla', 'corning', 'crystalres',
-  'victus', 'allegro', 'empik', 'sferis', 'morele', 'mediaexpert', 'komputronik', 'proshop',
+  'victus', 'leica', 'zeiss', 'hasselblad', 'allegro', 'empik', 'sferis', 'morele', 'mediaexpert', 'komputronik', 'proshop',
   'mediamarkt', 'x-kom',
 ] as const;
 

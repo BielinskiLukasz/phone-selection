@@ -11,7 +11,7 @@ import {
   isSkipAnswer,
 } from '../src/data/questions';
 import { GROUP_IDS } from '../src/data/criteria';
-import { POOL, withMicroSd } from './data';
+import { POOL } from './data';
 import { skipAll } from './personas';
 import type { CriterionId } from '../src/types';
 
@@ -70,17 +70,18 @@ describe('E2-03 · dane quizu', () => {
     }
   });
 
-  it('C3 jest warunkowe: odpada przy obecnych danych, wraca przy telefonie z microSD', () => {
+  it('C3 jest warunkowe: aktywne, bo Edge 60 ma slot microSD', () => {
     expect(findQuestion('C3')?.appliesWhen).toBeTypeOf('function');
-    expect(POOL.every((phone) => phone.specs.microSd !== true)).toBe(true);
+    expect(POOL.some((phone) => phone.specs.microSd === true)).toBe(true);
 
-    const without = activeQuestions(POOL).map((question) => question.id);
-    expect(without).not.toContain('C3');
+    const active = activeQuestions(POOL).map((question) => question.id);
+    expect(active).toContain('C3');
+    expect(active.length).toBe(18);
+
+    /* Gdyby żaden telefon nie miał slotu, pytanie odpada bez śladu w liczniku. */
+    const without = activeQuestions(POOL.filter((phone) => phone.specs.microSd !== true));
+    expect(without.map((question) => question.id)).not.toContain('C3');
     expect(without.length).toBe(17);
-
-    const withSlot = activeQuestions([...POOL, withMicroSd()]).map((question) => question.id);
-    expect(withSlot).toContain('C3');
-    expect(withSlot.length).toBe(18);
   });
 
   it('krótki quiz hybrydy to A1, A2, B1, B2, B3, C1, F1 (QUIZ-SPEC 5)', () => {

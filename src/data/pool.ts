@@ -65,8 +65,9 @@ export const ENGINE_FACTS = [
 
 export const ENGINE_STATUS = [
   'Czysta logika w src/lib: weights, pool, scoring, anonymize, matchDisplay — bez Reacta.',
-  'Persony z QUIZ-SPEC 9 na prawdziwych danych: żona #1 71 pkt, bateria i aparat rozróżnialne.',
-  'Budżet 1500 zł daje dwie karty w budżecie i jedną „Powyżej budżetu o 158 zł”.',
+  'Persony z QUIZ-SPEC 9: żona #1 69 pkt, aparat i bateria rozróżnialne (78 : 75 na zdjęciach w dzień).',
+  'Budżet 1500 zł daje dwie karty w budżecie i jedną „Powyżej budżetu o 460 zł”.',
+  'Reguły ocen w src/data/scoringRules.ts; spójność danych z regułami pilnuje test.',
   'Test wycieku: karta nie zawiera nazwy, marki, modelu, chipa ani nazwy sklepu.',
 ] as const;
 

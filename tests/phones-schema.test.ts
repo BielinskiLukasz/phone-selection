@@ -108,16 +108,15 @@ describe('E2-10 · schemat danych', () => {
   });
 
   it('braki danych są oznaczone, a nie zgadywane (PROJECT 13)', () => {
+    /* Po uzupełnieniu źródeł żaden rekord nie ma oceny „z braku danych”… */
+    for (const phone of POOL) {
+      expect(phone.scoresEstimatedNeutral ?? [], phone.id).toEqual([]);
+    }
+    /* …ale słabszy dowód jest oznaczony pewnością `low` i opisany w basis. */
     const xiaomi = POOL.find((phone) => phone.id === 'xiaomi-15t-12-512')!;
-    expect(xiaomi.scores.display).toBe(50);
-    expect(xiaomi.scoresEstimatedNeutral).toContain('display');
-    expect(xiaomi.scoreConfidence?.display).toBe('low');
-
-    const estimated = POOL.filter(
-      (phone) => (phone.scoresEstimatedNeutral ?? []).length > 0,
-    ).map((phone) => phone.id);
-    expect(estimated).toContain('xiaomi-15t-12-512');
-    expect(estimated).toContain('redmi-note-15-pro-5g-8-256');
+    expect(xiaomi.scoreConfidence?.photoDay).toBe('low');
+    expect(xiaomi.basis.photoDay).toContain('15T Pro');
+    expect(xiaomi.basis.display).toMatch(/regu|pomiar/i);
   });
 
   it('każdy telefon ma źródła i pewność ocen', () => {
@@ -130,10 +129,16 @@ describe('E2-10 · schemat danych', () => {
     }
   });
 
-  it('jeden rekord jest do potwierdzenia i ma to zapisane w statusie', () => {
-    const unconfirmed = POOL.filter((phone) => phone.status === 'needs_confirmation');
-    expect(unconfirmed.length).toBe(1);
-    expect(unconfirmed[0]!.id).toBe('realme-16-pro-plus-5g-8-256');
-    expect(unconfirmed[0]!.price.note).toContain('potwierdzi');
+  it('po potwierdzeniu oferty (A1) nie ma rekordów `needs_confirmation`', () => {
+    expect(POOL.filter((phone) => phone.status === 'needs_confirmation')).toEqual([]);
+    const realme = POOL.find((phone) => phone.id === 'realme-16-pro-plus-5g-8-256')!;
+    expect(realme.status).toBe('ok');
+    expect(realme.price.note).toContain('potwierdz');
+    expect(realme.sources!.length).toBeGreaterThan(5);
+  });
+
+  it('jedyna luka bez źródła jest jawna: NFC w Realme zostaje null', () => {
+    const realme = POOL.find((phone) => phone.id === 'realme-16-pro-plus-5g-8-256')!;
+    expect(realme.specs.nfc ?? null).toBeNull();
   });
 });

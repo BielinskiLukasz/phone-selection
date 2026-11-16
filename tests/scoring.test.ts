@@ -67,15 +67,23 @@ describe('E2-07 · value, braki danych i normalizacja', () => {
     expect(rawScore(cheapest, 'value', 2000)).toBe(88);
   });
 
-  it('brak danych → wartość neutralna 50 i wpis w scoresEstimatedNeutral', () => {
+  it('brak danych → 50 (mechanizm), a po uzupełnieniu wzory z PROJECT 7.5', () => {
     const redmi = phoneById('redmi-note-15-pro-5g-8-256');
-    expect(rawScore(redmi, 'updates', 2000)).toBe(NEUTRAL_SCORE);
-    expect(redmi.scoresEstimatedNeutral).toContain('updates');
+    const gapped = clonePhone(redmi, {
+      scores: { ...redmi.scores, updates: null },
+      scoresEstimatedNeutral: ['updates'],
+    });
+    expect(rawScore(gapped, 'updates', 2000)).toBe(NEUTRAL_SCORE);
 
-    const xiaomi = phoneById('xiaomi-15t-12-512');
-    for (const id of ['battery', 'charging', 'updates', 'durability', 'display', 'zoom'] as const) {
-      expect(rawScore(xiaomi, id, 2000), id).toBe(NEUTRAL_SCORE);
-    }
+    for (const phone of POOL) expect(phone.scoresEstimatedNeutral ?? [], phone.id).toEqual([]);
+
+    expect(rawScore(phoneById('xiaomi-15t-12-512'), 'charging', 2000)).toBe(69);
+    expect(rawScore(phoneById('xiaomi-15t-12-512'), 'updates', 2000)).toBe(71);
+    expect(rawScore(phoneById('xiaomi-15t-12-512'), 'durability', 2000)).toBe(90);
+    expect(rawScore(phoneById('motorola-edge-60-12-256'), 'storage', 2000)).toBe(80);
+    expect(rawScore(phoneById('motorola-edge-60-12-256'), 'durability', 2000)).toBe(100);
+    expect(rawScore(phoneById('realme-16-pro-plus-5g-8-256'), 'charging', 2000)).toBe(87);
+    expect(rawScore(phoneById('nothing-phone-3a-12-256'), 'updates', 2000)).toBe(43);
   });
 
   it('normalizacja min-max z mieszaniem; przy max = min zwraca 50', () => {
@@ -191,16 +199,16 @@ describe('E2-06 · pula i filtry twarde', () => {
     }
   });
 
-  it('filtr „musi mieć microSD” zostawia tylko telefony ze slotem i włącza C3', () => {
-    expect(anyMicroSd(POOL)).toBe(false);
-    expect(countPool(POOL, { budgetMax: BUDGET_LIMIT, requireMicroSd: true })).toBe(0);
+  it('filtr „musi mieć microSD” zostawia jedyny telefon ze slotem', () => {
+    expect(anyMicroSd(POOL)).toBe(true);
+
+    const pool = buildPool(POOL, { budgetMax: BUDGET_LIMIT, requireMicroSd: true });
+    expect(pool.map((phone) => phone.id)).toEqual(['motorola-edge-60-12-256']);
+    expect(countPool(POOL, { budgetMax: BUDGET_LIMIT, requireMicroSd: true })).toBe(1);
 
     const withSlot = withMicroSd();
-    expect(anyMicroSd([withSlot])).toBe(true);
-    expect(buildPool([...POOL, withSlot], { budgetMax: BUDGET_LIMIT, requireMicroSd: true })).toEqual([
-      withSlot,
-    ]);
-    expect(activeQuestions([...POOL, withSlot]).map((question) => question.id)).toContain('C3');
+    expect(buildPool([...POOL, withSlot], { budgetMax: BUDGET_LIMIT, requireMicroSd: true }).length).toBe(2);
+    expect(activeQuestions(POOL).map((question) => question.id)).toContain('C3');
   });
 
   it('inBudgetSubset liczy telefony mieszczące się w budżecie sesji', () => {

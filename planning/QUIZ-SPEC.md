@@ -213,25 +213,25 @@ Odpowiedzi persony zapisujemy w testach jako stałe. Wyniki poniżej to **stan r
 | F1 | Do 2000 zł, jeśli warto |
 | G1 | 1. Bateria i ładowanie, 2. Aparat, 3. Pamięć |
 
-Stan referencyjny: **#1 Edge 70 Fusion (71 pkt), #2 Edge 60 (58), #3 Realme 16 Pro+ (56)**. Pixel 10a i Pixel 9a (128 GB) nie wchodzą do trójki.
+Stan referencyjny (po domknięciu danych etapu 0): **#1 Edge 70 Fusion (69 pkt), #2 Realme 16 Pro+ (67), #3 Edge 60 (62)**, #4 Xiaomi 15T (62). Pixel 10a i Pixel 9a (128 GB) nie wchodzą do trójki. Wcześniejszy stan (#1 71, #2 Edge 60 58, #3 Realme 56) obowiązywał przed uzupełnieniem specyfikacji i ocen ze źródeł.
 
 **Niezmienniki:**
 1. Żaden telefon z 128 GB nie jest w trójce przy `storage` w trójce najważniejszych.
 2. Średnia ocena `battery` w trójce ≥ średniej puli.
 3. Włączenie filtra „min. 256 GB” nie zmienia pozycji #1.
-4. Przy budżecie 1500 zł karty to dwa telefony w budżecie plus jeden z etykietą „Powyżej budżetu” (referencyjnie: Edge 60, Redmi Note 15 Pro, Edge 70 Fusion).
+4. Przy budżecie 1500 zł karty to dwa telefony w budżecie plus jeden z etykietą „Powyżej budżetu” (referencyjnie: Edge 60, Redmi Note 15 Pro oraz Realme 16 Pro+ „Powyżej budżetu o 460 zł”; przy wagach neutralnych dokłada się Xiaomi 15T „o 499 zł”).
 
 ### 9.2 Persona „aparat” (kontrolna)
 
-A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000; G1 = Aparat, Pamięć, Ekran i płynność. Referencyjnie: Edge 60, Edge 70 Fusion, Galaxy A57.
+A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000; G1 = Aparat, Pamięć, Ekran i płynność. Referencyjnie: Xiaomi 15T (70 pkt), Edge 60 (67), Edge 70 Fusion (63), #4 Galaxy A57 (60).
 
 ### 9.3 Persona „bateria” (kontrolna)
 
-A1, A2 = 5, A3 = 1; B1-B6 = 1; C1 = 3; D1-D3 = 3; E1, E2 = 1; F1 = 2000; G1 = Bateria i ładowanie, Cena, Aktualizacje i trwałość. Referencyjnie: Edge 70 Fusion, Redmi Note 15 Pro, Edge 60.
+A1, A2 = 5, A3 = 1; B1-B6 = 1; C1 = 3; D1-D3 = 3; E1, E2 = 1; F1 = 2000; G1 = Bateria i ładowanie, Cena, Aktualizacje i trwałość. Referencyjnie: Edge 70 Fusion (67 pkt), Redmi Note 15 Pro (65), Edge 60 (61), #4 Realme 16 Pro+ (60 — mocna bateria, ale droga przy wadze grupy „Cena” = 4).
 
 ### 9.4 Test różnicujący (niezmiennik między personami)
 
-Średnia oceny `battery` w trójce persony „bateria” **>** analogiczna średnia persony „aparat”, a średnia oceny `photoDay` w trójce persony „aparat” **>** persony „bateria” (referencyjnie 78 kontra 75). Jeśli test nie przechodzi, poprawiamy pytania, mapowanie albo `BLEND`, a nie oceny telefonów.
+Średnia oceny `battery` w trójce persony „bateria” **>** analogiczna średnia persony „aparat”, a średnia oceny `photoDay` w trójce persony „aparat” **>** persony „bateria” (referencyjnie: `battery` 71,0 kontra 66,7 oraz `photoDay` 78,0 kontra 75,3). Jeśli test nie przechodzi, poprawiamy pytania, mapowanie albo `BLEND`, a nie oceny telefonów.
 
 ## 10. Otwarte kwestie
 

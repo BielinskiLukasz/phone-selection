@@ -148,10 +148,14 @@ describe('E2-08 · parsowanie danych ze źródeł', () => {
       securityYears: 4,
       years: 4,
     });
-    expect(updatesInfo(phoneById('nothing-phone-3a-12-256').specs).osUpdates).toBe(4);
-    expect(updatesInfo(phoneById('xiaomi-15t-12-512').specs)).toEqual({
-      osUpdates: null,
+    expect(updatesInfo(phoneById('nothing-phone-3a-12-256').specs)).toEqual({
+      osUpdates: 3,
       securityYears: null,
+      years: null,
+    });
+    expect(updatesInfo(phoneById('xiaomi-15t-12-512').specs)).toEqual({
+      osUpdates: 4,
+      securityYears: 6,
       years: null,
     });
   });
@@ -198,7 +202,7 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     expect(cameraFact(phoneById('realme-16-pro-plus-5g-8-256')).value).toContain(
       'przybliżanie 50 MP (3,5x)',
     );
-    expect(cameraFact(phoneById('motorola-edge-60-12-256')).value).toContain('przybliżanie 3x');
+    expect(cameraFact(phoneById('motorola-edge-60-12-256')).value).toContain('przybliżanie 10 MP (3x)');
     expect(cameraFact(phoneById('pixel-10a-8-128')).value).toContain('bez aparatu do przybliżania');
   });
 
@@ -212,18 +216,44 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     expect(factOf(pixel, 'storage')).toBe('128 GB · bez karty microSD');
   });
 
+  it('uzupełnione dane 15T: bateria, aparat, ekran i odporność mają konkretne wartości', () => {
+    const xiaomi = cardFor(phoneById('xiaomi-15t-12-512'));
+    expect(factOf(xiaomi, 'battery')).toBe('5500 mAh · ładowanie 67 W · bez ładowania bezprzewodowego');
+    expect(factOf(xiaomi, 'camera')).toBe(
+      'Główny 50 MP ze stabilizacją · selfie 32 MP · przybliżanie 50 MP (2x) · szeroki kąt 12 MP',
+    );
+    expect(factOf(xiaomi, 'durability')).toBe('Wodoszczelny i pyłoszczelny (IP68)');
+    expect(factOf(xiaomi, 'displayPerformance')).toBe('6,83″ AMOLED 120 Hz · wydajność wysoka');
+    expect(factOf(xiaomi, 'storage')).toBe('512 GB · bez karty microSD');
+  });
+
+  it('Edge 60 po potwierdzeniu IP, wagi i slotu microSD', () => {
+    const edge60 = cardFor(phoneById('motorola-edge-60-12-256'));
+    expect(factOf(edge60, 'battery')).toBe('5200 mAh · ładowanie 68 W · bez ładowania bezprzewodowego');
+    expect(factOf(edge60, 'durability')).toBe('Wodoszczelny i pyłoszczelny (IP68/IP69)');
+    expect(factOf(edge60, 'storage')).toBe('256 GB · karta microSD');
+    expect(factOf(edge60, 'displayPerformance')).toBe('6,67″ OLED 120 Hz · wydajność średnia');
+  });
+
   it('brak danych → „brak danych”, nigdy zero ani pusty wiersz', () => {
     const xiaomi = cardFor(phoneById('xiaomi-15t-12-512'));
-    expect(factOf(xiaomi, 'camera')).toBe(NO_DATA);
-    expect(factOf(xiaomi, 'updates')).toBe(NO_DATA);
-    expect(factOf(xiaomi, 'durability')).toBe(NO_DATA);
-    expect(factOf(xiaomi, 'battery')).toBe('5500 mAh');
-    expect(factOf(xiaomi, 'displayPerformance')).toBe('ekran: brak danych · wydajność wysoka');
-    expect(factOf(xiaomi, 'storage')).toBe('512 GB · karta microSD: brak danych');
+    expect(factOf(xiaomi, 'updates')).toBe('4 aktualizacje systemu, 6 lat poprawek');
 
-    const edge60 = cardFor(phoneById('motorola-edge-60-12-256'));
-    expect(factOf(edge60, 'durability')).toBe(NO_DATA);
-    expect(factOf(edge60, 'displayPerformance')).toBe('6,67″ 120 Hz · wydajność średnia');
+    const realme = cardFor(phoneById('realme-16-pro-plus-5g-8-256'));
+    expect(factOf(realme, 'updates')).toBe('3 aktualizacje systemu, 4 lata poprawek');
+    expect(factOf(realme, 'durability')).toBe('Wodoszczelny i pyłoszczelny (IP68/IP69)');
+    expect(factOf(realme, 'battery')).toBe('7000 mAh · ładowanie 80 W · bez ładowania bezprzewodowego');
+
+    const redmi = cardFor(phoneById('redmi-note-15-pro-5g-8-256'));
+    expect(factOf(redmi, 'updates')).toBe('4 aktualizacje systemu, 6 lat poprawek');
+    expect(factOf(redmi, 'camera')).toBe('Główny 200 MP · selfie 20 MP · bez aparatu do przybliżania');
+
+    /* Po uzupełnieniu źródeł żadna karta nie pokazuje już „brak danych”. */
+    for (const phone of POOL) {
+      for (const fact of cardFor(phone).facts) {
+        expect(fact.value, `${phone.id}/${fact.key}`).not.toBe(NO_DATA);
+      }
+    }
 
     for (const phone of POOL) {
       for (const fact of cardFor(phone).facts) {
@@ -234,14 +264,50 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     }
   });
 
-  it('microSd: null oznacza brak danych, false oznacza brak slotu', () => {
+  it('microSd: true daje „karta microSD”, false „bez karty”, null „brak danych”', () => {
     expect(factOf(cardFor(phoneById('redmi-note-15-pro-5g-8-256')), 'storage')).toBe(
-      '256 GB · karta microSD: brak danych',
-    );
-    expect(factOf(cardFor(phoneById('nothing-phone-3a-12-256')), 'storage')).toBe(
       '256 GB · bez karty microSD',
     );
-    expect(cardFor(phoneById('redmi-note-15-pro-5g-8-256')).hasMicroSd).toBeNull();
+    expect(factOf(cardFor(phoneById('motorola-edge-60-12-256')), 'storage')).toBe(
+      '256 GB · karta microSD',
+    );
+    expect(cardFor(phoneById('redmi-note-15-pro-5g-8-256')).hasMicroSd).toBe(false);
+
+    const unknown = phoneById('galaxy-a57-8-256');
+    expect(
+      factOf(cardFor({ ...unknown, specs: { ...unknown.specs, microSd: null } }), 'storage'),
+    ).toBe('256 GB · karta microSD: brak danych');
+  });
+
+  it('mechanizm „brak danych” działa na pustej specyfikacji', () => {
+    const bare = { ...phoneById('galaxy-a57-8-256'), specs: {}, basis: {} };
+    expect(batteryFact(bare.specs).value).toBe(NO_DATA);
+    expect(cameraFact(bare).value).toBe(NO_DATA);
+    expect(updatesFact(bare.specs).value).toBe(NO_DATA);
+    expect(durabilityFact(bare.specs).value).toBe(NO_DATA);
+    expect(displayPerformanceFact(bare, 'medium').value).toBe('ekran: brak danych · wydajność średnia');
+  });
+
+  it('oceny wyliczone ze wzorów po uzupełnieniu danych (15T)', () => {
+    const xiaomi = cardFor(phoneById('xiaomi-15t-12-512'));
+    const charging = xiaomi.criteria.find((criterion) => criterion.id === 'charging')!;
+    expect(charging.score).toBe(69);
+    expect(charging.estimated).toBe(false);
+    expect(charging.confidence).toBe('high');
+
+    const durability = xiaomi.criteria.find((criterion) => criterion.id === 'durability')!;
+    expect(durability.score).toBe(90);
+    expect(durability.estimated).toBe(false);
+
+    const zoom = xiaomi.criteria.find((criterion) => criterion.id === 'zoom')!;
+    expect(zoom.score).toBe(60);
+    expect(zoom.estimated).toBe(false);
+    expect(zoom.confidence).toBe('low'); // klasa sprzętu, bez niezależnych testów
+
+    const display = xiaomi.criteria.find((criterion) => criterion.id === 'display')!;
+    expect(display.score).toBe(80); // reguła sprzętowa C1: 3200 nitów
+    expect(display.estimated).toBe(false);
+    expect(display.confidence).toBe('low');
   });
 
   it('klasa IP: kombinacje i pojedyncze klasy mają opisy słowne', () => {
@@ -281,7 +347,7 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     const tight = rankFromAnswers(POOL, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
     const flagged = toAnonCards(POOL, tight, 1500).filter((card) => card.overBudgetBy !== null);
     expect(flagged.length).toBe(1);
-    expect(flagged[0]!.overBudgetBy).toBe(158);
+    expect(flagged[0]!.overBudgetBy).toBe(460);
   });
 
   it('szczegóły kryteriów: ocena, pewność, uzasadnienie i znacznik szacunku', () => {
@@ -289,9 +355,9 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     expect(redmi.criteria.length).toBe(14);
 
     const updates = redmi.criteria.find((criterion) => criterion.id === 'updates')!;
-    expect(updates.estimated).toBe(true);
-    expect(updates.confidence).toBe('low');
-    expect(updates.score).toBe(50);
+    expect(updates.estimated).toBe(false);
+    expect(updates.confidence).toBe('medium');
+    expect(updates.score).toBe(71);
 
     const value = redmi.criteria.find((criterion) => criterion.id === 'value')!;
     expect(value.estimated).toBe(false);

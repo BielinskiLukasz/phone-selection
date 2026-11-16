@@ -3,6 +3,7 @@ import { pool } from '@/data/pool';
 import { MODE_ENTRY_VIEW, MODE_LABEL, type Mode } from '@/types/state';
 import { useAppState } from '@/features/state/StateProvider';
 import { NoticeStack } from '@/components/NoticeStack';
+import { quizProgress } from '@/lib/session';
 import { AnonCardPreview } from '@/components/AnonCardPreview';
 import { ModeRow } from '@/components/ModeRow';
 import { Reveal } from '@/components/Reveal';
@@ -210,8 +211,8 @@ export function StartScreen() {
                 <p className="num mt-0.5 text-xs text-[var(--color-muted)]">
                   {sessionTexts.resumeNote(
                     MODE_LABEL[unfinished.mode],
-                    Object.keys(unfinished.answers).length,
-                    17,
+                    quizProgress(unfinished).answered,
+                    quizProgress(unfinished).total,
                   )}
                   {unfinished.picks.length > 0
                     ? ` · ${strings.sessionFieldPicks}: ${sessionTexts.picksList(unfinished.picks.length)}`

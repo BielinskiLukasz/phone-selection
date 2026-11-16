@@ -128,16 +128,17 @@ describe('9.1 · persona „żona”', () => {
 describe('9.2 i 9.3 · persony kontrolne', () => {
   it('persona „aparat” stawia na telefon z najmocniejszymi zdjęciami w dzień', () => {
     const result = camera();
-    expect(result.cards[0]!.phoneId).toBe('motorola-edge-60-12-256');
+    expect(result.cards[0]!.phoneId).toBe('xiaomi-15t-12-512');
+    expect(phoneOf(result.cards[0]!).scores.photoDay).toBeGreaterThanOrEqual(78);
     expect(result.cards[0]!.groupScores.camera).toBeGreaterThan(
-      result.cards[0]!.groupScores.battery,
+      result.cards[0]!.groupScores.price,
     );
   });
 
   it('persona „bateria” stawia na telefon z największą baterią', () => {
     const result = battery();
     expect(result.cards[0]!.phoneId).toBe('motorola-edge-70-fusion-12-256');
-    expect(phoneOf(result.cards[0]!).scores.battery).toBe(88);
+    expect(phoneOf(result.cards[0]!).scores.battery).toBe(90);
     expect(result.cards[0]!.groupScores.battery).toBeGreaterThan(
       result.cards[0]!.groupScores.camera,
     );
@@ -178,10 +179,12 @@ describe('persony · filtry i brzegi', () => {
     }
   });
 
-  it('telefon „do potwierdzenia” zostaje w puli, ale ma niską pewność ocen', () => {
+  it('Realme po potwierdzeniu oferty (A1) jest pełnoprawnym rekordem', () => {
     const realme = phoneById('realme-16-pro-plus-5g-8-256');
-    expect(realme.status).toBe('needs_confirmation');
-    expect(wife().ranked.some((entry) => entry.phoneId === realme.id)).toBe(true);
-    expect(realme.scoreConfidence?.battery).toBe('low');
+    expect(realme.status).toBe('ok');
+    expect(realme.reveal.name).not.toContain('potwierdzenia');
+    expect(realme.scores.battery).toBe(96); // 7000 mAh + PCMark 19 h
+    expect(realme.scoresEstimatedNeutral).toEqual([]);
+    expect(wife().cards.map((entry) => entry.phoneId)).toContain(realme.id);
   });
 });

@@ -1,6 +1,7 @@
 import { screenPlans, sessionTexts, strings } from '@/data/strings';
 import { MODE_ENTRY_VIEW, MODE_LABEL } from '@/types/state';
 import { useAppState } from '@/features/state/StateProvider';
+import { quizProgress } from '@/lib/session';
 import { ScreenShell } from '@/components/ScreenShell';
 import { EmptyState } from '@/components/EmptyState';
 import { Badge } from '@/components/Badge';
@@ -64,10 +65,10 @@ export function HistoryScreen() {
                     {session.status === 'completed' ? strings.statusCompleted : strings.statusInProgress}
                   </Badge>
                   <span className="num text-[11px] text-[var(--color-muted)]">
-                    {Object.keys(session.answers).length > 0
+                    {quizProgress(session).answered > 0
                       ? sessionTexts.answersCount(
-                          Object.keys(session.answers).length,
-                          screenPlans.quiz.items.length + 13,
+                          quizProgress(session).answered,
+                          quizProgress(session).total,
                         )
                       : strings.noSessionsYet}
                   </span>

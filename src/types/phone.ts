@@ -112,6 +112,9 @@ export interface Specs {
   microSd?: boolean | null;
   chip?: string | null;
   batteryMah?: number | null;
+  /** Wytrzymałość 0-100 — drugi składnik oceny `battery` (reguły w `data/scoringRules.ts`). */
+  batteryEndurance?: number | null;
+  batteryNote?: string | null;
   batteryType?: string | null;
   batteryCycles?: number | null;
   batteryTests?: string[];

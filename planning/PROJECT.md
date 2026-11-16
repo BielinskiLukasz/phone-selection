@@ -173,6 +173,20 @@ Każdy telefon ma w `scores` ocenę 0-100 na kryterium, w `basis` uzasadnienie z
 | `storage` | 128 GB = 40, 256 GB = 75, 512 GB = 100 (slot microSD dałby bonus, żaden telefon z listy go nie ma) |
 | `durability` | IP68/IP69 + MIL-STD = 100, IP68 = 90, IP66/IP68 = 88, IP67 = 80, IP64 = 55 |
 
+**Reguły C1 (zatwierdzone przy domykaniu etapu 0, kod: `src/data/scoringRules.ts`):**
+
+| Obszar | Reguła |
+|---|---|
+| Wytrzymałość baterii | Test GSMArena („estimated battery endurance”, godziny): `100 × (h − 40) / 30`. Test PCMark (91mobiles): `100 × (h − 8) / 12`. Wynik testu ma pierwszeństwo przed oceną z recenzji; źródło i metoda trafiają do `specs.batteryTests`, a liczba do `specs.batteryEndurance` |
+| Ekran bez pomiarów | Progi jasności szczytowej: ≥3000 nitów = 80, 1500-2999 = 70, 1000-1499 = 60, brak danych = 50 (neutralne). Bonus +5 za odświeżanie ≥144 Hz. Niezależny pomiar/test ma pierwszeństwo przed regułą sprzętową |
+| Odporność | IP68/IP69 + MIL-STD = 100, **IP68/IP69 bez MIL-STD = 95**, IP68 = 90, IP66/IP68 = 88, IP67 = 80, IP66 = 70, IP64/IP65 = 55 |
+| Ładowanie | Zawartość pudełka (`chargerInBox`) nie zmienia oceny — to informacja dla użytkowniczki, nie jakość ładowania |
+| Aparat z testu wariantu Pro | Ocena wariantu Pro pomniejszona o 10 pkt, pewność `low` i jawne zdanie w `basis` („ocena wyprowadzona z wyników 15T Pro … z obniżeniem o ok. 10 pkt”) |
+| Aktualizacje przy jednej składowej | Gdy znana jest tylko liczba wersji systemu albo tylko lata poprawek, ocena liczy się z tej jednej składowej (`lata / 7 × 100`), a brak drugiej jest opisany w `basis` |
+
+Spójność ocen z tymi regułami pilnuje test `tests/score-rules.test.ts`, a luki raportuje
+`npm run data-gaps` (`--strict` = próg wydania z etapu 9).
+
 **Kryteria oceniane na podstawie dowodów:** `photoDay`, `photoIndoor`, `photoMotion`, `selfie`, `video`, `zoom`, `smoothness`, `display`. Punktem wyjścia są niezależne wyniki (DXOMARK, PhoneArena, GSMArena, testy polskich redakcji) oraz sprzęt (OIS, teleobiektyw, sensor), a przy braku wyników klasa sprzętu. Każda ocena ma opis podstawy i pewność. **Aparat jest najmniej obiektywnym kryterium**, a dane są niespójne (różne metodyki DXOMARK, testy innych wariantów, np. 15T Pro zamiast 15T).
 
 **Brak danych:** wartość neutralna **50**, wpis w `scoresEstimatedNeutral` i pewność `low`. Silnik rankingu ma pokazywać taką ocenę na karcie jako szacunek („brak danych”).

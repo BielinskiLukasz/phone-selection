@@ -39,15 +39,18 @@ npm run dev          # lokalny serwer Vite
 | `npm run dev` | serwer deweloperski |
 | `npm run build` | build produkcyjny do `dist/` |
 | `npm run preview` | podgląd zbudowanej strony |
-| `npx tsc --noEmit` | typecheck (strict, `noUncheckedIndexedAccess`) |
-| `npx vitest run` | testy (Vitest + Testing Library, środowisko jsdom) |
-| `npx vitest run --coverage` | testy z pokryciem (`--coverage.include='src/lib/**'`) |
-| `npx tsx scripts/validate-data.ts` | walidacja `src/data/phones.json` |
+| `npm run typecheck` | `tsc --noEmit` (strict, `noUncheckedIndexedAccess`) |
+| `npm test` | Vitest + Testing Library (jsdom): 174 testy w 12 plikach |
+| `npm run test:coverage` | testy z pokryciem (`--coverage.include='src/lib/**'` dla progu DoD) |
+| `npm run validate-data` | walidacja `src/data/phones.json` |
+| `npm run data-gaps` | raport luk danych (`-- --strict` = próg wydania z etapu 9) |
 | `npx eslint .` | lint (konfiguracja `eslint.config.js`) |
 | `npx prettier --write .` | formatowanie |
 
-> W repo docelowym te same komendy są podpięte jako skrypty `lint`, `typecheck`, `test`,
-> `validate-data`, `format` i wywoływane przez workflow CI.
+> `package.json` deklaruje `engines.node >= 20.19.0` (wymóg Vite 7) i skrypty `typecheck`, `test`,
+> `test:coverage`, `validate-data`. Skrypty `lint` i `format` czekają na doinstalowanie ESLint
+> i Prettiera w tym środowisku — konfiguracje (`eslint.config.js`, `.prettierrc.json`) są w repo,
+> a workflow CI używa `npm run lint --if-present`, więc ich brak nie zatrzymuje wdrożenia.
 
 ## Struktura
 
@@ -251,6 +254,30 @@ przed mapowaniem odpowiedzi (QUIZ-SPEC 7).
 | 5 | Dwa wybory → `useReveal` zwraca `1/2` i `2/2` w kolejności dodania | ✅ |
 | 6 | Zmiana `phones.json` po zapisaniu rankingu → snapshot bez zmian | ✅ |
 | 7 | Stan o starszej wersji schematu → migracja bez utraty sesji | ✅ |
+
+## Stan danych (etap 0 — domknięty)
+
+`phones.json` ma komplet 10 telefonów: ceny z 14.11.2026 (wszystkie ≤ 2000 zł), specyfikacje
+z oficjalnych stron producentów i niezależnych testów (GSMArena, mi.com FAQ, Motorola support,
+Trusted Reviews, Notebookcheck, 91mobiles, Tech Advisor, gadgets360), wszystkie rekordy ze statusem
+`ok` i **zero ocen „z braku danych”**. Walidator: 0 błędów, 1 ostrzeżenie (NFC w Realme — brak źródła).
+
+Reguły przeliczania danych na oceny (PROJECT 7.5 + poprawka C1) są kodem w `src/data/scoringRules.ts`:
+wytrzymałość baterii z testów (GSMArena `100 × (h − 40) / 30`, PCMark `100 × (h − 8) / 12`), ekran bez
+pomiarów z progów jasności (≥3000 nitów = 80, +5 za ≥144 Hz), odporność z tabeli klas IP (IP68/IP69
++ MIL-STD = 100, IP68/IP69 = 95, IP68 = 90, IP66/IP68 = 88, IP67 = 80, IP64 = 55), ładowanie
+`(W − 15) / 75 × 100` (+8 za bezprzewodowe), aktualizacje `lata / 7 × 100`, pamięć 128/256/512 GB
+= 40/75/100 (+5 za microSD), aparat z testu wariantu Pro −10 pkt przy pewności `low`. Spójność ocen
+z regułami pilnuje `tests/score-rules.test.ts`.
+
+| Komenda | Co daje |
+|---|---|
+| `npm run data-gaps` | raport luk: pola `null`, oceny `low`, statusy, wiek cen |
+| `npm run data-gaps -- --strict` | próg wydania (etap 9): kod 1 przy `needs_confirmation` albo cenach starszych niż 7 dni |
+
+Do zrobienia w etapie 9 (nie blokuje danych): odświeżenie cen, NFC w Realme, niezależne testy
+aparatów Redmi/Realme/15T (oceny `low`), ujednolicenie metody pomiaru wytrzymałości baterii
+i kalibracja `BLEND`. Szczegóły: [`Etap-0-todo.md`](Etap-0-todo.md).
 
 ## Dane telefonów i aktualizacja cen
 

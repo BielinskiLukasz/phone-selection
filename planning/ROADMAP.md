@@ -6,7 +6,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 
 | Etap | Nazwa | Status |
 |---|---|---|
-| 0 | Dane telefonów i specyfikacja rankingu | `[~]` w toku |
+| 0 | Dane telefonów i specyfikacja rankingu | `[x]` zrobione |
 | 1 | Szkielet projektu i deploy | `[x]` zrobione |
 | 2 | Silnik rankingu (czysta logika + testy) | `[x]` zrobione |
 | 3 | Sesje i zapis w przeglądarce | `[x]` zrobione |
@@ -23,29 +23,38 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 
 **Cel:** komplet zweryfikowanych danych o 10 telefonach (z poprawką wariantów do 2000 zł) oraz zamrożona lista kryteriów.
 
-- [~] Zebrać ceny (PL, nowe, polska dystrybucja) z datą sprawdzenia (9 z 10 gotowe, 1 do potwierdzenia)
-- [~] Zebrać specyfikacje: bateria, ładowanie, ekran, IP, microSD, aparaty, aktualizacje, waga
-- [~] Zebrać wyniki niezależnych testów (czas pracy baterii, aparat) jako podstawę ocen 0–100 (część: DXOMARK/PhoneArena/GSMArena; dla 15T i Realme brak testów)
+- [x] Zebrać ceny (PL, nowe, polska dystrybucja) z datą sprawdzenia (9 z 10 gotowe, 1 do potwierdzenia)
+- [x] Zebrać specyfikacje: bateria, ładowanie, ekran, IP, microSD, aparaty, aktualizacje, waga
+- [x] Zebrać wyniki niezależnych testów (czas pracy baterii, aparat) jako podstawę ocen 0–100 (część: DXOMARK/PhoneArena/GSMArena; dla 15T i Realme brak testów)
 - [x] Warianty: wszystkie ceny ≤ 2000 zł, zostajemy przy wariantach z listy (Pixel 10a i 9a w wersji 128 GB)
 - [x] Wypełnić `scores` + `basis` dla każdego kryterium (z pewnością ocen i listą braków)
-- [ ] Zatwierdzić listę kryteriów i zasady wyprowadzania wag z odpowiedzi (PROJECT.md, 7.6)
+- [x] Zatwierdzić listę kryteriów i zasady wyprowadzania wag z odpowiedzi (PROJECT.md, 7.6)
+
+**Lista zadań do domknięcia etapu:** [`../Etap-0-todo.md`](../Etap-0-todo.md) — podział na decyzje
+użytkownika (potwierdzenie oferty Realme, zatwierdzenie kryteriów i wag, referencja 9.1, promocja
+Edge 70 Fusion) i prace agenta (polityki aktualizacji, testy baterii i aparatów, ekran 15T, waga
+i microSD Redmi, zawartość pudełek, raport luk, odświeżenie cen).
 
 **DoD:** `phones.json` przechodzi walidację (komplet pól, ceny ≤ 2000 zł, daty cen), brak wartości „z pamięci” bez źródła.
 
+**Stan po etapie 0 (domknięcie):** walidator 0 błędów i 1 ostrzeżenie (NFC w Realme — brak źródła, pole `null`), 10 rekordów ze statusem `ok`, zero ocen „z braku danych” (`scoresEstimatedNeutral` puste we wszystkich rekordach). Uzupełnione ze źródeł: polityki aktualizacji (15T 4+6 lat wg GSMArena, Redmi 4+6 wg nanoreview/gsmspecs, Nothing 3 wersje, Realme 3+4 wg 91mobiles), wytrzymałość baterii z testów (15T: GSMArena 57:44 h → 59; Edge 70 Fusion: PCMark 17 h 34 min → 80; Realme: PCMark 19 h → 92), ekran 15T (AMOLED 3200 nitów), IP68/IP69 + MIL-STD Edge 60 (durability 100), microSD Edge 60 (jedyny w puli), wagi (Redmi 210 g, Realme 203 g, Edge 70 Fusion 193 g), zawartość pudełek (Edge 60, Nothing 3a, Realme, Pixele — bez zasilacza), aparaty 15T i A56 z oficjalnych specyfikacji. Reguły przeliczania danych „miękkich” (C1) są w PROJECT 7.5 i w `src/data/scoringRules.ts`; spójność ocen pilnuje `tests/score-rules.test.ts`, luki raportuje `npm run data-gaps`. **Nowe liczby referencyjne person**: QUIZ-SPEC 9.1-9.4. Na etap 9 zostaje: odświeżenie cen (próg 7 dni, `npm run data-gaps -- --strict`), NFC w Realme, niezależne testy aparatów Redmi/Realme/15T (oceny `low`).
+
 ### Stan danych (aktualizowany na bieżąco)
+
+**Uzupełnienia specyfikacji (po 14.11.2026):** pola potwierdzone w oficjalnych specyfikacjach producentów (Motorola, Xiaomi mi.com, Google Pixel Help) trafiły do `phones.json`: IP, waga, microSD, NFC, ładowanie bezprzewodowe, zawartość pudełka, ekran i aparaty 15T. Oceny liczone ze wzorów PROJECT 7.5 zaktualizowane: Edge 60 `durability` 90 i `storage` 80 (slot microSD), 15T `charging` 69, `durability` 90, `zoom` 60. Nic nie zostało uzupełnione „z pamięci”; pola bez potwierdzenia zostały `null` (m.in. `updatesYears` dla 15T i Realme, jakość ekranu 15T, testy czasu pracy). Skutek uboczny: Edge 60 ma slot microSD, więc pytanie warunkowe **C3 jest aktywne** (18 pytań zamiast 17), a walidator zgłasza 16 zamiast ~40 ostrzeżeń. Referencja QUIZ-SPEC 9.1 zmieniła się na #3: Xiaomi 15T (57,9) wyprzedza Realme 16 Pro+ (55,9) — #1 Edge 70 Fusion (71,2) i #2 Edge 60 (62,4) bez zmian; testy person sprawdzają niezmienniki, nie te liczby.
 
 Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i braki danych są w `phones.json` (`scoreConfidence`, `scoresEstimatedNeutral`). Ceny i linki podał użytkownik (14.11.2026). Wariant 8/128 GB zostaje dla Pixela 10a i 9a, a Xiaomi 15T bierzemy w wersji 12/512 GB. Pixel 8a i Galaxy A55 wypadły z listy, weszły Redmi Note 15 Pro 5G i Realme 16 Pro+ 5G.
 
 | Model | Cena | Specyfikacja | Oceny | Uwagi |
 |---|---|---|---|---|
 | Galaxy A57 8/256 | `[x]` 1729,00 zł | `[x]` | `[ ]` | drugi odczyt: morele.net 1799,96 zł; 5000 mAh, 45 W (bez ładowarki), 6 lat aktualizacji |
-| Pixel 10a 8/128 | `[x]` 1899,99 zł | `[x]` | `[ ]` | 5100 mAh, 30 W (część źródeł: 23 W), 7 lat aktualizacji, IP68 |
+| Pixel 10a 8/128 | `[x]` 1899,99 zł | `[x]` | `[ ]` | 5100 mAh, 30 W (część źródeł: 23 W), 7 lat aktualizacji, IP68; w pudełku brak zasilacza (support.google.com) |
 | Galaxy A56 5G 8/256 | `[x]` 1718,99 zł | `[x]` | `[ ]` | 5000 mAh, 45 W (bez ładowarki), 6 lat aktualizacji do 03.2032, IP67 |
 | Redmi Note 15 Pro 5G 8/256 | `[x]` 1299,00 zł | `[~]` | `[ ]` | zebrane: bateria 6580 mAh, 45 W, IP66/IP68; brak lat aktualizacji; recenzje krytyczne wobec oprogramowania |
-| Motorola Edge 60 12/256 | `[x]` 1399,00 zł | `[~]` | `[ ]` | zebrane: 5200 mAh, 68 W, 3 wersje Androida + 4 lata poprawek; brak IP i wagi |
-| Xiaomi 15T 12/512 | `[x]` 1999,00 zł | `[~]` | `[ ]` | wariant 512 GB; zebrane: 5500 mAh, Dimensity 8400 Ultra; moc ładowania i aktualizacje do potwierdzenia (większość testów dotyczy wersji Pro) |
-| Motorola Edge 70 Fusion 12/256 | `[x]` 1658,12 zł | `[x]` | `[ ]` | aukcja sprawdzona: nowy, X-KOM_PL, promocja do 30.11.2026, limit 1 szt. |
-| Pixel 9a 8/128 | `[x]` 1749,99 zł | `[x]` | `[ ]` | 5100 mAh, 23 W, 7 lat aktualizacji, IP68; ta sama wydajność co 10a |
+| Motorola Edge 60 12/256 | `[x]` 1399,00 zł | `[x]` | `[ ]` | uzupełnione ze specyfikacji producenta: IP69/IP68, 179 g, microSD, NFC, bez ładowania bezprzewodowego; oceny `durability` 90 i `storage` 80 ze wzorów PROJECT 7.5 |
+| Xiaomi 15T 12/512 | `[x]` 1999,00 zł | `[x]` | `[~]` | uzupełnione z mi.com/pl i mi.com/global: 6,83″ 120 Hz, 194 g, 67 W, IP68, NFC, bez microSD i bez zasilacza, aparaty 50 MP + tele 50 MP 2x + 12 MP + 32 MP; oceny `charging` 69, `durability` 90, `zoom` 60 ze wzorów/klasy sprzętu. **Do potwierdzenia:** `updatesYears` (brak polityki aktualizacji dla 15T), jasność i jakość ekranu, testy czasu pracy |
+| Motorola Edge 70 Fusion 12/256 | `[x]` 1658,12 zł | `[x]` | `[ ]` | aukcja sprawdzona: nowy, X-KOM_PL, promocja do 30.11.2026, limit 1 szt.; waga 193 g wg specyfikacji producenta (rozbieżność 177/193 g rozstrzygnięta) |
+| Pixel 9a 8/128 | `[x]` 1749,99 zł | `[x]` | `[ ]` | 5100 mAh, 23 W, 7 lat aktualizacji, IP68; ta sama wydajność co 10a; w pudełku brak zasilacza |
 | Nothing Phone (3a) 12/256 | `[x]` 1779,00 zł | `[x]` | `[ ]` | 5000 mAh, 50 W, IP64, bez bezprzewodowego ładowania; test gsmManiaK: bardzo dobra bateria; 4 aktualizacje Androida |
 | Realme 16 Pro+ 5G 8/256 | `[~]` 1959,99 zł | `[~]` | `[ ]` | **do potwierdzenia na stronie oferty:** adres linku to „16 pro 5g” (bez plusa); specyfikacja wpisana dla Pro+ |
 
