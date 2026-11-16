@@ -30,6 +30,8 @@ export interface RankingSnapshotEntry {
   inBudget: boolean;
   overBudgetBy: number | null;
   practicalTieWith: string | null;
+  /** GroupScore dla sześciu grup — mini-paski w pełnym rankingu (UI-SPEC 3.6). */
+  groupScores?: Record<GroupId, number>;
 }
 
 /**

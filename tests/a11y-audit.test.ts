@@ -83,7 +83,19 @@ async function auditEveryScreen(theme: 'light' | 'dark'): Promise<void> {
 
   fireEvent.click(screen.getAllByRole('button', { name: /Wybieram tę propozycję/ })[0]!);
   await audit(`${theme}: karty — okno potwierdzenia`);
-  fireEvent.click(screen.getByRole('button', { name: strings.cardsConfirmBack }));
+
+  /* Ujawnienie i pełny ranking (E9-01) — nazwy są już jawne. */
+  fireEvent.click(screen.getByRole('button', { name: strings.cardsConfirmReveal }));
+  await settle();
+  fireEvent.click(screen.getByRole('link', { name: new RegExp(strings.cardsFullRanking) }));
+  goto(window.location.hash);
+  await audit(`${theme}: pełny ranking`);
+
+  fireEvent.click(screen.getAllByRole('button', { name: /pkt/ })[0]!);
+  await audit(`${theme}: pełny ranking — rozwinięty wiersz`);
+
+  fireEvent.click(screen.getByRole('link', { name: new RegExp(strings.rankingBack) }));
+  goto(window.location.hash);
 
   /* Historia, stany błędów, link do wznowienia. */
   goto('#/history');

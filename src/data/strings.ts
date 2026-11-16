@@ -256,6 +256,25 @@ export const strings = {
   historyImportDone: 'Historia scalona.',
   historyImportFailed: 'Nie udało się wczytać pliku.',
 
+  /* Etap 9 — pełny ranking i wydanie (UI-SPEC 3.6) */
+  rankingYourPick: 'Twój wybór',
+  rankingOutsidePool: 'Poza pulą',
+  rankingReasonBudget: 'powyżej limitu 2000 zł',
+  rankingReasonStorage: 'pamięć poniżej minimum',
+  rankingReasonMicroSd: 'brak slotu microSD',
+  rankingDataChanged:
+    'Dane telefonów zmieniły się od zapisania tego rankingu — poniższe liczby pochodzą z dnia zapisu.',
+  rankingNoSnapshot: 'Ta sesja nie ma zapisanego rankingu.',
+  rankingRecompute: 'Przelicz ranking',
+  rankingGroups: 'ważność grup',
+  rankingBack: 'Wróć do propozycji',
+  rankingObservations: 'inne odczyty ceny',
+  rankingShowOutside: 'Pokaż telefony poza pulą',
+  rankingHideOutside: 'Ukryj telefony poza pulą',
+  rankingSources: 'źródła',
+  rankingStatusNeedsConfirmation: 'oferta do potwierdzenia',
+  footerDataState: 'stan danych',
+
   /* Motyw (UI-SPEC 6) */
   themeToDark: 'Przełącz na ciemny motyw',
   themeToLight: 'Przełącz na jasny motyw',
@@ -379,7 +398,9 @@ export const screenPlans = {
   },
   ranking: {
     stage: 9,
-    done: false,
+    done: true,
+    previewNote:
+      'To makieta podglądowa. Pełny ranking z nazwami otwiera się z ekranu propozycji po pierwszym wyborze.',
     stageName: 'Pełny ranking i wydanie',
     items: [
       'Wszystkie telefony w puli: miejsce, nazwa, cena, dopasowanie, mini-paski grup.',
@@ -449,6 +470,14 @@ export const sessionTexts = {
   },
   pickBadge: (order: number, total: number): string => `Wybór ${order}/${total}`,
   confirmTitle: (place: number): string => `Wybierasz propozycję #${place}?`,
+  rankingNote: (dataVersion: string | null): string =>
+    `Ranking dotyczy stanu danych z ${
+      dataVersion ? dataVersion.split('-').reverse().join('.') : 'nieznanego dnia'
+    }. Ceny sprawdź w sklepie.`,
+  poolSummary: (inPool: number, total: number): string =>
+    `${inPool} z ${total} telefonów w puli po filtrach tej sesji`,
+  confidenceSummary: (low: number, total: number): string =>
+    low > 0 ? `${low} z ${total} ocen z niską pewnością` : `wszystkie ${total} ocen z dobrą pewnością`,
   pricesStaleNote: (iso: string, days: number): string =>
     `Najstarsza cena w puli jest z ${sessionTexts.priceWithDate(iso).replace('cena z ', '')} (${days} dni temu). Przed zakupem sprawdź aktualną cenę w sklepie.`,
   poolSmall: (count: number): string =>

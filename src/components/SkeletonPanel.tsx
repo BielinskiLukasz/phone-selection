@@ -15,6 +15,8 @@ import {
   HISTORY_STATUS,
   THEME_FACTS,
   THEME_STATUS,
+  RELEASE_FACTS,
+  RELEASE_STATUS,
   STORAGE_STATUS,
   daysSincePriceCheck,
   formatDate,
@@ -26,6 +28,7 @@ import {
   CheckIcon,
   TerminalIcon,
   AlertIcon,
+  ArrowRightIcon,
   HistoryIcon,
   ListIcon,
   MoonIcon,
@@ -411,6 +414,39 @@ export function SkeletonPanel() {
         </dl>
         <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
           {THEME_STATUS.map((line) => (
+            <li
+              key={line}
+              className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"
+            >
+              <span className="mt-px shrink-0 text-[var(--color-ok)]">
+                <CheckIcon className="h-4 w-4" />
+              </span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      {/* Pełny ranking i wydanie — etap 9 */}
+      <Reveal delay={40} className="surface mt-6 p-0">
+        <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] px-[var(--pad-card)] py-3">
+          <span className="label-mono flex items-center gap-2">
+            <ArrowRightIcon className="h-4 w-4" />
+            Pełny ranking i wydanie · etap 9
+          </span>
+          <Badge tone="warn">do wydania: test z użytkowniczką</Badge>
+        </div>
+        <dl className="grid gap-px bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+          {RELEASE_FACTS.map((fact) => (
+            <div key={fact.label} className="bg-[var(--color-surface)] p-3">
+              <dt className="label-mono">{fact.label}</dt>
+              <dd className="num mt-1.5 text-lg font-bold tracking-tight">{fact.value}</dd>
+              <dd className="mt-0.5 text-[11px] leading-snug text-[var(--color-muted)]">{fact.note}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
+          {RELEASE_STATUS.map((line) => (
             <li
               key={line}
               className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"

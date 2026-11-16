@@ -108,6 +108,7 @@ export function computeRankingSnapshot(
       inBudget: entry.inBudget,
       overBudgetBy: entry.overBudgetBy,
       practicalTieWith: entry.practicalTieWith,
+      groupScores: entry.groupScores,
     })),
     cards: result.cards.map((card) => card.phoneId),
   };

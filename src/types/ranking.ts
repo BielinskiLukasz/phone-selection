@@ -114,6 +114,8 @@ export interface RankInput {
   weights: Weights;
   groupImportance: GroupImportance;
   filters: Filters;
+  /** Kalibracja (E9-03): udział normalizacji min-max; domyślnie `BLEND` ze `scoringConfig`. */
+  blend?: number;
 }
 
 export type FactKey =

@@ -9,6 +9,7 @@ import { SessionStubScreen } from '@/screens/SessionStubScreen';
 import { QuizScreen } from '@/screens/QuizScreen';
 import { SlidersScreen } from '@/screens/SlidersScreen';
 import { CardsScreen } from '@/screens/CardsScreen';
+import { RankingScreen } from '@/screens/RankingScreen';
 import { HistoryScreen } from '@/screens/HistoryScreen';
 import { MissingSessionScreen, NotFoundScreen } from '@/screens/ErrorScreens';
 import { ResumeScreen } from '@/screens/ResumeScreen';
@@ -95,6 +96,10 @@ function Screen({ route }: ScreenProps) {
       /* Etap 6: anonimowe karty, wybór i ujawnienie. */
       if (found && route.name === 'cards') {
         return <CardsScreen session={found} />;
+      }
+      /* Etap 9: pełny ranking z nazwami — dostępny po pierwszym wyborze. */
+      if (found && route.name === 'ranking') {
+        return <RankingScreen session={found} />;
       }
       return (
         <SessionStubScreen view={route.name} sessionId={route.sessionId} session={found} />

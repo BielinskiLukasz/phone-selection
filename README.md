@@ -8,6 +8,10 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 9 — Pełny ranking i wydanie**: ekran pełnego rankingu z nazwami, odznakami wyborów,
+  mini-paskami grup i rozwijanymi szczegółami (oceny, dane, linki, źródła); kalibracja `BLEND`
+  zmierzona na siedmiu zestawach odpowiedzi; `npm run stale-prices` i `npm run release`; meta,
+  ikona i stan danych w stopce. Do wydania zostaje test z użytkowniczką i odświeżenie cen.
 - **Etap 8 — Motywy, mobile, dostępność**: dwa motywy w całości na tokenach (jasny „prosty,
   przyjazny”, ciemny „złożony, surowy”), zero stałych kolorów w komponentach, pola dotyku ≥ 44 px,
   audyt axe-core na wszystkich ekranach w obu motywach i test kontrastu ≥ 4,5:1.
@@ -59,6 +63,8 @@ npm run dev          # lokalny serwer Vite
 | `npm run test:coverage` | testy z pokryciem (`--coverage.include='src/lib/**'` dla progu DoD) |
 | `npm run validate-data` | walidacja `src/data/phones.json` |
 | `npm run data-gaps` | raport luk danych (`-- --strict` = próg wydania z etapu 9) |
+| `npm run stale-prices` | wiek cen; kod 1, gdy któraś starsza niż 7 dni (`-- --days=N`) |
+| `npm run release` | typecheck → testy → validate-data → stale-prices → build |
 | `npx eslint .` | lint (konfiguracja `eslint.config.js`) |
 | `npx prettier --write .` | formatowanie |
 
@@ -72,6 +78,8 @@ npm run dev          # lokalny serwer Vite
 ```
 .github/workflows/deploy.yml      # lint → typecheck → test → validate-data → build → Pages
 scripts/validate-data.ts          # schemat phones.json, specs i aparaty, cena ≤ 2000 zł, daty, oceny
+scripts/stale-prices.ts           # wiek cen i próg wydania 7 dni (E9-05)
+scripts/data-gaps.ts              # raport luk danych (--strict = próg wydania)
 src/
 ├── app/
 │   ├── router.ts                 # router hashowy: parseHash, useHashRoute (E1-07)
@@ -122,7 +130,7 @@ src/
 │   ├── sliders/sliderModel.ts    # skala, etykiety, udziały, punkt odniesienia (E5-01/02)
 │   ├── state/StateProvider.tsx    # kontekst, debounce zapisu, sync kart (E3-07/08)
 │   └── sessions/useReveal.ts      # plakietki „Wybór 1/2”, „2/2” (E3-10)
-├── screens/                      # Start, Quiz, Sliders, Cards, History, Resume, zaślepki, 404
+├── screens/                      # Start, Quiz, Sliders, Cards, Ranking, History, Resume, zaślepki, 404
 ├── App.tsx  main.tsx  index.css
 tests/app.test.ts                 # test dymny na App: routing, motyw, anonimizacja, błędy
 tests/data.ts                     # pula testowa = phones.json + klony (remis, microSD, 2100 zł)
@@ -143,6 +151,11 @@ tests/quiz-screen.test.ts         # ekran quizu: odpowiedzi, wstecz, klawiatura,
 tests/sliderModel.test.ts         # model suwaków + równoważność trzech trybów (E5, DoD)
 tests/sliders-screen.test.ts      # suwaki, filtry, licznik, hybryda, „Przywróć wyliczone”
 tests/cards-screen.test.ts        # karty, test wycieku w DOM, wybór, ujawnienie, etykiety
+tests/ranking-screen.test.ts      # pełny ranking: nazwy, wybory, grupy, rozwijanie, poza pulą
+tests/calibration.test.ts         # pomiar BLEND i niezmienniki person (E9-03)
+tests/stale-prices.test.ts        # wiek cen i próg wydania (E9-05)
+tests/theme-tokens.test.ts        # tokeny, kontrast WCAG, brak stałych kolorów (E8)
+tests/a11y-audit.test.ts          # axe-core na wszystkich ekranach w obu motywach (E8)
 tests/history-transfer.test.ts    # eksport/import, scalanie, link do wznowienia, model listy
 tests/history-screen.test.ts      # lista, wznawianie, podgląd, usuwanie, wejście z #/r/<kod>
 tests/personas.ts                 # odpowiedzi person jako stałe (E2-11)
@@ -253,7 +266,7 @@ wraz z `basis.zoom` (które cytuje źródło mówiące „brak teleobiektywu”)
 | 8 | `null` w `scores.value` → silnik liczy `value` z ceny i nie zawiesza się | ✅ |
 
 Pokrycie: `npx vitest run --coverage --coverage.include='src/lib/**'` → 98,5% linii (DoD: ≥ 90%).
-Cała suite: **323 testów** w 24 plikach.
+Cała suite: **342 testów** w 27 plikach.
 
 ## Wdrożenie (GitHub Pages)
 
@@ -401,6 +414,48 @@ hierarchia nagłówków bez przeskoków, `prefers-reduced-motion` wyłączający
 Mobile: pola dotyku ≥ 44 px, główne przyciski w pasku przyklejonym do dołu z
 `env(safe-area-inset-bottom)`, szerokie treści w regionie z przewijaniem osiągalnym z klawiatury,
 `overflow-x: hidden` na `body`. Przegląd układu: 360-1280 px.
+
+## Etap 9 — pełny ranking i wydanie
+
+`#/s/:id/ranking` (dostępny z ekranu propozycji dopiero **po pierwszym wyborze**) pokazuje wszystkie
+telefony z puli tej sesji: miejsce, `S` z jedną cyfrą, dopasowanie z opisem słownym, cenę, odznakę
+„Twój wybór n/m”, znacznik praktycznego remisu i **mini-paski sześciu grup** (GroupScore bierzemy ze
+snapshotu sesji, a dla starszych zapisów odtwarzamy z zapisanych wag i filtrów). Rozwinięcie wiersza
+daje 14 ocen z pewnością i uzasadnieniem, pełne dane, linki do sklepów (`rel="noopener noreferrer"`),
+inne odczyty ceny i listę źródeł. Telefony odrzucone przez filtry twarde trafiają do sekcji „Poza pulą”
+z powodem (limit 2000 zł / pamięć / microSD), a gdy `dataVersion` snapshotu różni się od
+`_meta.generatedOn`, pojawia się ostrzeżenie, że dane zmieniły się od dnia zapisu.
+
+**Kalibracja (E9-03)** zmierzona na siedmiu zestawach odpowiedzi (trzy persony, żona z budżetem
+1500 zł, żona z filtrem 256 GB, wszystkie „pomiń”, skrajne suwaki):
+
+| BLEND | rozstęp S | 9.1.3 (filtr nie zmienia #1) | 9.3 (bateria → Edge 70 Fusion) |
+|---|---|---|---|
+| 0 / 0,25 | 16-23 pkt | ✅ | ❌ wygrywa Redmi (tańszy) |
+| **0,5** | **21-28 pkt** | **✅** | **✅** |
+| 0,75 / 1 | 25-37 pkt | ❌ filtr 256 GB przestawia #1 | ✅ |
+
+Wnioski są w `planning/QUIZ-SPEC.md` 2.6 i 10.1, a pomiar zamyka `tests/calibration.test.ts`.
+
+### Lista kontrolna wydania
+
+```sh
+npm run stale-prices     # ceny ≤ 7 dni (w dniu publikacji)
+npm run data-gaps -- --strict
+npm run release          # typecheck → testy → validate-data → stale-prices → build
+```
+
+- [ ] Pages → Source: **GitHub Actions** (krok jednorazowy w ustawieniach repo)
+- [ ] `base: '/phone-selection/'` zgodne z nazwą repo
+- [ ] push do `main` → workflow `Check and deploy` zielony → adres Pages otwiera się na telefonie
+- [ ] Edge 70 Fusion: promocja do 30.11.2026 z limitem sztuk — potwierdź albo wpisz cenę regularną
+- [ ] test z użytkowniczką i poprawki — protokół, zadania i arkusz obserwacji:
+      [`planning/E9-test-uzytkownika.md`](planning/E9-test-uzytkownika.md)
+- [ ] tag `v1.0`
+
+Aktualizacja cen po wydaniu: edycja `price.pln` / `price.checkedAt` / `price.url` w `phones.json`
+(stara cena do `price.otherObservations`) → `_meta.generatedOn` i `PRICES_CHECKED_AT` w
+`src/data/pool.ts` → `npm run validate-data` → `npm run stale-prices` → `npm test` → push.
 
 ## Stan danych (etap 0 — domknięty)
 

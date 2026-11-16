@@ -87,6 +87,7 @@ export function groupScores(
   ranges: ScoreRanges,
   weights: Weights,
   budgetMax: number,
+  blendFactor: number = BLEND,
 ): { scores: Record<GroupId, number>; normalized: Partial<Record<CriterionId, number>> } {
   const scores = {} as Record<GroupId, number>;
   const normalized: Partial<Record<CriterionId, number>> = {};
@@ -97,7 +98,7 @@ export function groupScores(
 
     for (const id of group.criteria) {
       const raw = rawScore(phone, id, budgetMax);
-      const blended = blend(raw, ranges[id] ?? { min: 0, max: 100 });
+      const blended = blend(raw, ranges[id] ?? { min: 0, max: 100 }, blendFactor);
       normalized[id] = round(blended, 2);
       total += (shares[id] ?? 0) * blended;
     }
@@ -158,9 +159,10 @@ export function rank(input: RankInput): RankResult {
   }
 
   const ranges = scoreRanges(pool, budgetMax);
+  const blendFactor = typeof input.blend === 'number' ? input.blend : BLEND;
   const byId = new Map(pool.map((phone) => [phone.id, phone]));
   const entries: RankedPhone[] = pool.map((phone) => {
-    const { scores, normalized } = groupScores(phone, ranges, weights, budgetMax);
+    const { scores, normalized } = groupScores(phone, ranges, weights, budgetMax, blendFactor);
     const score = totalScore(scores, groupImportance);
     const within = inBudget(phone, budgetMax);
     return {

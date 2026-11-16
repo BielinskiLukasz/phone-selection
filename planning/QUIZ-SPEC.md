@@ -76,7 +76,7 @@ S            = Σ_g ( G_g × GroupScore_g ) / Σ_g G_g   // 0-100
 
 | Parametr | Wartość | Uwagi |
 |---|---|---|
-| `BLEND` | 0,5 | 0 = surowe oceny, 1 = pełna normalizacja |
+| `BLEND` | 0,5 | 0 = surowe oceny, 1 = pełna normalizacja. **Potwierdzone pomiarem (E9-03)** — patrz poniżej |
 | Ważność grup w trójce | pasma 5 / 4 / 3 | `TOP_THREE_IMPORTANCE` |
 | Korekta pasma z odpowiedzi | `0,3 × (wyliczone − 1,3)`, max ±0,6 | `TOP_THREE_EVIDENCE_FACTOR`, `TOP_THREE_EVIDENCE_MAX` |
 | Wariant alternatywny G1 | `additive`: `wyliczone + 1,5 / 1,0 / 0,5` | `TOP_THREE_MODE` (domyślnie `band`) |
@@ -84,7 +84,25 @@ S            = Σ_g ( G_g × GroupScore_g ) / Σ_g G_g   // 0-100
 | Domyślna waga kryterium | 2 | |
 | Próg „praktycznego remisu” | 2 pkt | |
 
-Procent dopasowania na karcie to `round(S)`. Rozstęp wyników jest wąski (około 50-72), więc kalibracja wyświetlania jest **otwarta** (sekcja 10).
+**Wynik kalibracji (E9-03, pomiar na 7 zestawach odpowiedzi: trzy persony, żona z budżetem
+1500 zł, żona z filtrem 256 GB, wszystkie „pomiń”, skrajne suwaki):**
+
+| BLEND | rozstęp S (persony) | niezmiennik 9.1.3 (filtr 256 GB nie zmienia #1) | persona „bateria” #1 |
+|---|---|---|---|
+| 0 | 16-22 pkt | ✅ | Redmi Note 15 Pro ❌ (referencja 9.3: Edge 70 Fusion) |
+| 0,25 | 19-23 pkt | ✅ | Redmi Note 15 Pro ❌ |
+| **0,5** | **21-28 pkt** | **✅** | **Edge 70 Fusion ✅** |
+| 0,75 | 25-32 pkt | ❌ (filtr 256 GB przestawia #1 na Xiaomi 15T) | Edge 70 Fusion ✅ |
+| 1 | 28-37 pkt | ❌ | Edge 70 Fusion ✅ |
+
+`BLEND = 0,5` zostaje: to najwyższa wartość, przy której oba niezmienniki są spełnione, a rozstęp
+wyników jest dość szeroki, żeby procenty różnicowały propozycje (u „żony” 69 / 67 / 62). Pomiary
+zamyka test `tests/calibration.test.ts` — zmiana stałej bez ponownego pomiaru wywali się w CI.
+
+Procent dopasowania na karcie to `round(S)` z opisem słownym („bardzo dobre / dobre / przeciętne”),
+a przeskalowanie względem najlepszego w puli jest w szczegółach — decyzja z sekcji 10.1 potwierdzona
+w E9-03: przy BLEND 0,5 trójka „żony” to 69 / 67 / 62, czyli 100% / 97% / 90% po przeskalowaniu,
+więc sama liczba bez opisu nadal byłaby mało czytelna.
 
 ## 3. Typy (szkic)
 
@@ -245,7 +263,7 @@ A1, A2 = 5, A3 = 1; B1-B6 = 1; C1 = 3; D1-D3 = 3; E1, E2 = 1; F1 = 2000; G1 = Ba
 
 ## 10. Otwarte kwestie
 
-1. **Wyświetlanie „% dopasowania”.** Wyniki mieszczą się w wąskim przedziale (ok. 50-72), więc 72% i 68% wyglądają niemal tak samo. Warianty: pokazać surowe `S`, przeskalować tak, by najlepszy telefon w puli miał 100%, albo zastąpić liczbę opisem (np. „bardzo dobre / dobre / przeciętne”) z liczbą w szczegółach. Do rozstrzygnięcia w etapie 2 razem z `BLEND`.
+1. ~~**Wyświetlanie „% dopasowania”.**~~ **Rozstrzygnięte (etap 2, potwierdzone w E9-03):** na karcie `round(S)` + opis słowny („bardzo dobre” ≥ 66, „dobre” ≥ 57, „przeciętne” poniżej), a przeskalowanie (najlepszy w puli = 100%) w szczegółach karty i w pełnym rankingu. Powód: przy wąskim rozstępie (69 / 67 / 62 u persony „żona”) sama liczba słabo różnicuje, a przeskalowanie zawsze dawałoby 100% dla pierwszej propozycji.
 2. **Zaufanie do ocen kamer.** Część ocen aparatu ma pewność `low` (patrz `phones.json`, `scoreConfidence`). Czy karta ma to sygnalizować użytkowniczce, czy tylko szczegóły?
 3. **Brak pytań o system i markę** — świadomie pominięte (brak przywiązania do systemu, wszystkie telefony z listy to Android, marka bez znaczenia).
 4. **Mi Band 6** — nie wpływa na ranking; informacja o zgodności trafia do szczegółów telefonów po weryfikacji.

@@ -190,12 +190,14 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 
 ## Etap 9 — Pełny ranking, szlify i wydanie
 
-- [ ] Przycisk „Pokaż pełny ranking” (10 telefonów z nazwami) po wyborze zwycięzcy
-- [ ] Kalibracja stałych rankingu na prawdziwych danych
-- [ ] Odświeżenie cen i dat przed wydaniem
-- [ ] Przejście całego procesu przez żonę (test użyteczności), poprawki
+- [x] Przycisk „Pokaż pełny ranking” (10 telefonów z nazwami) po wyborze zwycięzcy
+- [x] Kalibracja stałych rankingu na prawdziwych danych
+- [~] Odświeżenie cen i dat przed wydaniem (narzędzia gotowe: `npm run stale-prices`, próg 7 dni; ceny z 14.11.2026 są świeże, odświeżenie w dniu publikacji)
+- [~] Przejście całego procesu przez żonę (test użyteczności), poprawki — protokół i arkusz obserwacji: `E9-test-uzytkownika.md`
 
 **DoD:** wersja gotowa do realnego użycia; ceny odświeżone w ciągu ostatnich 7 dni.
+
+**Stan po etapie 9 (część techniczna):** ekran `#/s/:id/ranking` (`src/screens/RankingScreen.tsx`) z wszystkimi telefonami z puli: miejsce, `S`, dopasowanie z opisem, cena z datą, odznaki „Twój wybór n/m”, znacznik praktycznego remisu, mini-paski sześciu grup (GroupScore ze snapshotu, z odtworzeniem z wag dla starszych zapisów), rozwijany wiersz z 14 ocenami i pewnością, pełnymi danymi, linkami do sklepów, innymi odczytami ceny i źródłami; sekcja „Poza pulą” z powodem odrzucenia (limit 2000 zł / pamięć / microSD) oraz ostrzeżenie, gdy `dataVersion` snapshotu różni się od `_meta.generatedOn`. Kalibracja (E9-03) zmierzona na 7 zestawach odpowiedzi: `BLEND = 0,5` potwierdzone (0,75 łamie niezmiennik 9.1.3, 0,25 referencję 9.3), wnioski w QUIZ-SPEC 2.6, pomiar zamknięty testem `tests/calibration.test.ts`. Narzędzia wydania: `npm run stale-prices` (próg 7 dni, kod 1 przy przeterminowanych cenach) i `npm run release` (typecheck → testy → validate-data → stale-prices → build). Meta: tytuł, opis, `og:*`, `color-scheme`, dwa `theme-color`, ikona jako inline SVG (bez zewnętrznego zasobu), `noscript`, stan danych w stopce (liczba telefonów, data cen, limit). **Zostaje:** odświeżenie cen w dniu wydania, test z użytkowniczką i poprawki (protokół: `E9-test-uzytkownika.md`), tag `v1.0` i sprawdzenie adresu Pages na telefonie.
 
 ---
 

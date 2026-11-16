@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { AppHeader } from '@/components/AppHeader';
 import type { Route } from '@/app/router';
 import { strings } from '@/data/strings';
-import { ROADMAP_STAGES, roadmapStatus } from '@/data/pool';
+import { ROADMAP_STAGES, formatDate, pool, roadmapStatus } from '@/data/pool';
 import { PLANNING_SPECS, PLANNING_STAGES, docUrl } from '@/data/docs';
 import type { Theme } from '@/types/state';
 
@@ -106,8 +106,24 @@ export function Layout({ children, route, theme, onToggleTheme }: LayoutProps) {
             </div>
           </div>
 
-          <p className="mt-8 max-w-prose border-t border-[var(--color-border)] pt-5 text-xs leading-relaxed text-[var(--color-muted)]">
-            {strings.footerNote} <span className="num">{strings.dataWarning}</span>
+          <p className="num mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[var(--color-border)] pt-5 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
+            <span>
+              {strings.footerDataState}: {pool.count} {pool.count === 1 ? 'telefon' : 'telefony'}
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>ceny z {formatDate(pool.checkedAt)}</span>
+            <span aria-hidden="true">·</span>
+            <span>limit {pool.budgetLimit} zł</span>
+            {pool.unconfirmed > 0 ? (
+              <>
+                <span aria-hidden="true">·</span>
+                <span className="text-[var(--color-warn)]">{pool.statusNote}</span>
+              </>
+            ) : null}
+          </p>
+
+          <p className="mt-3 max-w-prose text-xs leading-relaxed text-[var(--color-muted)]">
+            {strings.footerNote}
           </p>
         </div>
       </footer>

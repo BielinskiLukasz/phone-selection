@@ -173,6 +173,20 @@ export const THEME_STATUS = [
   'Dostępność: skip-link, radiogroup ze strzałkami i spacją, aria-valuetext na suwakach, aria-live, pułapka fokusu w oknie potwierdzenia.',
 ] as const;
 
+export const RELEASE_FACTS = [
+  { label: 'pełny ranking', value: '10 poz.', note: 'nazwy, ceny, wybory, źródła' },
+  { label: 'BLEND', value: '0,5', note: 'zmierzone na 7 zestawach (E9-03)' },
+  { label: 'próg cen', value: '7 dni', note: 'npm run stale-prices' },
+  { label: 'audyt axe', value: '0', note: 'błędów poważnych i krytycznych' },
+] as const;
+
+export const RELEASE_STATUS = [
+  'Pełny ranking z nazwami otwiera się po pierwszym wyborze; wiersz rozwija oceny, dane, linki i źródła.',
+  'BLEND 0,5 potwierdzony pomiarem: przy 0,75 filtr 256 GB przestawia zwycięzcę (niezmiennik 9.1.3), przy 0,25 persona „bateria” wybiera inny telefon (9.3).',
+  'npm run release przechodzi całą ścieżkę: typecheck → testy → validate-data → stale-prices → build.',
+  'Do wydania 1.0 zostaje: odświeżenie cen w dniu publikacji, test z użytkowniczką i tag (planning/E9-test-uzytkownika.md).',
+] as const;
+
 export const CONSOLE_COMMANDS = [
   { cmd: 'npm run dev', what: 'lokalny serwer Vite' },
   { cmd: 'npm run lint', what: 'ESLint' },

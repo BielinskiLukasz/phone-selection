@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "validate-data": "tsx scripts/validate-data.ts",
-    "data-gaps": "tsx scripts/data-gaps.ts"
+    "data-gaps": "tsx scripts/data-gaps.ts",
+    "stale-prices": "tsx scripts/stale-prices.ts",
+    "release": "npm run typecheck && npm test && npm run validate-data && npm run stale-prices && npm run build"
   },
   "dependencies": {
     "clsx": "2.1.1",
