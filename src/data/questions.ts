@@ -221,6 +221,17 @@ export const QUESTIONS: readonly QuizQuestion[] = [
       { label: '5 lat lub dłużej', sets: { updates: 5 } },
     ],
   ),
+  question(
+    'D4',
+    'everyday',
+    'Czy zależy Ci na mniejszym i lżejszym telefonie?',
+    'Mniejszy i lżejszy telefon wygodniej trzyma się w jednej dłoni i łatwiej mieści w kieszeni.',
+    [
+      { label: 'Nie, rozmiar i waga są bez znaczenia', sets: { compactness: 0 } },
+      { label: 'Trochę — wolę, żeby nie był zbyt ciężki', sets: { compactness: 3 } },
+      { label: 'Tak, im mniejszy i lżejszy, tym lepiej', sets: { compactness: 5 } },
+    ],
+  ),
 
   /* Blok E. Ekran */
   question(

@@ -101,7 +101,7 @@ describe('E7-01 · lista historii', () => {
   it('pokazuje postęp przerwanej sesji i nazwy wybranych telefonów w ukończonych', () => {
     openHistory();
 
-    expect(within(item('111111')).getAllByText(/pytanie 2 z 18/).length).toBeGreaterThan(0);
+    expect(within(item('111111')).getAllByText(/pytanie 2 z 19/).length).toBeGreaterThan(0);
     expect(within(item('111111')).queryByText(strings.historySelectedLabel)).toBeNull();
 
     const firstName = PHONES.find((phone) => phone.id === FIRST_CARD)!.reveal.name;

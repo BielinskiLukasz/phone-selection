@@ -3,6 +3,7 @@ import { POOL, phoneById } from './data';
 import {
   batteryScore,
   chargingScore,
+  compactnessScore,
   durabilityScore,
   storageScore,
   updatesScore,
@@ -19,7 +20,14 @@ import type { Phone } from '../src/types';
  * muszą wynikać ze wzorów. Test łapie rozjazd przy każdej aktualizacji danych.
  */
 
-const OBJECTIVE = ['battery', 'charging', 'updates', 'storage', 'durability'] as const;
+const OBJECTIVE = [
+  'battery',
+  'charging',
+  'updates',
+  'storage',
+  'durability',
+  'compactness',
+] as const;
 
 function expectedScore(phone: Phone, criterion: (typeof OBJECTIVE)[number]): number | null {
   const { specs, variant } = phone;
@@ -34,6 +42,8 @@ function expectedScore(phone: Phone, criterion: (typeof OBJECTIVE)[number]): num
       return storageScore(variant.storageGb, specs.microSd);
     case 'durability':
       return durabilityScore(specs.ip, specs.militaryStandard);
+    case 'compactness':
+      return compactnessScore(specs);
     default:
       return null;
   }
@@ -103,6 +113,18 @@ describe('reguły ocen obiektywnych', () => {
 
   it('aparat z testu wariantu Pro: −10 pkt', () => {
     expect(scoreFromProVariant(88)).toBe(78);
+  });
+
+  it('wymiary i waga (compactness): im mniejszy, smuklejszy i lżejszy telefon, tym wyższa ocena', () => {
+    const compact = compactnessScore({ weightG: 183, dimensionsMm: '153,9 × 73 × 9' })!;
+    const slimLight = compactnessScore({ weightG: 184, dimensionsMm: '156,5 × 74,6 × 7,3' })!;
+    const heavyLarge = compactnessScore({ weightG: 223, dimensionsMm: '163,5 × 78,3 × 8,6' })!;
+    expect(compact).toBe(75);
+    expect(slimLight).toBe(71);
+    expect(heavyLarge).toBe(19);
+    expect(compact).toBeGreaterThan(slimLight);
+    expect(slimLight).toBeGreaterThan(heavyLarge);
+    expect(compactnessScore({})).toBeNull();
   });
 });
 

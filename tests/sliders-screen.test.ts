@@ -5,6 +5,7 @@ import { StateProvider, useAppState } from '../src/features/state/StateProvider'
 import { SlidersScreen } from '../src/screens/SlidersScreen';
 import { QuizScreen } from '../src/screens/QuizScreen';
 import { STORAGE_KEY } from '../src/lib/storage';
+import { GROUPS } from '../src/data/criteria';
 import { PHONES } from '../src/data/phones';
 import { buildPool, inBudgetSubset } from '../src/lib/pool';
 import { sessionTexts, strings } from '../src/data/strings';
@@ -67,12 +68,12 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe('E5-05 · ekran suwaków', () => {
-  it('startuje neutralnie: sześć suwaków grup po 2 i kryteria po 2', () => {
+  it('startuje neutralnie: siedem suwaków grup po 2 (w tym wymiary i waga) i kryteria po 2', () => {
     open();
 
     expect(screen.getByRole('heading', { level: 1 }).textContent).toContain(strings.sliders);
     const sliders = screen.getAllByRole('slider');
-    expect(sliders.length).toBe(6);
+    expect(sliders.length).toBe(7);
 
     for (const element of sliders) {
       const input = element as HTMLInputElement;
@@ -95,13 +96,13 @@ describe('E5-05 · ekran suwaków', () => {
 
   it('E5-02: „Szczegóły” rozwijają suwaki kryteriów z udziałami w grupie', () => {
     open();
-    expect(screen.queryAllByRole('slider').length).toBe(6);
+    expect(screen.queryAllByRole('slider').length).toBe(7);
 
     const details = screen.getAllByRole('button', { name: /Szczegóły/ });
     fireEvent.click(details[1]!); // grupa „Aparat”
 
     const sliders = screen.getAllByRole('slider');
-    expect(sliders.length).toBe(12); // 6 grup + 6 kryteriów aparatu
+    expect(sliders.length).toBe(13); // 7 grup + 6 kryteriów aparatu
     expect(screen.getByRole('slider', { name: 'Zdjęcia w dzień' })).toBeTruthy();
     expect(screen.getByRole('slider', { name: 'Zdjęcia w ruchu' })).toBeTruthy();
     expect(screen.getAllByText(/udział w grupie/).length).toBeGreaterThan(0);
@@ -118,7 +119,14 @@ describe('E5-05 · ekran suwaków', () => {
     open();
 
     fireEvent.change(slider(/Bateria i ładowanie/), { target: { value: '5' } });
-    for (const label of [/Aparat/, /Pamięć/, /Aktualizacje i trwałość/, /Ekran i płynność/, /Cena/]) {
+    for (const label of [
+      /Aparat/,
+      /Pamięć/,
+      /Aktualizacje i trwałość/,
+      /Ekran i płynność/,
+      /Wymiary i waga/,
+      /Cena/,
+    ]) {
       fireEvent.change(slider(label), { target: { value: '0' } });
     }
 
@@ -129,6 +137,31 @@ describe('E5-05 · ekran suwaków', () => {
     expect(session.manualOverride).toBe(true);
     expect(session.ranking.cards[0]).toBe('vivo-v70-fe-5g-8-256');
     expect(session.ranking.entries.length).toBe(PHONES.length);
+  });
+
+  it('suwak „Wymiary i waga” = 5 (reszta 0) stawia na najmniejsze i najlżejsze telefony', async () => {
+    open();
+    for (const group of GROUPS) {
+      const target = group.id === 'size' ? 5 : 0;
+      fireEvent.click(screen.getByRole('button', { name: `${group.label}: ${target} z 5` }));
+    }
+
+    await flushStorage();
+    const session = storedSession();
+    expect(session.groupImportance.size).toBe(5);
+    expect(session.ranking.cards).toEqual([
+      'pixel-10a-8-128',
+      'pixel-9a-8-128',
+      'honor-400-8-256',
+    ]);
+    /* Przy filtrze min. 256 GB wygrywają najporęczniejsze modele 256 GB: Honor 400, Edge 60, A57. */
+    fireEvent.click(screen.getByRole('radio', { name: /minimum 256 GB/ }));
+    await flushStorage();
+    expect(storedSession().ranking.cards).toEqual([
+      'honor-400-8-256',
+      'motorola-edge-60-12-256',
+      'galaxy-a57-8-256',
+    ]);
   });
 
   it('szybki wybór 0-5 ustawia wartość dokładnie (duże pola dotyku)', () => {
@@ -218,7 +251,7 @@ describe('E5-06/E5-07 · hybryda i dostrojenie', () => {
     expect(window.location.hash).toMatch(/\/tune$/);
 
     const sliders = screen.getAllByRole('slider');
-    expect(sliders.length).toBe(6);
+    expect(sliders.length).toBe(7);
     expect(screen.getByText(strings.computedBadge)).toBeTruthy();
 
     /* Ważności z kroku G1: pasma 5/4/3 skorygowane siłą odpowiedzi z krótkiego quizu. */

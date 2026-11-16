@@ -100,7 +100,16 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
     const extreme = rank({
       phones: POOL,
       weights: derived.weights,
-      groupImportance: { ...derived.groupImportance, battery: 5, camera: 0, storage: 0, longevity: 0, smooth: 0, price: 0 },
+      groupImportance: {
+        ...derived.groupImportance,
+        battery: 5,
+        camera: 0,
+        storage: 0,
+        longevity: 0,
+        smooth: 0,
+        size: 0,
+        price: 0,
+      },
       filters: { budgetMax: 2000 },
       blend: BLEND,
     });

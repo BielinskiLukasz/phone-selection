@@ -21,11 +21,11 @@ const FORBIDDEN_IN_QUIZ = [
 ];
 
 describe('E2-03 · dane quizu', () => {
-  it('ma 18 pytań w kolejności bloków A → B → C → D → E → F', () => {
-    expect(QUESTIONS.length).toBe(18);
+  it('ma 19 pytań w kolejności bloków A → B → C → D → E → F (w tym D4 o wymiary i wagę)', () => {
+    expect(QUESTIONS.length).toBe(19);
     expect(QUIZ_QUESTIONS).toBe(QUESTIONS);
     expect(QUESTION_IDS.join(',')).toBe(
-      'A1,A2,A3,B1,B2,B3,B4,B5,B6,C1,C2,C3,D1,D2,D3,E1,E2,F1',
+      'A1,A2,A3,B1,B2,B3,B4,B5,B6,C1,C2,C3,D1,D2,D3,D4,E1,E2,F1',
     );
   });
 
@@ -46,7 +46,7 @@ describe('E2-03 · dane quizu', () => {
   it('wartości odpowiedzi mieszczą się w skali 0-5 i dotyczą istniejących kryteriów', () => {
     const known: readonly string[] = [
       'battery', 'charging', 'photoDay', 'photoIndoor', 'photoMotion', 'selfie', 'video', 'zoom',
-      'storage', 'updates', 'smoothness', 'display', 'durability', 'value',
+      'storage', 'updates', 'smoothness', 'display', 'durability', 'compactness', 'value',
     ];
     for (const question of QUESTIONS) {
       for (const option of question.options) {
@@ -76,12 +76,12 @@ describe('E2-03 · dane quizu', () => {
 
     const active = activeQuestions(POOL).map((question) => question.id);
     expect(active).toContain('C3');
-    expect(active.length).toBe(18);
+    expect(active.length).toBe(19);
 
     /* Gdyby żaden telefon nie miał slotu, pytanie odpada bez śladu w liczniku. */
     const without = activeQuestions(POOL.filter((phone) => phone.specs.microSd !== true));
     expect(without.map((question) => question.id)).not.toContain('C3');
-    expect(without.length).toBe(17);
+    expect(without.length).toBe(18);
   });
 
   it('krótki quiz hybrydy to A1, A2, B1, B2, B3, C1, F1 (QUIZ-SPEC 5)', () => {

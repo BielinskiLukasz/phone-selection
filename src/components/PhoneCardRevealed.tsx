@@ -2,6 +2,7 @@ import { sessionTexts, strings } from '@/data/strings';
 import type { SpecRow } from '@/lib/cardSpecs';
 import type { AnonCard, Phone } from '@/types';
 import { DetailsAccordion } from './DetailsAccordion';
+import { PhonePhoto } from './PhonePhoto';
 import { ArrowRightIcon, CheckIcon } from './Icons';
 
 interface PhoneCardRevealedProps {
@@ -44,6 +45,8 @@ export function PhoneCardRevealed({
           {phone.variant.ramGb}/{phone.variant.storageGb} GB
           {phone.status === 'needs_confirmation' ? ' · oferta do potwierdzenia' : ''}
         </p>
+
+        <PhonePhoto phone={phone} variant="card" className="mt-3" />
       </div>
 
       <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-y border-dashed border-[var(--color-border)] px-[var(--pad-card)] py-3">

@@ -33,6 +33,7 @@ export const CRITERIA: readonly CriterionDef[] = [
   { id: 'durability', group: 'longevity', label: 'Odporność', description: 'Klasa IP, szkło, konstrukcja.' },
   { id: 'display', group: 'smooth', label: 'Ekran', description: 'Jasność w słońcu, płynność, jakość.' },
   { id: 'smoothness', group: 'smooth', label: 'Płynność na co dzień', description: 'Przeglądarka, komunikatory, aplikacje.' },
+  { id: 'compactness', group: 'size', label: 'Wymiary i waga', description: 'Im mniejszy, smuklejszy i lżejszy telefon, tym wyższa ocena.' },
   { id: 'value', group: 'price', label: 'Stosunek jakości do ceny', description: 'Liczony z ceny i budżetu sesji.' },
 ] as const;
 
@@ -66,6 +67,12 @@ export const GROUPS: readonly GroupDef[] = [
     label: 'Ekran i płynność',
     description: 'Jasność w słońcu, płynność obrazu i szybkość działania.',
     criteria: ['display', 'smoothness'],
+  },
+  {
+    id: 'size',
+    label: 'Wymiary i waga',
+    description: 'Poręczność w dłoni i kieszeni — im mniejszy, smuklejszy i lżejszy, tym wyżej.',
+    criteria: ['compactness'],
   },
   {
     id: 'price',

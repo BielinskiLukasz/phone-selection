@@ -40,7 +40,7 @@ function answerAll(steps: ReturnType<typeof buildSteps>, answers: Answers): Answ
 describe('E4-01 · budowa przepływu', () => {
   it('pełny quiz: nagłówki bloków, pytania, krok G1 i podsumowanie', () => {
     expect(totalQuestions(fullSteps)).toBe(activeQuestions(POOL).length);
-    expect(totalQuestions(fullSteps)).toBe(18); // C3 aktywne: Edge 60 ma microSD
+    expect(totalQuestions(fullSteps)).toBe(19); // C3 aktywne (Edge 60 ma microSD) + D4 o wymiary i wagę
 
     const kinds = fullSteps.map((step) => step.kind);
     expect(kinds.filter((kind) => kind === 'block').length).toBe(BLOCK_ORDER.length);
@@ -80,7 +80,7 @@ describe('E4-01 · budowa przepływu', () => {
   it('4. bez telefonu z microSD pytanie C3 nie jest zadawane ani liczone', () => {
     const withoutSlot = POOL.filter((phone) => phone.specs.microSd !== true);
     const steps = buildSteps(withoutSlot, 'quiz');
-    expect(totalQuestions(steps)).toBe(17);
+    expect(totalQuestions(steps)).toBe(18);
     expect(questionSteps(steps).map((step) => step.question.id)).not.toContain('C3');
   });
 });

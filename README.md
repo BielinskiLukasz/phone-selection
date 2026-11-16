@@ -8,6 +8,11 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 12 — Zdjęcia telefonów, wymiary i waga (suwak poręczności) oraz objaśnienia UI**: zdjęcia
+  studyjne i prasowe po ujawnieniu (`PhonePhoto`, powiększenie, sylwetka w skali offline, zero
+  `<img>` przed wyborem), komplet wymiarów i wagi 15/15 modeli, 15. kryterium `compactness` w 7.
+  grupie „Wymiary i waga” (suwak 0-5 w suwakach i nad pełnym rankingiem, pytanie `D4` w quizie)
+  oraz objaśnienie różnicy między aktualizacjami systemu a łatkami bezpieczeństwa.
 - **Etap 11 — Wykluczanie marek i modeli (opcjonalny filtr startowy)**: krok `#/s/:id/exclude`
   przed pytaniami/suwakami z leniwie ładowaną listą marek i modeli (pełna anonimowość po „Pomiń”),
   `fullRanking` na pełnej puli bez zmiany `S`, zmiana wykluczeń w `FilterPanel` i na kartach,

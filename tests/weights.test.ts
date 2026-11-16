@@ -150,12 +150,13 @@ describe('E2-05 · ważności grup', () => {
     expect(band.battery).toBeGreaterThan(band.camera); // priorytet z PROJECT 2 zachowany
   });
 
-  it('pominięcie kroku G1 zostawia wszystkie grupy na wzorze', () => {
+  it('pominięcie kroku G1 zostawia grupy na wzorze, a jawne 0 („bez znaczenia”) zeruje grupę', () => {
     const weights = answersToCriterionWeights(WIFE.answers);
     const importance = groupImportance(weights, null);
     for (const id of GROUP_IDS) {
       expect(importance[id]).toBeLessThanOrEqual(2.5);
-      expect(importance[id]).toBeGreaterThanOrEqual(GROUP_BASE);
+      if (id === 'size') expect(importance[id]).toBe(0); // D4-a → compactness 0 → ignoruj
+      else expect(importance[id]).toBeGreaterThanOrEqual(GROUP_BASE);
     }
     // bateria: battery 3 i charging 1 → średnia 2 → 0,5 + 0,4 × 2 = 1,3
     expect(importance.battery).toBeCloseTo(GROUP_BASE + GROUP_FACTOR * 2, 5);

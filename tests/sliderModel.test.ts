@@ -83,7 +83,7 @@ describe('E5-01/E5-02 · stan suwaków z sesji', () => {
     const session = sessionWith('sliders');
     const states = groupSliderState(session);
 
-    expect(states.length).toBe(6);
+    expect(states.length).toBe(7);
     expect(states.map((state) => state.id)).toEqual(GROUPS.map((group) => group.id));
 
     const camera = states.find((state) => state.id === 'camera')!;

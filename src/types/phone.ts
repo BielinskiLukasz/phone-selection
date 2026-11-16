@@ -23,10 +23,14 @@ export interface ShopLink {
   note?: string | null;
 }
 
-/** Dane ujawniane dopiero po wyborze karty (PROJECT 8). */
+/** Dane ujawniane dopiero po wyborze karty (PROJECT 8) — w tym zdjęcia produktu. */
 export interface Reveal {
   name: string;
   brand: string;
+  /** Zdjęcie studyjne (przód + tył) pokazywane na miniaturze w rankingu i na karcie po wyborze. */
+  imageUrl?: string | null;
+  /** Zdjęcie prasowe w wyższej rozdzielczości — do rozwiniętych szczegółów i powiększenia. */
+  photoUrl?: string | null;
   shopLinks: (ShopLink | string)[];
 }
 
@@ -133,8 +137,9 @@ export interface Specs {
   frame?: string | null;
   weightG?: number | null;
   weightNote?: string | null;
-  thicknessMm?: number | null;
+  heightMm?: number | null;
   widthMm?: number | null;
+  thicknessMm?: number | null;
   dimensionsMm?: string | null;
   cameras?: CameraSpecs | null;
   video?: string | null;

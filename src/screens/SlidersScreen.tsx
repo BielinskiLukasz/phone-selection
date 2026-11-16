@@ -5,6 +5,7 @@ import { strings } from '@/data/strings';
 import { useAppState } from '@/features/state/StateProvider';
 import { groupSliderState, isGroupModified } from '@/features/sliders/sliderModel';
 import { excludedInPoolCount, remainingPhones, type ExclusionSelection } from '@/lib/exclusions';
+import { formatBodySummary } from '@/lib/anonymize';
 import { inBudgetSubset } from '@/lib/pool';
 import { matchLabel } from '@/lib/matchDisplay';
 import type { CriterionId, GroupId } from '@/types';
@@ -267,6 +268,11 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
                       {phone ? `${Math.round(phone.price.pln)} zł` : '—'}
                     </span>
                   </span>
+                  {phone && formatBodySummary(phone.specs) ? (
+                    <span className="num mt-1 block truncate text-[10.5px] text-[var(--color-muted)]">
+                      {formatBodySummary(phone.specs)}
+                    </span>
+                  ) : null}
                   <span className="mt-1.5 flex items-center gap-1.5 text-[11px]">
                     {entry.overBudgetBy ? (
                       <span className="num rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-2 py-0.5 text-[var(--color-warn)]">

@@ -65,7 +65,7 @@ describe('fixture · budowa rekordu', () => {
     }
     expect(phone.status).toBe('ok');
     expect(phone.reveal.shopLinks.length).toBe(1);
-    expect(Object.keys(phone.scoreConfidence ?? {}).length).toBe(14);
+    expect(Object.keys(phone.scoreConfidence ?? {}).length).toBe(15);
   });
 
   it('pool ma pięć rekordów, w tym jeden ponad limitem i jeden ze slotem microSD', () => {
@@ -137,7 +137,7 @@ describe('fixture · filtry i pula', () => {
     const pool = buildPool(FIXTURE_PHONES, { budgetMax: 2000, requireMicroSd: true });
     expect(pool.map((phone) => phone.id)).toEqual(['test-drogi-512-microsd']);
     expect(activeQuestions(FIXTURE_PHONES).map((question) => question.id)).toContain('C3');
-    expect(activeQuestions(FIXTURE_PHONES).length).toBe(18);
+    expect(activeQuestions(FIXTURE_PHONES).length).toBe(19);
     expect(activeQuestions([withMicroSd(flat)]).map((question) => question.id)).toContain('C3');
   });
 
@@ -191,7 +191,7 @@ describe('fixture · anonimizacja danych syntetycznych', () => {
   it('karty mają po sześć wierszy cech i cenę z datą', () => {
     const result = rankFromAnswers(FIXTURE_PHONES, {}, null);
     for (const card of toAnonCards(FIXTURE_PHONES, result, 2000)) {
-      expect(card.facts.length).toBe(6);
+      expect(card.facts.length).toBe(7);
       expect(card.priceCheckedAt).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       expect(card.matchLabel.length).toBeGreaterThan(0);
     }

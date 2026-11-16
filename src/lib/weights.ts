@@ -151,6 +151,8 @@ export function computedGroupImportance(
   const answeredInGroup = groupCriteria.filter((id) => answered.has(id));
   const source = answeredInGroup.length > 0 ? answeredInGroup : groupCriteria;
   const mean = average(source.map((id) => clamp(weights[id] ?? DEFAULT_WEIGHT, 0, 5)));
+  /* Jawne „bez znaczenia” (0) dla całej grupy = ignoruj (PROJECT 7.2). */
+  if (answeredInGroup.length > 0 && mean <= 0) return 0;
   return round(clamp(GROUP_BASE + GROUP_FACTOR * mean, GROUP_BASE, 2.5));
 }
 

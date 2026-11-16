@@ -181,7 +181,10 @@ describe('E8-03 · zero stałych kolorów w komponentach', () => {
     expect(icons).toContain('<svg');
     expect(icons).not.toContain('<img');
 
+    /* Jedyny element <img> w aplikacji to zdjęcie produktu po ujawnieniu w PhonePhoto.tsx;
+       wszystkie ikony cech i pozostałe komponenty używają wyłącznie inline SVG. */
     for (const file of sourceFiles('src')) {
+      if (file.endsWith('PhonePhoto.tsx')) continue;
       expect(readFileSync(file, 'utf8'), file).not.toContain('<img');
     }
   });

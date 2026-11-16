@@ -16,6 +16,7 @@ export const CRITERIA = [
   'smoothness',
   'display',
   'durability',
+  'compactness',
   'value',
 ] as const;
 
@@ -250,6 +251,12 @@ export function validatePhoneData(data: unknown, now = new Date()) {
         value.brand.trim() !== value.reveal.brand.trim()
       ) {
         errors.push(`${path}.brand musi zgadzać się z reveal.brand.`);
+      }
+      for (const photoKey of ['imageUrl', 'photoUrl'] as const) {
+        const photo = value.reveal[photoKey];
+        if (photo !== undefined && photo !== null && !validShopUrl(photo)) {
+          errors.push(`${path}.reveal.${photoKey} musi być poprawnym adresem URL albo null.`);
+        }
       }
       const links = value.reveal.shopLinks;
       if (!Array.isArray(links) || links.length === 0) {

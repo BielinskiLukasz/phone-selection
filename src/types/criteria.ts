@@ -3,7 +3,7 @@
  * Osobny moduł, żeby typy danych i typy silnika nie definiowały ich podwójnie.
  */
 
-export type GroupId = 'battery' | 'camera' | 'storage' | 'longevity' | 'smooth' | 'price';
+export type GroupId = 'battery' | 'camera' | 'storage' | 'longevity' | 'smooth' | 'size' | 'price';
 
 export type CriterionId =
   | 'battery'
@@ -19,6 +19,7 @@ export type CriterionId =
   | 'smoothness'
   | 'display'
   | 'durability'
+  | 'compactness'
   | 'value';
 
 export type ScoreConfidence = 'high' | 'medium' | 'low';

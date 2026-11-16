@@ -200,7 +200,7 @@ describe('E2-08 · parsowanie danych ze źródeł', () => {
 });
 
 describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
-  it('ma sześć wierszy cech w stałej kolejności i ze stałymi etykietami', () => {
+  it('ma siedem wierszy cech w stałej kolejności (w tym wymiary i wagę), bez zdjęcia', () => {
     for (const card of cards) {
       expect(card.facts.map((fact) => fact.key)).toEqual([
         'battery',
@@ -209,6 +209,7 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
         'updates',
         'durability',
         'displayPerformance',
+        'dimensions',
       ]);
       expect(card.facts.map((fact) => fact.label)).toEqual([
         'Bateria',
@@ -217,7 +218,11 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
         'Aktualizacje',
         'Odporność',
         'Ekran i wydajność',
+        'Wymiary i waga',
       ]);
+      expect(JSON.stringify(card)).not.toContain('imageUrl');
+      expect(JSON.stringify(card)).not.toContain('photoUrl');
+      expect(JSON.stringify(card)).not.toContain('gsmarena.com/vv/');
     }
   });
 
@@ -396,7 +401,7 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
 
   it('szczegóły kryteriów: ocena, pewność, uzasadnienie i znacznik szacunku', () => {
     const redmi = cardFor(phoneById('redmi-note-15-pro-5g-8-256'));
-    expect(redmi.criteria.length).toBe(14);
+    expect(redmi.criteria.length).toBe(15);
 
     const updates = redmi.criteria.find((criterion) => criterion.id === 'updates')!;
     expect(updates.estimated).toBe(false);

@@ -8,6 +8,7 @@ import {
   BatteryIcon,
   CameraIcon,
   LockIcon,
+  RulerIcon,
   ScreenIcon,
   ShieldIcon,
   StorageIcon,
@@ -22,6 +23,7 @@ const FACT_ICONS: Record<FactKey, typeof BatteryIcon> = {
   updates: UpdateIcon,
   durability: ShieldIcon,
   displayPerformance: ScreenIcon,
+  dimensions: RulerIcon,
 };
 
 interface PhoneCardAnonProps {

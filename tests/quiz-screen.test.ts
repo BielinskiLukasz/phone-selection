@@ -175,7 +175,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     const sessions = stored.sessions ?? [];
     expect(sessions.length).toBe(1);
     expect(sessions[0].topThree).toBeNull();
-    expect(Object.keys(sessions[0].weights).length).toBe(14);
+    expect(Object.keys(sessions[0].weights).length).toBe(15);
     expect(sessions[0].ranking.cards.length).toBe(3);
   });
 

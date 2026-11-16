@@ -131,6 +131,92 @@ export function durabilityScore(
   return null;
 }
 
+/* ── Wymiary i waga (poręczność — im mniejszy, smuklejszy i lżejszy, tym wyżej) ── */
+
+/** Waga: 165 g = 100 pkt (bardzo lekki), 235 g = 0 pkt (bardzo ciężki). */
+export const WEIGHT_LIGHT_G = 165;
+export const WEIGHT_SPAN_G = 70;
+
+/** Powierzchnia obudowy (wysokość × szerokość): 11 000 mm² = 100, 13 200 mm² = 0. */
+export const FOOTPRINT_COMPACT_MM2 = 11_000;
+export const FOOTPRINT_SPAN_MM2 = 2_200;
+
+/** Grubość obudowy: 6,5 mm = 100 pkt, 9,5 mm = 0 pkt. */
+export const THICKNESS_SLIM_MM = 6.5;
+export const THICKNESS_SPAN_MM = 3.0;
+
+export interface ParsedDimensions {
+  heightMm: number;
+  widthMm: number;
+  thicknessMm: number;
+}
+
+/** Parsuje zapis „156,5 x 74,6 x 7,3” albo „156.5 × 74.6 × 7.3” do trzech liczb w mm. */
+export function parseDimensionsMm(text: string | null | undefined): ParsedDimensions | null {
+  if (typeof text !== 'string') return null;
+  const match =
+    /(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i.exec(text);
+  if (!match?.[1] || !match[2] || !match[3]) return null;
+  const heightMm = Number(match[1].replace(',', '.'));
+  const widthMm = Number(match[2].replace(',', '.'));
+  const thicknessMm = Number(match[3].replace(',', '.'));
+  if (!positive(heightMm) || !positive(widthMm) || !positive(thicknessMm)) return null;
+  return { heightMm, widthMm, thicknessMm };
+}
+
+export function weightLightnessScore(weightG: number | null | undefined): number | null {
+  const w = positive(weightG);
+  if (w === null) return null;
+  return clamp(((WEIGHT_LIGHT_G + WEIGHT_SPAN_G - w) / WEIGHT_SPAN_G) * 100);
+}
+
+export function footprintCompactnessScore(
+  heightMm: number | null | undefined,
+  widthMm: number | null | undefined,
+): number | null {
+  const h = positive(heightMm);
+  const w = positive(widthMm);
+  if (h === null || w === null) return null;
+  const area = h * w;
+  return clamp(((FOOTPRINT_COMPACT_MM2 + FOOTPRINT_SPAN_MM2 - area) / FOOTPRINT_SPAN_MM2) * 100);
+}
+
+export function thicknessSlimnessScore(thicknessMm: number | null | undefined): number | null {
+  const t = positive(thicknessMm);
+  if (t === null) return null;
+  return clamp(((THICKNESS_SLIM_MM + THICKNESS_SPAN_MM - t) / THICKNESS_SPAN_MM) * 100);
+}
+
+/**
+ * `compactness` = 0,45 × lekkość (g) + 0,45 × mała powierzchnia (wys. × szer.) + 0,10 × smukłość (mm).
+ * Gdy znana jest tylko część składowych, wagi przeskalowują się proporcjonalnie; brak danych → null.
+ */
+export function compactnessScore(input: {
+  weightG?: number | null;
+  heightMm?: number | null;
+  widthMm?: number | null;
+  thicknessMm?: number | null;
+  dimensionsMm?: string | null;
+}): number | null {
+  const parsed = parseDimensionsMm(input.dimensionsMm);
+  const weight = weightLightnessScore(input.weightG);
+  const footprint = footprintCompactnessScore(
+    input.heightMm ?? parsed?.heightMm,
+    input.widthMm ?? parsed?.widthMm,
+  );
+  const slimness = thicknessSlimnessScore(input.thicknessMm ?? parsed?.thicknessMm);
+
+  const parts: [number, number][] = [];
+  if (weight !== null) parts.push([0.45, weight]);
+  if (footprint !== null) parts.push([0.45, footprint]);
+  if (slimness !== null) parts.push([0.1, slimness]);
+  if (parts.length === 0) return null;
+
+  const weightSum = parts.reduce((sum, [w]) => sum + w, 0);
+  const total = parts.reduce((sum, [w, value]) => sum + w * value, 0) / weightSum;
+  return Math.round(clamp(total));
+}
+
 /* ── Ekran: reguła sprzętowa, gdy brak niezależnych pomiarów (C1) ── */
 
 export const DISPLAY_NITS_TIERS: readonly { minNits: number; score: number }[] = [

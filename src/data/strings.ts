@@ -274,6 +274,17 @@ export const strings = {
   rankingHideOutside: 'Ukryj telefony poza pulą',
   rankingSources: 'źródła',
   rankingStatusNeedsConfirmation: 'oferta do potwierdzenia',
+  rankingSizeSliderTitle: 'Wymiary i waga (im mniejszy i lżejszy, tym lepiej)',
+  rankingSizeSliderNote:
+    'Przesuń suwak, żeby od razu uwzględnić poręczność i wagę w rankingu (0 = bez znaczenia, 5 = kluczowe).',
+  rankingCompactnessBadge: 'poręczność',
+  photoLabel: 'Zdjęcie modelu',
+  photoViewStudio: 'Przód i tył',
+  photoViewPress: 'Zdjęcie prasowe',
+  photoZoomOpen: 'Powiększ zdjęcie',
+  photoZoomClose: 'Zamknij podgląd',
+  photoUnavailable: 'Podgląd sylwetki w skali',
+  cardsPhotoHiddenNote: 'Zdjęcie modelu — tak jak nazwę i markę — odkryjemy po wyborze karty.',
   footerDataState: 'stan danych',
 
   /* Motyw (UI-SPEC 6) */
@@ -341,6 +352,8 @@ export const strings = {
   footerNote:
     'Statyczna strona na GitHub Pages. Bez backendu, bez trackerów, stan w Twojej przeglądarce.',
   planningDocs: 'Dokumenty planistyczne',
+  cardsUpdatesHelp:
+    'Aktualizacje systemu wnoszą nowe funkcje i wygląd (zwykle raz w roku). Poprawki łatają luki bezpieczeństwa — gdy skończą się nowe wersje systemu, a trwają poprawki, telefon i aplikacje bankowe nadal działają bezpiecznie.',
 
   /* Etap 11 — wykluczanie marek i modeli (opcjonalny filtr startowy) */
   exclude: 'Wykluczenia',

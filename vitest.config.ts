@@ -17,6 +17,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
+    testTimeout: 15_000,
     env: { VITE_QUIZ_ADVANCE_MS: '10' },
     include: ['tests/**/*.test.{ts,tsx}'],
     css: false,

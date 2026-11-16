@@ -18,6 +18,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 9 | Pełny ranking, szlify i wydanie | `[~]` w toku (kod gotowy, czeka test i wydanie v1.0) |
 | 10 | Rozszerzenie puli modeli (10 → 15, przed v1.0) | `[x]` zrobione |
 | 11 | Wykluczanie marek i modeli (opcjonalny filtr startowy) | `[x]` zrobione |
+| 12 | Zdjęcia telefonów, wymiary i waga (suwak poręczności) oraz objaśnienia UI | `[x]` zrobione |
 
 ---
 
@@ -43,7 +44,27 @@ i microSD Redmi, zawartość pudełek, raport luk, odświeżenie cen).
 
 ### Stan danych (aktualizowany na bieżąco)
 
-**Uzupełnienia specyfikacji (po 14.11.2026):** pola potwierdzone w oficjalnych specyfikacjach producentów (Motorola, Xiaomi mi.com, Google Pixel Help) trafiły do `phones.json`: IP, waga, microSD, NFC, ładowanie bezprzewodowe, zawartość pudełka, ekran i aparaty 15T. Oceny liczone ze wzorów PROJECT 7.5 zaktualizowane: Edge 60 `durability` 90 i `storage` 80 (slot microSD), 15T `charging` 69, `durability` 90, `zoom` 60. Nic nie zostało uzupełnione „z pamięci”; pola bez potwierdzenia zostały `null` (m.in. `updatesYears` dla 15T i Realme, jakość ekranu 15T, testy czasu pracy). Skutek uboczny: Edge 60 ma slot microSD, więc pytanie warunkowe **C3 jest aktywne** (18 pytań zamiast 17), a walidator zgłasza 16 zamiast ~40 ostrzeżeń. Referencja QUIZ-SPEC 9.1 zmieniła się na #3: Xiaomi 15T (57,9) wyprzedza Realme 16 Pro+ (55,9) — #1 Edge 70 Fusion (71,2) i #2 Edge 60 (62,4) bez zmian; testy person sprawdzają niezmienniki, nie te liczby.
+**Stan po etapach 10–12 (16.11.2026 — 15 modeli, 15 kryteriów w 7 grupach):** `src/data/phones.json` zawiera **15 zweryfikowanych rekordów** (`status: ok`, ceny ≤ 2000 zł sprawdzone 14–16.11.2026, `scoresEstimatedNeutral: []`). Wszystkie 15 rekordów ma ustandaryzowane `brand` i `modelName` (Etap 11), komplet wymiarów i wagi (`heightMm`, `widthMm`, `thicknessMm`, `dimensionsMm`, `weightG`), wyliczoną ze wzoru ocenę poręczności `scores.compactness` (`scoreConfidence: high`) oraz zweryfikowane zdjęcia `reveal.imageUrl` (przód + tył) i `reveal.photoUrl` (zdjęcie prasowe) pokazywane wyłącznie po ujawnieniu (Etap 12). Skala pojemności baterii poszerzona do `4000–8000 mAh` (D4). Walidator: **0 błędów**, 1 dotychczasowe ostrzeżenie (`specs.nfc: null` w Realme 16 Pro+); wszystkie 5 nowych modeli ma **0 luk w `specs`** (`honor-400-8-256`, `oneplus-nord-5-5g-8-256`, `galaxy-a37-5g-8-256` i `vivo-v70-fe-5g-8-256` — pełny komplet także bez ocen `low`).
+
+| # | Model (`id`) | Cena PL | Waga i wymiary | `compactness` | Zdjęcia (`reveal`) | Status |
+|---|---|---|---|---|---|---|
+| 1 | Samsung Galaxy A57 5G 8/256 (`galaxy-a57-8-256`) | 1729,00 zł | 179 g · 161,5 × 76,8 × 6,9 mm | 61/100 | `[x]` studio + prasowe | `[x]` ok |
+| 2 | Google Pixel 10a 8/128 (`pixel-10a-8-128`) | 1899,99 zł | 183 g · 153,9 × 73 × 9 mm | 75/100 | `[x]` studio + prasowe | `[x]` ok |
+| 3 | Samsung Galaxy A56 5G 8/256 (`galaxy-a56-5g-8-256`) | 1718,99 zł | 198 g · 162,2 × 77,5 × 7,4 mm | 44/100 | `[x]` studio + prasowe | `[x]` ok |
+| 4 | Xiaomi Redmi Note 15 Pro 5G 8/256 (`redmi-note-15-pro-5g-8-256`) | 1299,00 zł | 210 g · 163,6 × 78,1 × 8 mm | 30/100 | `[x]` studio + prasowe | `[x]` ok |
+| 5 | Motorola Edge 60 12/256 (`motorola-edge-60-12-256`) | 1399,00 zł | 179 g · 161,2 × 73,1 × 7,9 mm | 70/100 | `[x]` studio + prasowe | `[x]` ok (microSD) |
+| 6 | Xiaomi 15T 12/512 (`xiaomi-15t-12-512`) | 1999,00 zł | 194 g · 163,2 × 78 × 7,5 mm | 43/100 | `[x]` studio + prasowe | `[x]` ok |
+| 7 | Motorola Edge 70 Fusion 12/256 (`motorola-edge-70-fusion-12-256`) | 1658,12 zł | 193 g · 162,8 × 75,6 × 8 mm | 50/100 | `[x]` studio + prasowe | `[x]` ok |
+| 8 | Google Pixel 9a 8/128 (`pixel-9a-8-128`) | 1749,99 zł | 186 g · 154,7 × 73,3 × 8,9 mm | 72/100 | `[x]` studio + prasowe | `[x]` ok |
+| 9 | Nothing Phone (3a) 12/256 (`nothing-phone-3a-12-256`) | 1779,00 zł | 201 g · 163,5 × 77,5 × 8,4 mm | 36/100 | `[x]` studio + prasowe | `[x]` ok |
+| 10 | Realme 16 Pro+ 5G 8/256 (`realme-16-pro-plus-5g-8-256`) | 1959,99 zł | 203 g · 162,5 × 76,2 × 8,5 mm | 41/100 | `[x]` studio + prasowe | `[x]` ok (`nfc: null`) |
+| 11 | Honor 400 5G 8/256 (`honor-400-8-256`) | 1599,00 zł | 184 g · 156,5 × 74,6 × 7,3 mm | 71/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
+| 12 | OnePlus Nord 5 5G 8/256 (`oneplus-nord-5-5g-8-256`) | 1600,99 zł | 211 g · 163,4 × 77 × 8,1 mm | 33/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
+| 13 | Samsung Galaxy A37 5G 8/256 (`galaxy-a37-5g-8-256`) | 1359,00 zł | 196 g · 162,9 × 78,2 × 7,4 mm | 42/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
+| 14 | vivo V70 FE 5G 8/256 (`vivo-v70-fe-5g-8-256`) | 1799,00 zł | 200 g · 163,7 × 76,2 × 7,6 mm | 44/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
+| 15 | Xiaomi Redmi Note 17 Pro 5G 8/512 (`redmi-note-17-pro-5g-8-512`) | 1799,00 zł | 223 g · 163,5 × 78,3 × 8,6 mm | 19/100 | `[x]` studio + prasowe | `[x]` ok (aparat `low`) |
+
+**Historia wcześniejszych uzupełnień (14.11.2026, pula 10 modeli):** pola potwierdzone w oficjalnych specyfikacjach producentów (Motorola, Xiaomi mi.com, Google Pixel Help) trafiły do `phones.json`: IP, waga, microSD, NFC, ładowanie bezprzewodowe, zawartość pudełka, ekran i aparaty 15T. Oceny liczone ze wzorów PROJECT 7.5 zaktualizowane: Edge 60 `durability` 90 i `storage` 80 (slot microSD), 15T `charging` 69, `durability` 90, `zoom` 60. Nic nie zostało uzupełnione „z pamięci”; pola bez potwierdzenia zostały `null` (m.in. `updatesYears` dla 15T i Realme, jakość ekranu 15T, testy czasu pracy). Skutek uboczny: Edge 60 ma slot microSD, więc pytanie warunkowe **C3 jest aktywne** (18 pytań zamiast 17), a walidator zgłasza 16 zamiast ~40 ostrzeżeń. Referencja QUIZ-SPEC 9.1 zmieniła się na #3: Xiaomi 15T (57,9) wyprzedza Realme 16 Pro+ (55,9) — #1 Edge 70 Fusion (71,2) i #2 Edge 60 (62,4) bez zmian; testy person sprawdzają niezmienniki, nie te liczby.
 
 Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i braki danych są w `phones.json` (`scoreConfidence`, `scoresEstimatedNeutral`). Ceny i linki podał użytkownik (14.11.2026). Wariant 8/128 GB zostaje dla Pixela 10a i 9a, a Xiaomi 15T bierzemy w wersji 12/512 GB. Pixel 8a i Galaxy A55 wypadły z listy, weszły Redmi Note 15 Pro 5G i Realme 16 Pro+ 5G.
 
@@ -222,6 +243,18 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 - [x] `src/lib/exclusions.ts` + `rank().fullRanking`: normalizacja i `S` na pełnej puli, karty z trzech najlepszych niewykluczonych (uzupełnienie powyżej budżetu tylko z niewykluczonych), blokada przy 0 i ostrzeżenie przy 1–2 pozostałych
 - [x] `ExcludeScreen` (`#/s/:id/exclude`), `ExclusionPicker` i `ExclusionSheet` z leniwym ładowaniem katalogu nazw (`src/data/exclusionCatalog.ts`), integracja ze Startem, `FilterPanel`, `CardsScreen` (zmiana bez przeliczania `S`), `RankingScreen` (plakietki „Wykluczony (marka)/(model)” + „Uwzględnij ponownie”) i `HistoryScreen` („Wykluczono: …” + „Teraz wykluczony”)
 - [x] Testy akceptacyjne 1–9 w `tests/exclusions.test.ts`, audyt `axe-core` w obu motywach i test wycieku nazw po kliknięciu „Pomiń”
+
+## Etap 12 — Zdjęcia telefonów, wymiary i waga (suwak poręczności) oraz objaśnienia UI
+
+**Cel:** dodać zdjęcia telefonów po ujawnieniu (rozstrzygnięcie PROJECT 14.4), uzupełnić dokładne wymiary i wagę wszystkich 15 modeli w zestawieniu i na kartach, wprowadzić obiektywne kryterium oraz suwak poręczności (im mniejszy, smuklejszy i lżejszy telefon, tym wyżej) oraz objaśnić użytkowniczce różnicę między aktualizacjami systemu a poprawkami bezpieczeństwa.
+
+- [x] **Objaśnienie wsparcia aktualizacjami:** dodano zwięzłą, neutralną podpowiedź (`strings.cardsUpdatesHelp`) pod wierszem „Aktualizacje” w `DetailsAccordion.tsx` i `RankingScreen.tsx` wyjaśniającą różnicę między dużymi aktualizacjami systemu (nowe funkcje, raz w roku) a łatkami bezpieczeństwa (dalsze bezpieczne działanie telefonu i bankowości po zakończeniu nowych wersji systemu)
+- [x] **Zdjęcia telefonów po ujawnieniu (`src/components/PhonePhoto.tsx`):** uzupełniono `reveal.imageUrl` (ujęcie studyjne przód + tył) i `reveal.photoUrl` (oficjalne zdjęcie prasowe) dla 15/15 modeli w `src/data/phones.json` + walidację URL w `scripts/validate-data.ts` i token `--color-photo-bg` w `src/index.css`; miniatury w wierszach `RankingScreen`, zdjęcie na odsłoniętej karcie `PhoneCardRevealed`, duży podgląd z przełącznikiem ujęć i oknem powiększenia (`Esc`, pułapka fokusu) w szczegółach rankingu oraz awaryjna sylwetka SVG w skali wymiarów offline; przed wyborem nadal **0 elementów `<img>`** w DOM
+- [x] **Wymiary i waga (15/15) oraz kryterium `compactness` (grupa `size`):** uzupełniono `heightMm`, `widthMm`, `thicknessMm`, `dimensionsMm` i `weightG` dla całej puli; dodano obiektywny wzór `compactnessScore` w `src/data/scoringRules.ts` (`0,45 × lekkość [165–235 g] + 0,45 × mała powierzchnia [11 000–13 200 mm²] + 0,10 × smukłość [6,5–9,5 mm]`, pilnowany w `tests/score-rules.test.ts`); rozszerzono model do **15 kryteriów w 7 grupach** i **7 cech na karcie** (`dimensionsFact`), dodano wagi, wymiary i odznakę `poręczność X/100` w wierszach pełnego rankingu i podglądzie suwaków
+- [x] **Suwak i pytanie quizu oceniające poręczność:** suwak grupy „Wymiary i waga” (0–5) na `SlidersScreen` (suwaki i dostrojenie hybrydy), szybki suwak 0–5 (z przyciskami szybkiego wyboru) bezpośrednio nad listą w `RankingScreen`, pytanie `D4` w `src/data/questions.ts` (19 pytań; odpowiedź „bez znaczenia” = `0` zeruje wagę grupy w `computedGroupImportance`, nie zmieniając rankingów referencyjnych person) oraz opcja w kroku G1
+- [x] **Testy i stabilność CI:** pokrycie testami wzoru `compactness`, suwaka poręczności (w suwakach i pełnym rankingu), zdjęć po ujawnieniu, braku `<img>` przed wyborem i audytu `axe-core` w obu motywach; ustabilizowano `tests/exclusions.test.ts` i `tests/a11y-audit.test.ts` (deterministyczne `findByRole` dla leniwego importu katalogu, rozdzielenie testów akceptacyjnych `7.` i `2./8.`, szybkie selektory wierszy rankingu oraz `testTimeout: 15_000` w `vitest.config.ts`)
+
+**DoD:** wszystkie 15 modeli ma komplet wymiarów, wagi, ocen `compactness` i zdjęć w `reveal`; przed wyborem w DOM nie ma zdjęć ani nazw; suwak „Wymiary i waga” działa w suwakach, hybrydzie i pełnym rankingu (przy wartości 5 na szczycie lądują najlżejsze/najmniejsze modele: Pixel 10a 75 pkt, Pixel 9a 72, Honor 400 71, Edge 60 70, Galaxy A57 61); komplet 28 plików testowych Vitest, walidatory i `npm run build` zielone.
 
 ---
 

@@ -181,3 +181,20 @@ export function PhoneIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function RulerIcon({ className }: IconProps) {
+  return (
+    <svg {...svgProps(className)}>
+      <rect x="3" y="7" width="18" height="10" rx="2" />
+      <path d="M7 7v4M10.5 7v2.6M14 7v4M17.5 7v2.6" />
+    </svg>
+  );
+}
+
+export function ExpandIcon({ className }: IconProps) {
+  return (
+    <svg {...svgProps(className)}>
+      <path d="M15 4h5v5M9 20H4v-5M20 4l-6 6M4 20l6-6" />
+    </svg>
+  );
+}

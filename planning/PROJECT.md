@@ -124,6 +124,7 @@ Krótki quiz (bloki: bateria, aparat, budżet), potem ekran suwaków **wypełnio
 | `smoothness` | Płynność na co dzień | przeglądarka, komunikatory, Facebook |
 | `display` | Ekran | jasność na słońcu, płynność, jakość |
 | `durability` | Odporność | klasa IP, szkło, konstrukcja |
+| `compactness` | Wymiary i waga | poręczność: im mniejszy, smuklejszy i lżejszy telefon, tym wyżej |
 | `value` | Stosunek jakości do ceny | liczony z ceny i budżetu sesji |
 
 ### 7.2 Dane wejściowe
@@ -178,6 +179,7 @@ Każdy telefon ma w `scores` ocenę 0-100 na kryterium, w `basis` uzasadnienie z
 | `updates` | `lata / 7 × 100`, gdzie lata = średnia z liczby dużych aktualizacji systemu i lat poprawek (7 lat = 100, 6 lat ≈ 86, 3+4 lata ≈ 50) |
 | `storage` | 128 GB = 40, 256 GB = 75, 512 GB = 100 (slot microSD dałby bonus, żaden telefon z listy go nie ma) |
 | `durability` | IP68/IP69 + MIL-STD = 100, IP68 = 90, IP66/IP68 = 88, IP67 = 80, IP64 = 55 |
+| `compactness` | `0,45 × lekkość + 0,45 × mała powierzchnia + 0,10 × smukłość`: lekkość = `(235 − g) / 70 × 100` (165 g = 100, 235 g = 0); powierzchnia = `(13200 − wys.×szer.) / 2200 × 100` (11 000 mm² = 100, 13 200 mm² = 0); smukłość = `(9,5 − mm) / 3 × 100` (6,5 mm = 100, 9,5 mm = 0) |
 
 **Reguły C1 (zatwierdzone przy domykaniu etapu 0, kod: `src/data/scoringRules.ts`):**
 
@@ -318,6 +320,6 @@ Zasady zbierania danych:
 1. **Nazwa repo** i adres Pages.
 2. **Link do wznowienia / eksport historii** (sekcja 9): wdrażać w MVP czy później?
 3. **Motyw ciemny „złożony”:** czy chodzi tylko o styl (gęstość, mono, ramki), czy też o więcej widocznych danych na kartach?
-4. **Zdjęcia telefonów** po ujawnieniu: pomijamy czy dodajemy (kwestia praw do zdjęć)?
+4. ~~**Zdjęcia telefonów** po ujawnieniu~~ — **rozstrzygnięte:** pola `reveal.imageUrl` i `reveal.photoUrl` renderowane wyłącznie po ujawnieniu (na wybranej karcie i w pełnym rankingu, z powiększeniem i awaryjną sylwetką w skali wymiarów; przed wyborem brak `<img>` w DOM).
 5. **Kalibracja** stałych rankingu (`value`, wagi domyślne) po zebraniu pełnych danych.
 6. **Mi Band 6:** potwierdzić zgodność i ograniczenia z aplikacjami na Androidzie i dodać do „Więcej szczegółów”.

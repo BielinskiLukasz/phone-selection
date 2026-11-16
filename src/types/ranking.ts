@@ -138,7 +138,8 @@ export type FactKey =
   | 'storage'
   | 'updates'
   | 'durability'
-  | 'displayPerformance';
+  | 'displayPerformance'
+  | 'dimensions';
 
 export interface AnonFact {
   key: FactKey;

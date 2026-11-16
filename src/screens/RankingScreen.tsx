@@ -8,15 +8,34 @@ import { specRows } from '@/lib/cardSpecs';
 import { groupScores as computeGroupScores, scoreRanges } from '@/lib/scoring';
 import { exclusionReason, includePhoneAgain } from '@/lib/exclusions';
 import { buildPool, meetsMicroSdFilter, meetsStorageFilter, withinSiteLimit } from '@/lib/pool';
+import {
+  SLIDER_MAX,
+  SLIDER_MIN,
+  SLIDER_STEP,
+  formatSliderValue,
+  sliderAriaValueText,
+  sliderLabel,
+  toSliderValue,
+} from '@/features/sliders/sliderModel';
 import { matchLabel } from '@/lib/matchDisplay';
-import { NO_DATA } from '@/lib/anonymize';
+import { NO_DATA, formatBodySummary } from '@/lib/anonymize';
 import type { GroupId } from '@/types';
 import type { Session } from '@/types/state';
 import { Badge } from '@/components/Badge';
+import { PhonePhoto } from '@/components/PhonePhoto';
 import { RouteChip } from '@/components/RouteChip';
 import { ScoreBar } from '@/components/ScoreBar';
-import { ArrowLeftIcon, ArrowRightIcon, AlertIcon, CheckIcon, ScreenIcon } from '@/components/Icons';
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  AlertIcon,
+  CheckIcon,
+  RulerIcon,
+  ScreenIcon,
+} from '@/components/Icons';
 import { cn } from '@/utils/cn';
+
+const SIZE_QUICK_VALUES = [0, 1, 2, 3, 4, 5] as const;
 
 const SPEC_LABELS = {
   display: strings.cardsSpecDisplay,
@@ -111,6 +130,18 @@ export function RankingScreen({ session }: RankingScreenProps) {
   }
 
   const staleData = snapshot.dataVersion !== DATA_VERSION;
+  const sizeImportance = toSliderValue(
+    snapshot.groupImportance.size ?? session.groupImportance.size ?? 0,
+  );
+  const sizeFill = (sizeImportance / SLIDER_MAX) * 100;
+
+  function setSizeImportance(value: number) {
+    dispatch({
+      type: 'session/override-weights',
+      sessionId: session.id,
+      groupImportance: { size: value },
+    });
+  }
 
   return (
     <div className="mx-auto w-full max-w-3xl px-5 pb-16 pt-6 sm:pt-10 lg:max-w-5xl">
@@ -146,8 +177,74 @@ export function RankingScreen({ session }: RankingScreenProps) {
         {strings.rankingBack}
       </a>
 
+      {/* Szybki suwak oceny wymiarów i wagi wprost nad zestawieniem */}
+      <section
+        className="surface mt-5 p-[var(--pad-card)]"
+        aria-labelledby="ranking-size-slider-heading"
+      >
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <h2
+            id="ranking-size-slider-heading"
+            className="flex items-center gap-2 text-sm font-semibold tracking-tight sm:text-[15px]"
+          >
+            <RulerIcon className="h-4 w-4 text-[var(--color-accent)]" />
+            <span>{strings.rankingSizeSliderTitle}</span>
+          </h2>
+          <span className="num ml-auto flex items-baseline gap-1.5">
+            <span className="text-xl leading-none font-bold tabular-nums">
+              {formatSliderValue(sizeImportance)}
+            </span>
+            <span className="text-[11px] text-[var(--color-muted)]">/ 5</span>
+            <span className="rounded-[var(--radius-pill)] bg-[var(--color-surface-2)] px-2 py-0.5 text-[10px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
+              {sliderLabel(sizeImportance)}
+            </span>
+          </span>
+        </div>
+        <p className="mt-1 text-xs leading-relaxed text-[var(--color-muted)]">
+          {strings.rankingSizeSliderNote}
+        </p>
+
+        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+          <input
+            type="range"
+            className="range-slider min-w-0 flex-1"
+            min={SLIDER_MIN}
+            max={SLIDER_MAX}
+            step={SLIDER_STEP}
+            value={sizeImportance}
+            style={{ ['--range-fill' as string]: `${sizeFill}%` }}
+            aria-label={strings.rankingSizeSliderTitle}
+            aria-valuetext={sliderAriaValueText(sizeImportance)}
+            onChange={(event) => setSizeImportance(Number(event.target.value))}
+          />
+
+          <div className="flex flex-wrap items-center gap-1">
+            {SIZE_QUICK_VALUES.map((value) => {
+              const selected = Math.abs(sizeImportance - value) < 0.05;
+              return (
+                <button
+                  key={value}
+                  type="button"
+                  onClick={() => setSizeImportance(value)}
+                  aria-label={`${strings.rankingSizeSliderTitle}: ${value} z 5`}
+                  aria-pressed={selected}
+                  className={cn(
+                    'num h-11 w-11 rounded-[var(--radius-pill)] border text-[11px] font-semibold transition-colors duration-150',
+                    selected
+                      ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-on-accent)]'
+                      : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent-ink)]',
+                  )}
+                >
+                  {value}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Lista rankingowa */}
-      <ol className="mt-6 grid gap-2">
+      <ol className="mt-5 grid gap-2">
         {snapshot.entries.map((entry) => {
           const phone = phoneById(entry.phoneId);
           if (!phone) return null;
@@ -192,7 +289,7 @@ export function RankingScreen({ session }: RankingScreenProps) {
                 onClick={() => setOpen(expanded ? null : entry.phoneId)}
                 aria-expanded={expanded}
                 {...(expanded ? { 'aria-controls': `ranking-${entry.phoneId}` } : {})}
-                className="grid w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-[var(--pad-card)] py-3 text-left transition-colors duration-200 hover:bg-[var(--color-surface-2)] sm:gap-5"
+                className="grid w-full grid-cols-[auto_auto_minmax(0,1fr)_auto] items-center gap-3 px-[var(--pad-card)] py-3 text-left transition-colors duration-200 hover:bg-[var(--color-surface-2)] sm:gap-4"
               >
                 <span className="num flex w-9 shrink-0 flex-col items-start">
                   <span className="text-2xl leading-none font-bold tracking-tight">
@@ -202,6 +299,12 @@ export function RankingScreen({ session }: RankingScreenProps) {
                     {entry.score.toFixed(1)} pkt
                   </span>
                 </span>
+
+                <PhonePhoto
+                  phone={phone}
+                  variant="thumb"
+                  className={cn(isExcluded && 'opacity-55')}
+                />
 
                 <span className="grid min-w-0 gap-1.5">
                   <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
@@ -237,8 +340,20 @@ export function RankingScreen({ session }: RankingScreenProps) {
                     ) : null}
                   </span>
 
-                  {/* Mini-paski sześciu grup (UI-SPEC 3.6) */}
-                  <span className="grid grid-cols-6 gap-1.5">
+                  {/* Wymiary, waga i ocena poręczności widoczne wprost w zestawieniu */}
+                  {formatBodySummary(phone.specs) ? (
+                    <span className="num flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-[var(--color-muted)]">
+                      <span>{formatBodySummary(phone.specs)}</span>
+                      {typeof phone.scores.compactness === 'number' ? (
+                        <span className="text-[10px] tracking-[0.06em] text-[var(--color-accent-ink)] uppercase">
+                          · {strings.rankingCompactnessBadge} {phone.scores.compactness}/100
+                        </span>
+                      ) : null}
+                    </span>
+                  ) : null}
+
+                  {/* Mini-paski siedmiu grup (UI-SPEC 3.6 + wymiary i waga) */}
+                  <span className="grid grid-cols-7 gap-1.5">
                     {GROUPS.map((group) => {
                       const value = groups?.[group.id] ?? 0;
                       return (
@@ -311,7 +426,7 @@ export function RankingScreen({ session }: RankingScreenProps) {
                     <section>
                       <h2 className="label-mono">{strings.cardsDetailsScores}</h2>
                       <p className="num mt-1 text-[11px] text-[var(--color-muted)]">
-                        {sessionTexts.confidenceSummary(lowConfidence, 13)}
+                        {sessionTexts.confidenceSummary(lowConfidence, 14)}
                       </p>
                       <ul className="mt-2">
                         {criteria.map((criterion, index) => (
@@ -334,6 +449,11 @@ export function RankingScreen({ session }: RankingScreenProps) {
 
                     <section className="grid gap-5">
                       <div>
+                        <h2 className="label-mono">{strings.photoLabel}</h2>
+                        <PhonePhoto phone={phone} variant="detail" className="mt-2" />
+                      </div>
+
+                      <div>
                         <h2 className="label-mono">{strings.cardsDetailsSpecs}</h2>
                         <dl className="mt-2 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-border)]">
                           {specRows(phone, SPEC_LABELS, PHONES).map((row) => (
@@ -344,6 +464,11 @@ export function RankingScreen({ session }: RankingScreenProps) {
                               <dt className="label-mono">{row.label}</dt>
                               <dd className="num text-[12px] leading-relaxed break-words">
                                 {row.value || NO_DATA}
+                                {row.key === 'updates' && !row.missing ? (
+                                  <span className="mt-1 block font-sans text-[11px] leading-snug text-[var(--color-muted)]">
+                                    {strings.cardsUpdatesHelp}
+                                  </span>
+                                ) : null}
                               </dd>
                             </div>
                           ))}

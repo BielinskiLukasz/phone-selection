@@ -131,5 +131,6 @@ export const GROUP_ORDER: readonly GroupId[] = [
   'storage',
   'longevity',
   'smooth',
+  'size',
   'price',
 ];

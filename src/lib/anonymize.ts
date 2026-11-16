@@ -287,6 +287,46 @@ export function displayPerformanceFact(phone: Phone, performance: PerformanceCla
   );
 }
 
+/** Zwięzły, czysto liczbowy opis wagi i wymiarów obudowy („184 g · 156,5 × 74,6 × 7,3 mm”). */
+export function formatBodySummary(specs: Specs): string | null {
+  const weight =
+    typeof specs.weightG === 'number' && Number.isFinite(specs.weightG) && specs.weightG > 0
+      ? `${Math.round(specs.weightG)} g`
+      : null;
+
+  const h =
+    typeof specs.heightMm === 'number' && Number.isFinite(specs.heightMm) && specs.heightMm > 0
+      ? specs.heightMm
+      : null;
+  const w =
+    typeof specs.widthMm === 'number' && Number.isFinite(specs.widthMm) && specs.widthMm > 0
+      ? specs.widthMm
+      : null;
+  const t =
+    typeof specs.thicknessMm === 'number' &&
+    Number.isFinite(specs.thicknessMm) &&
+    specs.thicknessMm > 0
+      ? specs.thicknessMm
+      : null;
+
+  const dims =
+    typeof specs.dimensionsMm === 'string' && specs.dimensionsMm.trim().length > 0
+      ? `${specs.dimensionsMm.trim().replace(/\s*x\s*/gi, ' × ')} mm`
+      : h !== null && w !== null && t !== null
+        ? `${decimal(Math.round(h * 10) / 10)} × ${decimal(Math.round(w * 10) / 10)} × ${decimal(Math.round(t * 10) / 10)} mm`
+        : h !== null && w !== null
+          ? `${decimal(Math.round(h * 10) / 10)} × ${decimal(Math.round(w * 10) / 10)} mm`
+          : t !== null
+            ? `${decimal(t)} mm grubości`
+            : null;
+
+  return join([weight, dims]);
+}
+
+export function dimensionsFact(specs: Specs): AnonFact {
+  return fact('dimensions', 'Wymiary i waga', formatBodySummary(specs));
+}
+
 /* ── Anonimizacja i test wycieku (E2-12) ── */
 
 /** Słowa generyczne, które nie identyfikują marki — nie trafiają na listę tokenów. */
@@ -307,7 +347,8 @@ const UI_VOCABULARY = new Set([
   'wodoszczelny', 'pyłoszczelny', 'zachlapania', 'zanurzenie', 'strugi', 'wody', 'kurz',
   'ekran', 'wydajność', 'wysoka', 'średnia', 'podstawowa', 'brak', 'danych', 'cena',
   'orientacyjna', 'sprawdź', 'sklepie', 'stabilizacją', 'stabilizacji', 'roku', 'rok', 'lata',
-  'lat', 'mp', 'mah', 'hz', 'gb', 'test', 'testowa', 'testowy', 'wartość', 'kryterium',
+  'lat', 'mp', 'mah', 'hz', 'gb', 'mm', 'wymiary', 'waga', 'grubości', 'poręczność',
+  'test', 'testowa', 'testowy', 'wartość', 'kryterium',
 ]);
 
 /** Marki, serie, nazwy chipów, nakładek i komponentów — zawsze zakazane na karcie. */
@@ -477,6 +518,7 @@ export function toAnonCard(
       updatesFact(phone.specs),
       durabilityFact(phone.specs),
       displayPerformanceFact(phone, performance),
+      dimensionsFact(phone.specs),
     ],
     groupScores: ranked.groupScores,
     criteria,

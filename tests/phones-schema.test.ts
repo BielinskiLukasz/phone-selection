@@ -48,13 +48,13 @@ function assertPhoneShape(value: unknown, path: string): void {
 }
 
 describe('E2-10 · schemat danych', () => {
-  it('walidator i definicje kryteriów używają tej samej listy 14 kryteriów', () => {
+  it('walidator i definicje kryteriów używają tej samej listy 15 kryteriów', () => {
     expect([...VALIDATOR_CRITERIA].sort()).toEqual([...CRITERION_IDS].sort());
     expect([...CRITERIA_DEFS.map((criterion) => criterion.id)].sort()).toEqual(
       [...CRITERION_IDS].sort(),
     );
-    expect(CRITERION_IDS.length).toBe(14);
-    expect(GROUPS.flatMap((group) => group.criteria).length).toBe(14);
+    expect(CRITERION_IDS.length).toBe(15);
+    expect(GROUPS.flatMap((group) => group.criteria).length).toBe(15);
   });
 
   it('każde kryterium należy do dokładnie jednej grupy', () => {
@@ -121,13 +121,20 @@ describe('E2-10 · schemat danych', () => {
     expect(xiaomi.basis.display).toMatch(/regu|pomiar/i);
   });
 
-  it('każdy telefon ma źródła i pewność ocen', () => {
+  it('każdy telefon ma źródła, pewność ocen, wymiary z wagą i zdjęcia w reveal', () => {
     for (const phone of POOL) {
       expect((phone.sources ?? []).length, phone.id).toBeGreaterThan(0);
-      expect(Object.keys(phone.scoreConfidence ?? {}).length, phone.id).toBe(13);
+      expect(Object.keys(phone.scoreConfidence ?? {}).length, phone.id).toBe(14);
       for (const value of Object.values(phone.scoreConfidence ?? {})) {
         expect(['high', 'medium', 'low'], phone.id).toContain(value);
       }
+      expect((phone.specs.weightG ?? 0) > 0, `${phone.id}.weightG`).toBe(true);
+      expect((phone.specs.heightMm ?? 0) > 0, `${phone.id}.heightMm`).toBe(true);
+      expect((phone.specs.widthMm ?? 0) > 0, `${phone.id}.widthMm`).toBe(true);
+      expect((phone.specs.thicknessMm ?? 0) > 0, `${phone.id}.thicknessMm`).toBe(true);
+      expect(phone.specs.dimensionsMm, `${phone.id}.dimensionsMm`).toBeTruthy();
+      expect(phone.reveal.imageUrl?.startsWith('https://'), `${phone.id}.imageUrl`).toBe(true);
+      expect(phone.reveal.photoUrl?.startsWith('https://'), `${phone.id}.photoUrl`).toBe(true);
     }
   });
 

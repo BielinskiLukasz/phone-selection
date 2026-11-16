@@ -97,14 +97,50 @@ describe('E9-01 · pełny ranking', () => {
     expect(screen.getAllByRole('button', { name: /pkt/ }).length).toBe(PHONES.length);
   });
 
-  it('każdy wiersz ma mini-paski sześciu grup', () => {
+  it('każdy wiersz ma miniaturę zdjęcia, wymiary z wagą oraz mini-paski siedmiu grup', () => {
     open();
     const firstRow = screen.getAllByRole('button', { name: /pkt/ })[0]!;
-    /* Sześć grup × ( pasek + etykieta ) — etykiety widoczne od 1024 px, paski zawsze. */
-    expect(firstRow.querySelectorAll('span[title]').length).toBe(6);
-    for (const group of ['Bateria', 'Aparat', 'Pamięć', 'Aktualizacje', 'Ekran', 'Cena']) {
+    expect(firstRow.querySelectorAll('span[title]').length).toBe(7);
+    for (const group of [
+      'Bateria',
+      'Aparat',
+      'Pamięć',
+      'Aktualizacje',
+      'Ekran',
+      'Wymiary',
+      'Cena',
+    ]) {
       expect(firstRow.querySelector(`span[title^="${group}"]`), group).toBeTruthy();
     }
+    expect(firstRow.querySelector('img')?.getAttribute('src')?.startsWith('https://')).toBe(true);
+    expect(firstRow.textContent).toMatch(/\d+ g · \d+/);
+    expect(firstRow.textContent).toMatch(/poręczność \d+\/100/i);
+  });
+
+  it('suwak „Wymiary i waga” w zestawieniu przelicza kolejność na korzyść mniejszych i lżejszych modeli', () => {
+    open();
+    const sizeSlider = screen.getByRole('slider', { name: strings.rankingSizeSliderTitle });
+    expect(sizeSlider).toBeTruthy();
+
+    fireEvent.click(
+      screen.getByRole('button', { name: `${strings.rankingSizeSliderTitle}: 5 z 5` }),
+    );
+    expect(sizeSlider.getAttribute('aria-valuetext')).toBe('5 z 5, kluczowe');
+
+    const rows = Array.from(document.querySelectorAll<HTMLButtonElement>('ol > li > button'));
+    const topThreeText = rows
+      .slice(0, 3)
+      .map((row) => row.textContent ?? '')
+      .join(' ');
+    expect(/Motorola Edge 60|Google Pixel 10a|Honor 400/.test(topThreeText)).toBe(true);
+
+    /* Rozwinięty wiersz pokazuje duże zdjęcie z przełącznikiem ujęć i oknem powiększenia. */
+    fireEvent.click(rows[0]!);
+    expect(screen.getByRole('img', { name: new RegExp(strings.photoLabel) })).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: new RegExp(strings.photoZoomOpen) }));
+    expect(screen.getByRole('dialog')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: strings.photoZoomClose }));
+    expect(screen.queryByRole('dialog')).toBeNull();
   });
 
   it('rozwinięcie wiersza pokazuje oceny, pełne dane, linki do sklepów i źródła', () => {

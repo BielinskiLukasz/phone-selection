@@ -383,15 +383,15 @@ describe('E3-01 · pomocniki sesji', () => {
     expect(newSessionId(() => 0.5)).toMatch(/^[a-z0-9-]+$/);
   });
 
-  it('postęp quizu liczy odpowiedzi bez „pomiń” (18 pytań, w tym warunkowe C3)', () => {
+  it('postęp quizu liczy odpowiedzi bez „pomiń” (19 pytań, w tym C3 i D4)', () => {
     const fresh = createSession('quiz', NOW, 'p-1');
-    expect(quizProgress(fresh)).toEqual({ answered: 0, total: 18 });
+    expect(quizProgress(fresh)).toEqual({ answered: 0, total: 19 });
 
     const answered: typeof fresh = {
       ...fresh,
       answers: { A1: 'A1-c', A2: 'A2-skip', B1: 'B1-a' },
     };
-    expect(quizProgress(answered)).toEqual({ answered: 2, total: 18 });
+    expect(quizProgress(answered)).toEqual({ answered: 2, total: 19 });
   });
 
   it('sesje sortują się od najnowszej, a walidacja rozróżnia rekord pełny od naprawialnego', () => {

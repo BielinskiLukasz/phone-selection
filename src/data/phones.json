@@ -22,6 +22,8 @@
       "reveal": {
         "name": "Samsung Galaxy A57 5G 8/256 GB",
         "brand": "Samsung",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a57.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a57-4.jpg",
         "shopLinks": [
           {
             "label": "sferis.pl",
@@ -90,8 +92,10 @@
         "chargerInBox": false,
         "chargingTests": "GSMArena: 36% w 15 min, 64% w 30 min, pełne ładowanie w 69 min",
         "thicknessMm": 6.9,
-        "dimensionsMm": "161,5 x 76,8 x 6,9",
-        "batteryEndurance": 62.7
+        "dimensionsMm": "161,5 × 76,8 × 6,9",
+        "batteryEndurance": 62.7,
+        "heightMm": 161.5,
+        "widthMm": 76.8
       },
       "scores": {
         "battery": 44,
@@ -107,6 +111,7 @@
         "selfie": 65,
         "video": 70,
         "zoom": 45,
+        "compactness": 61,
         "value": null
       },
       "basis": {
@@ -123,6 +128,7 @@
         "selfie": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
         "video": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
         "zoom": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP, wideo 4K; zdjęcia dzienne w teście GSMArena zbliżone do A56; brak teleobiektywu (zoom 2x z kadrowania)",
+        "compactness": "179 g, wymiary 161,5 × 76,8 × 6,9 mm (GSMArena) — wzór poręczności: lekkość 80, mała powierzchnia 36, smukłość 87 → 61 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -132,7 +138,8 @@
         "https://www.alza.hu/samsung-galaxy-a57-5g-8-256gb-navy-d13285956.htm",
         "https://android.com.pl/tech/1036870-samsung-galaxy-a57-i-a37-vs-a55-i-a35/",
         "https://www.notebookcheck.pl/Samsung-Galaxy-A57.1262292.0.html",
-        "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php"
+        "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php",
+        "https://www.gsmarena.com/samsung_galaxy_a57_5g-pictures-14379.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -147,7 +154,8 @@
         "photoMotion": "medium",
         "selfie": "medium",
         "video": "medium",
-        "zoom": "medium"
+        "zoom": "medium",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -159,6 +167,8 @@
       "reveal": {
         "name": "Google Pixel 10a 8/128 GB",
         "brand": "Google",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/google-pixel-10a.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/google/google-pixel-10a-1.jpg",
         "shopLinks": [
           {
             "label": "mediaexpert.pl",
@@ -198,7 +208,7 @@
         "wirelessCharging": true,
         "ip": "IP68",
         "weightG": 183,
-        "dimensionsMm": "153,9 x 73 x 9",
+        "dimensionsMm": "153,9 × 73 × 9",
         "cameras": {
           "main": "48 MP f/1.7",
           "ultrawide": "13 MP f/2.2",
@@ -217,7 +227,10 @@
           "producent: ok. 30 h w typowym użyciu"
         ],
         "chargerInBox": false,
-        "batteryEndurance": 79.3
+        "batteryEndurance": 79.3,
+        "heightMm": 153.9,
+        "widthMm": 73,
+        "thicknessMm": 9
       },
       "scores": {
         "battery": 53,
@@ -233,6 +246,7 @@
         "selfie": 72,
         "video": 60,
         "zoom": 30,
+        "compactness": 75,
         "value": null
       },
       "basis": {
@@ -249,6 +263,7 @@
         "selfie": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
         "video": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
         "zoom": "aparaty jak w 9a: DXOMARK 9a (nowa metodyka) 128 pkt, zdjęcia 144; test eftm: Pixel 9a najlepszy w nocy; słabsze wideo (DXOMARK 100) i brak teleobiektywu",
+        "compactness": "183 g, wymiary 153,9 × 73 × 9 mm (GSMArena) — wzór poręczności: lekkość 74, mała powierzchnia 89, smukłość 17 → 75 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -259,7 +274,8 @@
         "https://www.benchmark.pl/google-pixel-10a-test-recenzja-i-opinia-7268558626128449a",
         "https://tomsguide.com/phones/google-pixel-phones/google-pixel-10a-vs-pixel-9a-whats-the-difference",
         "https://spidersweb.pl/2026/03/google-pixel-10a-stary-procesor-i-nowe-bajery.html",
-        "https://support.google.com/pixelphone/answer/7158537"
+        "https://support.google.com/pixelphone/answer/7158537",
+        "https://www.gsmarena.com/google_pixel_10a-pictures-14474.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -274,7 +290,8 @@
         "photoMotion": "medium",
         "selfie": "medium",
         "video": "medium",
-        "zoom": "medium"
+        "zoom": "medium",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -286,6 +303,8 @@
       "reveal": {
         "name": "Samsung Galaxy A56 5G 8/256 GB",
         "brand": "Samsung",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a56-.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a56-1.jpg",
         "shopLinks": [
           {
             "label": "empik.com",
@@ -338,7 +357,10 @@
         "nfc": true,
         "chargerInBox": false,
         "chargingTests": "GSMArena: 38% w 15 min, 65% w 30 min, pełne ładowanie w 73 min",
-        "batteryEndurance": 64.7
+        "batteryEndurance": 64.7,
+        "heightMm": 162.2,
+        "widthMm": 77.5,
+        "dimensionsMm": "162,2 × 77,5 × 7,4"
       },
       "scores": {
         "battery": 45,
@@ -354,6 +376,7 @@
         "selfie": 65,
         "video": 68,
         "zoom": 42,
+        "compactness": 44,
         "value": null
       },
       "basis": {
@@ -370,6 +393,7 @@
         "selfie": "50 MP Sony IMX906 z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; PhoneArena camera score 122 (słabszy niż A55), GSMArena: miękkie zdjęcia z UW i w słabym świetle",
         "video": "50 MP Sony IMX906 z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; PhoneArena camera score 122 (słabszy niż A55), GSMArena: miękkie zdjęcia z UW i w słabym świetle",
         "zoom": "50 MP z OIS + 12 MP UW + 5 MP makro, selfie 12 MP; układ bez teleobiektywu (PhoneArena: „A telephoto would have been much more useful”), więc przybliżanie 2x z kadrowania",
+        "compactness": "198 g, wymiary 162,2 × 77,5 × 7,4 mm (GSMArena) — wzór poręczności: lekkość 53, mała powierzchnia 29, smukłość 70 → 44 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -382,7 +406,8 @@
         "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php",
         "https://www.gsmarena.com/samsung_galaxy_a56-review-2812.php",
         "https://www.gsmarena.com/samsung_galaxy_a56-review-2812p5.php",
-        "https://www.phonearena.com/reviews/samsung-galaxy-a56-5g-review_id7068"
+        "https://www.phonearena.com/reviews/samsung-galaxy-a56-5g-review_id7068",
+        "https://www.gsmarena.com/samsung_galaxy_a56-13603.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -397,7 +422,8 @@
         "photoMotion": "medium",
         "selfie": "medium",
         "video": "medium",
-        "zoom": "medium"
+        "zoom": "medium",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -409,6 +435,8 @@
       "reveal": {
         "name": "Xiaomi Redmi Note 15 Pro 5G 8/256 GB",
         "brand": "Xiaomi",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-15-pro-global.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-note-15-pro-global-1.jpg",
         "shopLinks": [
           {
             "label": "euro.com.pl",
@@ -454,7 +482,7 @@
           "selfie": "20 MP",
           "telephoto": null
         },
-        "widthMm": 78.09,
+        "widthMm": 78.1,
         "fingerprint": "w ekranie",
         "nfc": true,
         "wifi": "Wi-Fi 6",
@@ -477,7 +505,10 @@
           "nanoreview: 47% w 30 min, pełne ładowanie 1:13"
         ],
         "batteryEndurance": 50,
-        "chargerInBoxNote": "nanoreview podaje „Bundled charger: Yes, 45 W”, FAQ mi.com rozróżnia wersje z ładowarką i bez — dla PL zostaje false"
+        "chargerInBoxNote": "nanoreview podaje „Bundled charger: Yes, 45 W”, FAQ mi.com rozróżnia wersje z ładowarką i bez — dla PL zostaje false",
+        "heightMm": 163.6,
+        "thicknessMm": 8,
+        "dimensionsMm": "163,6 × 78,1 × 8"
       },
       "scores": {
         "battery": 57,
@@ -493,6 +524,7 @@
         "selfie": 58,
         "video": 60,
         "zoom": 40,
+        "compactness": 30,
         "value": null
       },
       "basis": {
@@ -509,6 +541,7 @@
         "selfie": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
         "video": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
         "zoom": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; układ dwóch aparatów 200 MP + 8 MP, brak teleobiektywu (nanoreview/GSMArena); brak niezależnych testów przybliżenia",
+        "compactness": "210 g, wymiary 163,6 × 78,1 × 8 mm (GSMArena) — wzór poręczności: lekkość 36, mała powierzchnia 19, smukłość 50 → 30 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -520,7 +553,8 @@
         "https://www.mi.com/global/support/faq/details/KA-651554/",
         "https://nanoreview.net/en/phone/xiaomi-redmi-note-15-pro-5g",
         "https://www.gsmspecs.com/xiaomi/xiaomi_redmi_note_15_pro-88643",
-        "https://www.newmobile.com/global/phones/xiaomi/redmi-note-15-pro-5g/specifications"
+        "https://www.newmobile.com/global/phones/xiaomi/redmi-note-15-pro-5g/specifications",
+        "https://www.gsmarena.com/xiaomi_redmi_note_15_pro_5g_(global)-14327.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -535,7 +569,8 @@
         "photoMotion": "low",
         "selfie": "low",
         "video": "low",
-        "zoom": "low"
+        "zoom": "low",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -547,6 +582,8 @@
       "reveal": {
         "name": "Motorola Edge 60 12/256 GB",
         "brand": "Motorola",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/motorola-edge-60.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-60-1.jpg",
         "shopLinks": [
           {
             "label": "euro.com.pl",
@@ -604,7 +641,11 @@
         "batteryNote": "GSMArena podaje w skrócie 5500 mAh, w recenzji i u innych źródeł 5200 mAh (wersja globalna) — zostaje 5200",
         "batteryEndurance": 70,
         "updatesOsGenerations": 3,
-        "updatesSecurityYears": 4
+        "updatesSecurityYears": 4,
+        "heightMm": 161.2,
+        "widthMm": 73.1,
+        "thicknessMm": 7.9,
+        "dimensionsMm": "161,2 × 73,1 × 7,9"
       },
       "scores": {
         "battery": 50,
@@ -620,6 +661,7 @@
         "selfie": 68,
         "video": 70,
         "zoom": 70,
+        "compactness": 70,
         "value": null
       },
       "basis": {
@@ -636,6 +678,7 @@
         "selfie": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
         "video": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
         "zoom": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 10 MP 3x (Coolsmartphone, Notebookcheck)",
+        "compactness": "179 g, wymiary 161,2 × 73,1 × 7,9 mm (GSMArena) — wzór poręczności: lekkość 80, mała powierzchnia 64, smukłość 53 → 70 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -662,7 +705,8 @@
         "photoMotion": "medium",
         "selfie": "medium",
         "video": "medium",
-        "zoom": "medium"
+        "zoom": "medium",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -674,6 +718,8 @@
       "reveal": {
         "name": "Xiaomi 15T 12/512 GB",
         "brand": "Xiaomi",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-15t.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-15t-1.jpg",
         "shopLinks": [
           {
             "label": "komputronik.pl",
@@ -734,7 +780,11 @@
           "GSMArena: 67 W, 100% w ok. 50 min"
         ],
         "batteryEndurance": 59,
-        "batteryCycles": 1600
+        "batteryCycles": 1600,
+        "heightMm": 163.2,
+        "widthMm": 78,
+        "thicknessMm": 7.5,
+        "dimensionsMm": "163,2 × 78 × 7,5"
       },
       "scores": {
         "battery": 48,
@@ -750,6 +800,7 @@
         "selfie": 68,
         "video": 70,
         "zoom": 60,
+        "compactness": 43,
         "value": null
       },
       "basis": {
@@ -766,6 +817,7 @@
         "selfie": "konfiguracja aparatów potwierdzona w specyfikacji (mi.com): główny 50 MP z OIS, teleobiektyw 50 MP 2x, szeroki kąt 12 MP, selfie 32 MP; oceny wyprowadzone z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw",
         "video": "konfiguracja aparatów potwierdzona w specyfikacji (mi.com): główny 50 MP z OIS, teleobiektyw 50 MP 2x, szeroki kąt 12 MP, selfie 32 MP; oceny wyprowadzone z wyników 15T Pro (PhoneArena 140, DXOMARK 149) z obniżeniem o ok. 10 pkt, bo 15T ma tańszy zestaw",
         "zoom": "teleobiektyw 50 MP 2x z OIS potwierdzony w specyfikacji; brak niezależnych testów przybliżenia, ocena z klasy sprzętu (porównywalnie z innymi telefonami z teleobiektywem 2x)",
+        "compactness": "194 g, wymiary 163,2 × 78 × 7,5 mm (GSMArena) — wzór poręczności: lekkość 59, mała powierzchnia 21, smukłość 67 → 43 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -790,7 +842,8 @@
         "photoMotion": "low",
         "selfie": "low",
         "video": "low",
-        "zoom": "low"
+        "zoom": "low",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -802,6 +855,8 @@
       "reveal": {
         "name": "Motorola Edge 70 Fusion 12/256 GB",
         "brand": "Motorola",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/motorola-edge-70-fusion.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-70-fusion-1.jpg",
         "shopLinks": [
           {
             "label": "allegro.pl (X-KOM_PL)",
@@ -842,7 +897,7 @@
         "militaryStandard": "MIL-STD-810H",
         "glass": "Gorilla Glass 7i (front), ramka z tworzywa",
         "weightG": 193,
-        "dimensionsMm": "163 x 76 x 7,99",
+        "dimensionsMm": "162,8 × 75,6 × 8",
         "cameras": {
           "main": "50 MP Sony Lytia 710, f/1.8, OIS",
           "ultrawide": "13 MP f/2.2, 120°",
@@ -876,7 +931,10 @@
           "PCMark: 17 h 34 min (91mobiles) — w grupie porównawczej wyżej tylko realme 16 Pro+ (19 h)",
           "ładowanie 20-100% w 49 min (91mobiles); Trusted Reviews: pełne ładowanie poniżej godziny"
         ],
-        "batteryEndurance": 80
+        "batteryEndurance": 80,
+        "heightMm": 162.8,
+        "widthMm": 75.6,
+        "thicknessMm": 8
       },
       "scores": {
         "battery": 78,
@@ -892,6 +950,7 @@
         "selfie": 78,
         "video": 68,
         "zoom": 30,
+        "compactness": 50,
         "value": null
       },
       "basis": {
@@ -908,6 +967,7 @@
         "selfie": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
         "video": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
         "zoom": "50 MP Sony Lytia 710 z OIS (android.com.pl: „niezły/porządny”), selfie 32 MP, wideo 4K tylko 30 kl./s, brak teleobiektywu",
+        "compactness": "193 g, wymiary 162,8 × 75,6 × 8 mm (wariant z baterią 7000 mAh, GSMArena) — wzór poręczności: lekkość 60, mała powierzchnia 41, smukłość 50 → 50 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -920,7 +980,8 @@
         "https://www.motorola.com/rf/en/p/phones/motorola-edge/70-fusion/pmipmjm44md",
         "https://www.trustedreviews.com/reviews/motorola-edge-70-fusion",
         "https://www.notebookcheck.net/Motorola-Edge-70-Fusion.1251578.0.html",
-        "https://www.91mobiles.com/motorola-edge-70-fusion-price-in-india"
+        "https://www.91mobiles.com/motorola-edge-70-fusion-price-in-india",
+        "https://www.gsmarena.com/motorola_edge_70_fusion_5g-14432.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -935,7 +996,8 @@
         "photoMotion": "low",
         "selfie": "low",
         "video": "low",
-        "zoom": "low"
+        "zoom": "low",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -947,6 +1009,8 @@
       "reveal": {
         "name": "Google Pixel 9a 8/128 GB",
         "brand": "Google",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/google-pixel-9a.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/google/google-pixel-9a-1.jpg",
         "shopLinks": [
           {
             "label": "mediaexpert.pl",
@@ -985,7 +1049,7 @@
         "ip": "IP68",
         "glass": "Gorilla Glass 7i (ekran)",
         "weightG": 186,
-        "dimensionsMm": "154,7 x 73,3 x 8,9",
+        "dimensionsMm": "154,7 × 73,3 × 8,9",
         "cameras": {
           "main": "48 MP",
           "ultrawide": "13 MP",
@@ -1004,7 +1068,10 @@
         "polishLaunchPricePln": "8/128: 1799 zł, 8/256: 2299 zł (wg Komputronik, premiera 2025)",
         "sourceNote": "benchmark.pl, komputronik.pl (porównanie z 10a), spidersweb.pl, galaxus.ch",
         "chargerInBox": false,
-        "batteryEndurance": 71.3
+        "batteryEndurance": 71.3,
+        "heightMm": 154.7,
+        "widthMm": 73.3,
+        "thicknessMm": 8.9
       },
       "scores": {
         "battery": 49,
@@ -1020,6 +1087,7 @@
         "selfie": 70,
         "video": 60,
         "zoom": 30,
+        "compactness": 72,
         "value": null
       },
       "basis": {
@@ -1036,6 +1104,7 @@
         "selfie": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
         "video": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
         "zoom": "DXOMARK (nowa metodyka): 128 pkt, zdjęcia 144, wideo 100, bez teleobiektywu; test eftm: bardzo dobre zdjęcia, zwłaszcza nocne",
+        "compactness": "186 g, wymiary 154,7 × 73,3 × 8,9 mm (GSMArena) — wzór poręczności: lekkość 70, mała powierzchnia 85, smukłość 20 → 72 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -1043,7 +1112,8 @@
         "https://www.benchmark.pl/google-pixel-10a-test-recenzja-i-opinia-7268558626128449a",
         "https://nano.komputronik.pl/n/google-pixel-10a-vs-pixel-9a-porownanie/",
         "https://www.galaxus.ch/en/page/jetzt-noch-in-klein-dann-passt-das-pixel-10a-im-test-41653",
-        "https://support.google.com/pixelphone/answer/7158537"
+        "https://support.google.com/pixelphone/answer/7158537",
+        "https://www.gsmarena.com/google_pixel_9a-13478.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -1058,7 +1128,8 @@
         "photoMotion": "medium",
         "selfie": "medium",
         "video": "medium",
-        "zoom": "medium"
+        "zoom": "medium",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -1070,6 +1141,8 @@
       "reveal": {
         "name": "Nothing Phone (3a) 12/256 GB",
         "brand": "Nothing",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/nothing-phone-3a-new.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/nothing/nothing-phone-3a-new-1.jpg",
         "shopLinks": [
           {
             "label": "proshop.pl",
@@ -1111,7 +1184,7 @@
         "ip": "IP64",
         "ipNote": "ochrona przed pyłem i zachlapaniem, bez pełnej wodoszczelności",
         "weightG": 201,
-        "dimensionsMm": "164 x 78 x 9",
+        "dimensionsMm": "163,5 × 77,5 × 8,4",
         "back": "szkło",
         "cameras": {
           "main": "50 MP",
@@ -1136,7 +1209,10 @@
           "Visermark: ok. 56 h aktywnego użycia, „dwa dni w realnym użyciu”",
           "gsmManiaK: 7-8 h ekranu, w nocy ok. 1%"
         ],
-        "batteryEndurance": 84.7
+        "batteryEndurance": 84.7,
+        "heightMm": 163.5,
+        "widthMm": 77.5,
+        "thicknessMm": 8.4
       },
       "scores": {
         "battery": 55,
@@ -1152,6 +1228,7 @@
         "selfie": 76,
         "video": 68,
         "zoom": 60,
+        "compactness": 36,
         "value": null
       },
       "basis": {
@@ -1168,6 +1245,7 @@
         "selfie": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
         "video": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
         "zoom": "50 MP + teleobiektyw 50 MP + 8 MP UW, selfie 32 MP; gsmManiaK ocenia bardzo dobrze, ale test eftm (model 3a Pro) wytyka przeostrzenie; brak testów DXOMARK dla zwykłego 3a",
+        "compactness": "201 g, wymiary 163,5 × 77,5 × 8,4 mm (GSMArena) — wzór poręczności: lekkość 49, mała powierzchnia 24, smukłość 37 → 36 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -1192,7 +1270,8 @@
         "photoMotion": "low",
         "selfie": "low",
         "video": "low",
-        "zoom": "low"
+        "zoom": "low",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -1204,6 +1283,8 @@
       "reveal": {
         "name": "Realme 16 Pro+ 5G 8/256 GB",
         "brand": "Realme",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/realme-16-pro-plus.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/realme/realme-16-pro-plus-1.jpg",
         "shopLinks": [
           {
             "label": "empik.com",
@@ -1252,7 +1333,7 @@
         "updatesYears": null,
         "sim": "2x nanoSIM + eSIM",
         "weightG": 203,
-        "dimensionsMm": "162,45 x 76,17 x 8,49",
+        "dimensionsMm": "162,5 × 76,2 × 8,5",
         "frame": "plastik",
         "sourceNote": "dane dla wersji Pro+ z polskich zapowiedzi i recenzji (gsmonline, purepc, gsmmaniak, tabletowo); obowiązują tylko, jeśli oferta jest faktycznie Pro+",
         "ifItIsPlainPro": {
@@ -1277,7 +1358,10 @@
           "ładowanie 20-100% w 47 min (91mobiles); 80 W SuperVOOC"
         ],
         "batteryEndurance": 92,
-        "confirmationNote": "Specyfikacja Pro+ zweryfikowana po potwierdzeniu użytkownika; wariant `ifItIsPlainPro` zostaje jako historia rozbieżności oferty"
+        "confirmationNote": "Specyfikacja Pro+ zweryfikowana po potwierdzeniu użytkownika; wariant `ifItIsPlainPro` zostaje jako historia rozbieżności oferty",
+        "heightMm": 162.45,
+        "widthMm": 76.17,
+        "thicknessMm": 8.49
       },
       "scores": {
         "battery": 84,
@@ -1293,6 +1377,7 @@
         "selfie": 78,
         "video": 62,
         "zoom": 78,
+        "compactness": 41,
         "value": null
       },
       "basis": {
@@ -1309,6 +1394,7 @@
         "selfie": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
         "video": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
         "zoom": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
+        "compactness": "203 g, wymiary 162,5 × 76,2 × 8,5 mm (GSMArena) — wzór poręczności: lekkość 46, mała powierzchnia 38, smukłość 34 → 41 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -1320,7 +1406,8 @@
         "https://www.phonedroid.net/realme-16-pro-plus--1502",
         "https://www.notebookcheck.net/Realme-16-Pro.1238116.0.html",
         "https://www.91mobiles.com/realme-16-pro-plus-price-in-india",
-        "https://www.gomibo.fr/en/realme-16-pro-plus-5g"
+        "https://www.gomibo.fr/en/realme-16-pro-plus-5g",
+        "https://www.gsmarena.com/realme_16_pro+_5g-pictures-14363.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -1335,7 +1422,8 @@
         "photoMotion": "low",
         "selfie": "low",
         "video": "low",
-        "zoom": "low"
+        "zoom": "low",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -1347,6 +1435,8 @@
       "reveal": {
         "name": "Honor 400 5G 8/256 GB",
         "brand": "Honor",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/honor-400.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/honor/honor-400-3.jpg",
         "shopLinks": [
           {
             "label": "komputronik.pl",
@@ -1422,7 +1512,7 @@
         "ipNote": "IP65 w Europie (na wybranych rynkach IP66 — GSMArena)",
         "weightG": 184,
         "thicknessMm": 7.3,
-        "dimensionsMm": "156,5 x 74,6 x 7,3",
+        "dimensionsMm": "156,5 × 74,6 × 7,3",
         "cameras": {
           "main": "200 MP f/1.9 (1/1,4″) z OIS",
           "ultrawide": "12 MP f/2.2",
@@ -1441,7 +1531,9 @@
         "wifi": "Wi-Fi 6",
         "bluetooth": "5.4",
         "stereoSpeakers": true,
-        "polishLaunchPricePln": 1999
+        "polishLaunchPricePln": 1999,
+        "heightMm": 156.5,
+        "widthMm": 74.6
       },
       "scores": {
         "battery": 44,
@@ -1457,6 +1549,7 @@
         "selfie": 76,
         "video": 60,
         "zoom": 48,
+        "compactness": 71,
         "value": null
       },
       "basis": {
@@ -1473,6 +1566,7 @@
         "selfie": "przedni aparat 50 MP f/2.0; wysoki wynik w teście PhoneArena (Selfie Photo 25/30, Selfie Video 22/28)",
         "video": "4K ograniczone do 30 kl./s (brak 60 kl./s — gsmonline.pl); PhoneArena Video Score 106 — poprawna stabilizacja, ale wahania ekspozycji i kolorów",
         "zoom": "układ 200 MP + 12 MP, brak teleobiektywu; przybliżenie 2x z kadrowania dużej matrycy 200 MP ocenione dobrze w teście PhoneArena (Zoom Photo 23/30)",
+        "compactness": "184 g, wymiary 156,5 × 74,6 × 7,3 mm (GSMArena) — wzór poręczności: lekkość 73, mała powierzchnia 69, smukłość 73 → 71 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -1497,7 +1591,8 @@
         "photoMotion": "medium",
         "selfie": "high",
         "video": "high",
-        "zoom": "high"
+        "zoom": "high",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -1509,6 +1604,8 @@
       "reveal": {
         "name": "OnePlus Nord 5 5G 8/256 GB",
         "brand": "OnePlus",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/oneplus-nord5.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/oneplus/oneplus-nord5-1.jpg",
         "shopLinks": [
           {
             "label": "morele.net",
@@ -1584,7 +1681,7 @@
         "glass": "Corning Gorilla Glass 7i",
         "weightG": 211,
         "thicknessMm": 8.1,
-        "dimensionsMm": "163,4 x 77,0 x 8,1",
+        "dimensionsMm": "163,4 × 77 × 8,1",
         "cameras": {
           "main": "50 MP f/1.8 (1/1,56″) z OIS",
           "ultrawide": "8 MP f/2.2",
@@ -1604,7 +1701,9 @@
         "bluetooth": "5.4",
         "stereoSpeakers": true,
         "polishLaunchPricePln": 2199,
-        "ramType": "LPDDR5X"
+        "ramType": "LPDDR5X",
+        "heightMm": 163.4,
+        "widthMm": 77
       },
       "scores": {
         "battery": 31,
@@ -1620,6 +1719,7 @@
         "selfie": 78,
         "video": 74,
         "zoom": 45,
+        "compactness": 33,
         "value": null
       },
       "basis": {
@@ -1636,6 +1736,7 @@
         "selfie": "przedni aparat 50 MP (1/2,75″) z autofokusem i nagrywaniem 4K 60 kl./s — wyraźny atut w teście GSMArena",
         "video": "4K 60 kl./s z głównego i przedniego aparatu; GSMArena chwali wysoką szczegółowość i czystość w dzień i w nocy, wskazując drobne drgania stabilizacji elektronicznej w 4K",
         "zoom": "układ 50 MP + 8 MP, brak teleobiektywu; w teście GSMArena przybliżenie 2x z matrycy głównej ostre i zbliżone jakością do 1x",
+        "compactness": "211 g, wymiary 163,4 × 77 × 8,1 mm (GSMArena) — wzór poręczności: lekkość 34, mała powierzchnia 28, smukłość 47 → 33 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -1660,7 +1761,8 @@
         "photoMotion": "medium",
         "selfie": "medium",
         "video": "medium",
-        "zoom": "medium"
+        "zoom": "medium",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -1672,6 +1774,8 @@
       "reveal": {
         "name": "Samsung Galaxy A37 5G 8/256 GB",
         "brand": "Samsung",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a37.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a37-4.jpg",
         "shopLinks": [
           {
             "label": "sferis.pl",
@@ -1745,7 +1849,7 @@
         "glass": "Corning Gorilla Glass Victus+ (przód i tył)",
         "weightG": 196,
         "thicknessMm": 7.4,
-        "dimensionsMm": "162,9 x 78,2 x 7,4",
+        "dimensionsMm": "162,9 × 78,2 × 7,4",
         "cameras": {
           "main": "50 MP f/1.8 (1/1,56″) z OIS",
           "ultrawide": "8 MP f/2.2",
@@ -1767,7 +1871,9 @@
         "polishLaunchPricePln": 2269,
         "batteryType": "litowo-jonowa",
         "frame": "plastik",
-        "chargingTests": "GSMArena: 34% w 15 min, 62-64% w 30 min, pełne ładowanie w 72 min"
+        "chargingTests": "GSMArena: 34% w 15 min, 62-64% w 30 min, pełne ładowanie w 72 min",
+        "heightMm": 162.9,
+        "widthMm": 78.2
       },
       "scores": {
         "battery": 34,
@@ -1783,6 +1889,7 @@
         "selfie": 68,
         "video": 70,
         "zoom": 40,
+        "compactness": 42,
         "value": null
       },
       "basis": {
@@ -1799,6 +1906,7 @@
         "selfie": "przedni aparat 12 MP z nagrywaniem 4K; w recenzji GSMArena selfie ocenione jako bardzo udane w tej klasie",
         "video": "4K 30 kl./s z głównego i przedniego aparatu; GSMArena chwali szczegółowość dziennych nagrań i bardzo dobrą stabilizację wideo",
         "zoom": "układ 50 MP + 8 MP + 5 MP, brak teleobiektywu (GSMArena); przybliżenie 2x z kadrowania przyzwoite na zdjęciach, miękkie w wideo",
+        "compactness": "196 g, wymiary 162,9 × 78,2 × 7,4 mm (GSMArena) — wzór poręczności: lekkość 56, mała powierzchnia 21, smukłość 70 → 42 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -1824,7 +1932,8 @@
         "photoMotion": "medium",
         "selfie": "high",
         "video": "high",
-        "zoom": "high"
+        "zoom": "high",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -1836,6 +1945,8 @@
       "reveal": {
         "name": "vivo V70 FE 5G 8/256 GB",
         "brand": "vivo",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/vivo-v70-fe.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/vivo/vivo-v70-fe-1.jpg",
         "shopLinks": [
           {
             "label": "euro.com.pl",
@@ -1913,7 +2024,7 @@
         "ipNote": "IP68 i IP69 bez MIL-STD (euro.com.pl, neonet.pl, GSMArena)",
         "weightG": 200,
         "thicknessMm": 7.6,
-        "dimensionsMm": "163,7 x 76,2 x 7,6",
+        "dimensionsMm": "163,7 × 76,2 × 7,6",
         "cameras": {
           "main": "200 MP f/1.9 (1/1,56″) z OIS",
           "ultrawide": "8 MP f/2.2",
@@ -1933,7 +2044,9 @@
         "bluetooth": "5.4",
         "stereoSpeakers": true,
         "polishLaunchPricePln": 2099,
-        "glass": "szkło wzmacniane"
+        "glass": "szkło wzmacniane",
+        "heightMm": 163.7,
+        "widthMm": 76.2
       },
       "scores": {
         "battery": 83,
@@ -1949,6 +2062,7 @@
         "selfie": 72,
         "video": 58,
         "zoom": 36,
+        "compactness": 44,
         "value": null
       },
       "basis": {
@@ -1965,6 +2079,7 @@
         "selfie": "przedni aparat 32 MP f/2.2 z autofokusem i nagrywaniem 4K 30 kl./s (GSMArena, homescreen.pl)",
         "video": "4K ograniczone do 30 kl./s bez HDR; recenzja GSMArena ocenia jakość wideo jako przeciętną (miękki obraz przy 2x, poprawna stabilizacja)",
         "zoom": "układ 200 MP + 8 MP, brak teleobiektywu; recenzja GSMArena wskazuje słabą jakość przybliżenia jako jedną z głównych wad",
+        "compactness": "200 g, wymiary 163,7 × 76,2 × 7,6 mm (GSMArena) — wzór poręczności: lekkość 50, mała powierzchnia 33, smukłość 63 → 44 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -1990,7 +2105,8 @@
         "photoMotion": "medium",
         "selfie": "medium",
         "video": "high",
-        "zoom": "high"
+        "zoom": "high",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     },
@@ -2002,6 +2118,8 @@
       "reveal": {
         "name": "Xiaomi Redmi Note 17 Pro 5G 8/512 GB",
         "brand": "Xiaomi",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-17-pro.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-redmi-note-17-pro-1.jpg",
         "shopLinks": [
           {
             "label": "mediaexpert.pl",
@@ -2079,7 +2197,7 @@
         "glass": "Corning Gorilla Glass Victus 2",
         "weightG": 223,
         "thicknessMm": 8.6,
-        "dimensionsMm": "163,5 x 78,3 x 8,6",
+        "dimensionsMm": "163,5 × 78,3 × 8,6",
         "cameras": {
           "main": "50 MP f/1.8 (1/2,76″) z OIS",
           "ultrawide": "8 MP f/2.2",
@@ -2099,7 +2217,9 @@
         "bluetooth": "5.1",
         "stereoSpeakers": true,
         "polishLaunchPricePln": 2199,
-        "ramType": "LPDDR4X"
+        "ramType": "LPDDR4X",
+        "heightMm": 163.5,
+        "widthMm": 78.3
       },
       "scores": {
         "battery": 100,
@@ -2115,6 +2235,7 @@
         "selfie": 55,
         "video": 42,
         "zoom": 32,
+        "compactness": 19,
         "value": null
       },
       "basis": {
@@ -2131,6 +2252,7 @@
         "selfie": "przedni aparat 16 MP f/2.4 z wideo 1080p 30 kl./s (GSMArena); brak niezależnych testów laboratoryjnych",
         "video": "nagrywanie ograniczone do 1080p 30 kl./s (brak 4K i 60 kl./s — GSMArena), recenzje wytykają drgania z ręki (Newsbytes); brak niezależnych testów laboratoryjnych",
         "zoom": "układ 50 MP (1/2,76″) + 8 MP, brak teleobiektywu (GSMArena); mała matryca słabo znosi kadrowanie, brak niezależnych testów przybliżenia",
+        "compactness": "223 g, wymiary 163,5 × 78,3 × 8,6 mm (GSMArena) — wzór poręczności: lekkość 17, mała powierzchnia 18, smukłość 30 → 19 pkt",
         "value": "liczone w aplikacji z ceny i budżetu sesji"
       },
       "sources": [
@@ -2157,7 +2279,8 @@
         "photoMotion": "low",
         "selfie": "low",
         "video": "low",
-        "zoom": "low"
+        "zoom": "low",
+        "compactness": "high"
       },
       "scoresEstimatedNeutral": []
     }

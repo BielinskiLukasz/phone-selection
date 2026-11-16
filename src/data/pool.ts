@@ -6,7 +6,7 @@ import { SHORT_QUIZ_IDS, activeQuestions } from './questions';
 export const BUDGET_LIMIT_PLN = 2000;
 export const PRICES_CHECKED_AT = '2026-11-16';
 export const EXPECTED_POOL_SIZE = 15;
-export const CRITERIA_COUNT = 14;
+export const CRITERIA_COUNT = 15;
 
 export const CI_PIPELINE = [
   { id: 'checkout', label: 'checkout', detail: 'actions/checkout@v4' },
@@ -57,6 +57,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
   { id: 10, name: 'Rozszerzenie puli modeli (15 telefonów)', done: true, active: false },
   { id: 11, name: 'Wykluczanie marek i modeli (filtr startowy)', done: true, active: false },
+  { id: 12, name: 'Zdjęcia, wymiary i waga (suwak poręczności)', done: true, active: false },
 ];
 
 /** Stałe silnika rankingu (etap 2) — QUIZ-SPEC 2.6, trzymane w `lib/scoringConfig.ts`. */
@@ -120,8 +121,8 @@ export const QUIZ_STATUS = [
 ] as const;
 
 export const SLIDERS_FACTS = [
-  { label: 'suwaki grup', value: '6', note: 'skala 0-5, krok 0,1' },
-  { label: 'kryteria', value: '14', note: 'udziały wewnątrz grupy' },
+  { label: 'suwaki grup', value: '7', note: 'skala 0-5, krok 0,1' },
+  { label: 'kryteria', value: String(CRITERIA_COUNT), note: 'w tym wymiary i waga' },
   { label: 'filtry twarde', value: '3', note: 'budżet · pamięć · microSD' },
   { label: 'tryby wyboru', value: '3 z 3', note: 'quiz, suwaki, hybryda' },
 ] as const;

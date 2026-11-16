@@ -4,6 +4,7 @@ import {
   PERFORMANCE_LABEL,
   collectForbiddenTokens,
   durabilityFact,
+  formatBodySummary,
   panelLabel,
   performanceClass,
   redact,
@@ -83,13 +84,7 @@ export function specRows(
     .filter((part): part is string => Boolean(part))
     .join(' · ');
 
-  const weight = [
-    typeof specs.weightG === 'number' ? `${specs.weightG} g` : null,
-    typeof specs.dimensionsMm === 'string' ? `${specs.dimensionsMm} mm` : null,
-    typeof specs.thicknessMm === 'number' ? `${decimal(specs.thicknessMm)} mm grubości` : null,
-  ]
-    .filter((part): part is string => Boolean(part))
-    .join(' · ');
+  const weight = formatBodySummary(specs) ?? '';
 
   const connectivity = [
     specs.nfc === true ? 'NFC' : specs.nfc === false ? 'bez NFC' : null,

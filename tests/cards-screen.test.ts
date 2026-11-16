@@ -156,15 +156,16 @@ describe('E6-01/E6-02 · ekran kart', () => {
       for (const label of ['Bateria', 'Aparat', 'Pamięć', 'Aktualizacje']) {
         expect(within(article).getAllByText(label).length, `#${place}: ${label}`).toBeGreaterThan(0);
       }
-      const collapsed = ['Odporność', 'Ekran i wydajność'].map(
+      const collapsed = ['Odporność', 'Ekran i wydajność', 'Wymiary i waga'].map(
         (label) => within(article).queryAllByText(label).length,
       );
-      fireEvent.click(within(article).getByRole('button', { name: /Wszystkie cechy \(6\)/ }));
-      const expanded = ['Odporność', 'Ekran i wydajność'].map(
+      fireEvent.click(within(article).getByRole('button', { name: /Wszystkie cechy \(7\)/ }));
+      const expanded = ['Odporność', 'Ekran i wydajność', 'Wymiary i waga'].map(
         (label) => within(article).queryAllByText(label).length,
       );
       expect(expanded[0]).toBe((collapsed[0] ?? 0) + 1);
       expect(expanded[1]).toBe((collapsed[1] ?? 0) + 1);
+      expect(expanded[2]).toBe((collapsed[2] ?? 0) + 1);
 
       fireEvent.click(within(article).getByRole('button', { name: /Ukryj cechy/ }));
       expect(within(article).queryAllByText('Ekran i wydajność').length).toBe(collapsed[1]);
@@ -200,16 +201,17 @@ describe('E6-01/E6-02 · ekran kart', () => {
     expect(within(article).getByText('Oceny kryteriów')).toBeTruthy();
     expect(within(article).getByText('Pełne dane')).toBeTruthy();
     expect(within(article).getAllByText('Czas pracy na baterii').length).toBeGreaterThan(0);
-    expect(within(article).getAllByRole('img', { name: /pewność oceny/ }).length).toBe(14);
+    expect(within(article).getAllByRole('img', { name: /pewność oceny/ }).length).toBe(15);
     /* Procesor tylko jako klasa wydajności, nigdy jako nazwa chipa. */
     expect(within(article).getByText(/klasa (wysoka|średnia|podstawowa)/)).toBeTruthy();
   });
 });
 
 describe('E6-11 · test wycieku nazw w DOM (akceptacja 1)', () => {
-  it('przed wyborem w drzewie, atrybutach i tytule nie ma nazw, marek ani sklepów', () => {
+  it('przed wyborem w drzewie, atrybutach i tytule nie ma nazw, marek, sklepów ani zdjęć <img>', () => {
     open();
 
+    expect(document.querySelectorAll('img').length).toBe(0);
     const leaks = findLeaksInDom(document.body);
     expect(leaks, `Wyciek: ${leaks.join(', ')}`).toEqual([]);
     expect(document.title.toLowerCase()).not.toMatch(/samsung|galaxy|pixel|xiaomi|motorola|realme|nothing/);
@@ -345,6 +347,11 @@ describe('E6-04/E6-08/E6-09 · etykiety, nawigacja i świeżość cen', () => {
 
     fireEvent.click(within(card(1)).getByRole('button', { name: /Wybieram tę propozycję/ }));
     fireEvent.click(screen.getByRole('button', { name: 'Odkryj' }));
+
+    /* Po ujawnieniu karta pokazuje też zdjęcie modelu oraz jego wagę i wymiary. */
+    const photo = within(card(1)).getByRole('img', { name: /Zdjęcie modelu:/ });
+    expect(photo.getAttribute('src')?.startsWith('https://')).toBe(true);
+    expect(card(1).textContent).toMatch(/\d+ g · \d+/);
 
     const link = screen.getByRole('link', { name: /Pokaż pełny ranking/ });
     expect(link.getAttribute('href')).toMatch(/\/ranking$/);

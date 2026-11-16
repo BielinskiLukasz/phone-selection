@@ -54,7 +54,14 @@ export function DetailsAccordion({ card, specs, alwaysOpen }: DetailsAccordionPr
           {specs.map((row) => (
             <div key={row.key} className="grid gap-0.5 bg-[var(--color-surface)] px-3 py-2 sm:grid-cols-[38%_1fr] sm:gap-2">
               <dt className="label-mono">{row.label}</dt>
-              <dd className="num text-[12px] leading-relaxed break-words">{row.value || NO_DATA}</dd>
+              <dd className="num text-[12px] leading-relaxed break-words">
+                {row.value || NO_DATA}
+                {row.key === 'updates' && !row.missing ? (
+                  <span className="mt-1 block font-sans text-[11px] leading-snug text-[var(--color-muted)]">
+                    {strings.cardsUpdatesHelp}
+                  </span>
+                ) : null}
+              </dd>
             </div>
           ))}
         </dl>

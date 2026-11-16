@@ -193,7 +193,7 @@ describe('E7-01 · model listy historii', () => {
     const summary = summarizeSession(session, LABELS);
 
     expect(summary.statusLabel).toBe('Ukończona');
-    expect(summary.progress).toEqual({ answered: 2, total: 18 });
+    expect(summary.progress).toEqual({ answered: 2, total: 19 });
     expect(summary.picks.length).toBe(1);
     expect(summary.picks[0]!.name).toBe(phoneById(summary.picks[0]!.phoneId).reveal.name);
     expect(summary.picksText).toContain('miejsce');

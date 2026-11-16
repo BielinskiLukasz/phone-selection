@@ -33,6 +33,7 @@ export const WIFE: Persona = {
     D1: 'D1-b', // trochę → smoothness 3
     D2: 'D2-b', // czasem → durability 3
     D3: 'D3-b', // 3-4 lata → updates 3
+    D4: 'D4-a', // rozmiar i waga bez znaczenia → compactness 0 (PROJECT 2)
     E1: 'E1-b', // czasem → display 3
     E2: 'E2-b', // czasem → display 3
     F1: 'F1-c', // do 2000 zł → value 2, budżet 2000
@@ -59,6 +60,7 @@ export const CAMERA: Persona = {
     D1: 'D1-b',
     D2: 'D2-a',
     D3: 'D3-b',
+    D4: 'D4-a',
     E1: 'E1-b',
     E2: 'E2-b',
     F1: 'F1-c',
@@ -85,6 +87,7 @@ export const BATTERY: Persona = {
     D1: 'D1-b',
     D2: 'D2-b',
     D3: 'D3-b',
+    D4: 'D4-a',
     E1: 'E1-a',
     E2: 'E2-a',
     F1: 'F1-c',

@@ -60,6 +60,7 @@ function isGroupId(value: unknown): value is GroupId {
     value === 'storage' ||
     value === 'longevity' ||
     value === 'smooth' ||
+    value === 'size' ||
     value === 'price'
   );
 }

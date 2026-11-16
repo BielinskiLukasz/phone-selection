@@ -57,7 +57,7 @@ async function auditEveryScreen(theme: 'light' | 'dark'): Promise<void> {
   await audit(`${theme}: wykluczenia — zwinięte`);
 
   fireEvent.click(screen.getByRole('switch'));
-  await settle(80);
+  await screen.findByRole('group', { name: strings.excludeBrandsLabel });
   await audit(`${theme}: wykluczenia — chipy marek`);
 
   fireEvent.click(
