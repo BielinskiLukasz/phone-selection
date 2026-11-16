@@ -85,7 +85,7 @@ export function ResumeScreen({ code }: ResumeScreenProps) {
           </p>
           <a
             href="#/"
-            className="mt-2 inline-flex min-h-11 w-fit items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 dark:text-[#08130c]"
+            className="mt-2 inline-flex min-h-11 w-fit items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
           >
             {strings.backHome}
             <ArrowRightIcon className="h-4 w-4" />
@@ -138,7 +138,7 @@ export function ResumeScreen({ code }: ResumeScreenProps) {
         <div className="flex flex-wrap gap-3">
           <a
             href={`#/s/${state.sessionId}/${view}`}
-            className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 dark:text-[#08130c]"
+            className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
           >
             {strings.resumeLinkOpen}
             <ArrowRightIcon className="h-4 w-4" />

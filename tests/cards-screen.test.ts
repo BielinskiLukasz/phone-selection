@@ -140,12 +140,40 @@ describe('E6-01/E6-02 · ekran kart', () => {
       expect(within(article).getAllByText(/zł/).length).toBeGreaterThan(0);
       expect(within(article).getByText(/cena z \d{2}\.\d{2}\.\d{4}/)).toBeTruthy();
       expect(within(article).getAllByText(/Dopasowanie|%/).length).toBeGreaterThan(0);
-      /* Sześć wierszy cech w stałej kolejności. */
-      for (const label of ['Bateria', 'Aparat', 'Pamięć', 'Aktualizacje', 'Odporność', 'Ekran i wydajność']) {
+      /* Jasny motyw: 4 cechy od razu, dwie pozostałe po rozwinięciu (UI-SPEC 6). */
+      for (const label of ['Bateria', 'Aparat', 'Pamięć', 'Aktualizacje']) {
         expect(within(article).getAllByText(label).length, `#${place}: ${label}`).toBeGreaterThan(0);
       }
+      const collapsed = ['Odporność', 'Ekran i wydajność'].map(
+        (label) => within(article).queryAllByText(label).length,
+      );
+      fireEvent.click(within(article).getByRole('button', { name: /Wszystkie cechy \(6\)/ }));
+      const expanded = ['Odporność', 'Ekran i wydajność'].map(
+        (label) => within(article).queryAllByText(label).length,
+      );
+      expect(expanded[0]).toBe((collapsed[0] ?? 0) + 1);
+      expect(expanded[1]).toBe((collapsed[1] ?? 0) + 1);
+
+      fireEvent.click(within(article).getByRole('button', { name: /Ukryj cechy/ }));
+      expect(within(article).queryAllByText('Ekran i wydajność').length).toBe(collapsed[1]);
       expect(within(article).getByRole('button', { name: /Wybieram tę propozycję/ })).toBeTruthy();
     }
+  });
+
+  it('E8-05: w ciemnym motywie wszystkie cechy i oceny są widoczne od razu', () => {
+    window.localStorage.setItem('wybor-telefonu:theme', 'dark');
+    cleanup();
+    render(h(StateProvider, null, h(Harness)));
+    fireEvent.click(screen.getByTestId('create'));
+
+    expect(document.documentElement.dataset.theme).toBe('dark');
+    const article = card(1);
+    for (const label of ['Bateria', 'Aparat', 'Pamięć', 'Aktualizacje', 'Odporność', 'Ekran i wydajność']) {
+      expect(within(article).getAllByText(label).length, label).toBeGreaterThan(0);
+    }
+    expect(within(article).queryByRole('button', { name: /Wszystkie cechy/ })).toBeNull();
+    expect(within(article).getByText('Oceny kryteriów')).toBeTruthy();
+    expect(within(article).getByText('Pełne dane')).toBeTruthy();
   });
 
   it('E6-03: „Więcej szczegółów” rozwija oceny z pewnością i pełne dane', () => {

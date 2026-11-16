@@ -26,7 +26,7 @@ export function PhoneCardRevealed({
       <span className="absolute inset-x-0 top-0 h-[3px] bg-[var(--color-accent)]" aria-hidden="true" />
 
       <header className="flex flex-wrap items-center gap-2 p-[var(--pad-card)] pb-3">
-        <span className="num flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-3 py-1 text-[11px] font-bold tracking-[0.1em] text-[var(--color-bg)] uppercase dark:text-[#08130c]">
+        <span className="num flex items-center gap-1.5 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-3 py-1 text-[11px] font-bold tracking-[0.1em] text-[var(--color-on-accent)] uppercase">
           <CheckIcon className="h-3.5 w-3.5" />
           {pickLabel}
         </span>

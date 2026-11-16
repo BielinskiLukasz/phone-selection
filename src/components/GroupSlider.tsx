@@ -95,7 +95,7 @@ export function GroupSlider({ state, modified, onChange, onCriterionChange }: Gr
             aria-label={`${state.label}: ${value} z 5`}
             aria-pressed={Math.round(state.value) === value && Math.abs(state.value - value) < 0.05}
             className={cn(
-              'num h-8 w-8 rounded-[var(--radius-pill)] border text-[11px] font-semibold transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px',
+              'num h-11 w-11 rounded-[var(--radius-pill)] border text-[11px] font-semibold transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px',
               Math.abs(state.value - value) < 0.05
                 ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-bg)]'
                 : 'border-[var(--color-border)] text-[var(--color-muted)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent-ink)]',

@@ -8,6 +8,9 @@ Gotowe etapy:
 
 - **Etap 1 — Szkielet projektu i deploy**: routing hashowy, layout, motyw, zaślepki ekranów,
   walidacja danych, workflow GitHub Pages.
+- **Etap 8 — Motywy, mobile, dostępność**: dwa motywy w całości na tokenach (jasny „prosty,
+  przyjazny”, ciemny „złożony, surowy”), zero stałych kolorów w komponentach, pola dotyku ≥ 44 px,
+  audyt axe-core na wszystkich ekranach w obu motywach i test kontrastu ≥ 4,5:1.
 - **Etap 7 — Historia sesji i wznawianie**: lista od najnowszej z osią czasu, Wznów / Podgląd / Usuń
   z potwierdzeniem, eksport i import historii jako plik JSON ze scalaniem bez duplikatów oraz link
   `#/r/<kod>` do przeniesienia odpowiedzi na drugie urządzenie.
@@ -250,7 +253,7 @@ wraz z `basis.zoom` (które cytuje źródło mówiące „brak teleobiektywu”)
 | 8 | `null` w `scores.value` → silnik liczy `value` z ceny i nie zawiesza się | ✅ |
 
 Pokrycie: `npx vitest run --coverage --coverage.include='src/lib/**'` → 98,5% linii (DoD: ≥ 90%).
-Cała suite: **291 testów** w 21 plikach.
+Cała suite: **323 testów** w 24 plikach.
 
 ## Wdrożenie (GitHub Pages)
 
@@ -372,6 +375,32 @@ Przenoszenie między urządzeniami (opcje E7-06/E7-07 weszły do zakresu):
 | **Link do wznowienia** `#/r/<kod>` | `base64url` z `{ v, mode, answers, topThree }` — **bez `picks`**, bo wybory odkrywałyby nazwy. Otwarcie tworzy **nową** sesję z tymi odpowiedziami i liczy ranking aktualnymi danymi; uszkodzony albo nowszy kod daje komunikat i powrót na start |
 | **Eksport** | plik `wybor-telefonu-historia-RRRR-MM-DD.json` z znacznikiem aplikacji, wersją i sesjami od najnowszej |
 | **Import** | walidacja pliku (obca aplikacja, nowsza wersja, uszkodzone wpisy), scalanie bez duplikatów: ten sam `id` wygrywa nowszym `updatedAt`, potem limit 50 najnowszych; wynik w banerze („1 nowych, 1 bez zmian (duplikaty)”) |
+
+## Etap 8 — motywy, mobile, dostępność
+
+| | Jasny („prosty, przyjazny”) | Ciemny („złożony, surowy”) |
+|---|---|---|
+| Tło / powierzchnia | `#FAF8F5` / `#FFFFFF`, miękka poświata i kropki | `#0B0F14` / `#121820`, siatka techniczna |
+| Tekst / drugorzędny | `#1F2937` / `#5B6472` | `#E6EDF3` / `#9AA7B4` |
+| Akcent | błękit `#2F6FED` | zieleń `#4ADE80` |
+| Zaokrąglenia / odstępy | 16 px / 24 px, miękki cień | 2 px / 12 px, wyraźne ramki, bez cienia |
+| Karty | 4 cechy od razu + „Wszystkie cechy (6)” | wszystkie cechy w tabeli, oceny bez rozwijania |
+| Typografia | sans systemowy | sans + `ui-monospace` dla liczb i etykiet |
+
+Motyw ustawia skrypt w `<head>` przed Reactem (brak mignięcia), a wybór żyje w `AppState.theme`
+i w kluczu `wybor-telefonu:theme`. Komponenty nie zawierają stałych kolorów — wszystko idzie przez
+tokeny (w tym nowe `--color-on-accent` i `--shadow-pop`), a pilnuje tego test skanujący `src/**/*.tsx`.
+
+Dostępność (UI-SPEC 8) jest mierzona, nie deklarowana: kontrast ≥ 4,5:1 dla siedmiu par tekst/tło
+w obu motywach liczony ze wzoru WCAG wprost z tokenów w `index.css`, **audyt axe-core** na dziewięciu
+stanach ekranów × 2 motywy (start, quiz, pytanie, suwaki, kryteria, karty, szczegóły, okno
+potwierdzenia, historia, 404, brak sesji, uszkodzony link) z zerem błędów poważnych i krytycznych,
+przejście samą klawiaturą (radiogroup: strzałki, spacja/Enter; pułapka fokusu i Esc w oknie
+potwierdzenia), `aria-valuetext` na suwakach, `aria-live` na licznikach, skip-link w landmarku,
+hierarchia nagłówków bez przeskoków, `prefers-reduced-motion` wyłączający animacje i `<noscript>`.
+Mobile: pola dotyku ≥ 44 px, główne przyciski w pasku przyklejonym do dołu z
+`env(safe-area-inset-bottom)`, szerokie treści w regionie z przewijaniem osiągalnym z klawiatury,
+`overflow-x: hidden` na `body`. Przegląd układu: 360-1280 px.
 
 ## Stan danych (etap 0 — domknięty)
 

@@ -150,6 +150,7 @@ export const strings = {
   slidersLead:
     'Ustaw, jak ważna jest każda rzecz. Suwak grupy ustawia jej ważność w wyniku, a „Szczegóły” rozkładają ją na kryteria w środku grupy.',
   slidersGroupHint: 'Jak ważna jest ta rzecz?',
+  slidersSectionTitle: 'Ważności grup',
   slidersDetails: 'Szczegóły',
   slidersHideDetails: 'Ukryj szczegóły',
   slidersShares: 'udział w grupie',
@@ -203,6 +204,8 @@ export const strings = {
   cardsNoRanking: 'Ta sesja nie ma jeszcze rankingu — przeliczamy go z Twoich ustawień.',
   cardsRecompute: 'Przelicz ranking',
   cardsToastRevealed: 'Nazwa odkryta. Karta zostaje odsłonięta, pozostałe są anonimowe.',
+  cardsShowAllFacts: 'Wszystkie cechy',
+  cardsHideFacts: 'Ukryj cechy',
   cardsSpecDisplay: 'Ekran',
   cardsSpecPerformance: 'Wydajność',
   cardsSpecBattery: 'Bateria',

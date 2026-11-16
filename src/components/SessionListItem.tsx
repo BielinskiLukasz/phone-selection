@@ -144,7 +144,7 @@ export function SessionListItem({ summary, index, isLast, onDelete, onCopyLink }
               'inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] px-5 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5',
               completed
                 ? 'border border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent)]'
-                : 'bg-[var(--color-accent)] text-white dark:text-[#08130c]',
+                : 'bg-[var(--color-accent)] text-[var(--color-on-accent)]',
             )}
           >
             {completed ? strings.historyPreviewAction : strings.historyResume}

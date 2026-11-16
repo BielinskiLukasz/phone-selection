@@ -90,7 +90,7 @@ export function ConfirmSheet({
         aria-modal="true"
         aria-labelledby="confirm-sheet-title"
         aria-describedby="confirm-sheet-body"
-        className="sheet-in relative w-full max-w-lg rounded-t-[20px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-[0_-18px_50px_-24px_rgba(0,0,0,0.55)] sm:rounded-[var(--radius-card)] sm:p-6"
+        className="sheet-in relative w-full max-w-lg rounded-t-[20px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-pop)] sm:rounded-[var(--radius-card)] sm:p-6"
         style={{ paddingBottom: 'max(20px, env(safe-area-inset-bottom))' }}
       >
         <span
@@ -114,7 +114,7 @@ export function ConfirmSheet({
           <button
             type="button"
             onClick={onConfirm}
-            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] dark:text-[#08130c]"
+            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
           >
             {confirmLabel}
             <ArrowRightIcon className="h-4 w-4" />

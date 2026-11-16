@@ -53,7 +53,7 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 5, name: 'Tryb suwaków i hybryda', done: true, active: false },
   { id: 6, name: 'Ranking, anonimowe karty, wybór', done: true, active: false },
   { id: 7, name: 'Historia sesji i wznawianie', done: true, active: false },
-  { id: 8, name: 'Motywy, mobile, dostępność', done: false, active: false },
+  { id: 8, name: 'Motywy, mobile, dostępność', done: true, active: false },
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
 ];
 
@@ -157,6 +157,20 @@ export const HISTORY_STATUS = [
   'Wznów otwiera pierwsze pytanie bez odpowiedzi, Podgląd — karty ze snapshotu, nie nowy ranking.',
   'Usuwanie z potwierdzeniem; eksport i import scalają bez duplikatów (ten sam id wygrywa nowszą wersją).',
   'Link do wznowienia przenosi odpowiedzi i trójkę G1 na drugie urządzenie — bez wyborów, żeby nie odkrywać nazw.',
+] as const;
+
+export const THEME_FACTS = [
+  { label: 'motywy', value: '2', note: 'jasny domyślnie, wybór zapamiętany' },
+  { label: 'kontrast tekstu', value: '≥ 4,5:1', note: '7 par tekst/tło w obu motywach' },
+  { label: 'pole dotyku', value: '44 px', note: 'przyciski, linki, suwaki, ikony' },
+  { label: 'audyt axe', value: '0', note: 'błędów poważnych i krytycznych' },
+] as const;
+
+export const THEME_STATUS = [
+  'Jasny: ciepła biel, zaokrąglenia 16 px, miękkie cienie, 4 cechy karty od razu i rozwinięcie do 6.',
+  'Ciemny: grafit, siatka techniczna, krawędzie 2 px, gęstsze odstępy, wszystkie cechy i oceny widoczne od razu.',
+  'Ruch do 300 ms, wyłączany przy prefers-reduced-motion; motyw ustawiony w <head> przed Reactem (brak mignięcia).',
+  'Dostępność: skip-link, radiogroup ze strzałkami i spacją, aria-valuetext na suwakach, aria-live, pułapka fokusu w oknie potwierdzenia.',
 ] as const;
 
 export const CONSOLE_COMMANDS = [

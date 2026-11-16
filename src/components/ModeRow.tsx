@@ -55,7 +55,7 @@ export function ModeRow({
       </button>
       <a
         href={previewHref}
-        className="num flex shrink-0 items-center self-center pr-3 pl-2 text-[10px] uppercase tracking-[0.14em] text-[var(--color-border-strong)] transition-colors duration-200 hover:text-[var(--color-accent-ink)]"
+        className="num flex min-h-11 shrink-0 items-center self-center pr-3 pl-2 text-[10px] uppercase tracking-[0.14em] text-[var(--color-border-strong)] transition-colors duration-200 hover:text-[var(--color-accent-ink)]"
       >
         podgląd
       </a>

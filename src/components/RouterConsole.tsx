@@ -138,14 +138,14 @@ export function RouterConsole({ knownSessions = [] }: { knownSessions?: readonly
               </div>
             ))}
             <div className="flex items-center gap-3 bg-[var(--color-surface)] px-3 py-2">
-              <span className="num w-20 shrink-0 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
+              <dt className="num w-20 shrink-0 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
                 {strings.routerStatus}
-              </span>
-              <span
-                className={`num rounded-[var(--radius-pill)] px-2.5 py-1 text-[11px] tracking-[0.1em] uppercase ${statusStyles[readout.status]}`}
+              </dt>
+              <dd
+                className={`num m-0 rounded-[var(--radius-pill)] px-2.5 py-1 text-[11px] tracking-[0.1em] uppercase ${statusStyles[readout.status]}`}
               >
                 {statusLabel}
-              </span>
+              </dd>
             </div>
           </dl>
 

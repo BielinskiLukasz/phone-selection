@@ -98,7 +98,7 @@ export function HistoryScreen() {
       <div className="mt-6 flex flex-wrap items-center gap-2">
         <a
           href="#/"
-          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 dark:text-[#08130c]"
+          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
         >
           {strings.historyNew}
           <ArrowRightIcon className="h-4 w-4" />
@@ -126,7 +126,7 @@ export function HistoryScreen() {
           {strings.historyImport}
         </label>
 
-        <span className="num hidden text-[11px] tracking-[0.08em] text-[var(--color-border-strong)] uppercase lg:block">
+        <span className="num hidden text-[11px] tracking-[0.08em] text-[var(--color-muted)] uppercase lg:block">
           {strings.historyTransferNote}
         </span>
       </div>
@@ -147,7 +147,7 @@ export function HistoryScreen() {
             action={
               <a
                 href="#/"
-                className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 dark:text-[#08130c]"
+                className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
               >
                 {strings.startNew}
                 <ArrowRightIcon className="h-4 w-4" />
@@ -156,7 +156,9 @@ export function HistoryScreen() {
           />
         </div>
       ) : (
-        <ul className="mt-8">
+        <>
+        <h2 className="label-mono mt-8">{strings.sessionsStored}</h2>
+        <ul className="mt-3">
           {summaries.map((summary, index) => (
             <SessionListItem
               key={summary.id}
@@ -171,6 +173,7 @@ export function HistoryScreen() {
             />
           ))}
         </ul>
+        </>
       )}
 
       <ConfirmSheet

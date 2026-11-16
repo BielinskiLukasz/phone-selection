@@ -49,7 +49,7 @@ export function NoticeStack() {
               type="button"
               onClick={() => dismissNotice(code)}
               aria-label={strings.noticeDismiss}
-              className="num flex h-8 w-8 items-center justify-center rounded-full text-[var(--color-warn)] transition-colors duration-200 hover:bg-[color-mix(in_srgb,var(--color-warn)_18%,transparent)]"
+              className="num flex h-11 w-11 items-center justify-center rounded-full text-[var(--color-warn)] transition-colors duration-200 hover:bg-[color-mix(in_srgb,var(--color-warn)_18%,transparent)]"
             >
               ×
             </button>

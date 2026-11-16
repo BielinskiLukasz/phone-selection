@@ -14,7 +14,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 5 | Tryb suwaków i hybryda | `[x]` zrobione |
 | 6 | Ranking, anonimowe karty, wybór i ujawnienie | `[x]` zrobione |
 | 7 | Historia sesji i wznawianie | `[x]` zrobione |
-| 8 | Motywy, mobile, dostępność | `[ ]` |
+| 8 | Motywy, mobile, dostępność | `[x]` zrobione |
 | 9 | Pełny ranking, szlify i wydanie | `[ ]` |
 
 ---
@@ -179,12 +179,14 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 
 ## Etap 8 — Motywy, mobile, dostępność
 
-- [ ] Przycisk z ikoną: motyw jasny (prosty, przyjazny) ↔ ciemny (złożony, surowy)
-- [ ] Tokeny w `@theme`, wariant `dark` oparty o `data-theme`
-- [ ] Testy na telefonie: duże pola dotyku, brak przewijania w poziomie
-- [ ] Dostępność: kontrast, focus, etykiety suwaków, obsługa klawiatury
+- [x] Przycisk z ikoną: motyw jasny (prosty, przyjazny) ↔ ciemny (złożony, surowy)
+- [x] Tokeny w `@theme`, wariant `dark` oparty o `data-theme`
+- [x] Testy na telefonie: duże pola dotyku, brak przewijania w poziomie
+- [x] Dostępność: kontrast, focus, etykiety suwaków, obsługa klawiatury
 
 **DoD:** oba motywy spójne na telefonie i komputerze; wybór motywu zapamiętany.
+
+**Stan po etapie 8:** tokeny w `@theme` i nadpisania w `[data-theme="dark"]` (kolory, `--radius-card` 16 px → 2 px, `--pad-card` 24 → 12, cienie, nowe `--color-on-accent` i `--shadow-pop`) — komponenty nie mają ani jednego stałego koloru, co pilnuje test skanujący `src/**/*.tsx`. Jasny motyw pokazuje 4 cechy karty z rozwinięciem do 6, ciemny — wszystkie cechy w tabeli i oceny od razu (UI-SPEC 6). Pola dotyku ≥ 44 px (poprawione: szybki wybór suwaka, chip adresu, zamknięcie baneru, link „podgląd”); jedyny szeroki element (potok CI) siedzi w regionie z przewijaniem osiągalnym z klawiatury. Dostępność: skip-link w landmarku, hierarchia nagłówków bez przeskoków (poprawione `dl`/`dt` w konsoli routera, `h4` → `h3` w szczegółach karty, dodany `h2` listy historii), `aria-labelledby` wskazujący istniejący nagłówek pytania, radiogroup ze strzałkami i spacją, `aria-valuetext` na suwakach, `aria-live` na licznikach, pułapka fokusu i Esc w oknie potwierdzenia, `prefers-reduced-motion` wyłączający animacje. **Testy akceptacyjne 1-6 zielone**: `tests/theme-tokens.test.ts` (kontrast ≥ 4,5:1 dla 7 par tekst/tło w obu motywach liczony ze wzoru WCAG wprost z `index.css`, brak mignięcia — skrypt w `<head>` przed modułem, brak stałych kolorów, ikony inline SVG bez `<img>`), `tests/a11y-audit.test.ts` (axe-core na 9 stanach ekranów × 2 motywy: 0 błędów poważnych i krytycznych, przejście klawiaturą, zapamiętanie motywu) i `tests/edge-states.test.ts` (pula 0/1/pełna, `noscript`). Przegląd wizualny obu motywów czeka na zatwierdzenie użytkownika.
 
 ## Etap 9 — Pełny ranking, szlify i wydanie
 

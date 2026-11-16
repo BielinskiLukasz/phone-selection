@@ -171,7 +171,8 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
       ) : null}
 
       {/* Suwaki grup: jedna kolumna na telefonie, dwie od 1024 px (UI-SPEC 7) */}
-      <div className="mt-7 grid gap-4 lg:grid-cols-2">
+      <h2 className="label-mono mt-8">{strings.slidersSectionTitle}</h2>
+      <div className="mt-3 grid gap-4 lg:grid-cols-2">
         {states.map((state) => (
           <GroupSlider
             key={state.id}
@@ -271,7 +272,7 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
         <button
           type="button"
           onClick={finish}
-          className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] dark:text-[#08130c]"
+          className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
         >
           {strings.quizShowResults}
           <ArrowRightIcon className="h-4 w-4" />
@@ -297,7 +298,7 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
         <button
           type="button"
           onClick={finish}
-          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-white dark:text-[#08130c]"
+          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
         >
           {strings.quizShowResults}
           <ArrowRightIcon className="h-4 w-4" />
@@ -309,7 +310,7 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
           {variant === 'tune' ? 'hybryda: krótki quiz + dostrojenie' : 'tryb suwaków'} ·{' '}
           {GROUPS.length} grup · {strings.quizSavedNote}
         </span>
-        <span className="num ml-auto text-[11px] tracking-[0.12em] text-[var(--color-border-strong)] uppercase">
+        <span className="num ml-auto text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase">
           {modifiedGroups > 0
             ? `${modifiedGroups} × ręcznie`
             : variant === 'tune'

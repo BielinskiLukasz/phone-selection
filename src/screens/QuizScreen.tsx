@@ -225,7 +225,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
           <button
             type="button"
             onClick={goNext}
-            className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] dark:text-[#08130c]"
+            className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
           >
             {strings.next}
             <ArrowRightIcon className="h-4 w-4" />
@@ -237,6 +237,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
       {step.kind === 'question' ? (
         <section key={stepKey(step)} className="step-in mt-8">
           <h1
+            id={`pytanie-${step.question.id}`}
             ref={headingRef}
             tabIndex={-1}
             className="max-w-[36ch] text-[clamp(1.5rem,5.2vw,2.15rem)] leading-[1.15] font-semibold tracking-[-0.03em] text-balance outline-none"
@@ -279,7 +280,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
             </p>
           </details>
 
-          <p className="num mt-4 text-[11px] tracking-[0.1em] text-[var(--color-border-strong)] uppercase">
+          <p className="num mt-4 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
             {strings.quizSavedNote} · {strings.quizKeyboardHint}
           </p>
         </section>
@@ -384,7 +385,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                 <button
                   type="button"
                   onClick={finish}
-                  className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] dark:text-[#08130c]"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
                 >
                   {strings.quizShowResults}
                   <ArrowRightIcon className="h-4 w-4" />
@@ -403,7 +404,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                   type="button"
                   onClick={() => commitTopThree(false)}
                   disabled={picks.length !== 3}
-                  className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40 dark:text-[#08130c]"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
                 >
                   {strings.quizShowResults}
                   <ArrowRightIcon className="h-4 w-4" />
@@ -424,7 +425,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
               <button
                 type="button"
                 onClick={finish}
-                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-white dark:text-[#08130c]"
+                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
               >
                 {strings.quizShowResults}
                 <ArrowRightIcon className="h-4 w-4" />
@@ -435,7 +436,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                   type="button"
                   onClick={() => commitTopThree(false)}
                   disabled={picks.length !== 3}
-                  className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-white disabled:opacity-40 dark:text-[#08130c]"
+                  className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)] disabled:opacity-40"
                 >
                   {strings.quizShowResults}
                 </button>
@@ -467,7 +468,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
             <ArrowRightIcon className="h-4 w-4" />
           </a>
         ) : (
-          <span className="num ml-auto truncate text-[11px] tracking-[0.12em] text-[var(--color-border-strong)] uppercase">
+          <span className="num ml-auto truncate text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase">
             sesja {session.id}
           </span>
         )}

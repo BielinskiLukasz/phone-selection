@@ -149,7 +149,7 @@ export function CardsScreen({ session }: CardsScreenProps) {
           <button
             type="button"
             onClick={() => dispatch({ type: 'session/compute-ranking', sessionId: session.id })}
-            className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-white dark:text-[#08130c]"
+            className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)]"
           >
             {strings.cardsRecompute}
             <ArrowRightIcon className="h-4 w-4" />
@@ -238,7 +238,7 @@ export function CardsScreen({ session }: CardsScreenProps) {
             <ArrowRightIcon className="h-4 w-4" />
           </a>
         ) : (
-          <span className="num ml-auto text-[11px] tracking-[0.1em] text-[var(--color-border-strong)] uppercase">
+          <span className="num ml-auto text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
             {strings.cardsFullRanking} — po pierwszym wyborze
           </span>
         )}

@@ -38,7 +38,7 @@ export function RouteChip({ hash, label, tone = 'default', className, copyable =
       onClick={copy}
       title={copyable ? 'Kopiuj adres' : undefined}
       className={cn(
-        'num inline-flex max-w-full items-center gap-2 rounded-[var(--radius-pill)] border px-3 py-1.5 text-[11px] tracking-[0.08em] transition-colors duration-200',
+        'num inline-flex min-h-11 max-w-full items-center gap-2 rounded-[var(--radius-pill)] border px-3 py-1.5 text-[11px] tracking-[0.08em] transition-colors duration-200',
         tone === 'active' &&
           'border-[var(--color-accent)] bg-[var(--color-accent-soft)] text-[var(--color-accent-ink)]',
         tone === 'error' && 'border-[var(--color-warn)] bg-[var(--color-warn-soft)] text-[var(--color-warn)]',

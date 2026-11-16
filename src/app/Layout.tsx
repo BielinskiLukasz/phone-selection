@@ -17,20 +17,6 @@ interface LayoutProps {
 export function Layout({ children, route, theme, onToggleTheme }: LayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Przycisk zamiast kotwicy: hash jest zajęty przez router tras. */}
-      <button
-        type="button"
-        onClick={() => {
-          const target = document.getElementById('tresc');
-          target?.setAttribute('tabindex', '-1');
-          target?.focus({ preventScroll: true });
-          target?.scrollIntoView({ block: 'start' });
-        }}
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-[var(--radius-pill)] focus:bg-[var(--color-accent)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
-      >
-        Przejdź do treści
-      </button>
-
       <AppHeader theme={theme} onToggleTheme={onToggleTheme} route={route} />
 
       <main id="tresc" className="flex-1">

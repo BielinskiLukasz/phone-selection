@@ -24,6 +24,20 @@ export function AppHeader({ theme, onToggleTheme, route }: AppHeaderProps) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-bg)_86%,transparent)] backdrop-blur-md">
+      {/* Przycisk zamiast kotwicy: hash jest zajęty przez router tras (E8-07). */}
+      <button
+        type="button"
+        onClick={() => {
+          const target = document.getElementById('tresc');
+          target?.setAttribute('tabindex', '-1');
+          target?.focus({ preventScroll: true });
+          target?.scrollIntoView({ block: 'start' });
+        }}
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-[var(--radius-pill)] focus:bg-[var(--color-accent)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[var(--color-on-accent)]"
+      >
+        Przejdź do treści
+      </button>
+
       <div className="mx-auto flex h-16 w-full max-w-3xl items-center justify-between gap-4 px-5 sm:h-[72px]">
         <a
           href="#/"

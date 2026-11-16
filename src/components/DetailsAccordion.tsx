@@ -28,7 +28,7 @@ export function DetailsAccordion({ card, specs, alwaysOpen }: DetailsAccordionPr
   const content = (
     <div className="grid gap-6 px-[var(--pad-card)] py-4 lg:grid-cols-2">
       <section>
-        <h4 className="label-mono">{strings.cardsDetailsScores}</h4>
+        <h3 className="label-mono">{strings.cardsDetailsScores}</h3>
         <ul className="mt-2">
           {grouped.map((criterion, index) => (
             <ScoreBar
@@ -49,7 +49,7 @@ export function DetailsAccordion({ card, specs, alwaysOpen }: DetailsAccordionPr
       </section>
 
       <section>
-        <h4 className="label-mono">{strings.cardsDetailsSpecs}</h4>
+        <h3 className="label-mono">{strings.cardsDetailsSpecs}</h3>
         <dl className="mt-2 grid gap-px overflow-hidden rounded-[var(--radius-card)] bg-[var(--color-border)]">
           {specs.map((row) => (
             <div key={row.key} className="grid gap-0.5 bg-[var(--color-surface)] px-3 py-2 sm:grid-cols-[38%_1fr] sm:gap-2">

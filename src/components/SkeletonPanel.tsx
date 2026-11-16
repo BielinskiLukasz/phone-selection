@@ -13,6 +13,8 @@ import {
   CARDS_STATUS,
   HISTORY_FACTS,
   HISTORY_STATUS,
+  THEME_FACTS,
+  THEME_STATUS,
   STORAGE_STATUS,
   daysSincePriceCheck,
   formatDate,
@@ -26,6 +28,7 @@ import {
   AlertIcon,
   HistoryIcon,
   ListIcon,
+  MoonIcon,
   PhoneIcon,
   SlidersIcon,
 } from './Icons';
@@ -73,7 +76,12 @@ export function SkeletonPanel() {
           <span className="label-mono">{strings.pipelineTitle}</span>
           <span className="ml-auto num text-[11px] text-[var(--color-muted)]">.github/workflows/deploy.yml</span>
         </div>
-        <div className="overflow-x-auto px-[var(--pad-card)] py-5">
+        <div
+          className="overflow-x-auto px-[var(--pad-card)] py-5 focus:outline-none"
+          tabIndex={0}
+          role="region"
+          aria-label={strings.pipelineTitle}
+        >
           <ol className="flex min-w-max items-stretch gap-2">
             {CI_PIPELINE.map((step, index) => {
               const last = index === CI_PIPELINE.length - 1;
@@ -370,6 +378,39 @@ export function SkeletonPanel() {
         </dl>
         <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
           {HISTORY_STATUS.map((line) => (
+            <li
+              key={line}
+              className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"
+            >
+              <span className="mt-px shrink-0 text-[var(--color-ok)]">
+                <CheckIcon className="h-4 w-4" />
+              </span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
+
+      {/* Motywy, mobile i dostępność — etap 8 */}
+      <Reveal delay={40} className="surface mt-6 p-0">
+        <div className="flex flex-wrap items-center gap-2 border-b border-[var(--color-border)] px-[var(--pad-card)] py-3">
+          <span className="label-mono flex items-center gap-2">
+            <MoonIcon className="h-4 w-4" />
+            Motywy, mobile i dostępność · etap 8
+          </span>
+          <Badge tone="accent">audyt axe: 0 poważnych</Badge>
+        </div>
+        <dl className="grid gap-px bg-[var(--color-border)] sm:grid-cols-2 lg:grid-cols-4">
+          {THEME_FACTS.map((fact) => (
+            <div key={fact.label} className="bg-[var(--color-surface)] p-3">
+              <dt className="label-mono">{fact.label}</dt>
+              <dd className="num mt-1.5 text-lg font-bold tracking-tight">{fact.value}</dd>
+              <dd className="mt-0.5 text-[11px] leading-snug text-[var(--color-muted)]">{fact.note}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="grid gap-2 border-t border-[var(--color-border)] px-[var(--pad-card)] py-4">
+          {THEME_STATUS.map((line) => (
             <li
               key={line}
               className="flex items-start gap-2 text-xs leading-relaxed text-[var(--color-muted)]"

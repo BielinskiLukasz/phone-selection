@@ -127,7 +127,7 @@ export function StartScreen() {
                 onClick={() =>
                   document.getElementById('tryby')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }
-                className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white shadow-[0_10px_24px_-14px_var(--color-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] dark:text-[#08130c]"
+                className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] shadow-[0_10px_24px_-14px_var(--color-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
               >
                 {strings.chooseMode}
                 <ArrowRightIcon className="h-4 w-4" />
@@ -223,7 +223,7 @@ export function StartScreen() {
               <div className="flex shrink-0 flex-wrap gap-2">
                 <a
                   href={`#/s/${unfinished.id}/${MODE_ENTRY_VIEW[unfinished.mode]}`}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 dark:text-[#08130c]"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   {strings.resumeAction}
                   <ArrowRightIcon className="h-4 w-4" />
@@ -272,7 +272,7 @@ export function StartScreen() {
                 delay={index * 60}
                 className="group bg-[var(--color-surface)] p-5 transition-colors duration-200 hover:bg-[var(--color-surface-2)]"
               >
-                <span className="num flex h-8 w-8 items-center justify-center rounded-full border border-[var(--color-border-strong)] text-xs font-bold transition-colors duration-200 group-hover:border-[var(--color-accent)] group-hover:text-[var(--color-accent-ink)]">
+                <span className="num flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border-strong)] text-xs font-bold transition-colors duration-200 group-hover:border-[var(--color-accent)] group-hover:text-[var(--color-accent-ink)]">
                   {step.n}
                 </span>
                 <p className="mt-3 text-sm leading-relaxed text-[var(--color-text)]">{step.text}</p>
@@ -348,7 +348,7 @@ export function StartScreen() {
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface)_94%,transparent)] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur-md sm:hidden">
         <a
           href="#/s/demo/quiz"
-          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-white dark:text-[#08130c]"
+          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
         >
           {strings.quiz} — {strings.quizTime}
           <ArrowRightIcon className="h-4 w-4" />
