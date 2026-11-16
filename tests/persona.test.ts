@@ -67,7 +67,10 @@ describe('9.1 · persona „żona”', () => {
   it('trójka odpowiada stanowi referencyjnemu: bateria przed aparatem, pamięć 256 GB', () => {
     const ids = wife().cards.map((entry) => entry.phoneId);
     expect(ids[0]).toBe('motorola-edge-70-fusion-12-256');
-    expect(ids).toContain('motorola-edge-60-12-256');
+    expect(ids[1]).toBe('realme-16-pro-plus-5g-8-256');
+    /* Korekta pasm G1 odpowiedziami podnosi aparat i pamięć: #3 to 15T, Edge 60 spada na #4. */
+    expect(ids[2]).toBe('xiaomi-15t-12-512');
+    expect(wife().ranked[3]!.phoneId).toBe('motorola-edge-60-12-256');
     for (const entry of wife().cards) {
       expect(phoneOf(entry).variant.storageGb).toBeGreaterThanOrEqual(256);
     }

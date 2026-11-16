@@ -36,6 +36,8 @@ export function defaultFilters(): Filters {
  * tokenów modeli (np. „a57”, „3a”, „9a”), które test wycieku wyszukiwałby w adresie
  * `#/s/:id/cards` (E6-11). Losowanie z `crypto.getRandomValues`, z awaryjnym `Math.random`.
  */
+let sessionCounter = 0;
+
 export function newSessionId(random: () => number = Math.random): string {
   const digits = (count: number): string => {
     const cryptoRef = typeof globalThis !== 'undefined' ? globalThis.crypto : undefined;
@@ -46,8 +48,10 @@ export function newSessionId(random: () => number = Math.random): string {
     return Array.from({ length: count }, () => Math.floor(random() * 10)).join('');
   };
 
+  /* Licznik daje unikalność w ramach jednego uruchomienia, losowanie — między urządzeniami. */
+  const seq = String((sessionCounter += 1) % 1000).padStart(3, '0');
   const stamp = String(Date.now()).slice(-8);
-  return `${stamp}${digits(5)}`;
+  return `${stamp}${digits(6)}${seq}`;
 }
 
 export function nowIso(now: Date = new Date()): string {

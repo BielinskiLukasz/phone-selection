@@ -111,6 +111,14 @@ Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i brak
 
 **Stan po etapie 2:** `src/lib` bez zależności od Reacta, pokrycie linii 98,5%, 63 testy zielone (8/8 testów akceptacyjnych etapu 2, niezmienniki person 9.1.1-9.1.4 i 9.4). Persony liczone na syntetycznej puli `tests/fixtures/phones.fixture.ts`, bo `phones.json` jest pusty do czasu domknięcia etapu 0 — po wgraniu danych testy trzeba przełączyć na `phones.json` i ponownie skalibrować `BLEND`. Decyzja QUIZ-SPEC 10.1: na karcie `round(S)` + opis słowny, przeskalowanie (najlepszy = 100%) w szczegółach.
 
+**Zmiana modelu G1 (po etapie 6):** ważność grupy z trójki to pasmo 5 / 4 / 3 **skorygowane siłą odpowiedzi**
+(`+0,3 × (wyliczone − 1,3)`, maksymalnie ±0,6, pierwsze miejsce nasyca się na 5) zamiast gołych 5 / 4 / 3 —
+wybór i odpowiedzi łączą się, a kolejność świadomego wyboru nigdy się nie odwraca. Wariant addytywny
+(`wyliczone + 1,5 / 1,0 / 0,5`) został policzony na danych i odrzucony jako domyślny: u persony „żona”
+aparat (6 pytań, odpowiedzi 5) wygrywał z baterią (2 pytania, odpowiedzi 3) mimo wyboru „bateria na 1. miejscu”,
+co łamie PROJECT 2 i referencję 9.1. Jest dostępny jako `TOP_THREE_MODE = 'additive'` i ma własne testy.
+Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 15T 62, #4 Edge 60.
+
 ## Etap 3 — Sesje i zapis w przeglądarce
 
 **Cel:** trwały stan z wersjonowanym schematem.

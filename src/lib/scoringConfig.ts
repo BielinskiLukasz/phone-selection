@@ -9,6 +9,26 @@ export const BLEND = 0.5;
 /** Ważności grup wybranych w kroku G1, wg miejsca. */
 export const TOP_THREE_IMPORTANCE: readonly [number, number, number] = [5, 4, 3];
 
+/**
+ * Jak krok G1 łączy się z odpowiedziami (QUIZ-SPEC 2.2):
+ *
+ * - `band` (domyślny): miejsce w trójce daje pasmo 5 / 4 / 3, a odpowiedzi **korygują** je
+ *   o `TOP_THREE_EVIDENCE_FACTOR × (wyliczone − 1,3)`, maksymalnie ±`TOP_THREE_EVIDENCE_MAX`.
+ *   Pasma się nie nakładają (4,4-5,6 / 3,4-4,6 / 2,4-3,6), więc kolejność wyboru jest
+ *   zachowana zawsze — a widać w niej też siłę odpowiedzi.
+ * - `additive`: ważneść wyliczona z odpowiedzi + bonus `TOP_THREE_BONUS` (1,5 / 1,0 / 0,5).
+ *   Prostszy do wyjaśnienia, ale pozwala odpowiedziom odwrócić świadomy wybór: grupa z większą
+ *   liczbą pytań (Aparat: 6) zbiera więcej „dowodów” niż grupa z dwoma (Bateria).
+ */
+export type TopThreeMode = 'band' | 'additive';
+export const TOP_THREE_MODE: TopThreeMode = 'band';
+export const TOP_THREE_BONUS: readonly [number, number, number] = [1.5, 1.0, 0.5];
+export const TOP_THREE_EVIDENCE_FACTOR = 0.3;
+export const TOP_THREE_EVIDENCE_MAX = 0.6;
+/** Ważność grupy bez odpowiedzi (0,5 + 0,4 × 2) — punkt zerowy korekty. */
+export const TOP_THREE_EVIDENCE_BASELINE = 1.3;
+export const IMPORTANCE_MAX = 5;
+
 /** Grupa poza trójką: GROUP_BASE + GROUP_FACTOR × średnia wag odpowiedzianych kryteriów. */
 export const GROUP_BASE = 0.5;
 export const GROUP_FACTOR = 0.4;

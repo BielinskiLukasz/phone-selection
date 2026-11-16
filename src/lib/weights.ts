@@ -32,7 +32,14 @@ import {
   DEFAULT_WEIGHT,
   GROUP_BASE,
   GROUP_FACTOR,
+  IMPORTANCE_MAX,
+  TOP_THREE_EVIDENCE_BASELINE,
+  TOP_THREE_EVIDENCE_FACTOR,
+  TOP_THREE_EVIDENCE_MAX,
+  TOP_THREE_BONUS,
   TOP_THREE_IMPORTANCE,
+  TOP_THREE_MODE,
+  type TopThreeMode,
 } from './scoringConfig';
 
 /**
@@ -132,25 +139,57 @@ export function criterionShares(
  * Ważność grupy: miejsca w trójce dostają 5/4/3, pozostałe
  * `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów` (bez odpowiedzi: 1,3).
  */
+/**
+ * Ważność grupy z odpowiedzi: `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów`
+ * (bez odpowiedzi: średnia = 2, czyli 1,3). Zakres 0,5-2,5.
+ */
+export function computedGroupImportance(
+  weights: Weights,
+  groupCriteria: readonly CriterionId[],
+  answered: ReadonlySet<CriterionId>,
+): number {
+  const answeredInGroup = groupCriteria.filter((id) => answered.has(id));
+  const source = answeredInGroup.length > 0 ? answeredInGroup : groupCriteria;
+  const mean = average(source.map((id) => clamp(weights[id] ?? DEFAULT_WEIGHT, 0, 5)));
+  return round(clamp(GROUP_BASE + GROUP_FACTOR * mean, GROUP_BASE, 2.5));
+}
+
+/**
+ * Ważności grup (QUIZ-SPEC 2.2): miejsce w trójce G1 plus sygnał z odpowiedzi.
+ * `mode` domyślnie z `TOP_THREE_MODE`; testy przechodzą oba warianty.
+ */
 export function groupImportance(
   weights: Weights,
   topThree?: TopThreeAnswer | readonly GroupId[] | null,
   answered: ReadonlySet<CriterionId> = new Set(criterionIds().map((item) => item.id)),
+  mode: TopThreeMode = TOP_THREE_MODE,
 ): GroupImportance {
   const importance = {} as GroupImportance;
   const picks = normalizeTopThree(topThree)?.picks ?? null;
 
   for (const group of GROUPS) {
+    const computed = computedGroupImportance(weights, group.criteria, answered);
     const position = picks ? picks.indexOf(group.id) : -1;
-    if (position >= 0) {
-      importance[group.id] = TOP_THREE_IMPORTANCE[position] ?? GROUP_BASE;
+
+    if (position < 0) {
+      importance[group.id] = computed;
       continue;
     }
 
-    const answeredInGroup = group.criteria.filter((id) => answered.has(id));
-    const source = answeredInGroup.length > 0 ? answeredInGroup : group.criteria;
-    const mean = average(source.map((id) => clamp(weights[id] ?? DEFAULT_WEIGHT, 0, 5)));
-    importance[group.id] = round(clamp(GROUP_BASE + GROUP_FACTOR * mean, GROUP_BASE, 2.5));
+    if (mode === 'additive') {
+      const bonus = TOP_THREE_BONUS[position] ?? 0;
+      importance[group.id] = round(clamp(computed + bonus, GROUP_BASE, IMPORTANCE_MAX), 2);
+      continue;
+    }
+
+    /* Pasmo z miejsca w trójce, skorygowane siłą odpowiedzi (bez odwracania kolejności). */
+    const pick = TOP_THREE_IMPORTANCE[position] ?? GROUP_BASE;
+    const evidence = clamp(
+      TOP_THREE_EVIDENCE_FACTOR * (computed - TOP_THREE_EVIDENCE_BASELINE),
+      -TOP_THREE_EVIDENCE_MAX,
+      TOP_THREE_EVIDENCE_MAX,
+    );
+    importance[group.id] = round(clamp(pick + evidence, GROUP_BASE, IMPORTANCE_MAX), 2);
   }
 
   return importance;

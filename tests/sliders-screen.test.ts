@@ -215,15 +215,16 @@ describe('E5-06/E5-07 · hybryda i dostrojenie', () => {
     expect(sliders.length).toBe(6);
     expect(screen.getByText(strings.computedBadge)).toBeTruthy();
 
-    /* Ważności z kroku G1: bateria 5, aparat 4, pamięć 3 — dokładnie jak w silniku. */
+    /* Ważności z kroku G1: pasma 5/4/3 skorygowane siłą odpowiedzi z krótkiego quizu. */
+    /* Pierwsze miejsce nasyca się na 5 (sufit skali) — korekta z odpowiedzi działa w dół. */
     expect(screen.getByRole('slider', { name: /Bateria i ładowanie/ }).getAttribute('aria-valuetext')).toBe(
       '5 z 5, kluczowe',
     );
     expect(screen.getByRole('slider', { name: /^Aparat/ }).getAttribute('aria-valuetext')).toBe(
-      '4 z 5, bardzo ważne',
+      '4,4 z 5, bardzo ważne',
     );
     expect(screen.getByRole('slider', { name: /^Pamięć/ }).getAttribute('aria-valuetext')).toBe(
-      '3 z 5, ważne',
+      '3,4 z 5, ważne',
     );
     expect(screen.getByRole('slider', { name: /Cena/ }).getAttribute('aria-valuetext')).toBe(
       '1,3 z 5, mało ważne',

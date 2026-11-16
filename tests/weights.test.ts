@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
+  answeredCriteria,
   answersToCriterionWeights,
   answersToFilters,
   budgetFromAnswers,
@@ -10,6 +11,7 @@ import {
   normalizeTopThree,
 } from '../src/lib/weights';
 import { noAnswers, skipAll, BATTERY, WIFE } from './personas';
+import type { CriterionId, GroupId, Weights } from '../src/types';
 import { CRITERION_IDS, GROUP_IDS, GROUPS } from '../src/data/criteria';
 import {
   DEFAULT_WEIGHT,
@@ -85,17 +87,67 @@ describe('E2-05 · udziały kryteriów w grupie', () => {
 });
 
 describe('E2-05 · ważności grup', () => {
-  it('trójka najważniejszych dostaje 5/4/3, reszta liczy się ze wzoru', () => {
+  it('trójka najważniejszych: pasma 5/4/3 skorygowane siłą odpowiedzi', () => {
     const weights = answersToCriterionWeights(WIFE.answers);
     const importance = groupImportance(weights, WIFE.topThree);
 
+    /* U „żony” bateria z odpowiedzi daje 1,3 (punkt odniesienia) → korekta 0, więc dokładnie 5. */
     expect(importance.battery).toBe(TOP_THREE_IMPORTANCE[0]);
-    expect(importance.camera).toBe(TOP_THREE_IMPORTANCE[1]);
-    expect(importance.storage).toBe(TOP_THREE_IMPORTANCE[2]);
-    // longevity: updates 3 i durability 3 → 0,5 + 0,4 × 3
+    /* Aparat: odpowiedzi dają 2,1 → +0,3 × (2,1 − 1,3) = +0,24. */
+    expect(importance.camera).toBeCloseTo(4.24, 2);
+    /* Pamięć: 2,5 → +0,36. */
+    expect(importance.storage).toBeCloseTo(3.36, 2);
+
+    // longevity: updates 3 i durability 3 → 0,5 + 0,4 × 3 (poza trójką, bez korekty)
     expect(importance.longevity).toBeCloseTo(GROUP_BASE + GROUP_FACTOR * 3, 5);
     // price: value 2 z odpowiedzi F1 → 0,5 + 0,4 × 2 = 1,3
     expect(importance.price).toBeCloseTo(1.3, 5);
+  });
+
+  it('kolejność trójki jest zachowana zawsze — pasma się nie nakładają', () => {
+    /* Skrajne dowody: pierwsza grupa odpowiedziana minimalnie, trzecia maksymalnie. */
+    const weights: Weights = { ...answersToCriterionWeights(noAnswers()) };
+    weights.battery = 0;
+    weights.charging = 0;
+    weights.storage = 5;
+    const importance = groupImportance(weights, { picks: ['battery', 'camera', 'storage'] }, new Set(['battery', 'charging', 'storage']));
+
+    expect(importance.battery).toBeGreaterThan(importance.camera);
+    expect(importance.camera).toBeGreaterThan(importance.storage);
+    expect(importance.battery).toBeLessThanOrEqual(5);
+    expect(importance.storage).toBeGreaterThanOrEqual(GROUP_BASE);
+  });
+
+  it('pierwsze miejsce nasyca się na 5, a korekta działa w dół przy słabych odpowiedziach', () => {
+    const strong = { ...answersToCriterionWeights(noAnswers()), battery: 5, charging: 5 };
+    const weak = { ...answersToCriterionWeights(noAnswers()), battery: 1, charging: 1 };
+    const answered = new Set<CriterionId>(['battery', 'charging']);
+    const picks: [GroupId, GroupId, GroupId] = ['battery', 'camera', 'storage'];
+
+    expect(groupImportance(strong, { picks }, answered).battery).toBe(5); // 5 + 0,6 → sufit skali
+    expect(groupImportance(weak, { picks }, answered).battery).toBeCloseTo(4.88, 2); // 5 − 0,12
+  });
+
+  it('wariant addytywny (+1,5/1,0/0,5) dodaje bonus do wartości z odpowiedzi', () => {
+    const weights = answersToCriterionWeights(WIFE.answers);
+    const answered = answeredCriteria(WIFE.answers);
+    const additive = groupImportance(weights, WIFE.topThree, answered, 'additive');
+
+    expect(additive.battery).toBeCloseTo(2.8, 2); // 1,3 + 1,5
+    expect(additive.camera).toBeCloseTo(3.1, 2); // 2,1 + 1,0
+    expect(additive.storage).toBeCloseTo(3.0, 2); // 2,5 + 0,5
+    expect(additive.longevity).toBeCloseTo(1.7, 5);
+  });
+
+  it('wariant addytywny potrafi odwrócić świadomy wybór — dlatego domyślny jest pasmowy', () => {
+    /* Żona: aparat ma 6 pytań odpowiedzianych „często”, bateria 2 pytania umiarkowane. */
+    const weights = answersToCriterionWeights(WIFE.answers);
+    const answered = answeredCriteria(WIFE.answers);
+    const additive = groupImportance(weights, WIFE.topThree, answered, 'additive');
+
+    expect(additive.camera).toBeGreaterThan(additive.battery); // wybór „bateria 1.” przegrany z arytmetyką
+    const band = groupImportance(weights, WIFE.topThree, answered, 'band');
+    expect(band.battery).toBeGreaterThan(band.camera); // priorytet z PROJECT 2 zachowany
   });
 
   it('pominięcie kroku G1 zostawia wszystkie grupy na wzorze', () => {

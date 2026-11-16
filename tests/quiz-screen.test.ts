@@ -201,9 +201,11 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     await flushStorage();
     const stored = storedState();
     expect(stored.sessions[0].topThree.picks).toEqual(['battery', 'camera', 'storage']);
-    expect(stored.sessions[0].groupImportance.battery).toBe(5);
-    expect(stored.sessions[0].groupImportance.camera).toBe(4);
-    expect(stored.sessions[0].groupImportance.storage).toBe(3);
+    /* Pierwsze opcje odpowiedzi obniżają ważności wewnątrz pasm (bateria 0,9 → 5 − 0,12). */
+    const gi = stored.sessions[0].groupImportance;
+    expect(gi.battery).toBeCloseTo(4.88, 2);
+    expect(gi.battery).toBeGreaterThan(gi.camera);
+    expect(gi.camera).toBeGreaterThan(gi.storage);
   });
 
   it('1./6. zakończenie domyka sesję i prowadzi do kart, a same „pomiń” dają ostrzeżenie', async () => {

@@ -184,9 +184,19 @@ pula       ─► scoring.ts ─► value z ceny ► normalizacja min-max ► s'
 karty      ─► anonymize.ts ─► fakty (6 wierszy), oceny z uzasadnieniami, klasa wydajności
 ```
 
-Stałe „do kalibracji” siedzą w jednym pliku `src/lib/scoringConfig.ts`: `BLEND = 0,5`, ważności
-trójki `5 / 4 / 3`, wzór grupy poza trójką `0,5 + 0,4 × średnia`, domyślna waga `2`, próg
-„praktycznego remisu” `2 pkt`, `VALUE_FLOOR = 1200`, limit `2000 zł`, wartość neutralna `50`.
+Stałe „do kalibracji” siedzą w jednym pliku `src/lib/scoringConfig.ts`: `BLEND = 0,5`, pasma trójki
+`5 / 4 / 3`, wzór grupy poza trójką `0,5 + 0,4 × średnia`, domyślna waga `2`, próg „praktycznego
+remisu” `2 pkt`, `VALUE_FLOOR = 1200`, limit `2000 zł`, wartość neutralna `50`.
+
+**Krok G1 a odpowiedzi.** Wybór trzech najważniejszych rzeczy nadaje grupie pasmo (1. miejsce 5,
+2. miejsce 4, 3. miejsce 3), a odpowiedzi z quizu **korygują** je o `0,3 × (wyliczone − 1,3)`,
+maksymalnie ±0,6 — więc ważności stają się np. 5 / 4,24 / 3,36 zamiast gołych 5 / 4 / 3, a kolejność
+świadomego wyboru nigdy się nie odwraca (pasma 4,4-5 / 3,4-4,6 / 2,4-3,6 nie nakładają się; pierwsze
+miejsce nasyca się na 5, bo to sufit skali). Wariant czysto addytywny (`wyliczone + 1,5 / 1,0 / 0,5`)
+jest zaimplementowany i przetestowany jako `TOP_THREE_MODE = 'additive'`, ale nie jest domyślny:
+pozwala arytmetyce odpowiedzi odwrócić wybór, bo grupa z sześcioma pytaniami (Aparat) zbiera więcej
+„dowodów” niż grupa z dwoma (Bateria) — u persony „żona” oddałoby to pierwszeństwo aparatowi,
+wbrew PROJECT 2 („dobra bateria ma pierwszeństwo przed najlepszym aparatem”).
 
 **Wyświetlanie „% dopasowania” (decyzja z QUIZ-SPEC 10.1, `src/lib/matchDisplay.ts`)**: na karcie
 `round(S)` plus opis słowny („bardzo dobre / dobre / przeciętne”), a przeskalowanie względem

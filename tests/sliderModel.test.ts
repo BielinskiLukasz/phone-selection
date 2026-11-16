@@ -131,7 +131,7 @@ describe('E5-01/E5-02 · stan suwaków z sesji', () => {
     ).sessions[0]!;
 
     const before = computedGroupImportance(session);
-    expect(before.camera).toBeCloseTo(4, 5); // G1: aparat na drugim miejscu
+    expect(before.camera).toBeCloseTo(4.24, 2); // G1: aparat na drugim miejscu + korekta z odpowiedzi
     const overridden = reducer(
       { ...emptyState(), sessions: [session], activeSessionId: session.id, schemaVersion: 1, theme: 'light', notices: [] },
       {
@@ -144,7 +144,7 @@ describe('E5-01/E5-02 · stan suwaków z sesji', () => {
 
     expect(overridden.groupImportance.battery).toBe(0);
     expect(computedGroupImportance(overridden).battery).toBeCloseTo(before.battery, 5);
-    expect(computedFromAnswers(overridden).groupImportance.camera).toBeCloseTo(4, 5);
+    expect(computedFromAnswers(overridden).groupImportance.camera).toBeCloseTo(4.24, 2);
     /* Waga kryterium battery u „żony” to 3 (A1 i A2 po 3) — ważność grupy 5 daje dopiero G1. */
     expect(computedCriterionWeights(overridden).battery).toBe(3);
   });

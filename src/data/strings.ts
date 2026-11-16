@@ -133,7 +133,8 @@ export const strings = {
   quizSavedNote: 'Zapisywane automatycznie po każdej odpowiedzi',
   quizShowResults: 'Pokaż wyniki',
   quizSkipStep: 'Pomiń ten krok',
-  quizTopThreeHint: 'Dotknij trzech rzeczy po kolei — kolejność ma znaczenie.',
+  quizTopThreeHint:
+    'Dotknij trzech rzeczy po kolei — kolejność ma znaczenie. Wybór nadaje priorytet (1. miejsce 5, 2. miejsce 4, 3. miejsce 3), a Twoje odpowiedzi korygują go wewnątrz pasma, maksymalnie o ±0,6.',
   quizSummaryTitle: 'Podsumowanie odpowiedzi',
   quizSummaryNote:
     'Wagi i filtry wyliczone z Twoich odpowiedzi. Ranking liczy się od razu, a odpowiedzi możesz zmienić nawet po zakończeniu.',

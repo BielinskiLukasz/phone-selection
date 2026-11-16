@@ -35,7 +35,15 @@ Symulacja pokazała, że płaskie wagi na 14 kryteriach są błędne: grupa „A
 
 1. **Waga kryterium wewnątrz grupy** (`w_c`, skala 0-5): średnia wartości z odpowiedzi na pytania dotyczące tego kryterium; bez odpowiedzi domyślnie **2**. Waga mówi, **jak bardzo** kryterium liczy się *w swojej grupie*; z wag liczymy udziały `share_c = w_c / Σ w_c` w grupie (przy samych zerach udziały równe).
 2. **Ważność grupy** (`G_g`):
-   - grupy wybrane w kroku „trzy najważniejsze rzeczy”: 1. miejsce **5**, 2. miejsce **4**, 3. miejsce **3**;
+   - grupy wybrane w kroku „trzy najważniejsze rzeczy”: pasmo z miejsca — 1. miejsce **5**, 2. miejsce **4**,
+     3. miejsce **3** — skorygowane siłą odpowiedzi: `G_g = pasmo + 0,3 × (wyliczone − 1,3)`, maksymalnie ±0,6
+     (pierwsze miejsce nasyca się na 5, bo to sufit skali). Kolejność świadomego wyboru jest dzięki temu
+     zachowana zawsze, a odpowiedzi nie są odrzucane: pasma 4,4-5 / 3,4-4,6 / 2,4-3,6 nie nakładają się.
+     Wariant czysto addytywny (`G_g = wyliczone + 1,5 / 1,0 / 0,5`) jest zaimplementowany jako
+     `TOP_THREE_MODE = additive` w `lib/scoringConfig.ts`, ale **nie jest domyślny**: pozwala arytmetyce
+     odpowiedzi odwrócić świadomy wybór, bo grupa z sześcioma pytaniami (Aparat) zbiera więcej „dowodów”
+     niż grupa z dwoma (Bateria) — u persony „żona” oddałoby to pierwszeństwo aparatowi zamiast baterii
+     (PROJECT 2, sekcja 2: „Dobra bateria ma pierwszeństwo przed najlepszym aparatem”);
    - pozostałe grupy: `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów grupy` (bez odpowiedzi: średnia = 2, czyli 1,3). Zakres 0,5 do 2,5.
    - grupa `price`: jeśli nie jest w trójce, wartość z pytania o budżet (F1) przechodzi przez ten sam wzór.
 
@@ -69,7 +77,9 @@ S            = Σ_g ( G_g × GroupScore_g ) / Σ_g G_g   // 0-100
 | Parametr | Wartość | Uwagi |
 |---|---|---|
 | `BLEND` | 0,5 | 0 = surowe oceny, 1 = pełna normalizacja |
-| Ważność grup w trójce | 5 / 4 / 3 | |
+| Ważność grup w trójce | pasma 5 / 4 / 3 | `TOP_THREE_IMPORTANCE` |
+| Korekta pasma z odpowiedzi | `0,3 × (wyliczone − 1,3)`, max ±0,6 | `TOP_THREE_EVIDENCE_FACTOR`, `TOP_THREE_EVIDENCE_MAX` |
+| Wariant alternatywny G1 | `additive`: `wyliczone + 1,5 / 1,0 / 0,5` | `TOP_THREE_MODE` (domyślnie `band`) |
 | Ważność grupy poza trójką | `0,5 + 0,4 × średnia` | |
 | Domyślna waga kryterium | 2 | |
 | Próg „praktycznego remisu” | 2 pkt | |
@@ -213,7 +223,7 @@ Odpowiedzi persony zapisujemy w testach jako stałe. Wyniki poniżej to **stan r
 | F1 | Do 2000 zł, jeśli warto |
 | G1 | 1. Bateria i ładowanie, 2. Aparat, 3. Pamięć |
 
-Stan referencyjny (po domknięciu danych etapu 0): **#1 Edge 70 Fusion (69 pkt), #2 Realme 16 Pro+ (67), #3 Edge 60 (62)**, #4 Xiaomi 15T (62). Pixel 10a i Pixel 9a (128 GB) nie wchodzą do trójki. Wcześniejszy stan (#1 71, #2 Edge 60 58, #3 Realme 56) obowiązywał przed uzupełnieniem specyfikacji i ocen ze źródeł.
+Stan referencyjny (po domknięciu danych etapu 0 i korekcie pasm G1 odpowiedziami): **#1 Edge 70 Fusion (69 pkt), #2 Realme 16 Pro+ (67), #3 Xiaomi 15T (62)**, #4 Edge 60. Ważności grup persony: bateria 5, aparat 4,24, pamięć 3,36, aktualizacje i trwałość 1,7, ekran i płynność 1,7, cena 1,3. Pixel 10a i Pixel 9a (128 GB) nie wchodzą do trójki. Wcześniejszy stan (#1 71, #2 Edge 60 58, #3 Realme 56) obowiązywał przed uzupełnieniem specyfikacji i ocen ze źródeł.
 
 **Niezmienniki:**
 1. Żaden telefon z 128 GB nie jest w trójce przy `storage` w trójce najważniejszych.
@@ -223,7 +233,7 @@ Stan referencyjny (po domknięciu danych etapu 0): **#1 Edge 70 Fusion (69 pkt),
 
 ### 9.2 Persona „aparat” (kontrolna)
 
-A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000; G1 = Aparat, Pamięć, Ekran i płynność. Referencyjnie: Xiaomi 15T (70 pkt), Edge 60 (67), Edge 70 Fusion (63), #4 Galaxy A57 (60).
+A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000; G1 = Aparat, Pamięć, Ekran i płynność. Referencyjnie: Xiaomi 15T (70 pkt), Edge 60 (66), Edge 70 Fusion (63), #4 Galaxy A57. Ważności: aparat 5, pamięć 4,12, ekran i płynność 3,12, bateria 0,9.
 
 ### 9.3 Persona „bateria” (kontrolna)
 
