@@ -2940,6 +2940,209 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "nothing-phone-3a-pro-12-256",
+      "brand": "Nothing",
+      "modelName": "Phone (3a) Pro 12/256 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Nothing Phone (3a) Pro 12/256 GB",
+        "brand": "Nothing",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/nothing-phone-3a-pro-new.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/nothing/nothing-phone-3a-pro-new-1.jpg",
+        "shopLinks": [
+          {
+            "label": "avans.pl",
+            "url": "https://www.avans.pl/telefony-i-smartfony/smartfony/smartfon-nothing-phone-3a-pro-5g-12-256gb-6-77-120hz-szary",
+            "pricePln": 1778.25,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "szary, 12/256 GB — oficjalna polska dystrybucja (grupa TERG / Media Expert), darmowa wysyłka w 1 dzień (Ceneo 181729162)"
+          },
+          {
+            "label": "electro.pl",
+            "url": "https://www.electro.pl/telefony-i-smartfony/smartfony/smartfon-nothing-phone-3a-pro-5g-12-256gb-6-77-120hz-szary",
+            "pricePln": 1778.25,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "szary, 12/256 GB — darmowa wysyłka w 1 dzień (ta sama cena co w Avans i Media Expert)"
+          },
+          {
+            "label": "proshop.pl",
+            "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-Pro-256GB12GB-Grey/3336307",
+            "pricePln": 1999,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "szary (A10400167) i czarny (A10400166), 12/256 GB — na stanie (15+ szt.), darmowa dostawa"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/181729162",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "Nothing Phone (3a) Pro 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1778.25,
+        "source": "avans.pl",
+        "url": "https://www.avans.pl/telefony-i-smartfony/smartfony/smartfon-nothing-phone-3a-pro-5g-12-256gb-6-77-120hz-szary",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "szary (A059P), 12/256 GB",
+        "auditNote": "Ceneo 181729162 (szary 12/256 GB): w oficjalnych sklepach grupy TERG (avans.pl, electro.pl, mediaexpert.pl) 1778,25 zł z darmową wysyłką w 1 dzień; na Allegro oferta od 1699 zł (+14,99 zł wysyłki); proshop.pl 1999 zł (szary A10400167 i czarny A10400166, 15+ szt. na stanie, Ceneo 181904414); Komputronik 1729 zł (tymczasowo niedostępny). Jako price.pln przyjęto najniższą potwierdzoną cenę w bezpośrednim sklepie (avans.pl 1778,25 zł). Polska cena premierowa (03.2025): 2049 zł.",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 1699,
+            "source": "allegro.pl (przez Ceneo 181729162)",
+            "url": "https://www.ceneo.pl/181729162",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "szary, 12/256 GB, marketplace (+14,99 zł wysyłka)"
+          },
+          {
+            "pln": 1778.25,
+            "source": "electro.pl",
+            "url": "https://www.electro.pl/telefony-i-smartfony/smartfony/smartfon-nothing-phone-3a-pro-5g-12-256gb-6-77-120hz-szary",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "szary (kod 2061923), 12/256 GB, darmowy transport"
+          },
+          {
+            "pln": 1999,
+            "source": "proshop.pl",
+            "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-Pro-256GB12GB-Black/3336303",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (A10400166) i szary (A10400167), 12/256 GB, na stanie"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.77,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2392",
+        "peakNits": 3000,
+        "glass": "Panda Glass (przód i tył)",
+        "ramGb": 12,
+        "storageGb": 256,
+        "storageType": "UFS 2.2",
+        "microSd": false,
+        "chip": "Qualcomm Snapdragon 7s Gen 3 (4 nm)",
+        "batteryMah": 5000,
+        "batteryCycles": 1400,
+        "batteryEndurance": 11,
+        "batteryTests": [
+          "GSMArena (etykieta UE): klasa C, 43:17 h szacowanej wytrzymałości, 1400 cykli → wytrzymałość 11 (skala 40–70 h)",
+          "GSMArena active use score: 13:37 h (rozmowy 38:02 h, WWW 10:51 h, wideo 18:43 h, gry 8:10 h)"
+        ],
+        "chargingW": 50,
+        "chargingNote": "do 50 W przewodowo (USB PD + PPS; deklaracja producenta: 50% w 19 min, 100% w 56 min; w teście GSMArena realny pobór szczytowy ok. 30 W), brak ładowarki i etui w pudełku (GSMArena, electro.pl)",
+        "chargingTests": "GSMArena: 33% w 15 min, 60% w 30 min, pełne ładowanie w 66 min",
+        "chargerInBox": false,
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP64",
+        "weightG": 211,
+        "heightMm": 163.5,
+        "widthMm": 77.5,
+        "thicknessMm": 8.4,
+        "dimensionsMm": "163,5 × 77,5 × 8,4",
+        "cameras": {
+          "main": "50 MP f/1.9 (24 mm, 1/1,56″, Samsung ISOCELL GNJ, dual pixel PDAF) z OIS",
+          "ultrawide": "8 MP f/2.2 (15 mm, 120°, 1/4,0″, Sony IMX355)",
+          "macro": null,
+          "selfie": "50 MP f/2.2 (24 mm, 1/2,76″)",
+          "telephoto": "50 MP f/2.6 peryskopowy (70 mm, 1/1,95″, Sony LYT-600, PDAF od 15 cm) z OIS, zoom optyczny 3x i telemakro"
+        },
+        "video": "4K 30 kl./s (główny i selfie), 1080p 30 kl./s (teleobiektyw 3x i szeroki kąt)",
+        "os": "Android 15, Nothing OS 3.1",
+        "updatesYears": 6,
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 6,
+        "updatesNote": "3 duże aktualizacje Androida (do Androida 18) i 6 lat poprawek bezpieczeństwa oraz funkcjonalnych od daty wprowadzenia na rynek (oficjalna strona nothing.tech, Notebookcheck, GSMArena)",
+        "releasedAt": "2025-03",
+        "securitySupportUntil": "2031-03",
+        "supportNote": "Oficjalna strona Nothing (nothing.tech) i Notebookcheck: 6 lat poprawek bezpieczeństwa od premiery rynkowej (03.2025 → 03.2031)",
+        "sim": "nanoSIM + nanoSIM + eSIM (maks. 2 aktywne jednocześnie)",
+        "nfc": true,
+        "wifi": "Wi-Fi 6 (dwuzakresowe, bez pasma 6 GHz)",
+        "bluetooth": "5.4",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Dla stałych powiadomień należy wyłączyć optymalizację baterii dla Zepp Life w ustawieniach Androida / Nothing OS (Aplikacje → Zepp Life → Bateria → Nieograniczone)."
+      },
+      "scores": {
+        "battery": 18,
+        "charging": 47,
+        "updates": 64,
+        "storage": 75,
+        "durability": 55,
+        "smoothness": 63,
+        "display": 82,
+        "photoDay": 81,
+        "photoIndoor": 77,
+        "photoMotion": 68,
+        "selfie": 77,
+        "video": 72,
+        "zoom": 80,
+        "compactness": 30,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (pojemność 25 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 11 (50%) z etykiety UE na GSMArena (klasa C, 43:17 h przy skali 40–70 h, 1400 cykli; w teście GSMArena active use solidne 13:37 h) → 0,5 × 25 + 0,5 × 11 = 18 pkt",
+        "charging": "50 W przewodowo PD+PPS (GSMArena: 33% w 15 min, 60% w 30 min, pełne w 66 min), bez ładowania indukcyjnego i bez zasilacza w pudełku (GSMArena, electro.pl) — (50 − 15) / 75 × 100 = 47 pkt",
+        "updates": "3 duże aktualizacje Androida i 6 lat poprawek bezpieczeństwa do 03.2031 wg oficjalnej deklaracji nothing.tech i Notebookcheck: średnia 4,5 roku → 4,5 / 7 × 100 = 64 pkt",
+        "storage": "256 GB UFS 2.2 (z 12 GB RAM), brak slotu microSD (GSMArena, gsmManiaK, mediaexpert.pl) = 75 pkt",
+        "durability": "IP64 (pyłoszczelność i ochrona przed zachlapaniem), szkło Panda Glass, plastikowa ramka oraz klasa C odporności na upadki (90 upadków) na etykiecie UE (GSMArena) = 55 pkt",
+        "smoothness": "Snapdragon 7s Gen 3 (4 nm) z 12 GB RAM i lekkim Nothing OS; GSMArena: AnTuTu v10 820 097, Geekbench 6 multi-core 3327, zerowy throttling termiczny — płynna praca na co dzień, średnia półka wydajności i wolniejsza pamięć UFS 2.2",
+        "display": "6,77″ AMOLED 10-bit 120 Hz (PWM 2160 Hz, HDR10+, Ultra HDR), 3000 nitów szczytowo i 1307 nitów zmierzonych w trybie auto w teście GSMArena (766 nitów ręcznie) — jasny i udany ekran OLED",
+        "photoDay": "główny 50 MP f/1.9 (1/1,56″, ISOCELL GNJ) z OIS + peryskop 50 MP OIS 3x + szeroki kąt 8 MP; GSMArena chwali wysoką szczegółowość, niski szum, udane kolory, rozpiętość tonalną i świetne portrety 1x/2x/3x (także bardzo przyzwoity za dnia szeroki kąt 8 MP)",
+        "photoIndoor": "recenzja GSMArena chwali dużą szczegółowość, niski szum i bardzo dobrą rozpiętość tonalną głównego aparatu 50 MP OIS w słabym świetle oraz wyjątkowo ostre nocne ujęcia z jasnego peryskopu 50 MP LYT-600 z OIS (szeroki kąt 8 MP miękki w nocy)",
+        "photoMotion": "główny sensor 50 MP z dual pixel PDAF i OIS oraz teleobiektyw z PDAF i OIS radzą sobie dobrze w codziennych kadrach, choć średniopółkowy ISP Snapdragona 7s Gen 3 ustępuje szybszym układom przy dynamicznym ruchu (GSMArena)",
+        "selfie": "przedni aparat 50 MP f/2.2 (1/2,76″) z nagrywaniem 4K 30 kl./s; GSMArena chwali przyjemne odcienie i fakturę skóry w dzień oraz udane selfie w słabym świetle (drobny minus za zapis w pełnych 50 MP bez łączenia pikseli)",
+        "video": "4K 30 kl./s z bardzo skuteczną stabilizacją Always-On, wysoką szczegółowością i niskim szumem na głównym aparacie oraz 4K 30 kl./s z selfie; minus za brak 4K 60 kl./s i ograniczenie teleobiektywu 3x oraz szerokiego kąta do 1080p 30 kl./s (GSMArena)",
+        "zoom": "peryskopowy teleobiektyw 50 MP f/2.6 (70 mm, 1/1,95″, Sony LYT-600) z PDAF, OIS, 3-krotnym zoomem optycznym i udanym trybem telemakro od 15 cm; GSMArena i The Guardian nazywają go gwiazdą w tej cenie zarówno w dzień, jak i w nocy (minus za brak 4K w wideo z tele)",
+        "compactness": "211 g, wymiary 163,5 × 77,5 × 8,4 mm (GSMArena) — wzór poręczności: lekkość 34, mała powierzchnia 24 (12 671 mm²), smukłość 37 → 30 pkt (spora obudowa z wyraźnie wystającą wyspą aparatów)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://checkout-eu.nothing.tech/pages/phone-3a-pro",
+        "https://www.ceneo.pl/181729162",
+        "https://www.avans.pl/telefony-i-smartfony/smartfony/smartfon-nothing-phone-3a-pro-5g-12-256gb-6-77-120hz-szary",
+        "https://www.electro.pl/telefony-i-smartfony/smartfony/smartfon-nothing-phone-3a-pro-5g-12-256gb-6-77-120hz-szary",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-nothing-phone-3a-pro-5g-12-256gb-6-77-120hz-szary",
+        "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-Pro-256GB12GB-Grey/3336307",
+        "https://www.gsmmaniak.pl/1556572/nothing-phone-3a-pro-cena-w-polsce-premiera-specyfikacja/",
+        "https://www.gsmarena.com/nothing_phone_(3a)_pro-13649.php",
+        "https://www.gsmarena.com/nothing_phone_3a_pro-review-2809p3.php",
+        "https://www.gsmarena.com/nothing_phone_3a_pro-review-2809p5.php",
+        "https://www.gsmarena.com/nothing_phone_3a_pro-review-2809p6.php",
+        "https://www.notebookcheck.net/More-megapixels-Nothing-Phone-3a-Pro-smartphone-review.999161.0.html"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "medium",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
