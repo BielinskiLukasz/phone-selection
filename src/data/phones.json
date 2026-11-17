@@ -3143,6 +3143,209 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "galaxy-a17-5g-4-128",
+      "brand": "Samsung",
+      "modelName": "Galaxy A17 5G 4/128 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Samsung Galaxy A17 5G 4/128 GB",
+        "brand": "Samsung",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a17-5g.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a17-5g-12.jpg",
+        "shopLinks": [
+          {
+            "label": "komputronik.pl",
+            "url": "https://www.komputronik.pl/product/1008715/samsung-galaxy-a17-128gb-5g-dual-sim-szary-a176-.html",
+            "pricePln": 849,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "szary, czarny i niebieski (SM-A176B), 4/128 GB — oficjalna sieć, dostępny w magazynie i salonach"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-a17-5g-4-128gb-czarny-sm-a176bzkaeue-15451024/",
+            "pricePln": 836.86,
+            "checkedAt": "2026-11-17",
+            "kind": "marketplace",
+            "note": "czarny (SM-A176BZKAEUE), 4/128 GB, dostępny (Morele Marketplace)"
+          },
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-a17-5g-4-128gb-6-7-90hz-czarny-sm-a176",
+            "pricePln": 1019.88,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny (SM-A176B), 4/128 GB, polska dystrybucja (wersja EU w Media Expert: 899,99 zł)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/189560447",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 4,
+        "storageGb": 128,
+        "fromList": "Samsung Galaxy A17 5G 4/128 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 849,
+        "source": "komputronik.pl",
+        "url": "https://www.komputronik.pl/product/1008715/samsung-galaxy-a17-128gb-5g-dual-sim-szary-a176-.html",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "szary, czarny lub niebieski (SM-A176B), 4/128 GB",
+        "auditNote": "Komputronik.pl: 849 zł (SM-A176, 5G, 4/128 GB, szary/czarny/niebieski, dostępny w magazynie i salonach; w aplikacji z kodem 782,35–806,55 zł). Równoległe oferty nowych egzemplarzy SM-A176B 4/128 GB: Sferis od 669 zł (szary, Ceneo 189560447 — uwaga: gwarancja sklepu 24 mies.), Morele Marketplace 836,86 zł (SM-A176BZKAEUE, odczyt JSON-LD) i Morele bezpośrednio 855,38 zł, Media Expert 899,99 zł (dystrybucja EU) / 1019,88 zł (PL), x-kom 1219 zł. Uwaga przy zakupie: nie mylić z tańszym wariantem 4G LTE SM-A175 (Helio G99, ~699–799 zł).",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 669,
+            "source": "sferis.pl",
+            "url": "https://www.sferis.pl/samsung-galaxy-a17-a176-5g-ds-4-128gb-grey-i651134",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "szary (SM-A176BZAAEUE), 4/128 GB (Ceneo 189560447; w karcie podana gwarancja sklepu 24 mies.)"
+          },
+          {
+            "pln": 836.86,
+            "source": "morele.net (Marketplace)",
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-a17-5g-4-128gb-czarny-sm-a176bzkaeue-15451024/",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (SM-A176BZKAEUE), 4/128 GB, dostępny"
+          },
+          {
+            "pln": 1019.88,
+            "source": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-a17-5g-4-128gb-6-7-90hz-czarny-sm-a176",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (SM-A176B), 4/128 GB (dystrybucja EU w Media Expert: 899,99 zł)"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.7,
+        "panel": "Super AMOLED",
+        "refreshHz": 90,
+        "resolution": "1080x2340",
+        "peakNits": 800,
+        "glass": "Corning Gorilla Glass Victus",
+        "ramGb": 4,
+        "storageGb": 128,
+        "storageType": "UFS 2.2",
+        "microSd": true,
+        "chip": "Samsung Exynos 1330 (5 nm)",
+        "batteryMah": 5000,
+        "batteryCycles": 1200,
+        "batteryEndurance": 13,
+        "batteryTests": [
+          "GSMArena (etykieta UE): klasa B, 43:52 h szacowanej wytrzymałości, 1200 cykli → wytrzymałość 13 (skala 40–70 h)",
+          "GSMArena active use score: 11:48 h"
+        ],
+        "chargingW": 25,
+        "chargingNote": "do 25 W przewodowo (USB PD + PPS), brak ładowarki w pudełku (GSMArena, mediaexpert.pl)",
+        "chargingTests": "GSMArena: 24% w 15 min, 48% w 30 min, pełne ładowanie w 80 min",
+        "chargerInBox": false,
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP54",
+        "weightG": 192,
+        "heightMm": 164.4,
+        "widthMm": 77.9,
+        "thicknessMm": 7.5,
+        "dimensionsMm": "164,4 × 77,9 × 7,5",
+        "cameras": {
+          "main": "50 MP f/1.8 (1/2,76″, AF) z OIS",
+          "ultrawide": "5 MP f/2.2 (1/5,0″)",
+          "macro": "2 MP f/2.4",
+          "selfie": "13 MP f/2.0 (1/3,1″)",
+          "telephoto": null
+        },
+        "video": "1080p 30 kl./s (tył z gyro-EIS i selfie)",
+        "os": "Android 15, One UI 7",
+        "updatesYears": 6,
+        "updatesOsGenerations": 6,
+        "updatesSecurityYears": 6,
+        "updatesNote": "6 dużych aktualizacji Androida (do Androida 21) i 6 lat poprawek bezpieczeństwa od globalnej premiery do 31.08.2031 (Samsung, GSMArena, Notebookcheck)",
+        "releasedAt": "2025-08",
+        "securitySupportUntil": "2031-08",
+        "supportNote": "Oficjalna strona Samsung (SM-A176B): poprawki bezpieczeństwa gwarantowane do 31 sierpnia 2031 r. (6 lat od premiery 08.2025)",
+        "sim": "nanoSIM + nanoSIM (slot hybrydowy z microSD) / nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 5 (dwuzakresowe 802.11ac)",
+        "bluetooth": "5.3",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Ze względu na zaledwie 4 GB RAM system agresywnie zamyka procesy w tle — należy wyłączyć optymalizację baterii dla Zepp Life i w One UI dodać ją do „Aplikacji nieuśpionych” (Bateria → Limity użycia w tle)."
+      },
+      "scores": {
+        "battery": 19,
+        "charging": 13,
+        "updates": 86,
+        "storage": 45,
+        "durability": 45,
+        "smoothness": 35,
+        "display": 65,
+        "photoDay": 66,
+        "photoIndoor": 58,
+        "photoMotion": 52,
+        "selfie": 65,
+        "video": 50,
+        "zoom": 34,
+        "compactness": 42,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (pojemność 25 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 13 (50%) z etykiety UE na GSMArena (klasa B, 43:52 h przy skali 40–70 h, 1200 cykli; active use 11:48 h) → 0,5 × 25 + 0,5 × 13 = 19 pkt",
+        "charging": "25 W przewodowo USB PD+PPS (GSMArena: 24% w 15 min, 48% w 30 min, pełne ładowanie w 80 min), bez indukcji i bez ładowarki w pudełku (GSMArena, mediaexpert.pl) — (25 − 15) / 75 × 100 = 13 pkt",
+        "updates": "6 dużych aktualizacji Androida i 6 lat poprawek bezpieczeństwa do 31.08.2031 (Samsung, GSMArena): 6 / 7 × 100 = 86 pkt",
+        "storage": "128 GB UFS 2.2 (ok. 107,1 GB dla użytkownika, potwierdzone w testach GSMArena i tekście Notebookcheck) + hybrydowy slot microSDXC do 2 TB (+5 pkt) = 45 pkt",
+        "durability": "IP54 (ochrona przed kurzem i zachlapaniem), szkło Gorilla Glass Victus z przodu, tył z tworzywa wzmocnionego włóknem szklanym oraz klasa B odporności na upadki (180 upadków) na etykiecie UE (GSMArena) = 45 pkt wg reguły IP54",
+        "smoothness": "budżetowy Exynos 1330 (5 nm) i tylko 4 GB RAM; GSMArena (test wariantu 4/128 GB): AnTuTu v10 435 787, Geekbench 6 multi-core 2048 — recenzja wprost wytyka zauważalne przycięcia interfejsu i słaby zapas pamięci RAM na kolejne lata",
+        "display": "6,7″ Super AMOLED FHD+ 90 Hz, deklarowane 800 nitów HBM i 738 nitów zmierzonych w trybie auto w GSMArena (353 nity ręcznie), bez wsparcia HDR i z wycięciem łezkowym — przyjemny kontrast OLED w budżetowej cenie, ale wyraźnie ciemniejszy i wolniejszy niż ekrany 120 Hz",
+        "photoDay": "główny 50 MP f/1.8 (1/2,76″) po raz pierwszy w serii A1x z OIS + podstawowy 5 MP szeroki kąt + 2 MP makro; GSMArena chwali żywe kolory, dobrą ostrość i udane portrety w dzień, przy ograniczonej rozpiętości tonalnej i słabym module 5 MP",
+        "photoIndoor": "GSMArena odnotowuje niewielki spadek jakości w dobrze oświetlonych wnętrzach, ale po zmroku standardowe ujęcia są zaszumione i mało kontrastowe — dopiero tryb nocny z pomocą OIS wyraźnie poprawia ostrość i kolory (szeroki kąt 5 MP w nocy nieużywalny)",
+        "photoMotion": "niewielka matryca 1/2,76″ ze standardowym AF i OIS oraz wolne przetwarzanie Exynosa 1330 wystarczają do spokojnych kadrów, ale ustępują średniakom przy fotografowaniu ruchu (GSMArena)",
+        "selfie": "przedni aparat 13 MP f/2.0 (1/3,1″); w recenzji GSMArena wyróżniony w zaletach za naturalnie wyglądające, szczegółowe selfie z żywymi kolorami i dobrą jak na klasę budżetową rozpiętością tonalną",
+        "video": "nagrywanie ograniczone fabrycznie do 1080p 30 kl./s z gyro-EIS (brak 4K w aplikacji aparatu i brak 60 kl./s); GSMArena ocenia dzienne klipy z głównego aparatu jako poprawne, a nagrania nocne i z szerokiego kąta jako słabe",
+        "zoom": "układ 50 MP + 5 MP + 2 MP, brak teleobiektywu (GSMArena); cyfrowy wycinek 2x z małego sensora 1/2,76″ nadaje się od biedy w dzień, ale mocno traci ostrość, a w nocy jest odradzany",
+        "compactness": "192 g, wymiary 164,4 × 77,9 × 7,5 mm (GSMArena) — wzór poręczności: lekkość 61, mała powierzchnia 18 (12 807 mm²), smukłość 67 → 42 pkt (smukły i stosunkowo lekki jak na 6,7″)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.samsung.com/uk/smartphones/galaxy-a/galaxy-a17-5g-black-128gb-sm-a176bzkaeub/",
+        "https://www.ceneo.pl/189560447",
+        "https://www.komputronik.pl/product/1008715/samsung-galaxy-a17-128gb-5g-dual-sim-szary-a176-.html",
+        "https://www.morele.net/smartfon-samsung-galaxy-a17-5g-4-128gb-czarny-sm-a176bzkaeue-15451024/",
+        "https://www.sferis.pl/samsung-galaxy-a17-a176-5g-ds-4-128gb-grey-i651134",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-a17-5g-4-128gb-6-7-90hz-czarny-sm-a176",
+        "https://www.gsmarena.com/samsung_galaxy_a17_5g-14041.php",
+        "https://www.gsmarena.com/samsung_galaxy_a17_5g-review-2869p3.php",
+        "https://www.gsmarena.com/samsung_galaxy_a17_5g-review-2869p4.php",
+        "https://www.gsmarena.com/samsung_galaxy_a17_5g-review-2869p5.php",
+        "https://www.gsmarena.com/samsung_galaxy_a17_5g-review-2869p6.php",
+        "https://www.notebookcheck.net/Can-you-go-wrong-with-updates-until-2031-at-a-low-price-Samsung-Galaxy-A17-5G-smartphone-review.1123889.0.html"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "medium",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
