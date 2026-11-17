@@ -2746,6 +2746,200 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "poco-f7-12-256",
+      "brand": "POCO",
+      "modelName": "F7 12/256 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "POCO F7 12/256 GB",
+        "brand": "POCO",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-poco-f7-new.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-poco-f7-1.jpg",
+        "shopLinks": [
+          {
+            "label": "amazon.pl",
+            "url": "https://www.amazon.pl/dp/B0F5X31S16",
+            "pricePln": 1540.94,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "biały (MZB0LMGEU), 12/256 GB, dystrybucja EU, bez ładowarki w pudełku"
+          },
+          {
+            "label": "allegro.pl",
+            "url": "https://allegro.pl/oferta/smartfon-poco-f7-12-gb-256-gb-5g-czarny-18420691168",
+            "pricePln": 1584.37,
+            "checkedAt": "2026-11-17",
+            "kind": "marketplace",
+            "note": "czarny (EAN 6932554438166), 12/256 GB, nowy egzemplarz (Allegro Smart)"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-poco-f7-5g-12-256gb-czarny-mzb0kgaeu-15364533/",
+            "pricePln": null,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny (MZB0KGAEU), 12/256 GB — chwilowo niedostępny (ostatnia cena 1692,76 zł)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-poco+f7+12%2F256",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "POCO F7 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1540.94,
+        "source": "amazon.pl",
+        "url": "https://www.amazon.pl/dp/B0F5X31S16",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "biały (MZB0LMGEU), 12/256 GB",
+        "auditNote": "Amazon.pl (MZB0LMGEU, biały, 12/256 GB, wersja EU bez ładowarki): 1540,94 zł. Równoległe oferty nowych egzemplarzy 12/256 GB: Allegro 1584,37 zł (czarny, EAN 6932554438166; inne kolory 1425–1699 zł), Empik Marketplace od 1450 zł (srebrny); w Morele.net (MZB0KGAEU, ostatnia cena 1692,76 zł) produkt chwilowo wyprzedany, a w dużych elektromarketach dostępny głównie wariant 12/512 GB (~2199,99 zł). Polska cena premierowa (06.2025): 1999 zł (1699 zł w promocji na start).",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 1584.37,
+            "source": "allegro.pl",
+            "url": "https://allegro.pl/oferta/smartfon-poco-f7-12-gb-256-gb-5g-czarny-18420691168",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (EAN 6932554438166), 12/256 GB, nowy"
+          },
+          {
+            "pln": 1692.76,
+            "source": "morele.net",
+            "url": "https://www.morele.net/smartfon-poco-f7-5g-12-256gb-czarny-mzb0kgaeu-15364533/",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (MZB0KGAEU), 12/256 GB — ostatnia cena przed wyprzedaniem"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.83,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1280x2772",
+        "peakNits": 3200,
+        "glass": "Corning Gorilla Glass 7i",
+        "ramGb": 12,
+        "storageGb": 256,
+        "storageType": "UFS 4.1",
+        "microSd": false,
+        "chip": "Qualcomm Snapdragon 8s Gen 4 (4 nm)",
+        "batteryMah": 6500,
+        "batteryCycles": 1000,
+        "batteryEndurance": 80,
+        "batteryTests": [
+          "GSMArena (etykieta UE, wersja globalna 6500 mAh): klasa B, 64:03 h szacowanej wytrzymałości, 1000 cykli → wytrzymałość 80 (skala 40–70 h)",
+          "GSMArena active use score: 14:45 h (wersja globalna 6500 mAh; wariant indyjski ma 7550 mAh)"
+        ],
+        "chargingW": 90,
+        "chargingNote": "90 W HyperCharge przewodowo (PD3.0, QC3+; deklaracja producenta: 80% w 30 min) oraz przewodowe ładowanie zwrotne do 22,5 W; w polskiej/europejskiej dystrybucji brak ładowarki w pudełku, w zestawie kabel USB-C i etui ochronne (mi.com/pl, GSMArena, Notebookcheck)",
+        "chargingTests": "GSMArena (zasilacz Xiaomi 90 W): 50% w 15 min, 90% w 30 min, pełne ładowanie w 39 min",
+        "chargerInBox": false,
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP68",
+        "weightG": 215.7,
+        "heightMm": 163.1,
+        "widthMm": 77.9,
+        "thicknessMm": 8.2,
+        "dimensionsMm": "163,1 × 77,9 × 8,2",
+        "cameras": {
+          "main": "50 MP f/1.5 (26 mm, 1/1,95″, Sony IMX882, PDAF) z OIS",
+          "ultrawide": "8 MP f/2.2 (15 mm, 1/4,0″)",
+          "macro": null,
+          "selfie": "20 MP f/2.2 (1/4,0″)",
+          "telephoto": null
+        },
+        "video": "4K 30/60 kl./s (tył), 1080p 30/60 kl./s (selfie)",
+        "os": "Android 15, HyperOS 2",
+        "updatesYears": 6,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "4 duże aktualizacje Androida (do Androida 19) i 6 lat poprawek bezpieczeństwa do 06.2031 (Xiaomi Security Center, GSMArena, Notebookcheck)",
+        "releasedAt": "2025-06",
+        "securitySupportUntil": "2031-06",
+        "supportNote": "Xiaomi Security Center (trust.mi.com) i Notebookcheck: poprawki bezpieczeństwa do 24 czerwca 2031 r. (6 lat od premiery 06.2025)",
+        "sim": "nanoSIM + nanoSIM (brak eSIM)",
+        "nfc": true,
+        "wifi": "Wi-Fi 7 (dwuzakresowe 2,4/5 GHz, bez pasma 6 GHz)",
+        "bluetooth": "6.0",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Aby powiadomienia przychodziły bez opóźnień, należy wyłączyć oszczędzanie baterii dla Zepp Life w ustawieniach Androida oraz w HyperOS włączyć dla niej Autostart w tle."
+      },
+      "scores": {
+        "battery": 71,
+        "charging": 100,
+        "updates": 71,
+        "storage": 75,
+        "durability": 90,
+        "smoothness": 92,
+        "display": 88,
+        "photoDay": 74,
+        "photoIndoor": 73,
+        "photoMotion": 68,
+        "selfie": 64,
+        "video": 70,
+        "zoom": 38,
+        "compactness": 27,
+        "value": null
+      },
+      "basis": {
+        "battery": "6500 mAh w wersji europejskiej (pojemność 62,5 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 80 (50%) z etykiety UE na GSMArena (klasa B, 64:03 h przy skali 40–70 h; active use 14:45 h, 1000 cykli) → 0,5 × 62,5 + 0,5 × 80 = 71 pkt",
+        "charging": "90 W HyperCharge przewodowo (GSMArena: 50% w 15 min, 90% w 30 min, pełne w 39 min) + zwrotne przewodowe 22,5 W, bez ładowania indukcyjnego i bez ładowarki w pudełku EU (mi.com/pl, GSMArena) — (90 − 15) / 75 × 100 = 100 pkt",
+        "updates": "4 duże aktualizacje Androida (do Androida 19) i 6 lat poprawek bezpieczeństwa do 06.2031 (GSMArena, Notebookcheck, Xiaomi Security Center): średnia 5 lat → 5 / 7 × 100 = 71 pkt",
+        "storage": "256 GB szybkiej pamięci UFS 4.1 (z 12 GB RAM LPDDR5X), brak slotu microSD (mi.com/pl, GSMArena) = 75 pkt",
+        "durability": "IP68 (zanurzenie do 1,5 m na 30 min), aluminiowa ramka i szkło Gorilla Glass 7i (mi.com/pl, GSMArena; na etykiecie UE klasa odporności na upadki D — 45 upadków) = 90 pkt wg reguły IP68",
+        "smoothness": "Snapdragon 8s Gen 4 (4 nm) z Adreno 825, 12 GB LPDDR5X i UFS 4.1; GSMArena: AnTuTu v10 2 024 751, Geekbench 6 multi-core 6402, 3DMark Wild Life Extreme 4476 — topowa płynność klasy flagowej (drobny minus za nagrzewanie pod długim obciążeniem w teście Notebookcheck)",
+        "display": "6,83″ AMOLED 1,5K (1280×2772, 12-bit, 120 Hz, PWM 3840 Hz) z Dolby Vision i HDR10+, 3200 nitów szczytowo i aż 1525 nitów zmierzonych w trybie auto w GSMArena — bardzo jasny i wierny kolorystycznie panel (bez LTPO i ze skróconym 10-sekundowym AoD wg Notebookcheck)",
+        "photoDay": "główny aparat 50 MP f/1.5 (Sony IMX882, 1/1,95″) z OIS + podstawowy szeroki kąt 8 MP f/2.2 bez AF; GSMArena i Notebookcheck chwalą udane kolory, szczegółowość i portrety 1x/2x z głównego aparatu, ale wytykają bardzo przeciętny moduł ultraszerokokątny",
+        "photoIndoor": "recenzja GSMArena wyróżnia solidne zdjęcia nocne i w słabym świetle z jasnego głównego aparatu 50 MP f/1.5 z OIS (dużo detali, niski szum, szeroka rozpiętość tonalna; lekko agresywne wyostrzanie), przy wyraźnie słabszym szerokim kącie 8 MP po zmroku",
+        "photoMotion": "jasny obiektyw f/1.5 z PDAF i OIS oraz szybki ISP Snapdragona 8s Gen 4 zapewniają sprawne ujęcia codzienne, choć mniejsza matryca 1/1,95″ ustępuje modelom nastawionym na fotografię (GSMArena, Notebookcheck)",
+        "selfie": "przedni aparat 20 MP f/2.2 (stała ostrość, wideo 1080p); w teście GSMArena oceniony jako podstawowy — poprawna ostrość twarzy, ale przeciętna rozpiętość tonalna, szum i nie zawsze wierne odcienie skóry",
+        "video": "4K 30/60 kl./s z OIS i gyro-EIS na głównym aparacie; GSMArena chwali szczegółowość, kolory i niski szum w 4K w dzień i po zmroku, ale krytykuje słabe 1080p z szerokiego kąta, brak 4K w selfie oraz spadek jakości przy 2x",
+        "zoom": "układ 50 MP + 8 MP, brak teleobiektywu (GSMArena, mi.com/pl); zdjęcia 2x z kadrowania matrycy są użyteczne, ale dalsze przybliżenia i zoom 2x w wideo są miękkie i przeostrzone",
+        "compactness": "215,7 g, wymiary 163,1 × 77,9 × 8,2 mm (GSMArena) — wzór poręczności: lekkość 28, mała powierzchnia 22 (12 705 mm²), smukłość 43 → 27 pkt (duży i dość ciężki smartfon 6,83″)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.mi.com/pl/product/poco-f7/",
+        "https://www.mi.com/pl/product/poco-f7/specs/",
+        "https://www.amazon.pl/dp/B0F5X31S16",
+        "https://www.morele.net/smartfon-poco-f7-5g-12-256gb-czarny-mzb0kgaeu-15364533/",
+        "https://www.gsmmaniak.pl/1578851/poco-f7-promocja-na-start/",
+        "https://www.gsmarena.com/xiaomi_poco_f7_5g-13951.php",
+        "https://www.gsmarena.com/poco_f7-review-2846p3.php",
+        "https://www.gsmarena.com/poco_f7-review-2846p5.php",
+        "https://www.gsmarena.com/poco_f7-review-2846p6.php",
+        "https://www.gsmarena.com/poco_f7_vs_poco_f7_pro_review_battery_camera_price_compared-news-68412.php",
+        "https://www.notebookcheck.net/Xiaomi-Poco-F7-smartphone-review-Potential-hit-for-bargain-hunters.1092382.0.html"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "medium",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
