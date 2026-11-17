@@ -15,6 +15,7 @@ import { FilterPanel } from '@/components/FilterPanel';
 import { ExclusionSheet } from '@/components/ExclusionSheet';
 import { Badge } from '@/components/Badge';
 import { RouteChip } from '@/components/RouteChip';
+import { Button } from '@/components/ui';
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -296,22 +297,23 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
 
       {/* Główna czynność: w treści od 640 px, w pasku na dole poniżej (UI-SPEC 7) */}
       <div className="mt-8 hidden flex-wrap items-center gap-3 sm:flex">
-        <button
-          type="button"
+        <Button
+          variant="primary"
+          size="lg"
+          iconRight={<ArrowRightIcon className="h-4 w-4" />}
           onClick={finish}
-          className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
         >
           {strings.showProposals}
-          <ArrowRightIcon className="h-4 w-4" />
-        </button>
+        </Button>
         {variant === 'tune' ? (
-          <a
+          <Button
+            variant="secondary"
+            size="lg"
+            icon={<ArrowLeftIcon className="h-4 w-4" />}
             href={`#/s/${session.id}/quiz`}
-            className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface)]"
           >
-            <ArrowLeftIcon className="h-4 w-4" />
             {strings.backToQuestions}
-          </a>
+          </Button>
         ) : null}
         <a
           href="#/"
@@ -322,14 +324,15 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface)_94%,transparent)] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur-md sm:hidden">
-        <button
-          type="button"
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
+          iconRight={<ArrowRightIcon className="h-4 w-4" />}
           onClick={finish}
-          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
         >
           {strings.showProposals}
-          <ArrowRightIcon className="h-4 w-4" />
-        </button>
+        </Button>
       </div>
 
       <footer className="mt-10 flex flex-wrap items-center gap-3 border-t border-[var(--color-border)] pt-5">

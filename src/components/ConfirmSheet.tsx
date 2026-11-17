@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { ArrowRightIcon } from './Icons';
+import { Button } from './ui';
 
 interface ConfirmSheetProps {
   open: boolean;
@@ -90,7 +91,7 @@ export function ConfirmSheet({
         aria-modal="true"
         aria-labelledby="confirm-sheet-title"
         aria-describedby="confirm-sheet-body"
-        className="sheet-in relative w-full max-w-lg rounded-t-[20px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-pop)] sm:rounded-[var(--radius-card)] sm:p-6"
+        className="sheet-in relative w-full max-w-lg rounded-t-[var(--radius-sheet)] sm:rounded-[var(--radius-sheet)] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-pop)] sm:rounded-[var(--radius-card)] sm:p-6"
         style={{ paddingBottom: 'max(20px, env(safe-area-inset-bottom))' }}
       >
         <span
@@ -111,21 +112,16 @@ export function ConfirmSheet({
         </p>
 
         <div className="mt-5 flex flex-col gap-2 sm:flex-row-reverse">
-          <button
-            type="button"
-            onClick={onConfirm}
-            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
-          >
+          <Button variant="primary" size="lg" onClick={onConfirm} iconRight={<ArrowRightIcon />} className="flex-1">
             {confirmLabel}
-            <ArrowRightIcon className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            variant="secondary"
+            size="lg"
             onClick={onCancel}
-            className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-6 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]"
           >
             {cancelLabel}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

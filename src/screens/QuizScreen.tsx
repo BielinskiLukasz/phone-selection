@@ -25,6 +25,7 @@ import { OptionButton } from '@/components/OptionButton';
 import { TopThreePicker } from '@/components/TopThreePicker';
 import { Badge } from '@/components/Badge';
 import { AlertIcon, ArrowLeftIcon, ArrowRightIcon, CheckIcon } from '@/components/Icons';
+import { Button } from '@/components/ui';
 
 /**
  * Auto-przejście po wybraniu odpowiedzi (UI-SPEC 3.2: ok. 250 ms).
@@ -162,15 +163,14 @@ export function QuizScreen({ session }: QuizScreenProps) {
     <div className="mx-auto w-full max-w-3xl px-5 pb-28 pt-6 sm:pb-16 sm:pt-10">
       {/* Nagłówek quizu: blok, licznik, postęp, wyjście */}
       <header className="flex flex-wrap items-center gap-3">
-        <button
-          type="button"
+        <Button
+          variant="secondary"
+          icon={<ArrowLeftIcon className="h-4 w-4" />}
           onClick={goPrev}
           disabled={index === 0}
-          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-sm transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface)] disabled:pointer-events-none disabled:opacity-40"
         >
-          <ArrowLeftIcon className="h-4 w-4" />
           {strings.back}
-        </button>
+        </Button>
 
         <span className="num flex min-w-0 items-center gap-2 text-[11px] tracking-[0.14em] text-[var(--color-muted)] uppercase">
           <span className="truncate">
@@ -215,21 +215,22 @@ export function QuizScreen({ session }: QuizScreenProps) {
           <h1
             ref={headingRef}
             tabIndex={-1}
-            className="mt-3 text-[clamp(2rem,7vw,3rem)] leading-[1.05] font-bold tracking-[-0.04em] outline-none"
+            className="mt-3 text-h1 outline-none"
           >
             {step.title}
           </h1>
           <p className="mt-4 max-w-prose text-base leading-relaxed text-[var(--color-muted)]">
             {step.subtitle}
           </p>
-          <button
-            type="button"
+          <Button
+            variant="primary"
+            size="lg"
+            iconRight={<ArrowRightIcon className="h-4 w-4" />}
+            className="mt-8"
             onClick={goNext}
-            className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
           >
             {strings.next}
-            <ArrowRightIcon className="h-4 w-4" />
-          </button>
+          </Button>
         </section>
       ) : null}
 
@@ -240,7 +241,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
             id={`pytanie-${step.question.id}`}
             ref={headingRef}
             tabIndex={-1}
-            className="max-w-[36ch] text-[clamp(1.5rem,5.2vw,2.15rem)] leading-[1.15] font-semibold tracking-[-0.03em] text-balance outline-none"
+            className="max-w-[36ch] text-h1 text-balance outline-none"
           >
             {step.question.text}
           </h1>
@@ -270,17 +271,15 @@ export function QuizScreen({ session }: QuizScreenProps) {
             ))}
           </div>
 
-          <details className="group mt-5 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3">
-            <summary className="num flex min-h-8 cursor-pointer list-none items-center gap-2 text-[11px] tracking-[0.14em] text-[var(--color-muted)] uppercase transition-colors duration-200 group-open:text-[var(--color-accent-ink)] [&::-webkit-details-marker]:hidden">
+          {/* UIP2-03 (FIX-UI §5.3): „dlaczego pytamy” zawsze widoczne jako jedno zdanie, bez mono-etykiety. */}
+          <details open className="group mt-5">
+            <summary className="label min-h-8 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
               {strings.quizWhy}
-              <span className="ml-auto transition-transform duration-200 group-open:rotate-90">▸</span>
             </summary>
-            <p className="mt-2 max-w-prose text-sm leading-relaxed text-[var(--color-muted)]">
-              {step.question.why}
-            </p>
+            <p className="mt-1 max-w-prose text-small text-[var(--color-muted)]">{step.question.why}</p>
           </details>
 
-          <p className="num mt-4 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
+          <p className="mt-4 text-small text-[var(--color-muted)]">
             {strings.quizSavedNote} · {strings.quizKeyboardHint}
           </p>
         </section>
@@ -292,7 +291,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
           <h1
             ref={headingRef}
             tabIndex={-1}
-            className="text-[clamp(1.6rem,5.5vw,2.3rem)] leading-tight font-bold tracking-[-0.035em] outline-none"
+            className="text-h1 outline-none"
           >
             Wybierz trzy najważniejsze rzeczy
           </h1>
@@ -316,7 +315,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
           <h1
             ref={headingRef}
             tabIndex={-1}
-            className="text-[clamp(1.6rem,5.5vw,2.3rem)] leading-tight font-bold tracking-[-0.035em] outline-none"
+            className="text-h1 outline-none"
           >
             {strings.quizSummaryTitle}
           </h1>
@@ -385,71 +384,61 @@ export function QuizScreen({ session }: QuizScreenProps) {
           <div className="mt-8 hidden gap-3 sm:flex">
             {step.kind === 'summary' ? (
               <>
-                <button
-                  type="button"
+                <Button
+                  variant="primary"
+                  size="lg"
+                  iconRight={<ArrowRightIcon className="h-4 w-4" />}
                   onClick={finish}
-                  className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
                 >
                   {strings.showProposals}
-                  <ArrowRightIcon className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIndex(0)}
-                  className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface)]"
-                >
+                </Button>
+                <Button variant="secondary" size="lg" onClick={() => setIndex(0)}>
                   {strings.quizChangeAnswers}
-                </button>
+                </Button>
               </>
             ) : (
               <>
-                <button
-                  type="button"
+                <Button
+                  variant="primary"
+                  size="lg"
                   onClick={() => commitTopThree(false)}
                   disabled={picks.length !== 3}
-                  className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
+                  iconRight={<ArrowRightIcon />}
                 >
                   {strings.quizNextSummary}
-                  <ArrowRightIcon className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => commitTopThree(true)}
-                  className="inline-flex min-h-12 items-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface)]"
-                >
+                </Button>
+                <Button variant="ghost" size="lg" onClick={() => commitTopThree(true)}>
                   {strings.quizSkipStep}
-                </button>
+                </Button>
               </>
             )}
           </div>
 
           <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface)_94%,transparent)] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur-md sm:hidden">
             {step.kind === 'summary' ? (
-              <button
-                type="button"
+              <Button
+                variant="primary"
+                size="lg"
+                fullWidth
+                iconRight={<ArrowRightIcon className="h-4 w-4" />}
                 onClick={finish}
-                className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
               >
                 {strings.showProposals}
-                <ArrowRightIcon className="h-4 w-4" />
-              </button>
+              </Button>
             ) : (
-              <div className="flex gap-2">
-                <button
-                  type="button"
+              <div className="flex w-full gap-2">
+                <Button
+                  variant="primary"
+                  size="lg"
                   onClick={() => commitTopThree(false)}
                   disabled={picks.length !== 3}
-                  className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)] disabled:opacity-40"
+                  className="flex-1"
                 >
-                  {strings.showProposals}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => commitTopThree(true)}
-                  className="flex min-h-12 items-center justify-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-sm text-[var(--color-muted)]"
-                >
+                  {strings.quizNextSummary}
+                </Button>
+                <Button variant="secondary" size="lg" onClick={() => commitTopThree(true)}>
                   {strings.quizSkipStep}
-                </button>
+                </Button>
               </div>
             )}
           </div>
@@ -463,13 +452,14 @@ export function QuizScreen({ session }: QuizScreenProps) {
           {questions.length} pytań
         </span>
         {session.status === 'completed' ? (
-          <a
+          <Button
+            variant="secondary"
+            iconRight={<ArrowRightIcon className="h-4 w-4" />}
+            className="ml-auto"
             href={`#/s/${session.id}/${session.mode === 'hybrid' ? 'tune' : 'cards'}`}
-            className="num ml-auto inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-accent)] bg-[var(--color-accent-soft)] px-4 text-[11px] tracking-[0.12em] text-[var(--color-accent-ink)] uppercase transition-transform duration-200 hover:-translate-y-0.5"
           >
             {strings.quizGoToCards}
-            <ArrowRightIcon className="h-4 w-4" />
-          </a>
+          </Button>
         ) : (
           <span className="num ml-auto truncate text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase">
             sesja {session.id}

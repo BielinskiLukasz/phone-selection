@@ -5,6 +5,7 @@ import { DetailsAccordion } from './DetailsAccordion';
 import { PhonePhoto } from './PhonePhoto';
 import { PurchaseInfo } from './PurchaseInfo';
 import { CheckIcon } from './Icons';
+import { Button } from './ui';
 
 interface PhoneCardRevealedProps {
   card: AnonCard;
@@ -71,13 +72,12 @@ export function PhoneCardRevealed({
         {/* FP1: promocja, ładowarka, wsparcie, weryfikacja, linki z ceną/datą/typem, porównywarka. */}
         <PurchaseInfo phone={phone} variant="card" />
         {onExcludeBrand ? (
-          <button
-            type="button"
+          <Button
+            variant="danger"
             onClick={onExcludeBrand}
-            className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-sm transition-colors duration-200 hover:border-[var(--color-warn)] hover:text-[var(--color-warn)]"
           >
             {strings.revealedExcludeBrand}
-          </button>
+          </Button>
         ) : null}
         <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-muted)]">
           {strings.cardsRevealedNote} {strings.dataWarning}

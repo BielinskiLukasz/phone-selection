@@ -181,6 +181,8 @@ export const strings = {
   cardsIntro: 'Trzy propozycje dla Ciebie. Nazwy odkryjemy po wyborze.',
   cardsFewInBudget: 'Mało telefonów mieści się w budżecie — jedna propozycja jest droższa.',
   cardsMatch: 'Dopasowanie',
+  cardsBestMatch: 'Najlepsze dopasowanie',
+  cardsInBudget: 'w budżecie',
   cardsChoose: 'Wybieram tę propozycję',
   cardsMoreDetails: 'Więcej szczegółów',
   cardsHideDetails: 'Ukryj szczegóły',
@@ -320,6 +322,15 @@ export const strings = {
   photoUnavailable: 'Podgląd sylwetki w skali',
   cardsPhotoHiddenNote: 'Zdjęcie modelu — tak jak nazwę i markę — odkryjemy po wyborze karty.',
   footerDataState: 'stan danych',
+  /* UIP2-01 — nagłówek i stopka (FIX-UI §5.1) */
+  crumbLabel: 'Etap wyboru',
+  crumbAnswers: 'Pytania',
+  crumbCards: 'Propozycje',
+  crumbPick: 'Wybór',
+  footerDataPrefix: 'Dane z',
+  footerHowWeCount:
+    'Dopasowanie to średnia ważona ocen cech według Twoich odpowiedzi — cena, wariant i dostępność zawsze do sprawdzenia w sklepie.',
+  footerLocalData: 'Bez konta i bez serwera: odpowiedzi i wybory zostają w Twojej przeglądarce.',
 
   /* Motyw (UI-SPEC 6) */
   themeToDark: 'Przełącz na ciemny motyw',

@@ -11,6 +11,7 @@ import { EmptyState } from '@/components/EmptyState';
 import { ConfirmSheet } from '@/components/ConfirmSheet';
 import { Toast } from '@/components/Toast';
 import { ArrowRightIcon, HistoryIcon, TerminalIcon } from '@/components/Icons';
+import { Button } from '@/components/ui';
 
 /**
  * Historia sesji (E7-01…E7-05, E7-07; UI-SPEC 3.7): lista od najnowszej,
@@ -96,23 +97,22 @@ export function HistoryScreen() {
 
       {/* Pasek narzędzi: nowa sesja, eksport, import */}
       <div className="mt-6 flex flex-wrap items-center gap-2">
-        <a
+        <Button
+          variant="primary"
+          iconRight={<ArrowRightIcon className="h-4 w-4" />}
           href="#/"
-          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
         >
           {strings.historyNew}
-          <ArrowRightIcon className="h-4 w-4" />
-        </a>
+        </Button>
 
-        <button
-          type="button"
+        <Button
+          variant="secondary"
+          icon={<TerminalIcon className="h-3.5 w-3.5" />}
           onClick={exportHistory}
           disabled={sessions.length === 0}
-          className="num inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent-ink)] disabled:pointer-events-none disabled:opacity-40"
         >
-          <TerminalIcon className="h-3.5 w-3.5" />
           {strings.historyExport}
-        </button>
+        </Button>
 
         <label className="num inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent-ink)]">
           <input
@@ -145,13 +145,13 @@ export function HistoryScreen() {
             title={strings.historyEmpty}
             note={strings.historyEmptyLead}
             action={
-              <a
+              <Button
+                variant="primary"
+                iconRight={<ArrowRightIcon className="h-4 w-4" />}
                 href="#/"
-                className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
               >
                 {strings.startNew}
-                <ArrowRightIcon className="h-4 w-4" />
-              </a>
+              </Button>
             }
           />
         </div>

@@ -35,6 +35,7 @@ import {
   ScreenIcon,
 } from '@/components/Icons';
 import { cn } from '@/utils/cn';
+import { Button, Chip } from '@/components/ui';
 
 const SIZE_QUICK_VALUES = [0, 1, 2, 3, 4, 5] as const;
 
@@ -110,20 +111,16 @@ export function RankingScreen({ session }: RankingScreenProps) {
           <h1 className="text-2xl font-bold tracking-tight">{strings.ranking}</h1>
           <p className="text-sm text-[var(--color-muted)]">{strings.rankingNoSnapshot}</p>
           <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => dispatch({ type: 'session/compute-ranking', sessionId: session.id })}
-              className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)]"
-            >
+            <Button variant="primary" onClick={() => dispatch({ type: 'session/compute-ranking', sessionId: session.id })}>
               {strings.rankingRecompute}
-            </button>
-            <a
+            </Button>
+            <Button
+              variant="secondary"
+              icon={<ArrowLeftIcon className="h-4 w-4" />}
               href={`#/s/${session.id}/cards`}
-              className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm"
             >
-              <ArrowLeftIcon className="h-4 w-4" />
               {strings.rankingBack}
-            </a>
+            </Button>
           </div>
         </div>
       </section>
@@ -170,13 +167,14 @@ export function RankingScreen({ session }: RankingScreenProps) {
         </p>
       ) : null}
 
-      <a
+      <Button
+        variant="secondary"
+        icon={<ArrowLeftIcon className="h-4 w-4" />}
+        className="mt-5"
         href={`#/s/${session.id}/cards`}
-        className="num mt-5 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent-ink)]"
       >
-        <ArrowLeftIcon className="h-4 w-4" />
         {strings.rankingBack}
-      </a>
+      </Button>
 
       {/* Szybki suwak oceny wymiarów i wagi wprost nad zestawieniem */}
       <section
@@ -311,28 +309,25 @@ export function RankingScreen({ session }: RankingScreenProps) {
                   <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                     <span
                       className={cn(
-                        'truncate text-[15px] font-semibold tracking-tight',
+                        'truncate text-h3',
                         isExcluded && 'text-[var(--color-muted)] line-through',
                       )}
                     >
                       {phone.reveal.name}
                     </span>
+                    {/* UIP2-08 (FIX-UI §5.7): „Twój wybór” = Chip ok, „Wykluczony” = Chip neutral + przekreślona nazwa. */}
                     {pickOrder ? (
-                      <span className="num shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-2 py-0.5 text-[10px] font-bold tracking-[0.1em] text-[var(--color-on-accent)] uppercase">
-                        {strings.rankingYourPick} {pickOrder}/{reveal.total}
-                      </span>
+                      <Chip tone="ok" size="sm" icon={<CheckIcon />}>
+                        {`${strings.rankingYourPick} ${pickOrder}/${reveal.total}`}
+                      </Chip>
                     ) : null}
                     {excluded === 'brand' ? (
-                      <span className="num shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-2 py-0.5 text-[10px] font-semibold tracking-[0.08em] text-[var(--color-warn)]">
-                        {strings.rankingExcludedBrand}
-                      </span>
+                      <Chip tone="neutral" size="sm">{strings.rankingExcludedBrand}</Chip>
                     ) : excluded === 'model' ? (
-                      <span className="num shrink-0 rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-2 py-0.5 text-[10px] font-semibold tracking-[0.08em] text-[var(--color-warn)]">
-                        {strings.rankingExcludedModel}
-                      </span>
+                      <Chip tone="neutral" size="sm">{strings.rankingExcludedModel}</Chip>
                     ) : null}
                     {entry.practicalTieWith ? (
-                      <span className="num shrink-0 text-[10px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
+                      <span className="shrink-0 text-small text-[var(--color-muted)]">
                         {sessionTexts.practicalTie(
                           snapshot.entries.find((item) => item.phoneId === entry.practicalTieWith)
                             ?.place ?? 0,
@@ -570,20 +565,19 @@ export function RankingScreen({ session }: RankingScreenProps) {
       {/* Telefony odrzucone przez filtry twarde tej sesji */}
       {outsidePool.length > 0 ? (
         <section className="mt-8">
-          <button
-            type="button"
+          <Button
+            variant="secondary"
             onClick={() => setShowOutside((current) => !current)}
             aria-expanded={showOutside}
-            className="num inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent-ink)]"
           >
             {showOutside ? strings.rankingHideOutside : strings.rankingShowOutside}
-            <span className="num rounded-full bg-[var(--color-surface-2)] px-2 py-0.5 text-[10px]">
+            <span className="num ml-1 rounded-[var(--radius-chip)] bg-[var(--color-surface-2)] px-2 py-0.5 text-label">
               {outsidePool.length}
             </span>
             <span className={cn('transition-transform duration-200', showOutside && 'rotate-180')} aria-hidden="true">
               ▾
             </span>
-          </button>
+          </Button>
 
           {showOutside ? (
             <ul className="mt-3 grid gap-1.5">

@@ -12,6 +12,7 @@ import { ExclusionPicker } from '@/components/ExclusionPicker';
 import { Badge } from '@/components/Badge';
 import { RouteChip } from '@/components/RouteChip';
 import { ArrowRightIcon } from '@/components/Icons';
+import { Button } from '@/components/ui';
 
 interface ExcludeScreenProps {
   session: Session;
@@ -99,22 +100,22 @@ export function ExcludeScreen({ session }: ExcludeScreenProps) {
 
       {/* Działania główne: Pomiń (pełna anonimowość) i Dalej */}
       <div className="mt-8 hidden flex-wrap items-center gap-3 sm:flex">
-        <button
-          type="button"
+        <Button
+          variant="secondary"
+          size="lg"
           onClick={skip}
-          className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-6 text-sm font-semibold transition-colors duration-200 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-2)]"
         >
           {strings.excludeSkip}
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="primary"
+          size="lg"
+          iconRight={<ArrowRightIcon className="h-4 w-4" />}
           onClick={proceed}
           disabled={!validation.canProceed}
-          className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
         >
           {strings.excludeContinue}
-          <ArrowRightIcon className="h-4 w-4" />
-        </button>
+        </Button>
         <a
           href="#/"
           className="num ml-auto inline-flex min-h-11 items-center text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase transition-colors duration-200 hover:text-[var(--color-text)]"
@@ -124,22 +125,23 @@ export function ExcludeScreen({ session }: ExcludeScreenProps) {
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-30 flex gap-2 border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface)_94%,transparent)] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur-md sm:hidden">
-        <button
-          type="button"
+        <Button
+          variant="secondary"
+          size="lg"
           onClick={skip}
-          className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius-pill)] border border-[var(--color-border-strong)] bg-[var(--color-surface)] px-5 text-sm font-semibold"
         >
           {strings.excludeSkip}
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
+          variant="primary"
+          size="lg"
+          iconRight={<ArrowRightIcon className="h-4 w-4" />}
+          className="flex-1"
           onClick={proceed}
           disabled={!validation.canProceed}
-          className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)] disabled:pointer-events-none disabled:opacity-40"
         >
           {strings.excludeContinue}
-          <ArrowRightIcon className="h-4 w-4" />
-        </button>
+        </Button>
       </div>
     </div>
   );

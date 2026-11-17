@@ -14,6 +14,7 @@ import { RankingScreen } from '@/screens/RankingScreen';
 import { HistoryScreen } from '@/screens/HistoryScreen';
 import { MissingSessionScreen, NotFoundScreen } from '@/screens/ErrorScreens';
 import { ResumeScreen } from '@/screens/ResumeScreen';
+import { Button } from '@/components/ui';
 
 const titles: Record<string, string> = {
   home: strings.home,
@@ -43,6 +44,7 @@ export default function App() {
 function Shell() {
   const route = useHashRoute();
   const { state, dispatch } = useAppState();
+  const unfinishedCount = state.sessions.filter((item) => item.status !== 'completed').length;
 
   useEffect(() => {
     const label = titles[route.name] ?? strings.appName;
@@ -55,6 +57,7 @@ function Shell() {
       route={route}
       theme={state.theme}
       onToggleTheme={() => dispatch({ type: 'theme/toggle' })}
+      unfinishedCount={unfinishedCount}
     >
       <Screen route={route} />
     </Layout>
@@ -112,12 +115,12 @@ function Screen({ route }: ScreenProps) {
               <div className="surface flex flex-col items-start gap-3 p-[var(--pad-card)]">
                 <h1 className="text-2xl font-bold tracking-tight">{strings.rankingLockedTitle}</h1>
                 <p className="max-w-prose text-sm leading-relaxed text-[var(--color-muted)]">{strings.rankingLockedBody}</p>
-                <a
+                <Button
+                  variant="primary"
                   href={`#/s/${found.id}/cards`}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)]"
                 >
                   {strings.rankingLockedCta}
-                </a>
+                </Button>
               </div>
             </section>
           );

@@ -8,6 +8,7 @@ import {
 import type { Filters, Phone } from '@/types';
 import { ExclusionPicker } from './ExclusionPicker';
 import { ArrowRightIcon } from './Icons';
+import { Button } from './ui';
 
 interface ExclusionSheetProps {
   open: boolean;
@@ -105,7 +106,7 @@ export function ExclusionSheet({
         aria-modal="true"
         aria-labelledby="exclusion-sheet-title"
         aria-describedby="exclusion-sheet-note"
-        className="sheet-in relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-[20px] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-pop)] sm:rounded-[var(--radius-card)]"
+        className="sheet-in relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-[var(--radius-sheet)] sm:rounded-[var(--radius-sheet)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-pop)] sm:rounded-[var(--radius-card)]"
       >
         <div className="border-b border-[var(--color-border)] px-5 py-4 sm:px-6">
           <h2
@@ -136,25 +137,26 @@ export function ExclusionSheet({
           className="flex flex-col gap-2 border-t border-[var(--color-border)] px-5 pt-3 sm:flex-row-reverse sm:px-6"
           style={{ paddingBottom: 'max(16px, env(safe-area-inset-bottom))' }}
         >
-          <button
-            type="button"
+          <Button
+            variant="primary"
+            size="lg"
             disabled={!validation.canProceed}
             onClick={() => {
               if (!validation.canProceed) return;
               onSave(draft);
             }}
-            className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 disabled:pointer-events-none disabled:opacity-40"
+            iconRight={<ArrowRightIcon />}
+            className="flex-1"
           >
             {strings.excludeSave}
-            <ArrowRightIcon className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            variant="secondary"
+            size="lg"
             onClick={onCancel}
-            className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-6 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]"
           >
             {strings.excludeCancel}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

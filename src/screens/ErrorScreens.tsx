@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { strings } from '@/data/strings';
 import { RouteChip } from '@/components/RouteChip';
 import { AlertIcon, ArrowRightIcon, PhoneIcon } from '@/components/Icons';
+import { buttonClasses } from '@/components/ui';
 
 interface ErrorFrameProps {
   code: string;
@@ -44,10 +45,9 @@ function ErrorFrame({ code, title, description, chips, actions }: ErrorFrameProp
   );
 }
 
-const primaryAction =
-  'inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5';
-const ghostAction =
-  'inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]';
+/* UIP1-04: klasy przycisków z komponentu `Button` — jeden styl dla całej aplikacji. */
+const primaryAction = buttonClasses({ variant: 'primary' });
+const ghostAction = buttonClasses({ variant: 'secondary' });
 
 /** Nieznany adres (UI-SPEC 2: wejście na nieistniejącą trasę kończy się komunikatem). */
 export function NotFoundScreen({ path }: { path: string }) {

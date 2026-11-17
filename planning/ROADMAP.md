@@ -20,6 +20,7 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 11 | Wykluczanie marek i modeli (opcjonalny filtr startowy) | `[x]` zrobione |
 | 12 | Wymiary i waga (grupa „Wymiary i waga”) oraz zdjęcia telefonów | `[x]` zrobione |
 | 13 | Faza poprawkowa i zakup (`FIX-PHASE.md`; w planie nazwana „etapem 12”, bo powstał przed commitem poręczności) | `[~]` FP0 i FP1 w kodzie, FP2 w większości; FP3-FP6 czekają na dane z testu i decyzje |
+| 14 | Poprawa interfejsu (`FIX-UI-PHASE.md`: UIP0-UIP3) | `[~]` UIP0 i UIP1 gotowe; UIP2 — Start, nagłówek/stopka, karta, opcje quizu, historia, plakietki rankingu; reszta w kolejce |
 
 ---
 
@@ -291,6 +292,38 @@ Zmiany algorytmu i ocen przechodzą przez **bramkę kandydata** (`tests/user-ses
 
 ---
 
+## Etap 14 — Poprawa interfejsu (FIX-UI-PHASE)
+
+**Podstawa:** [`FIX-UI-PHASE.md`](./FIX-UI-PHASE.md) — warstwa wizualna i interakcyjna **bez zmiany funkcjonalności** (te same ekrany, dane, logika, testy wycieku i a11y). Kierunek: jasny motyw = „przyjazny doradca” (sans, 12-16 px, jeden akcent), ciemny = „arkusz techniczny” (mono, uppercase, 2 px, siatka); cena → dopasowanie → cechy; komponenty zamiast klas; ruch tylko w odpowiedzi na działanie.
+
+**UIP0 — fundament** (`src/index.css`)
+- [x] UIP0-01 tokeny: skala typograficzna `--text-display/h1/h2/h3/body/small/label/price` (Tailwind 4 generuje z nich utility `text-h1`…), kolory semantyczne `--color-danger/-soft`, `--color-info/-soft`, `--color-ok-soft`, `--color-accent-hover`, promienie `--radius-control` (12/2 px), `--radius-sheet` (20/4 px), `--radius-chip`, odstępy `--space-1…6`, `--gap-section`, ruch `--motion-fast/base`, `--ease-out`; `tests/theme-tokens.test.ts` sprawdza 12 par kontrastu (było 7) — `--color-ok` jasny przyciemniony do `#276b49` (4,40 → 5,61:1 na `ok-soft`)
+- [x] UIP0-02 `.label` z tokenów `--label-font/-transform/-tracking/-weight` przełączanych motywem (jasny: sans 12 px, pierwsza wielka; ciemny: mono uppercase 11 px); `.label-mono` został aliasem (84 miejsca bez zmian w kodzie)
+- [x] UIP0-03 `tests/ui-guard.test.ts` — strażnik w **trybie raportu** (budżety naruszeń mogą tylko maleć): `text-[Npx]`, `rounded-[Npx]`, `tracking-[…]` poza `ui/`, ręczne przyciski, `text-[clamp(…)]`, import `features/lib/data` w `ui/`
+
+**UIP1 — komponenty bazowe** (`src/components/ui/`)
+- [x] UIP1-01/02 `Button` (primary/secondary/ghost/danger × md/lg, `href` → `<a>`, `buttonClasses()` dla miejsc z klasą), `Chip` (6 tonów), `Callout`, `Meter` (`role=meter`, `aria-valuetext`), `Stat`, `SectionHeading`, `ActionBar` (jeden dolny pasek z `safe-area-inset-bottom`); zasada: `ui/` nie importuje `features/`, `lib/` ani `data/` (test)
+- [x] UIP1-04 podmiana ręcznych przycisków na `Button` (kodmod + ręcznie): **ręczne przyciski główne poza `ui/`: 21 → 0**, drugorzędne poza `ui/`: 25 → 4 (zostały 4 plakietki/etykiety, nie przyciski)
+- [ ] UIP1-03 `Sheet` wspólny dla `ConfirmSheet`/`ExclusionSheet` (dziś: oba przez `Button` i `--radius-sheet`, wspólna powłoka — w kolejce)
+
+**UIP2 — ekrany**
+- [x] UIP2-01 nagłówek: pasek postępu tras (`PROGRESS_ORDER`) usunięty, **okruszek kroku „Pytania → Propozycje → Wybór”** tylko w sesji, ikona Historii z kropką nieukończonych; stopka = jedna linia „Dane z 16.11.2026 · 15 telefonów · limit 2000 zł” + zdanie o liczeniu i o danych w przeglądarce (bez dokumentów i kropek roadmapy)
+- [x] UIP2-02 Start: `text-display`, jedno zdanie lead, `Button primary lg` bez przewijania, wznowienie jako `Callout accent` nad CTA, **jedna karta podglądu** bez talii i hover, „Jak to działa” w 3 krokach, mobilny `ActionBar` tym samym `Button`
+- [x] UIP2-03 (część) `OptionButton` bez liter A-E i bez podglądu wag `sets`; radio-kropka po lewej, check po prawej; „pomiń” wizualnie najsłabszy (zostaje w radiogroup — klawiatura i testy); pytanie w `text-h1`; „dlaczego pytamy” zawsze widoczne jako zdanie `text-small` — **zostaje:** progres segmentowy, G1 bez „1,3 / 5”, podsumowanie z `Meter`
+- [x] UIP2-04 karta anonimowa: **cena największą liczbą** (`text-price`), miejsce jako `Chip`, dopasowanie `text-h3` + `Meter`, chipy „w budżecie / Powyżej budżetu / Dopłata”, kompromis i niedostępna oferta jako `Callout`, cechy `text-small` z ikonami 20 px, „Wszystkie cechy” i CTA przez `Button`; hover-lift usunięty — sygnał hover to kolor obramowania
+- [x] UIP2-08 (część) pełny ranking: „Twój wybór n/m” = `Chip ok`, „Wykluczony” = `Chip neutral` + przekreślenie, nazwa `text-h3`, przycisk „Poza pulą” przez `Button` — **zostaje:** mini-`Meter` z etykietami B·A·P·W·E·C, `SectionHeading` w rozwinięciu
+- [x] UIP2-09 (część) historia: status jako `Chip` (ok/accent), Wznów/Podgląd/Usuń przez `Button primary/secondary/danger`, tytuł `text-h3` — **zostaje:** `EmptyState`, `Toast`
+- [ ] UIP2-05 pasek porównawczy mobile + „Porównaj cechy”; UIP2-06 animacja ujawnienia (`rotateY`, reduced-motion = fade); UIP2-07 suwaki (wartości słownie, znacznik jako kreska, szybki wybór tylko na desktopie)
+
+**UIP3 — szlif**
+- [x] UIP3-01 (część) keyframes **9 → 6** (usunięte `breathe`, `rule-draw`, `step-in` jako alias `screen-in`), `@media (hover: none)` wyłącza przesunięcia na dotyku, czasy z tokenów; `--radius-sheet` w arkuszach (D9)
+- [x] UIP3-02 tło jasne: poświaty 0,13/0,16 → 0,07/0,08, kropki wyłączone (zostają w ciemnym)
+- [ ] UIP3-03 przegląd 130 % czcionki i 320 px; UIP3-04 strażnik → `fail` + `UI-SPEC` sekcje 1/5/6/7; UIP3-05 10-minutowy przegląd z użytkowniczką
+
+**Metryki (FIX-UI §9) — przed → po tej turze → cel:** ręczne przyciski główne 21 → **0** → 0 · `text-[Npx]` 209 → 163 → 0 · `text-[clamp(…)]` 13 → 9 → 0 (tokeny) · `hover:-translate-y` 34 → 13 → 0 · keyframes 9 → **6** → ≤ 6 · pary kontrastu 7 → **12** · największa liczba na karcie: „67 %” → **cena** · testy 379 → **396** zielonych + 3 pomijane.
+
+---
+
 ## Historia zmian
 
 Skrót tego, co i kiedy zmieniło się w projekcie (szczegóły w sekcjach etapów i plikach `ETAP-*.md`).
@@ -307,6 +340,7 @@ Skrót tego, co i kiedy zmieniło się w projekcie (szczegóły w sekcjach etap�
 | 16.11.2026 | **Etap 11** — wykluczanie marek i modeli: schemat v2, `lib/exclusions.ts`, `rank().fullRanking`, ekran `#/s/:id/exclude`, panel filtrów, plakietki w pełnym rankingu i historii, testy akceptacyjne 1-9 | `baf7f06` |
 | 16.11.2026 | **Etap 12** — grupa „Wymiary i waga” z kryterium `compactness`, pytanie D4, `PhonePhoto` i zdjęcia po ujawnieniu | `3281614` |
 | 16.11.2026 | Stabilizacja testów: limit czasu 20 s dla przepływów komponentowych (`vitest.config.ts`), jawny limit testu „2., 7. i 8.” w `tests/exclusions.test.ts`; wpisy etapu 12 i ta historia w ROADMAP | — |
+| 16.11.2026 | **Etap 14 — poprawa interfejsu (FIX-UI, tura 1)**: tokeny typografii/kolorów/promieni/ruchu, `.label` przez motyw, komponenty `ui/` (Button, Chip, Callout, Meter, Stat, SectionHeading, ActionBar), kodmod przycisków (21 → 0 ręcznych głównych), nagłówek z okruszkiem kroku i prosta stopka, Start z jednym CTA, karta „cena → dopasowanie → cechy”, opcje quizu bez liter, chipy w historii i rankingu, 6 keyframes, słabsze tło, strażnik `ui-guard` | — |
 | 16.11.2026 | Etap 13, tura 2: weryfikacja trzech kandydatów (FP1-01; oferta 15T za 1999 zł wygasła), Mi Band i daty wsparcia 15/15 (FP1-07), plakietka kompromisu bez kary (FP3-02), budżet elastyczny 1500/1800 (FP3-05), panele dev usunięte (FP2-02) | — |
 | 16.11.2026 | **Etap 13 — faza poprawkowa (FIX-PHASE)**: FP1 bezpieczny zakup (promocje z datą końca, ładowarka, linki z ceną/datą/typem, porównywarka, daty wsparcia, `userNote`/`auditNote`, „Sprawdzone przed zakupem”), FP2 produkt bez szumu (jeden CTA, wykluczenia jako opcja, panele dev tylko w `?dev=1`, blokada rankingu przed wyborem, etykiety przycisków, procent z wyjaśnieniem), bramka kandydata (`tests/user-session.test.ts`), szablony `E9-wynik-testu.md` i `E12-zmiany-rankingu.md` | — |
 

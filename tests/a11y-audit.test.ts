@@ -181,7 +181,8 @@ describe('test akceptacyjny 4 · przejście samą klawiaturą', () => {
     const interactive = Array.from(
       document.querySelectorAll<HTMLElement>('button, a[href], input, summary, [tabindex]'),
     );
-    expect(interactive.length).toBeGreaterThan(10);
+    /* UIP2-02: Start bez paneli deweloperskich ma mniej elementów (CTA, link wykluczeń, „Inne sposoby”, historia, motyw…). */
+    expect(interactive.length).toBeGreaterThan(6);
     for (const element of interactive) {
       const tabIndex = Number(element.getAttribute('tabindex') ?? 0);
       expect(tabIndex, element.outerHTML.slice(0, 80)).toBeLessThanOrEqual(0);

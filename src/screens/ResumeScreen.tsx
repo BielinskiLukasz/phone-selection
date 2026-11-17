@@ -9,6 +9,7 @@ import type { GroupId } from '@/types';
 import type { Mode } from '@/types/state';
 import { GROUPS } from '@/data/criteria';
 import { AlertIcon, ArrowRightIcon, CheckIcon } from '@/components/Icons';
+import { Button } from '@/components/ui';
 
 interface ResumeScreenProps {
   code: string;
@@ -83,13 +84,14 @@ export function ResumeScreen({ code }: ResumeScreenProps) {
           <p className="max-w-prose text-sm leading-relaxed text-[var(--color-muted)]">
             {state.reason ?? strings.resumeLinkErrorNote}
           </p>
-          <a
+          <Button
+            variant="primary"
+            iconRight={<ArrowRightIcon className="h-4 w-4" />}
+            className="mt-2"
             href="#/"
-            className="mt-2 inline-flex min-h-11 w-fit items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
           >
             {strings.backHome}
-            <ArrowRightIcon className="h-4 w-4" />
-          </a>
+          </Button>
         </div>
       </section>
     );
@@ -136,19 +138,21 @@ export function ResumeScreen({ code }: ResumeScreenProps) {
         ) : null}
 
         <div className="flex flex-wrap gap-3">
-          <a
+          <Button
+            variant="primary"
+            size="lg"
+            iconRight={<ArrowRightIcon className="h-4 w-4" />}
             href={`#/s/${state.sessionId}/${view}`}
-            className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5"
           >
             {strings.resumeLinkOpen}
-            <ArrowRightIcon className="h-4 w-4" />
-          </a>
-          <a
+          </Button>
+          <Button
+            variant="secondary"
+            size="lg"
             href="#/history"
-            className="inline-flex min-h-12 items-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm transition-colors duration-200 hover:border-[var(--color-border-strong)]"
           >
             {strings.history}
-          </a>
+          </Button>
         </div>
       </div>
     </section>

@@ -3,8 +3,6 @@ import type { QuizOption } from '@/types';
 import { CheckIcon } from './Icons';
 import { cn } from '@/utils/cn';
 
-const LETTERS = ['A', 'B', 'C', 'D', 'E'] as const;
-
 interface OptionButtonProps {
   option: QuizOption;
   index: number;
@@ -18,17 +16,11 @@ interface OptionButtonProps {
 
 /**
  * Odpowiedź jako duży przycisk jednokrotnego wyboru (E4-02).
- * „Nie wiem / pomiń” jest wizualnie słabszy (UI-SPEC 3.2).
+ * UIP2-03 (FIX-UI §5.3, D12): bez liter A-E (sugerowały test szkolny) i bez podglądu wag `sets`;
+ * wskaźnik wyboru to radio-kropka po lewej (zgodnie z `role=radio`), check po prawej po wybraniu.
+ * „Nie wiem / pomiń” zostaje w radiogroup (klawiatura, testy), ale jest wizualnie najsłabszy.
  */
-export function OptionButton({
-  option,
-  index,
-  selected,
-  onSelect,
-  tabIndex,
-  buttonRef,
-  onKeyDown,
-}: OptionButtonProps) {
+export function OptionButton({ option, selected, onSelect, tabIndex, buttonRef, onKeyDown }: OptionButtonProps) {
   const skip = option.skip === true;
 
   return (
@@ -41,47 +33,35 @@ export function OptionButton({
       onClick={onSelect}
       onKeyDown={onKeyDown}
       className={cn(
-        'group flex w-full items-center gap-3 rounded-[var(--radius-card)] px-4 text-left transition-[border-color,background-color,transform] duration-200 sm:gap-4',
-        skip ? 'min-h-12 border border-dashed py-2.5' : 'min-h-14 border py-3.5',
+        'group flex w-full items-center gap-3 rounded-[var(--radius-control)] border px-4 text-left',
+        'transition-[border-color,background-color,color] duration-[var(--motion-fast)] active:scale-[0.995]',
+        skip ? 'min-h-11 py-2' : 'min-h-14 py-3.5',
         selected
-          ? 'border-[var(--color-accent)] bg-[var(--color-accent-soft)]'
+          ? 'border-[var(--color-accent)] bg-[var(--color-accent-soft)] text-[var(--color-accent-ink)]'
           : skip
-            ? 'border-[var(--color-border)] hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]'
-            : 'border-[var(--color-border)] bg-[var(--color-surface)] hover:-translate-y-px hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-soft)]',
-        'active:scale-[0.995]',
+            ? 'border-transparent text-[var(--color-muted)] hover:bg-[var(--color-surface-2)] hover:text-[var(--color-text)]'
+            : 'border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] hover:border-[var(--color-accent)]',
       )}
     >
-      <span
-        className={cn(
-          'num flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[11px] font-semibold transition-colors duration-200',
-          selected
-            ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-bg)]'
-            : skip
-              ? 'border-[var(--color-border-strong)] text-[var(--color-border-strong)]'
-              : 'border-[var(--color-border-strong)] text-[var(--color-muted)] group-hover:border-[var(--color-accent)] group-hover:text-[var(--color-accent-ink)]',
-        )}
-        aria-hidden="true"
-      >
-        {selected ? <CheckIcon className="h-3.5 w-3.5" /> : (LETTERS[index] ?? index + 1)}
-      </span>
+      {!skip ? (
+        <span
+          className={cn(
+            'flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-colors duration-[var(--motion-fast)]',
+            selected
+              ? 'border-[var(--color-accent)] bg-[var(--color-accent)]'
+              : 'border-[var(--color-border-strong)] group-hover:border-[var(--color-accent)]',
+          )}
+          aria-hidden="true"
+        >
+          {selected ? <span className="h-2 w-2 rounded-full bg-[var(--color-on-accent)]" /> : null}
+        </span>
+      ) : null}
 
-      <span
-        className={cn(
-          'min-w-0 flex-1 leading-snug',
-          skip ? 'text-sm text-[var(--color-muted)]' : 'text-[15px] font-medium sm:text-base',
-          selected && 'text-[var(--color-accent-ink)]',
-        )}
-      >
+      <span className={cn('min-w-0 flex-1 leading-snug', skip ? 'text-small' : 'text-body font-medium')}>
         {option.label}
       </span>
 
-      {!skip && option.sets ? (
-        <span className="num hidden shrink-0 text-[10px] tracking-[0.12em] text-[var(--color-border-strong)] uppercase transition-colors duration-200 group-hover:text-[var(--color-muted)] lg:block">
-          {Object.entries(option.sets)
-            .map(([criterion, value]) => `${criterion} ${value}`)
-            .join(' · ')}
-        </span>
-      ) : null}
+      {selected ? <CheckIcon className="h-5 w-5 shrink-0 text-[var(--color-accent)]" aria-hidden="true" /> : null}
     </button>
   );
 }

@@ -18,8 +18,52 @@
   --color-on-accent: #ffffff;
   --color-warn: #8a5a12;
   --color-warn-soft: #fdf3dd;
-  --color-ok: #2f7d55;
+  --color-ok: #276b49;
+  --color-ok-soft: #e4f4ea;
+  /* UIP0-01: tokeny semantyczne — błąd/usuwanie i informacja neutralna (FIX-UI §3.2). */
+  --color-danger: #b4232c;
+  --color-danger-soft: #fdeaea;
+  --color-info: #1d5fa8;
+  --color-info-soft: #e6f0fb;
+  --color-accent-hover: #255fd6;
   --color-photo-bg: #ffffff;
+
+  /* UIP0-01: skala typograficzna (FIX-UI §3.1) — Tailwind 4 generuje z tego utility `text-display`, `text-h1`… */
+  --text-display: clamp(2.25rem, 7vw, 3.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 700;
+  --text-h1: clamp(1.6rem, 5vw, 2.1rem);
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1--font-weight: 700;
+  --text-h2: 1.25rem;
+  --text-h2--line-height: 1.25;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h2--font-weight: 650;
+  --text-h3: 1rem;
+  --text-h3--line-height: 1.35;
+  --text-h3--font-weight: 600;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.4;
+  --text-price: 1.75rem;
+  --text-price--line-height: 1;
+  --text-price--letter-spacing: -0.02em;
+  --text-price--font-weight: 700;
+
+  /* UIP0-01: promienie kontrolek i arkusza (FIX-UI §3.3). */
+  --radius-control: 12px;
+  --radius-sheet: 20px;
+  --radius-chip: 999px;
+
+  /* UIP0-01: ruch — jedna skala czasu i jedna krzywa (FIX-UI §6). */
+  --motion-fast: 160ms;
+  --motion-base: 240ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
@@ -49,6 +93,24 @@
   --color-warn: #f0c260;
   --color-warn-soft: #241d0e;
   --color-ok: #4ade80;
+  --color-ok-soft: #0f2418;
+  --color-danger: #ff6b6b;
+  --color-danger-soft: #2a1214;
+  --color-info: #7cc4ff;
+  --color-info-soft: #0f1f2e;
+  --color-accent-hover: #6ee7a0;
+
+  --text-h2: 1.125rem;
+  --text-h3: 0.9375rem;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.5;
+  --text-small: 0.8125rem;
+  --text-label: 0.6875rem;
+  --text-price: 1.5rem;
+
+  --radius-control: 2px;
+  --radius-sheet: 4px;
+  --radius-chip: 2px;
 
   --radius-card: 2px;
   --shadow-card: none;
@@ -58,12 +120,29 @@
 :root {
   --pad-card: 24px;
   --gap-stack: 24px;
+  --gap-section: 32px;
+  /* UIP0-02: etykiety przez motyw — jasny: zwykły tekst 12 px; ciemny: mono uppercase (FIX-UI §2, §3.1). */
+  --label-font: var(--font-sans);
+  --label-transform: none;
+  --label-tracking: 0.01em;
+  --label-weight: 600;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
   --pad-card: 12px;
   --gap-stack: 14px;
+  --gap-section: 20px;
+  --label-font: var(--font-num);
+  --label-transform: uppercase;
+  --label-tracking: 0.14em;
+  --label-weight: 500;
   color-scheme: dark;
 }
 
@@ -89,21 +168,22 @@
     inset: 0;
     z-index: -2;
     pointer-events: none;
+    /* UIP3-02: słabsze poświaty (0.13 → 0.07, 0.16 → 0.08) — mniej pasmowania na tanich ekranach. */
     background:
-      radial-gradient(58rem 34rem at 82% -8%, rgba(47, 111, 237, 0.13), transparent 62%),
-      radial-gradient(40rem 28rem at 4% 12%, rgba(255, 199, 128, 0.16), transparent 60%);
+      radial-gradient(58rem 34rem at 82% -8%, rgba(47, 111, 237, 0.07), transparent 62%),
+      radial-gradient(40rem 28rem at 4% 12%, rgba(255, 199, 128, 0.08), transparent 60%);
   }
 
+  /* UIP3-02: siatka kropek tylko w ciemnym motywie (cecha charakteru „arkusza technicznego”). */
   body::after {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0;
     background-image: radial-gradient(rgba(31, 41, 55, 0.14) 1px, transparent 1px);
     background-size: 22px 22px;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 46%);
   }
 
   [data-theme="dark"] body::before {
@@ -124,7 +204,7 @@
   :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: var(--radius-control);
   }
 
   a,
@@ -146,22 +226,26 @@
     box-shadow: var(--shadow-card);
   }
 
+  /* UIP0-02: etykieta czyta tokeny motywu; `.label-mono` zostaje aliasem (84 miejsca). */
+  .label,
   .label-mono {
-    font-family: var(--font-num);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-family: var(--label-font);
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    font-weight: var(--label-weight);
+    letter-spacing: var(--label-tracking);
+    text-transform: var(--label-transform);
     color: var(--color-muted);
+  }
+
+  .label::first-letter,
+  .label-mono::first-letter {
+    text-transform: uppercase;
   }
 
   .num {
     font-family: var(--font-num);
     font-variant-numeric: tabular-nums;
-  }
-
-  .rule-draw {
-    transform-origin: left center;
-    animation: rule-draw 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   .reveal {
@@ -175,8 +259,9 @@
     transform: none;
   }
 
-  .screen-in {
-    animation: screen-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  .screen-in,
+  .step-in {
+    animation: screen-in var(--motion-base) var(--ease-out) both;
   }
 }
 
@@ -273,15 +358,6 @@
   }
 }
 
-@keyframes rule-draw {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
 @keyframes sheet-in {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: none; }
@@ -292,8 +368,8 @@
   to { opacity: 1; }
 }
 
-.sheet-in { animation: sheet-in 240ms cubic-bezier(0.22, 1, 0.36, 1) both; }
-.fade-in { animation: fade-in 200ms ease-out both; }
+.sheet-in { animation: sheet-in var(--motion-base) var(--ease-out) both; }
+.fade-in { animation: fade-in var(--motion-fast) ease-out both; }
 
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -302,31 +378,12 @@
   75% { transform: translateX(-2px); }
 }
 
-@keyframes step-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: none; }
-}
-
-.step-in {
-  animation: step-in 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
 @keyframes shimmer {
   from {
     background-position: -180% 0;
   }
   to {
     background-position: 180% 0;
-  }
-}
-
-@keyframes breathe {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 1;
   }
 }
 
@@ -347,13 +404,21 @@
   animation: shimmer 2.6s linear infinite;
 }
 
-.breathe {
-  animation: breathe 2.4s ease-in-out infinite;
-}
-
 .bar-grow {
   transform-origin: left center;
-  animation: bar-grow 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: bar-grow 300ms var(--ease-out) both;
+}
+
+/* UIP3-01: na ekranach dotykowych efekty hover nie mają sensu — wyłączamy przesunięcia i skalowanie. */
+@media (hover: none) {
+  .hover\:-translate-y-px:hover,
+  .hover\:-translate-y-0\.5:hover,
+  .hover\:-translate-y-1:hover,
+  .hover\:rotate-6:hover,
+  .group:hover .group-hover\:translate-x-1,
+  .group:hover .group-hover\:translate-x-1\.5 {
+    transform: none;
+  }
 }
 
 /* UI-SPEC 1.7: animacje krótkie i wyłączane przy prefers-reduced-motion. */

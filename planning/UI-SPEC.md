@@ -28,6 +28,18 @@ Specyfikacja interfejsu dla etapów 1, 4-8. Treść pytań i algorytm są w [QUI
 
 Nazwy widoków to ASCII, bez parametrów zapytania. Wejście na adres nieistniejącej sesji kończy się komunikatem i powrotem do Startu.
 
+## 2a. System projektowy po etapie 14 (FIX-UI-PHASE)
+
+**Tokeny** (`src/index.css`, `@theme` + nadpisania `[data-theme=dark]`): skala typograficzna `--text-display` (tylko Start), `--text-h1` (h1 każdego ekranu), `--text-h2`, `--text-h3`, `--text-body`, `--text-small`, `--text-label` (min. 12 px w jasnym, 11 px w ciemnym), `--text-price` (największa liczba na karcie); kolory semantyczne `--color-danger`, `--color-info`, `--color-ok` z wariantami `-soft` (kontrast ≥ 4,5:1 — 12 par w teście); promienie `--radius-card` (16/2), `--radius-control` (12/2), `--radius-sheet` (20/4), `--radius-chip`; ruch `--motion-fast` 160 ms, `--motion-base` 240 ms, `--ease-out`.
+
+**Etykiety przez motyw:** klasa `.label` (alias `.label-mono`) czyta `--label-font/-transform/-tracking/-weight` — w jasnym to zwykły tekst sans 12 px z pierwszą wielką literą („przyjazny doradca”), w ciemnym mono uppercase 11 px („arkusz techniczny”). Mono (`.num`) zostaje dla liczb w obu motywach.
+
+**Komponenty bazowe** (`src/components/ui/`, bez importów z `features/`, `lib/`, `data/`): `Button` (primary / secondary / ghost / danger × md 44 px / lg 52 px; `href` renderuje `<a>`), `Chip` (neutral / accent / ok / warn / danger / info), `Callout` (jeden wzorzec komunikatu), `Meter` (pasek 0-100 z `role=meter` i `aria-valuetext`), `Stat`, `SectionHeading`, `ActionBar` (dolny pasek mobilny z `safe-area-inset-bottom`). W ekranach nie składa się przycisków z klas — pilnuje `tests/ui-guard.test.ts`.
+
+**Ruch:** 6 keyframes (`screen-in`, `sheet-in`, `fade-in`, `shake`, `shimmer`, `bar-grow`); brak hover-liftu i „oddychania”; `@media (hover: none)` wyłącza przesunięcia na dotyku; `prefers-reduced-motion` bez zmian.
+
+**Hierarchia karty anonimowej (3.4):** plakietka miejsca → **cena** (`--text-price`) z chipem „w budżecie / Powyżej budżetu / Dopłata +X zł” → dopasowanie (`--text-h3` + `Meter` + opis słowny) → cechy (`--text-small`, ikony 20 px) → „Wszystkie cechy” → szczegóły → `Button primary lg` „Wybieram tę propozycję”.
+
 ## 3. Ekrany
 
 ### 3.1 Start

@@ -57,6 +57,12 @@ const TEXT_PAIRS: [string, string, string][] = [
   ['akcent na miękkim tle', '--color-accent-ink', '--color-accent-soft'],
   ['ostrzeżenie na miękkim tle', '--color-warn', '--color-warn-soft'],
   ['treść na akcencie', '--color-on-accent', '--color-accent'],
+  /* UIP0-01 (FIX-UI §3.2): nowe tokeny semantyczne. */
+  ['błąd na miękkim tle', '--color-danger', '--color-danger-soft'],
+  ['błąd na powierzchni', '--color-danger', '--color-surface'],
+  ['informacja na miękkim tle', '--color-info', '--color-info-soft'],
+  ['informacja na powierzchni', '--color-info', '--color-surface'],
+  ['ok na miękkim tle', '--color-ok', '--color-ok-soft'],
 ];
 
 describe('E8-01 · tokeny motywów (UI-SPEC 6)', () => {
@@ -101,10 +107,27 @@ describe('E8-01 · tokeny motywów (UI-SPEC 6)', () => {
     expect(light['--font-sans']).toContain('system-ui');
   });
 
-  it('tło ciemne ma siatkę techniczną, jasne — miękką poświatę i kropki', () => {
+  it('tło ciemne ma siatkę techniczną, jasne — słabą poświatę bez kropek (UIP3-02)', () => {
     expect(css).toContain('[data-theme="dark"] body::after');
     expect(css).toMatch(/linear-gradient\(to right, rgba\(154, 167, 180/);
     expect(css).toContain('radial-gradient');
+    /* jasny: poświaty ≤ 0,08 i kropki wyłączone (opacity: 0 w body::after) */
+    expect(css).toMatch(/rgba\(47, 111, 237, 0\.07\)/);
+    expect(css).not.toMatch(/rgba\(47, 111, 237, 0\.13\)/);
+  });
+
+  it('UIP0: skala typograficzna, etykiety i ruch są tokenami, a ciemny motyw je nadpisuje', () => {
+    for (const token of ['--text-display', '--text-h1', '--text-h2', '--text-h3', '--text-body', '--text-small', '--text-label', '--text-price', '--radius-control', '--radius-sheet', '--motion-fast', '--motion-base', '--ease-out']) {
+      expect(light[token], token).toBeTruthy();
+    }
+    expect(light['--label-font']).toContain('--font-sans');
+    expect(dark['--label-font']).toContain('--font-num');
+    expect(dark['--label-transform']).toBe('uppercase');
+    expect(light['--label-transform']).toBe('none');
+    expect(css).toMatch(/\.label,\s*\.label-mono \{/);
+    /* keyframes ≤ 6 (FIX-UI §9); hover-efekty wyłączone na dotyku */
+    expect((css.match(/@keyframes/g) ?? []).length).toBeLessThanOrEqual(6);
+    expect(css).toContain('@media (hover: none)');
   });
 });
 

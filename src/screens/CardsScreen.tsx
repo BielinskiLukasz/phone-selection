@@ -17,6 +17,7 @@ import { Reveal } from '@/components/Reveal';
 import { Badge } from '@/components/Badge';
 import { RouteChip } from '@/components/RouteChip';
 import { AlertIcon, ArrowRightIcon, HistoryIcon, ListIcon, SlidersIcon } from '@/components/Icons';
+import { Button } from '@/components/ui';
 
 const SPEC_LABELS = {
   display: strings.cardsSpecDisplay,
@@ -190,24 +191,24 @@ export function CardsScreen({ session }: CardsScreenProps) {
       {!snapshot ? (
         <div className="surface mt-8 flex flex-col items-start gap-3 p-[var(--pad-card)]">
           <p className="text-sm text-[var(--color-muted)]">{strings.cardsNoRanking}</p>
-          <button
-            type="button"
+          <Button
+            variant="primary"
             onClick={() => dispatch({ type: 'session/compute-ranking', sessionId: session.id })}
-            className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)]"
+            iconRight={<ArrowRightIcon />}
           >
             {strings.cardsRecompute}
-            <ArrowRightIcon className="h-4 w-4" />
-          </button>
+          </Button>
         </div>
       ) : cards.length === 0 ? (
         <div className="surface mt-8 p-[var(--pad-card)]">
           <p className="text-sm font-semibold">{strings.noPhonesMatch}</p>
-          <a
+          <Button
+            variant="secondary"
+            className="mt-3"
             href={`#/s/${session.id}/${answersView}`}
-            className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm"
           >
             {strings.changeFilters}
-          </a>
+          </Button>
         </div>
       ) : (
         <>
@@ -261,45 +262,43 @@ export function CardsScreen({ session }: CardsScreenProps) {
         aria-label={strings.cards}
         className="mt-10 flex flex-wrap items-center gap-3 border-t border-[var(--color-border)] pt-6"
       >
-        <button
-          type="button"
+        <Button
+          variant="secondary"
+          size="lg"
+          icon={<HistoryIcon className="h-4 w-4" />}
           onClick={startOver}
-          className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-[var(--color-surface)] px-5 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]"
         >
-          <HistoryIcon className="h-4 w-4" />
           {strings.cardsStartOver}
-        </button>
+        </Button>
 
-        <a
-          href={`#/s/${session.id}/${answersView}`}
-          className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]"
-        >
-          {session.mode === 'sliders' ? (
+        <Button
+          variant="secondary"
+          size="lg"
+          icon={session.mode === 'sliders' ? (
             <SlidersIcon className="h-4 w-4" />
           ) : (
             <ListIcon className="h-4 w-4" />
           )}
+          href={`#/s/${session.id}/${answersView}`}
+        >
           {strings.cardsChangeAnswers}
-        </a>
+        </Button>
 
         {excludedCount === 0 && snapshot ? (
-          <button
-            type="button"
-            onClick={() => setExclusionsOpen(true)}
-            className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm font-medium transition-colors duration-200 hover:border-[var(--color-border-strong)] hover:bg-[var(--color-surface-2)]"
-          >
+          <Button variant="secondary" size="lg" onClick={() => setExclusionsOpen(true)}>
             {strings.excludeChange}
-          </button>
+          </Button>
         ) : null}
 
         {reveal.total > 0 ? (
-          <a
+          <Button
+            variant="primary"
+            size="lg"
+            iconRight={<ArrowRightIcon className="h-4 w-4" />}
             href={`#/s/${session.id}/ranking`}
-            className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-text)] px-5 text-sm font-semibold text-[var(--color-bg)] transition-transform duration-200 hover:-translate-y-0.5"
           >
             {strings.cardsFullRanking}
-            <ArrowRightIcon className="h-4 w-4" />
-          </a>
+          </Button>
         ) : (
           <span className="num ml-auto text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase">
             {strings.cardsFullRanking} — po pierwszym wyborze

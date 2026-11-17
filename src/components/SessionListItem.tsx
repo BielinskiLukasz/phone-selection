@@ -2,6 +2,7 @@ import { sessionTexts, strings } from '@/data/strings';
 import type { SessionSummary } from '@/features/history/historyModel';
 import { ArrowRightIcon, HistoryIcon, LockIcon, ScreenIcon } from './Icons';
 import { cn } from '@/utils/cn';
+import { Button, Chip } from './ui';
 
 interface SessionListItemProps {
   summary: SessionSummary;
@@ -57,23 +58,10 @@ export function SessionListItem({ summary, index, isLast, onDelete, onCopyLink }
         style={{ animationDelay: `${Math.min(index * 60, 240)}ms` }}
       >
         <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <h3 className="text-[17px] leading-tight font-semibold tracking-tight">
-            {summary.modeLabel}
-          </h3>
-          <span
-            className={cn(
-              'num rounded-[var(--radius-pill)] px-2.5 py-1 text-[10px] font-semibold tracking-[0.12em] uppercase',
-              completed
-                ? 'bg-[var(--color-accent-soft)] text-[var(--color-accent-ink)]'
-                : 'bg-[var(--color-surface-2)] text-[var(--color-muted)]',
-            )}
-          >
-            {summary.statusLabel}
-          </span>
-          <span
-            className="num ml-auto text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase"
-            title={summary.updatedAbsolute}
-          >
+          <h3 className="text-h3 text-[var(--color-text)]">{summary.modeLabel}</h3>
+          {/* UIP2-09 (FIX-UI §5.8): status jako Chip — ukończona = ok, w toku = accent. */}
+          <Chip tone={completed ? 'ok' : 'accent'}>{summary.statusLabel}</Chip>
+          <span className="num ml-auto text-small text-[var(--color-muted)]" title={summary.updatedAbsolute}>
             {summary.updatedLabel}
           </span>
         </header>
@@ -152,35 +140,25 @@ export function SessionListItem({ summary, index, isLast, onDelete, onCopyLink }
         </p>
 
         <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] pt-3">
-          <a
-            href={targetHref}
-            className={cn(
-              'inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] px-5 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5',
-              completed
-                ? 'border border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent)]'
-                : 'bg-[var(--color-accent)] text-[var(--color-on-accent)]',
-            )}
-          >
+          <Button href={targetHref} variant={completed ? 'secondary' : 'primary'} iconRight={<ArrowRightIcon />}>
             {completed ? strings.historyPreviewAction : strings.historyResume}
-            <ArrowRightIcon className="h-4 w-4" />
-          </a>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            variant="secondary"
+            icon={<LockIcon className="h-3.5 w-3.5" />}
             onClick={onCopyLink}
-            className="num inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase transition-colors duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-accent-ink)]"
           >
-            <LockIcon className="h-3.5 w-3.5" />
             {strings.historyCopyLink}
-          </button>
+          </Button>
 
-          <button
-            type="button"
+          <Button
+            variant="danger"
+            className="ml-auto"
             onClick={onDelete}
-            className="num ml-auto inline-flex min-h-11 items-center rounded-[var(--radius-pill)] px-4 text-[11px] tracking-[0.1em] text-[var(--color-muted)] uppercase transition-colors duration-200 hover:bg-[var(--color-warn-soft)] hover:text-[var(--color-warn)]"
           >
             {strings.historyDelete}
-          </button>
+          </Button>
         </div>
       </article>
     </li>

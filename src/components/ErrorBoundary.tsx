@@ -1,6 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { strings } from '@/data/strings';
 import { AlertIcon } from './Icons';
+import { Button } from './ui';
 
 interface Props {
   children: ReactNode;
@@ -35,19 +36,15 @@ export class ErrorBoundary extends Component<Props, State> {
           <h1 className="text-2xl font-semibold tracking-tight">{strings.errorTitle}</h1>
           <p className="text-sm text-[var(--color-muted)]">{strings.errorNote}</p>
           <div className="mt-2 flex flex-wrap gap-3">
-            <button
-              type="button"
-              className="min-h-11 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-bg)]"
-              onClick={() => window.location.reload()}
-            >
+            <Button variant="primary" onClick={() => window.location.reload()}>
               {strings.reload}
-            </button>
-            <a
+            </Button>
+            <Button
+              variant="secondary"
               href="#/"
-              className="inline-flex min-h-11 items-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-5 text-sm font-medium"
             >
               {strings.backHome}
-            </a>
+            </Button>
           </div>
         </div>
       </div>
