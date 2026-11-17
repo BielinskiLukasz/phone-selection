@@ -3346,6 +3346,209 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "galaxy-a36-5g-6-128",
+      "brand": "Samsung",
+      "modelName": "Galaxy A36 5G 6/128 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Samsung Galaxy A36 5G 6/128 GB",
+        "brand": "Samsung",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a36.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-a36-1.jpg",
+        "shopLinks": [
+          {
+            "label": "sferis.pl",
+            "url": "https://www.sferis.pl/samsung-galaxy-a36-a366-5g-ds-6-128gb-lime-i565087",
+            "pricePln": 1155,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "limonkowy/zielony (SM-A366B), 6/128 GB — dostępny, darmowa wysyłka w 1 dzień (Ceneo 181184854)"
+          },
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-a36-5g-6-128gb-6-7-120hz-czarny-sm-a366",
+            "pricePln": 1399.99,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny, fioletowy, zielony i biały (SM-A366B), 6/128 GB — oficjalna polska dystrybucja (wersja EU w Media Expert: 1199,99 zł)"
+          },
+          {
+            "label": "euro.com.pl",
+            "url": "https://www.euro.com.pl/telefony-komorkowe/samsung-galaxy-a36-5g-6-128gb-6-6-120hz-50mpix-sm-a366-zielony.bhtml",
+            "pricePln": 1599,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "zielony i czarny (SM-A366B), 6/128 GB — oficjalna sieć RTV Euro AGD"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/181184903",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 6,
+        "storageGb": 128,
+        "fromList": "Samsung Galaxy A36 5G 6/128 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1155,
+        "source": "sferis.pl",
+        "url": "https://www.sferis.pl/samsung-galaxy-a36-a366-5g-ds-6-128gb-lime-i565087",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "limonkowy/zielony (SM-A366B), 6/128 GB",
+        "auditNote": "Sferis.pl (przez Ceneo 181184854): 1155 zł za wariant limonkowy SM-A366B 6/128 GB z darmową wysyłką w 1 dzień (na kartach sferis.pl czarny i565090 bywał po 1099 zł). Na Ceneo 181184903 (czarny 6/128 GB) oferty od 1178,36 zł w 10 sklepach; w Media Expert 1199,99 zł (wersja EU) i 1399,99 zł (oficjalna polska dystrybucja, 4 kolory); RTV Euro AGD 1599 zł (zgodne z ceną premierową 03.2025: 1599 zł); w Morele.net pojedynczy wariant czarny (14733605) wyprzedany. Uwaga praktyczna: następca Galaxy A37 5G 8/256 GB kosztuje w sferis.pl 1359 zł (o 204 zł więcej za 8/256 GB, UFS 3.1 i IP68).",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 1178.36,
+            "source": "ceneo.pl (najtańsza oferta czarnego SM-A366)",
+            "url": "https://www.ceneo.pl/181184903",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (SM-A366B), 6/128 GB, porównanie 10 sklepów"
+          },
+          {
+            "pln": 1399.99,
+            "source": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-a36-5g-6-128gb-6-7-120hz-czarny-sm-a366",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny/fioletowy/zielony/biały (SM-A366B), 6/128 GB, polska dystrybucja (EU: 1199,99 zł)"
+          },
+          {
+            "pln": 1599,
+            "source": "euro.com.pl",
+            "url": "https://www.euro.com.pl/telefony-komorkowe/samsung-galaxy-a36-5g-6-128gb-6-6-120hz-50mpix-sm-a366-zielony.bhtml",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "zielony i czarny (SM-A366B), 6/128 GB, oficjalna sieć"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.7,
+        "panel": "Super AMOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2340",
+        "peakNits": 1900,
+        "glass": "Corning Gorilla Glass Victus+ (przód i tył)",
+        "ramGb": 6,
+        "storageGb": 128,
+        "storageType": "UFS 2.2",
+        "microSd": false,
+        "chip": "Qualcomm Snapdragon 6 Gen 3 (4 nm)",
+        "batteryMah": 5000,
+        "batteryCycles": 2000,
+        "batteryEndurance": 5,
+        "batteryTests": [
+          "GSMArena (etykieta UE): klasa C, 41:28 h szacowanej wytrzymałości, 2000 cykli → wytrzymałość 5 (skala 40–70 h)",
+          "GSMArena active use score: 11:38 h (rozmowy 27:46 h, WWW 11:41 h, wideo 12:08 h, gry 7:03 h)"
+        ],
+        "chargingW": 45,
+        "chargingNote": "do 45 W przewodowo (USB PD; deklaracja producenta: 66% w 30 min, 100% w 68 min), brak ładowarki w pudełku (GSMArena, mediaexpert.pl)",
+        "chargingTests": "GSMArena: 36% w 15 min, 60% w 30 min, pełne ładowanie w 74 min",
+        "chargerInBox": false,
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP67",
+        "weightG": 195,
+        "heightMm": 162.9,
+        "widthMm": 78.2,
+        "thicknessMm": 7.4,
+        "dimensionsMm": "162,9 × 78,2 × 7,4",
+        "cameras": {
+          "main": "50 MP f/1.8 (1/1,96″, Sony IMX882, PDAF) z OIS",
+          "ultrawide": "8 MP f/2.2 (123°, 1/4,0″)",
+          "macro": "5 MP f/2.4",
+          "selfie": "12 MP f/2.2",
+          "telephoto": null
+        },
+        "video": "4K 30 kl./s (główny z gyro-EIS i selfie z 10-bit HDR), 1080p 30/60 kl./s",
+        "os": "Android 15, One UI 7",
+        "updatesYears": 6,
+        "updatesOsGenerations": 6,
+        "updatesSecurityYears": 6,
+        "updatesNote": "6 dużych aktualizacji Androida (do Androida 21) i 6 lat poprawek bezpieczeństwa do 31.03.2031 (Samsung, GSMArena)",
+        "releasedAt": "2025-03",
+        "securitySupportUntil": "2031-03",
+        "supportNote": "Oficjalna strona Samsung (SM-A366B): poprawki bezpieczeństwa gwarantowane do 31 marca 2031 r. (6 lat od premiery 03.2025)",
+        "sim": "nanoSIM + nanoSIM + dual eSIM (maks. 2 aktywne jednocześnie)",
+        "nfc": true,
+        "wifi": "Wi-Fi 6 (dwuzakresowe)",
+        "bluetooth": "5.4",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Aby powiadomienia z komunikatorów przychodziły bez przerw, należy wyłączyć optymalizację baterii dla Zepp Life w ustawieniach Androida i w One UI dodać ją do „Aplikacji nieuśpionych” (Bateria → Limity użycia w tle)."
+      },
+      "scores": {
+        "battery": 15,
+        "charging": 40,
+        "updates": 86,
+        "storage": 40,
+        "durability": 80,
+        "smoothness": 53,
+        "display": 79,
+        "photoDay": 73,
+        "photoIndoor": 68,
+        "photoMotion": 62,
+        "selfie": 70,
+        "video": 68,
+        "zoom": 38,
+        "compactness": 42,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (pojemność 25 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 5 (50%) z etykiety UE na GSMArena (klasa C, 41:28 h przy skali 40–70 h, wysoka żywotność 2000 cykli; active use 11:38 h) → 0,5 × 25 + 0,5 × 5 = 15 pkt",
+        "charging": "45 W przewodowo USB PD (GSMArena: 36% w 15 min, 60% w 30 min, pełne ładowanie w 74 min), bez indukcji i bez ładowarki w pudełku (GSMArena, mediaexpert.pl) — (45 − 15) / 75 × 100 = 40 pkt",
+        "updates": "6 dużych aktualizacji Androida i 6 lat poprawek bezpieczeństwa do 31.03.2031 (Samsung, GSMArena): 6 / 7 × 100 = 86 pkt",
+        "storage": "128 GB UFS 2.2 (z 6 GB RAM LPDDR4X), brak slotu microSD (GSMArena, euro.com.pl, mediaexpert.pl) = 40 pkt",
+        "durability": "IP67 (zanurzenie do 1 m na 30 min), szkło Gorilla Glass Victus+ z przodu i z tyłu, plastikowa ramka oraz klasa C odporności na upadki (90 upadków) na etykiecie UE (GSMArena) = 80 pkt wg reguły IP67",
+        "smoothness": "Snapdragon 6 Gen 3 (4 nm) z 6 GB RAM i pamięcią UFS 2.2; GSMArena (wariant 6/128 GB): AnTuTu v10 613 492, Geekbench 6 multi-core 2917, bardzo wysoka stabilność termiczna — poprawna praca codzienna, ale słabszy układ i mniej RAM niż w Galaxy A37 (Exynos 1480, 8 GB)",
+        "display": "6,7″ Super AMOLED FHD+ 120 Hz, 1900 nitów szczytowo (1200 nitów HBM) i 1233 nity zmierzone w trybie auto w teście GSMArena — bardzo czytelny w słońcu panel OLED (bez certyfikacji HDR w wideo i bez LTPO)",
+        "photoDay": "główny aparat 50 MP f/1.8 (1/1,96″, Sony IMX882) z OIS + 8 MP szeroki kąt + 5 MP makro; GSMArena chwali dobrą szczegółowość, szeroką rozpiętość tonalną, udane portrety 1x i żywe kolory, wytykając jednak nierówną powtarzalność ekspozycji między ujęciami i przeciętny szeroki kąt",
+        "photoIndoor": "recenzja GSMArena ocenia zdjęcia nocne z głównego sensora 50 MP OIS jako solidne w swojej klasie (tryb nocny dobrze chroni światła i usuwa szum, ale trzeba go włączać ręcznie i lekko wygładza detale; mniejsza matryca 1/1,96″ niż 1/1,56″ w A37 i A56)",
+        "photoMotion": "50 MP z PDAF i OIS daje przyzwoitą ostrość w typowych sytuacjach, ale skromniejszy procesor Snapdragon 6 Gen 3 i wahania ekspozycji ograniczają pewność przy szybszym ruchu (GSMArena)",
+        "selfie": "nowy przedni aparat 12 MP f/2.2 z wideo 4K 30 kl./s i 10-bit HDR; recenzja GSMArena ocenia selfie w dzień jako znakomite w tej klasie (świetne rysy twarzy, naturalne odcienie skóry i dobra szczegółowość; w nocy przeciętne)",
+        "video": "4K 30 kl./s z głównego i przedniego aparatu (10-bit HDR) ze skuteczną stabilizacją Always-On; GSMArena chwali szczegółowość, kolory i rozpiętość tonalną w dzień i po zmroku, odnotowując jednak widoczny szum i słabsze 1080p z szerokiego kąta",
+        "zoom": "układ 50 MP + 8 MP + 5 MP, brak teleobiektywu (GSMArena, nano.komputronik.pl); cyfrowy zoom 2x z matrycy jest użyteczny w dzień, ale lekko przeostrzony i zaszumiony po zmroku oraz w wideo",
+        "compactness": "195 g, wymiary 162,9 × 78,2 × 7,4 mm (GSMArena) — wzór poręczności: lekkość 57, mała powierzchnia 21 (12 739 mm²), smukłość 70 → 42 pkt (smukła szklana obudowa 7,4 mm, identyczne gabaryty jak w A37)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.samsung.com/uk/business/smartphones/galaxy-a/galaxy-a36-5g-awesome-lavender-256gb-sm-a366blvgeub/",
+        "https://www.ceneo.pl/181184903",
+        "https://www.ceneo.pl/181184854",
+        "https://www.sferis.pl/samsung-galaxy-a36-a366-5g-ds-6-128gb-lime-i565087",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-a36-5g-6-128gb-6-7-120hz-czarny-sm-a366",
+        "https://www.euro.com.pl/telefony-komorkowe/samsung-galaxy-a36-5g-6-128gb-6-6-120hz-50mpix-sm-a366-zielony.bhtml",
+        "https://nano.komputronik.pl/n/samsung-galaxy-a56-vs-galaxy-a36-porownanie/",
+        "https://www.gsmarena.com/samsung_galaxy_a36-13497.php",
+        "https://www.gsmarena.com/samsung_galaxy_a36-review-2814p5.php",
+        "https://www.gsmarena.com/samsung_galaxy_a36_vs_samsung_galaxy_a35_review_battery_camera_price_compared-news-67279.php",
+        "https://www.gsmarena.com/samsung_galaxy_a36_and_a56_hands_on-review-2804p4.php",
+        "https://www.notebookcheck.net/Samsung-Galaxy-A36-5G-review-The-affordable-smartphone-focuses-on-security-a-premium-feel.1013221.0.html"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "medium",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
