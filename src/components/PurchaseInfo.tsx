@@ -88,6 +88,16 @@ export function PurchaseInfo({ phone, variant = 'card', className }: PurchaseInf
             <dd>{specs.wearableNotes}</dd>
           </div>
         ) : null}
+        {price.currentMarketPricePln ? (
+          <div className="flex gap-2">
+            <dt className="label-mono w-[26%] shrink-0">{strings.currentPriceLabel}</dt>
+            <dd className="num text-[var(--color-warn)]">
+              {Math.round(price.currentMarketPricePln)} zł
+              {price.currentMarketPriceCheckedAt ? ` · ${sessionTexts.priceWithDate(price.currentMarketPriceCheckedAt).replace('cena z ', '')}` : ''}
+              {price.currentMarketPriceSource ? ` · ${price.currentMarketPriceSource}` : ''}
+            </dd>
+          </div>
+        ) : null}
         {price.userNote ? (
           <div className="flex gap-2">
             <dt className="label-mono w-[26%] shrink-0">{strings.offerLabel}</dt>

@@ -10,7 +10,9 @@
       "Pula rozszerzona w etapie 10 z 10 do 15 modeli (decyzje D1-D5): Pixel 10a i 9a zostają w wersji 8/128 GB, Xiaomi 15T zostaje w wersji 12/512 GB (D3); dodano Honor 400 8/256 GB, OnePlus Nord 5 5G 8/256 GB, Samsung Galaxy A37 5G 8/256 GB, vivo V70 FE 5G 8/256 GB (D1) i Xiaomi Redmi Note 17 Pro 5G 8/512 GB (D2). Odrzucono modele z 2024 r. (Nord 4, Edge 50 Neo, Nothing 2a, Redmi Note 14 Pro+, Honor 200) oraz iPhone 16e (>2000 zł).",
       "Linki w price.url i reveal.shopLinks bez parametrów śledzących (utm_*, ceneo_cid).",
       "Faza poprawkowa FP1 (16.11.2026): price.note rozdzielone na userNote/auditNote; promocje opisane polami regularPricePln/promoEndsAt/promoCondition (Edge 70 Fusion do 30.11, Redmi Note 17 Pro do 19.11); każdy link sklepu ma cenę, datę i typ oferty; porównywarka w reveal.priceCompareUrl; specs.securitySupportUntil (RRRR-MM) ze źródła albo z daty premiery + lat poprawek (supportNote); reveal.verifiedForPurchaseAt wypełniane po ręcznej weryfikacji kandydata (FP1-01).",
-      "FP1-01 (16.11.2026): trzej kandydaci użytkowniczki zweryfikowani (Edge 70 Fusion, Galaxy A57, Xiaomi 15T) — reveal.verifiedForPurchase; oferta Xiaomi 15T 12/512 za 1999 zł wygasła (Komputronik: sprzedaż zakończona), aktualne ceny > 2000 zł — pole price.priceUnavailableSince, decyzja o statusie rekordu należy do użytkownika; securitySupportUntil uzupełnione dla 15/15 (Pixel 10a 03.2033, Edge 70 Fusion 03.2031, realme 02.2030); wearableNotes (Mi Band 6 / Zepp Life) dla trzech kandydatów."
+      "FP1-01 (16.11.2026): trzej kandydaci użytkowniczki zweryfikowani (Edge 70 Fusion, Galaxy A57, Xiaomi 15T) — reveal.verifiedForPurchase; oferta Xiaomi 15T 12/512 za 1999 zł wygasła (Komputronik: sprzedaż zakończona), aktualne ceny > 2000 zł — pole price.priceUnavailableSince, decyzja o statusie rekordu należy do użytkownika; securitySupportUntil uzupełnione dla 15/15 (Pixel 10a 03.2033, Edge 70 Fusion 03.2031, realme 02.2030); wearableNotes (Mi Band 6 / Zepp Life) dla trzech kandydatów.",
+      "FP0/FP1 (17.11.2026): sesja użytkowniczki w tests/fixtures/user-session.json (karty 15T → Edge 70 Fusion → Note 17 Pro, 3 wybory); data zakupu 26.11.2026; Xiaomi 15T zostaje w puli z price.currentMarketPricePln (2249,99 zł, Ceneo) obok ostatniej ceny w limicie; Edge 70 Fusion — zakup z promocji Allegro przed 30.11.",
+      "FP3-03 (17.11.2026): A3 ustawia charging 0,25 / 1,5 / 4 (było 1 / 3 / 5), domyślna waga charging bez odpowiedzi = 1. FP4-05: IP66/IP68 = 92 pkt (było 88). FP3-07 (storage 256 GB = 82) NIE wdrożone — zmieniłoby trzecią kartę w zapisanej sesji użytkowniczki przed zakupem (bramka kandydata)."
     ],
     "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja.",
     "specsCompletedNote": "Etap 0 + Etap 10 (16.11.2026): specyfikacje i oceny 15 modeli zweryfikowane z oficjalnych stron producentów, kart produktowych polskich sklepów oraz niezależnych testów (GSMArena + etykiety energetyczne UE/EPREL, PhoneArena, DXOMARK, Notebookcheck, 91mobiles, mGSM, gsmManiaK). Zgodnie z decyzją D4 sufit wzoru pojemności baterii podniesiono z 7000 do 8000 mAh (4000 mAh = 0, 8000 mAh = 100) i przeliczono scores.battery dla całej puli."
@@ -571,7 +573,7 @@
         "charging": 40,
         "updates": 71,
         "storage": 75,
-        "durability": 88,
+        "durability": 92,
         "smoothness": 50,
         "display": 82,
         "photoDay": 70,
@@ -588,7 +590,7 @@
         "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
         "updates": "4 duże aktualizacje Androida + 6 lat poprawek (nanoreview, gsmspecs): średnia 5 lat → 5/7 × 100 = 71",
         "storage": "256 GB, brak slotu microSD",
-        "durability": "IP66/IP68 (producent)",
+        "durability": "IP66/IP68 (producent) — FP4-05: IP66/IP68 = 92 pkt",
         "smoothness": "Dimensity 7400 Ultra; recenzje: słabe oprogramowanie, AnTuTu nie ukończył testu, Geekbench 6 wielordzeniowy ok. 2930",
         "display": "6,83″ AMOLED 120 Hz, „bardzo jasny wyświetlacz” (ppe.pl)",
         "photoDay": "200 MP aparat główny „solidny” (ppe.pl), selfie 20 MP; brak testów niezależnych w zebranych źródłach",
@@ -814,10 +816,10 @@
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/188731528",
-        "verifiedForPurchaseAt": "2026-11-16",
+        "verifiedForPurchaseAt": "2026-11-17",
         "verifiedForPurchase": [
           "wariant 12/512 GB — oferta 1999 zł (Komputronik) ZAKOŃCZONA 16.11.2026",
-          "aktualnie 12/512 od 2249,99 zł (Allegro) i 12/256 od 2149 zł — powyżej limitu 2000 zł; sprawdź „Sprawdź aktualną cenę” przed zakupem",
+          "17.11.2026: najtaniej 2249,99 zł (Allegro) lub 2499 zł w x-kom/Neonet; 12/256 GB od 2149 zł — POWYŻEJ limitu 2000 zł",
           "w pudełku nie ma ładowarki (67 W wymaga zasilacza Xiaomi)",
           "4 wersje Androida + poprawki bezpieczeństwa do 09.2031",
           "Mi Band 6: Zepp Life; na HyperOS włączyć autostart dla aplikacji"
@@ -835,10 +837,13 @@
         "url": "https://www.komputronik.pl/product/983816/telefon-xiaomi-15t-12-512gb-black.html",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "userNote": "czarny, 12/512 GB — UWAGA: oferta 1999 zł z 14.11 jest już niedostępna (Komputronik: „sprzedaż zakończona”); aktualne ceny 12/512 od 2249,99 zł, 12/256 od 2149 zł — powyżej limitu 2000 zł",
+        "userNote": "czarny, 12/512 GB — oferta 1999 zł (14.11) wygasła; 17.11.2026 najtaniej 2249,99 zł (Allegro), w sieciach 2499 zł, wariant 12/256 od 2149 zł — powyżej limitu 2000 zł",
         "otherObservations": [],
-        "auditNote": " | FP1-01 (16.11.2026): Komputronik 983816 (12/512 Black 1999 zł) ma status Discontinued/„produkt archiwalny”; Ceneo 12/512: czarny od 2249,99 zł (Allegro), szary od 2269 zł, Neonet 2499 zł; 12/256: od 2149 zł (Kaufland), x-kom 2299 zł. Brak oferty ≤ 2000 zł w polskiej dystrybucji na dzień 16.11.2026. Cena w price.pln pozostawiona jako ostatnia zweryfikowana (14.11) z flagą priceUnavailable — rekord zostaje w puli do decyzji użytkownika (status over_budget wyłączyłby go z kart i rankingu).",
-        "priceUnavailableSince": "2026-11-16"
+        "auditNote": " | FP1-01 (16.11.2026): Komputronik 983816 (12/512 Black 1999 zł) ma status Discontinued/„produkt archiwalny”; Ceneo 12/512: czarny od 2249,99 zł (Allegro), szary od 2269 zł, Neonet 2499 zł; 12/256: od 2149 zł (Kaufland), x-kom 2299 zł. Brak oferty ≤ 2000 zł w polskiej dystrybucji na dzień 16.11.2026. Cena w price.pln pozostawiona jako ostatnia zweryfikowana (14.11) z flagą priceUnavailable — rekord zostaje w puli do decyzji użytkownika (status over_budget wyłączyłby go z kart i rankingu). | 17.11.2026 (decyzja użytkownika: rekord zostaje w puli z aktualną ceną): Ceneo 188731528 — Allegro 2249,99 zł, Neonet 2499 zł; Ceneo 188730709 (szary) od 2333-2499 zł; x-kom 12/256 2299 zł, Ceneo 12/256 od 2149 zł. price.pln = ostatnia zweryfikowana cena w limicie (ranking liczony jak w dniu wyboru).",
+        "priceUnavailableSince": "2026-11-16",
+        "currentMarketPricePln": 2249.99,
+        "currentMarketPriceCheckedAt": "2026-11-17",
+        "currentMarketPriceSource": "Ceneo: Allegro 2249,99 zł (czarny); x-kom i Neonet 2499 zł; 12/256 GB od 2149 zł"
       },
       "specs": {
         "ramGb": 12,
@@ -986,14 +991,14 @@
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Motorola+Edge+70+Fusion",
-        "verifiedForPurchaseAt": "2026-11-16",
+        "verifiedForPurchaseAt": "2026-11-17",
         "verifiedForPurchase": [
           "wariant 12/256 GB zgodny z ofertą",
           "cena 1658,12 zł to promocja Allegro (X-KOM_PL) do 30.11.2026, limit 1 szt.; po niej 1899 zł w x-kom / Media Expert / RTV Euro AGD",
           "w pudełku nie ma ładowarki (68 W wymaga zasilacza Motorola TurboPower)",
           "3 wersje Androida + poprawki bezpieczeństwa do 03.2031",
           "Mi Band 6: Zepp Life, powiadomienia po wyłączeniu optymalizacji baterii",
-          "do potwierdzenia u sprzedawcy: gwarancja producenta w ofercie Allegro"
+          "decyzja 17.11.2026: zakup z oferty Allegro (X-KOM_PL) przed 30.11 — przed zapłatą zapytać sprzedawcę o gwarancję producenta i sprawdzić, czy oferta nadal aktywna (limit 1 szt.)"
         ]
       },
       "variant": {

@@ -28,7 +28,7 @@ export function PhoneCardRevealed({
   onExcludeBrand,
 }: PhoneCardRevealedProps) {
   return (
-    <article className="surface screen-in relative flex flex-col overflow-hidden border-[var(--color-accent)] shadow-[0_18px_50px_-30px_var(--color-accent)]">
+    <article className="surface card-flip relative flex flex-col overflow-hidden border-[var(--color-accent)]">
       <span className="absolute inset-x-0 top-0 h-[3px] bg-[var(--color-accent)]" aria-hidden="true" />
 
       <header className="flex flex-wrap items-center gap-2 p-[var(--pad-card)] pb-3">

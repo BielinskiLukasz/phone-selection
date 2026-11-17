@@ -225,6 +225,20 @@ export function budgetStretchFromAnswers(
   return null;
 }
 
+/** FP3-04: C3 „Chcę, jeśli się da” → preferencja microSD (bonus w ocenie, nie filtr). */
+export function preferMicroSdFromAnswers(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): boolean {
+  for (const question of questions) {
+    const optionId = answers[question.id];
+    if (!optionId) continue;
+    const option = question.options.find((item) => item.id === optionId);
+    if (option?.preferMicroSd) return true;
+  }
+  return false;
+}
+
 /** Filtry twarde z odpowiedzi: budżet (F1) i minimalna pamięć (C2). */
 export function filtersFromAnswers(
   answers: Answers,
@@ -240,7 +254,8 @@ export function filtersFromAnswers(
   }
 
   return { budgetMax: budgetFromAnswers(answers, questions),
-    budgetStretch: budgetStretchFromAnswers(answers, questions), minStorageGb, requireMicroSd: false };
+    budgetStretch: budgetStretchFromAnswers(answers, questions), minStorageGb, requireMicroSd: false,
+    preferMicroSd: preferMicroSdFromAnswers(answers, questions) };
 }
 
 /** Alias nazewniczy używany w testach i w ekranach suwaków. */

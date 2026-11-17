@@ -140,7 +140,7 @@ describe('E3-03 · migracje', () => {
 
     const { state, migratedFrom } = migrate(v1);
     expect(migratedFrom).toBe(1);
-    expect(state.schemaVersion).toBe(2);
+    expect(state.schemaVersion).toBe(3); // FP5-04: łańcuch migracji dochodzi do v3
 
     const normalized = normalizeState(state);
     const session = normalized.state.sessions[0]!;
@@ -237,5 +237,32 @@ describe('E3-09 · limit sesji', () => {
     );
     expect(trimSessions(sessions, 2).trimmed).toBe(1);
     expect(trimSessions(sessions, 5).trimmed).toBe(0);
+  });
+});
+
+describe('FP5-04 · migracja v2 → v3 (status awaiting_pick)', () => {
+  it('sesja „completed” bez wyboru staje się awaiting_pick; z wyborem zostaje completed; v1 przechodzi cały łańcuch', async () => {
+    const { migrate, SCHEMA_VERSION } = await import('../src/lib/storage');
+    const base = {
+      id: 'x', createdAt: '2026-11-16T10:00:00.000Z', updatedAt: '2026-11-16T10:00:00.000Z', mode: 'quiz',
+      answers: {}, topThree: null, weights: {}, groupImportance: {}, filters: { budgetMax: 2000 }, ranking: null, manualOverride: false,
+    };
+    const v2 = {
+      schemaVersion: 2, activeSessionId: null, theme: 'light', notices: [],
+      sessions: [
+        { ...base, id: 'bez-wyboru', status: 'completed', picks: [], exclusionsStep: 'done' },
+        { ...base, id: 'z-wyborem', status: 'completed', picks: [{ phoneId: 'galaxy-a57-8-256', at: '2026-11-16T10:00:00.000Z' }], exclusionsStep: 'done' },
+        { ...base, id: 'w-toku', status: 'in_progress', picks: [], exclusionsStep: 'done' },
+      ],
+    };
+    const { state, migratedFrom } = migrate(v2 as unknown as Record<string, unknown>);
+    expect(SCHEMA_VERSION).toBe(3);
+    expect(migratedFrom).toBe(2);
+    expect(state.schemaVersion).toBe(3);
+    const sessions = (state as { sessions: { id: string; status: string }[] }).sessions;
+    const byId = Object.fromEntries(sessions.map((session) => [session.id, session.status]));
+    expect(byId['bez-wyboru']).toBe('awaiting_pick');
+    expect(byId['z-wyborem']).toBe('completed');
+    expect(byId['w-toku']).toBe('in_progress');
   });
 });

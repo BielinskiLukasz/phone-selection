@@ -203,7 +203,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     expect(stored.sessions[0].topThree.picks).toEqual(['battery', 'camera', 'storage']);
     /* Pierwsze opcje odpowiedzi obniżają ważności wewnątrz pasm (bateria 0,9 → 5 − 0,12). */
     const gi = stored.sessions[0].groupImportance;
-    expect(gi.battery).toBeCloseTo(4.88, 2);
+    expect(gi.battery).toBeCloseTo(4.84, 2); // FP3-03: charging z A3 obniża średnią grupy przed korektą pasma
     expect(gi.battery).toBeGreaterThan(gi.camera);
     expect(gi.camera).toBeGreaterThan(gi.storage);
   });
@@ -230,7 +230,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
 
     await flushStorage();
     const stored = storedState();
-    expect(stored.sessions[0].status).toBe('completed');
+    expect(stored.sessions[0].status).toBe('awaiting_pick'); // FP5-04: „completed” dopiero po wyborze karty
     expect(stored.sessions[0].ranking.entries.length).toBe(15);
   });
 

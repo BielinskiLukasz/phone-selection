@@ -104,7 +104,7 @@ export function isSession(value: unknown): value is Session {
     candidate.id.length > 0 &&
     typeof candidate.createdAt === 'string' &&
     (candidate.mode === 'quiz' || candidate.mode === 'sliders' || candidate.mode === 'hybrid') &&
-    (candidate.status === 'in_progress' || candidate.status === 'completed') &&
+    (candidate.status === 'in_progress' || candidate.status === 'awaiting_pick' || candidate.status === 'completed') &&
     Array.isArray(candidate.picks)
   );
 }
@@ -143,7 +143,12 @@ export function sanitizeSession(value: unknown): Session | null {
     mode: record.mode ?? base.mode,
     createdAt: typeof record.createdAt === 'string' ? record.createdAt : base.createdAt,
     updatedAt: typeof record.updatedAt === 'string' ? record.updatedAt : base.updatedAt,
-    status: record.status === 'completed' ? 'completed' : 'in_progress',
+    status:
+      record.status === 'completed' && (record.picks ?? []).length > 0
+        ? 'completed'
+        : record.status === 'completed' || record.status === 'awaiting_pick'
+          ? 'awaiting_pick'
+          : 'in_progress',
     exclusionsStep,
     answers: record.answers && typeof record.answers === 'object' ? record.answers : {},
     weights: { ...base.weights, ...(record.weights ?? {}) },

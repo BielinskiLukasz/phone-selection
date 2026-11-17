@@ -104,7 +104,7 @@ export const DURABILITY_RULES: readonly { score: number; label: string }[] = [
   { score: 100, label: 'IP68/IP69 + MIL-STD' },
   { score: 95, label: 'IP68/IP69 bez MIL-STD' },
   { score: 90, label: 'IP68' },
-  { score: 88, label: 'IP66/IP68' },
+  { score: 92, label: 'IP66/IP68' },
   { score: 80, label: 'IP67' },
   { score: 70, label: 'IP66' },
   { score: 55, label: 'IP64/IP65' },
@@ -123,7 +123,8 @@ export function durabilityScore(
 
   if (has68 && has69) return mil ? 100 : 95;
   if (has69) return mil ? 100 : 95;
-  if (has68) return rating.includes('IP66') ? 88 : 90;
+  /* FP4-05: IP66 + IP68 to więcej niż samo IP68 (strumienie wody + zanurzenie) → 92, nie 88. */
+  if (has68) return rating.includes('IP66') ? 92 : 90;
   if (rating.includes('IP67')) return 80;
   if (rating.includes('IP66')) return 70;
   if (rating.includes('IP64') || rating.includes('IP65')) return 55;

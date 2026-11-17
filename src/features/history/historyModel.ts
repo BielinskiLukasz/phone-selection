@@ -39,7 +39,7 @@ export interface SessionSummary {
   computedAt: string | null;
   bestMatchPercent: number | null;
   /** Ekran, na którym wznawiamy tę sesję (wznawianie nigdy nie wraca do `exclude`, E11-06). */
-  resumeView: 'quiz' | 'sliders' | 'tune';
+  resumeView: 'quiz' | 'sliders' | 'tune' | 'cards';
   canResume: boolean;
 }
 
@@ -76,7 +76,9 @@ export function absoluteDate(iso: string): string {
  * Ekran wznowienia: hybryda wraca do dostrojenia, gdy krótki quiz jest wypełniony.
  * Gdy krok wykluczeń ma status `done`, wznowienie nie wraca do `exclude` (E11-06).
  */
-export function resumeViewFor(session: Session): 'quiz' | 'sliders' | 'tune' {
+export function resumeViewFor(session: Session): 'quiz' | 'sliders' | 'tune' | 'cards' {
+  /* FP5-04: propozycje policzone, ale bez wyboru → wracamy do trzech kart, nie do pytań. */
+  if (session.status === 'awaiting_pick' && session.ranking) return 'cards';
   if (session.mode === 'sliders') return 'sliders';
   if (session.mode === 'quiz') return 'quiz';
 
@@ -86,7 +88,7 @@ export function resumeViewFor(session: Session): 'quiz' | 'sliders' | 'tune' {
 
 export function summarizeSession(
   session: Session,
-  statusLabels: { inProgress: string; completed: string },
+  statusLabels: { inProgress: string; completed: string; awaitingPick?: string },
 ): SessionSummary {
   const progress = session.mode === 'sliders' ? null : quizProgress(session);
   const snapshotFilters = session.ranking?.filters ?? session.filters;
@@ -118,7 +120,11 @@ export function summarizeSession(
     modeLabel: MODE_LABEL[session.mode],
     status: session.status,
     statusLabel:
-      session.status === 'completed' ? statusLabels.completed : statusLabels.inProgress,
+      session.status === 'completed'
+        ? statusLabels.completed
+        : session.status === 'awaiting_pick'
+          ? (statusLabels.awaitingPick ?? statusLabels.inProgress)
+          : statusLabels.inProgress,
     updatedLabel: relativeDate(session.updatedAt),
     updatedAbsolute: absoluteDate(session.updatedAt),
     createdAbsolute: absoluteDate(session.createdAt),
@@ -135,7 +141,7 @@ export function summarizeSession(
     computedAt: session.ranking?.computedAt ?? null,
     bestMatchPercent: firstEntry?.matchPercent ?? null,
     resumeView: resumeViewFor(session),
-    canResume: session.status === 'in_progress',
+    canResume: session.status !== 'completed',
   };
 }
 
@@ -151,7 +157,7 @@ export function historyStats(sessions: readonly Session[], now: Date = new Date(
   const sorted = [...sessions].sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
   return {
     total: sessions.length,
-    inProgress: sessions.filter((session) => session.status === 'in_progress').length,
+    inProgress: sessions.filter((session) => session.status !== 'completed').length,
     completed: sessions.filter((session) => session.status === 'completed').length,
     picks: sessions.reduce((sum, session) => sum + session.picks.length, 0),
     lastUpdated: sorted[0] ? relativeDate(sorted[0].updatedAt, now) : null,

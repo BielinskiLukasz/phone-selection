@@ -143,14 +143,16 @@ export function FilterPanel({
           aria-live="polite"
           className="flex flex-col justify-center rounded-[var(--radius-card)] bg-[var(--color-surface-2)] px-4 py-3"
         >
-          <span className="label-mono">pula po filtrach</span>
-          <p className="num mt-1 text-3xl leading-none font-bold tracking-tight">
-            {matches}
-            <span className="text-base font-medium text-[var(--color-muted)]"> / {total}</span>
+          <span className="label">{strings.filtersCounterLabel}</span>
+          {/* FP3-06: licznik mówi, ile telefonów faktycznie mieści się w budżecie (nie zawsze 15/15). */}
+          <p className="num mt-1 text-h2 text-[var(--color-text)]">
+            {inBudget}
+            <span className="text-small font-medium text-[var(--color-muted)]"> / {total}</span>
           </p>
-          <p className="mt-1.5 text-xs text-[var(--color-muted)]">
-            {sessionTexts.poolMatches(matches, total)}
+          <p className="mt-1.5 text-small text-[var(--color-muted)]">
+            {sessionTexts.inBudgetCount(inBudget, filters.budgetMax, total)}
           </p>
+          <p className="text-small text-[var(--color-muted)]">{sessionTexts.poolMatches(matches, total)}</p>
         </div>
       </div>
 

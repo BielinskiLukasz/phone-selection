@@ -81,7 +81,7 @@ export function StartScreen() {
     ? `#/s/${unfinished.id}/${
         unfinished.exclusionsStep === 'pending'
           ? 'exclude'
-          : unfinished.ranking && unfinished.status === 'completed'
+          : unfinished.ranking && unfinished.status === 'awaiting_pick'
             ? 'cards'
             : MODE_ENTRY_VIEW[unfinished.mode]
       }`
@@ -102,11 +102,11 @@ export function StartScreen() {
               <Callout
                 tone="accent"
                 icon={<HistoryIcon />}
-                title={strings.resumeTitle}
+                title={unfinished.status === 'awaiting_pick' ? strings.resumeToCards : strings.resumeTitle}
                 className="mt-6"
                 action={
                   <Button href={resumeHref ?? '#/history'} variant="primary" iconRight={<ArrowRightIcon />}>
-                    {strings.resumeAction}
+                    {unfinished.status === 'awaiting_pick' ? strings.crumbCards : strings.resumeAction}
                   </Button>
                 }
               >

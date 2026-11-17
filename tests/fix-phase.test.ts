@@ -229,7 +229,7 @@ describe('FP1-01 · kandydaci użytkowniczki', () => {
   it('trzy rekordy mają sekcję „Sprawdzone przed zakupem”, Mi Band i datę wsparcia; 15T ostrzega o niedostępnej ofercie', () => {
     for (const id of ['motorola-edge-70-fusion-12-256', 'galaxy-a57-8-256', 'xiaomi-15t-12-512']) {
       const phone = phoneById(id);
-      expect(phone.reveal.verifiedForPurchaseAt, id).toBe('2026-11-16');
+      expect(phone.reveal.verifiedForPurchaseAt, id).toMatch(/^2026-11-1[67]$/);
       expect((phone.reveal.verifiedForPurchase ?? []).length, id).toBeGreaterThanOrEqual(4);
       expect(phone.specs.wearableNotes ?? '', id).toContain('Zepp Life');
       expect(phone.specs.securitySupportUntil, id).toMatch(/^\d{4}-\d{2}$/);
@@ -241,5 +241,47 @@ describe('FP1-01 · kandydaci użytkowniczki', () => {
     expect(screen.getByText(/ZAKOŃCZONA/)).toBeTruthy();
     /* Wszystkie 15 rekordów ma datę końca poprawek (FP1-07 / FP4-08 domknięte). */
     expect(POOL.every((phone) => /^\d{4}-\d{2}$/.test(phone.specs.securitySupportUntil ?? ''))).toBe(true);
+  });
+});
+
+describe('FP3-03 / FP3-04 / FP3-06 · zmiany przez bramkę kandydata (17.11.2026)', () => {
+  it('FP3-03: A3 ustawia charging 0,25 / 1,5 / 4, a waga domyślna bez odpowiedzi zostaje 2 (start neutralny)', async () => {
+    const { answersToCriterionWeights } = await import('../src/lib/weights');
+    expect(answersToCriterionWeights({ A3: 'A3-a' }).charging).toBe(0.25);
+    expect(answersToCriterionWeights({ A3: 'A3-b' }).charging).toBe(1.5);
+    expect(answersToCriterionWeights({ A3: 'A3-c' }).charging).toBe(4);
+    expect(answersToCriterionWeights({}).charging).toBe(2);
+  });
+
+  it('FP3-04: C3 „Chcę, jeśli się da” nie zawęża puli i nie podnosi wagi pamięci — premiuje tylko telefon ze slotem', async () => {
+    const { rankFromAnswers } = await import('../src/lib/scoring');
+    const { filtersFromAnswers, answersToCriterionWeights } = await import('../src/lib/weights');
+    const { WIFE } = await import('./personas');
+    expect(filtersFromAnswers({ C3: 'C3-b' })).toMatchObject({ preferMicroSd: true, requireMicroSd: false });
+    expect(answersToCriterionWeights({ C3: 'C3-b' }).storage).toBe(2);
+
+    const without = rankFromAnswers(POOL, { ...WIFE.answers, C3: 'C3-a' }, WIFE.topThree);
+    const withPref = rankFromAnswers(POOL, { ...WIFE.answers, C3: 'C3-b' }, WIFE.topThree);
+    expect(withPref.poolSize).toBe(without.poolSize);
+    const edge60 = (r: typeof without) => r.ranked.find((e) => e.phoneId === 'motorola-edge-60-12-256')!;
+    expect(edge60(withPref).score).toBeGreaterThan(edge60(without).score);
+    /* Telefony bez slotu nie zyskują na tej odpowiedzi (mogą minimalnie stracić przez normalizację). */
+    const a57 = (r: typeof without) => r.ranked.find((e) => e.phoneId === 'galaxy-a57-8-256')!;
+    expect(a57(withPref).score).toBeLessThanOrEqual(a57(without).score + 0.01);
+  });
+
+  it('bramka kandydata: sesja użytkowniczki (suwaki) daje te same karty po FP3-03/FP3-04/FP4-05', async () => {
+    const { rank } = await import('../src/lib/scoring');
+    const { sanitizeSession } = await import('../src/lib/session');
+    const fixture = (await import('./fixtures/user-session.json')).default as unknown;
+    const session = sanitizeSession(fixture)!;
+    const snapshot = session.ranking!;
+    const result = rank({ phones: POOL, weights: snapshot.weights, groupImportance: snapshot.groupImportance, filters: snapshot.filters });
+    expect(result.cards.map((card) => card.phoneId)).toEqual(snapshot.cards);
+  });
+
+  it('FP3-06: tekst licznika mówi o telefonach faktycznie w budżecie', async () => {
+    const { sessionTexts } = await import('../src/data/strings');
+    expect(sessionTexts.inBudgetCount(3, 1500, 15)).toBe('W budżecie do 1500 zł: 3 z 15');
   });
 });

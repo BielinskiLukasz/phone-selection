@@ -126,7 +126,7 @@ export function PhoneCardAnon({ card, specs, alwaysOpenDetails, onSelect }: Phon
         </div>
         {card.priceUnavailableSince ? (
           <Callout tone="warn" role="status" title={strings.priceUnavailableTitle} className="sm:col-span-2">
-            {sessionTexts.priceUnavailableNote(card.priceUnavailableSince)}
+            {sessionTexts.priceUnavailableNote(card.priceUnavailableSince, card.currentMarketPricePln)}
           </Callout>
         ) : null}
       </div>

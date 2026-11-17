@@ -302,6 +302,8 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
           size="lg"
           iconRight={<ArrowRightIcon className="h-4 w-4" />}
           onClick={finish}
+          disabled={remaining.length === 0}
+          title={remaining.length === 0 ? strings.noPhonesMatch : undefined}
         >
           {strings.showProposals}
         </Button>
@@ -330,6 +332,8 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
           fullWidth
           iconRight={<ArrowRightIcon className="h-4 w-4" />}
           onClick={finish}
+          disabled={remaining.length === 0}
+          title={remaining.length === 0 ? strings.noPhonesMatch : undefined}
         >
           {strings.showProposals}
         </Button>

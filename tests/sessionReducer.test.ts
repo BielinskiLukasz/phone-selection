@@ -349,7 +349,14 @@ describe('E3-05 · porządkowanie, motyw i synchronizacja', () => {
     });
     expect(selectUnfinished(state)?.id).toBe('nowsza');
 
+    /* FP5-04: bez wyboru „completed” staje się `awaiting_pick` — nadal nieukończona (wróć do 3 propozycji). */
     state = reducer(state, { type: 'session/status', sessionId: 'nowsza', status: 'completed', now: LATER });
+    expect(state.sessions.find((item) => item.id === 'nowsza')?.status).toBe('awaiting_pick');
+    expect(selectUnfinished(state)?.id).toBe('nowsza');
+    /* Dopiero wybór karty domyka sesję. */
+    const cardId = state.sessions.find((item) => item.id === 'nowsza')!.ranking!.cards[0]!;
+    state = reducer(state, { type: 'session/pick', sessionId: 'nowsza', phoneId: cardId, now: LATER });
+    expect(state.sessions.find((item) => item.id === 'nowsza')?.status).toBe('completed');
     expect(selectUnfinished(state)?.id).toBe('starsza');
   });
 });

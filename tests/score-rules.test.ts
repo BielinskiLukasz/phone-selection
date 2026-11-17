@@ -97,7 +97,7 @@ describe('reguły ocen obiektywnych', () => {
     expect(durabilityScore('IP69/IP68', 'MIL-STD-810H')).toBe(100);
     expect(durabilityScore('IP68/IP69', null)).toBe(95);
     expect(durabilityScore('IP68')).toBe(90);
-    expect(durabilityScore('IP66/IP68')).toBe(88);
+    expect(durabilityScore('IP66/IP68')).toBe(92); // FP4-05
     expect(durabilityScore('IP67')).toBe(80);
     expect(durabilityScore('IP64')).toBe(55);
     expect(durabilityScore(null)).toBeNull();

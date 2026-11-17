@@ -71,9 +71,10 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Jak zwykle ładujesz telefon?',
     'Szybkie ładowanie ratuje dzień, gdy bateria padnie w drodze.',
     [
-      { label: 'Zawsze na noc', sets: { charging: 1 } },
-      { label: 'Czasem w ciągu dnia', sets: { charging: 3 } },
-      { label: 'Często potrzebuję szybkiego doładowania', sets: { charging: 5 } },
+      /* FP3-03 (17.11.2026): ładowanie na noc = szybkość niemal bez znaczenia (0,25), nie 1. */
+      { label: 'Zawsze na noc', sets: { charging: 0.25 } },
+      { label: 'Czasem w ciągu dnia', sets: { charging: 1.5 } },
+      { label: 'Często potrzebuję szybkiego doładowania', sets: { charging: 4 } },
     ],
   ),
 
@@ -178,7 +179,9 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Karta pozwala tanio zwiększyć pamięć.',
     [
       { label: 'Nie ma znaczenia' },
-      { label: 'Chcę, jeśli się da', sets: { storage: 5 } },
+      /* FP3-04: zamiast podnosić wagę pamięci wszystkim (`storage: 5`) — premia +15 pkt `storage` tylko dla
+         telefonów ze slotem (`preferMicroSd`); nie zawęża puli (w puli jest 1 taki telefon). */
+      { label: 'Chcę, jeśli się da', preferMicroSd: true },
     ],
     /* Pytanie warunkowe: zadawane tylko, gdy jakiś telefon w puli ma slot microSD. */
     {

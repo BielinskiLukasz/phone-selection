@@ -69,6 +69,14 @@ export interface Price {
   promoCondition?: string | null;
   /* FP1-01: data, od której oferta z `pln` jest niedostępna (sprzedaż zakończona / cena wzrosła ponad limit). */
   priceUnavailableSince?: string | null;
+  /**
+   * Aktualna najniższa cena rynkowa, gdy oferta z `pln` wygasła (decyzja użytkownika 17.11.2026: rekord zostaje
+   * w puli z ostrzeżeniem, a karta pokazuje obie liczby). `pln` zostaje ostatnią zweryfikowaną ceną ≤ 2000 zł,
+   * żeby ranking (value) i limit były liczone tak, jak w dniu wyboru; zakup wymaga sprawdzenia aktualnej ceny.
+   */
+  currentMarketPricePln?: number | null;
+  currentMarketPriceCheckedAt?: string | null;
+  currentMarketPriceSource?: string | null;
   otherObservations?: PriceObservation[];
 }
 

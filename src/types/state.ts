@@ -14,7 +14,12 @@ import type {
  */
 
 export type Mode = 'quiz' | 'sliders' | 'hybrid';
-export type SessionStatus = 'in_progress' | 'completed';
+/**
+ * FP5-04 (schemat v3): `in_progress` → `awaiting_pick` (ranking policzony, karty pokazane, brak wyboru)
+ * → `completed` (po pierwszym wyborze). Dzięki temu Start i historia potrafią powiedzieć „Wróć do swoich
+ * 3 propozycji” zamiast udawać, że sesja bez wyboru jest ukończona.
+ */
+export type SessionStatus = 'in_progress' | 'awaiting_pick' | 'completed';
 export type ExclusionsStep = 'pending' | 'done';
 export type Theme = 'light' | 'dark';
 

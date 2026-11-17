@@ -517,6 +517,7 @@ export function toAnonCard(
     promoEndsAt: phone.price.promoEndsAt ?? null,
     regularPricePln: phone.price.regularPricePln ?? null,
     priceUnavailableSince: phone.price.priceUnavailableSince ?? null,
+    currentMarketPricePln: phone.price.currentMarketPricePln ?? null,
     stretch:
       options.bestInBudget &&
       typeof options.budgetStretch === 'number' &&

@@ -40,7 +40,8 @@ describe('E2-05 · wagi kryteriów z odpowiedzi', () => {
   it('kilka pytań o baterię: A1 i A2 uśredniają się do wagi kryterium', () => {
     expect(answersToCriterionWeights(BATTERY.answers).battery).toBe(5);
     expect(answersToCriterionWeights(WIFE.answers).battery).toBe(3);
-    expect(answersToCriterionWeights(WIFE.answers).charging).toBe(1);
+    /* FP3-03 (17.11.2026): „zawsze na noc” → charging 0,25 (było 1). */
+    expect(answersToCriterionWeights(WIFE.answers).charging).toBe(0.25);
   });
 
   it('odpowiedź „pomiń” nie nadpisuje wagi z innego pytania', () => {
@@ -91,8 +92,8 @@ describe('E2-05 · ważności grup', () => {
     const weights = answersToCriterionWeights(WIFE.answers);
     const importance = groupImportance(weights, WIFE.topThree);
 
-    /* U „żony” bateria z odpowiedzi daje 1,3 (punkt odniesienia) → korekta 0, więc dokładnie 5. */
-    expect(importance.battery).toBe(TOP_THREE_IMPORTANCE[0]);
+    /* U „żony” bateria z odpowiedzi daje 1,15 (battery 3, charging 0,25 po FP3-03) → korekta +0,3 × (1,15 − 1,3) = −0,045 → 4,96. */
+    expect(importance.battery).toBeCloseTo(TOP_THREE_IMPORTANCE[0] - 0.045, 2);
     /* Aparat: odpowiedzi dają 2,1 → +0,3 × (2,1 − 1,3) = +0,24. */
     expect(importance.camera).toBeCloseTo(4.24, 2);
     /* Pamięć: 2,5 → +0,36. */
@@ -133,7 +134,7 @@ describe('E2-05 · ważności grup', () => {
     const answered = answeredCriteria(WIFE.answers);
     const additive = groupImportance(weights, WIFE.topThree, answered, 'additive');
 
-    expect(additive.battery).toBeCloseTo(2.8, 2); // 1,3 + 1,5
+    expect(additive.battery).toBeCloseTo(2.65, 2); // 1,15 + 1,5 (FP3-03)
     expect(additive.camera).toBeCloseTo(3.1, 2); // 2,1 + 1,0
     expect(additive.storage).toBeCloseTo(3.0, 2); // 2,5 + 0,5
     expect(additive.longevity).toBeCloseTo(1.7, 5);
@@ -158,8 +159,8 @@ describe('E2-05 · ważności grup', () => {
       if (id === 'size') expect(importance[id]).toBe(0); // D4-a → compactness 0 → ignoruj
       else expect(importance[id]).toBeGreaterThanOrEqual(GROUP_BASE);
     }
-    // bateria: battery 3 i charging 1 → średnia 2 → 0,5 + 0,4 × 2 = 1,3
-    expect(importance.battery).toBeCloseTo(GROUP_BASE + GROUP_FACTOR * 2, 5);
+    // bateria: battery 3 i charging 0,25 (FP3-03) → średnia 1,625 → 0,5 + 0,4 × 1,625 = 1,15
+    expect(importance.battery).toBeCloseTo(GROUP_BASE + GROUP_FACTOR * 1.625, 5);
   });
 
   it('normalizeTopThree przyjmuje obiekt, listę grup, pustą listę i null', () => {
@@ -197,6 +198,7 @@ describe('E2-05 · filtry z odpowiedzi', () => {
       budgetStretch: null,
       minStorageGb: 256,
       requireMicroSd: false,
+      preferMicroSd: false,
     });
     expect(answersToFilters(answers)).toEqual(filtersFromAnswers(answers));
   });
@@ -207,6 +209,7 @@ describe('E2-05 · filtry z odpowiedzi', () => {
       budgetStretch: null,
       minStorageGb: null,
       requireMicroSd: false,
+      preferMicroSd: false,
     });
   });
 });

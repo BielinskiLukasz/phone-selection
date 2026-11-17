@@ -149,6 +149,15 @@ function byRank(a: RankedPhone, b: RankedPhone, phones: Map<string, Phone>): num
   return (batteryB ?? 0) - (batteryA ?? 0);
 }
 
+/** FP3-04: kopia telefonu z premią za slot microSD w kryterium `storage` (sesyjna, nie zapisywana w danych). */
+export const MICROSD_PREFERENCE_BONUS = 15;
+export function withMicroSdBonus(phone: Phone): Phone {
+  if (phone.specs.microSd !== true) return phone;
+  const storage = phone.scores.storage;
+  if (typeof storage !== 'number') return phone;
+  return { ...phone, scores: { ...phone.scores, storage: clamp(storage + MICROSD_PREFERENCE_BONUS, 0, 100) } };
+}
+
 /** Pełne liczenie rankingu: pula → normalizacja → S → kolejność → karty. */
 export function rank(input: RankInput): RankResult {
   const { phones, weights, groupImportance, filters } = input;
@@ -169,10 +178,12 @@ export function rank(input: RankInput): RankResult {
   }
 
   /* E11-04 (decyzja 3): normalizacja i S liczone na pełnej puli — wykluczenia nie zmieniają ocen. */
-  const ranges = scoreRanges(pool, budgetMax);
+  /* FP3-04: preferencja microSD (C3) = +15 pkt `storage` dla telefonów ze slotem — w tej sesji, nie w danych. */
+  const scoredPool = filters.preferMicroSd ? pool.map((phone) => withMicroSdBonus(phone)) : pool;
+  const ranges = scoreRanges(scoredPool, budgetMax);
   const blendFactor = typeof input.blend === 'number' ? input.blend : BLEND;
-  const byId = new Map(pool.map((phone) => [phone.id, phone]));
-  const entries: RankedPhone[] = pool.map((phone) => {
+  const byId = new Map(scoredPool.map((phone) => [phone.id, phone]));
+  const entries: RankedPhone[] = scoredPool.map((phone) => {
     const { scores, normalized } = groupScores(phone, ranges, weights, budgetMax, blendFactor);
     const score = totalScore(scores, groupImportance);
     const within = inBudget(phone, budgetMax);

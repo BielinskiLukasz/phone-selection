@@ -35,6 +35,8 @@ export const GROUP_FACTOR = 0.4;
 
 /** Waga kryterium bez odpowiedzi (start neutralny). */
 export const DEFAULT_WEIGHT = 2;
+/* FP3-03: osobna domyślna waga `charging` = 1 była w planie, ale łamie „start neutralny: wszystko 2” (QUIZ-SPEC 6,
+   suwaki, „Przywróć wyliczone”) — zostaje 2; niską wagę ładowania ustawia odpowiedź A3 (0,25 / 1,5 / 4). */
 
 /** Różnica mniejsza niż próg to „praktyczny remis”. */
 export const TIE_THRESHOLD = 2;

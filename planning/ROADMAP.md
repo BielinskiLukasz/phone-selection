@@ -252,16 +252,16 @@ Kolejność = ryzyko zakupowe: FP1 (bezpieczny zakup) → FP2 (produkt bez szumu
 Zmiany algorytmu i ocen przechodzą przez **bramkę kandydata** (`tests/user-session.test.ts` + `E12-zmiany-rankingu.md`).
 
 **FP0 — utrwalenie testu (dzień 0)**
-- [ ] FP0-01 `E9-wynik-testu.md` — **szablon gotowy, do wypełnienia przez użytkownika** (tryb, czasy, kandydat, drugi wybór, uwagi → FP1-FP5)
-- [~] FP0-02 bramka kandydata: `tests/user-session.test.ts` + `tests/fixtures/user-session.json` (placeholder z instrukcją eksportu; testy pomijane do czasu wklejenia sesji)
+- [x] FP0-01 `E9-wynik-testu.md` wypełniony 17.11.2026: tryb **suwaki** (bateria 4,5 · aparat 5 · pamięć 4 · aktualizacje 3 · wymiary 2 · cena 0; wykluczone Google/Honor/vivo/Realme/OnePlus/Nothing); karta #1 **Xiaomi 15T**, #2 **Edge 70 Fusion**, #3 Redmi Note 17 Pro — trzy wybory; przychylnie też Galaxy A57; z rozmowy: aktualizacje i rozmiar ważniejsze, niż wyszło z suwaków; cena i wygląd też się liczą
+- [x] FP0-02 bramka kandydata **aktywna**: prawdziwa sesja w `tests/fixtures/user-session.json`, `tests/user-session.test.ts` zielony (silnik odtwarza karty 15T › Edge 70 Fusion › Note 17 Pro)
 - [x] FP0-03 ROADMAP (ten wpis, tabela §0.2 w etapie 9)
-- [ ] FP0-04 **data planowanego zakupu** — nadal do podania (wpis w `E9-wynik-testu.md`); determinuje, czy FP4 wchodzi przed zakupem
+- [x] FP0-04 data zakupu **26.11.2026** → scenariusz „> 1 tydzień”: FP1 → FP2 → FP3 → **FP4 przed zakupem** (decyzja użytkownika) → ponowne przejrzenie kart
 - [x] Decyzje użytkownika 16.11.2026: kandydaci = **Edge 70 Fusion 12/256, Galaxy A57 8/256, Xiaomi 15T 12/512**; budżet **elastyczny** jako domyślny (FP3-05); FP3-02 **tylko plakietka**, bez kary; daty premiery doszukać (FP1-07); panele dev **usunąć** (FP2-02)
 
 **FP1 — bezpieczny zakup (P0)**
 - [x] FP1-01 weryfikacja trzech kandydatów (16.11.2026, `reveal.verifiedForPurchase`): **Edge 70 Fusion** — 1658,12 zł to promocja Allegro (X-KOM_PL) do 30.11, limit 1 szt., po niej **1899 zł** w x-kom/Media Expert/RTV Euro AGD (nadal ≤ 2000); gwarancję producenta potwierdzić u sprzedawcy. **Galaxy A57** — sferis.pl nadal 1729 zł (SM-A576B), morele 1799 zł, bez promocji czasowej. **Xiaomi 15T 12/512** — oferta 1999 zł (Komputronik) **zakończona**; aktualnie 12/512 od 2249,99 zł, 12/256 od 2149 zł → **powyżej limitu**; rekord ma `price.priceUnavailableSince` i ostrzeżenie na karcie — **decyzja użytkownika: zostawić w puli czy `over_budget`?**
 - [x] FP1-02 Realme 16 Pro+: walidator ostrzega, gdy link modelu z „+” nie zawiera członu „plus”; strona produktu Ceneo 193078329 („realme 16 Pro+ 5G 8/256GB”) potwierdza, że oferta 1959,99 zł to wariant Pro+ (drugie źródło: realmeshop.pl 2299 zł) — zapis w `auditNote`, `priceCompareUrl`, drugi link
-- [~] FP1-03 odświeżenie 15 cen — **w dniu zakupu** (D5/FP6-01); dziś: promocje opisane polami, `stale-prices` zgłasza „PROMOCJA WYGASŁA” po `promoEndsAt`
+- [~] FP1-03 odświeżenie 15 cen — **w dniu zakupu 26.11** (jak w planie); 17.11: Xiaomi 15T dostał `price.currentMarketPricePln` 2249,99 zł (Ceneo; x-kom/Neonet 2499, 12/256 od 2149) obok ostatniej ceny w limicie — rekord zostaje w puli z ostrzeżeniem (decyzja użytkownika); Edge 70 Fusion: zakup z Allegro przed 30.11 (decyzja)
 - [x] FP1-04 `price.regularPricePln / promoEndsAt / promoCondition` + walidacja; Edge 70 Fusion (do 30.11, Allegro, limit 1 szt., regularnie 1799 zł) i Redmi Note 17 Pro (kod do 19.11, regularnie 2199 zł); tekst na karcie anonimowej (bez sklepu) i odsłoniętej (z warunkiem)
 - [x] FP1-05 ładowarka: zdanie przy cenie na odsłoniętej karcie i w pełnym rankingu („W pudełku nie ma ładowarki… dolicz ok. 80-150 zł, pełna moc X W…”); dla `null` — „producent nie deklaruje”
 - [x] FP1-06 każdy link sklepu z ceną, datą i typem (sklep / oficjalna dystrybucja / marketplace); porównywarka wydzielona jako przycisk „Sprawdź aktualną cenę” (`reveal.priceCompareUrl`, 15/15; Ceneo — strona produktu albo wyszukiwanie)
@@ -281,14 +281,27 @@ Zmiany algorytmu i ocen przechodzą przez **bramkę kandydata** (`tests/user-ses
 - [x] FP2-09 na karcie „67 %” z wyjaśnieniem w `title`; „% najlepszego” tylko w szczegółach
 
 **FP3 — zaufanie do wyniku**
+- [x] FP3-03 A3 → `charging` 0,25 / 1,5 / 4 (domyślna waga zostaje 2 — osobna wartość 1 łamała „start neutralny” suwaków); persona „żona”: Edge 70 Fusion 66,9 › Note 17 Pro 66,7 › vivo 65,7; **sesja użytkowniczki bez zmian** (bramka)
+- [x] FP3-04 C3 „Chcę, jeśli się da” → `preferMicroSd` (+15 pkt `storage` tylko dla telefonu ze slotem, w sesji) zamiast podnoszenia wagi pamięci wszystkim; pula bez zmian
+- [x] FP3-06 licznik filtrów „W budżecie do 1500 zł: 3 z 15” (plus „Pasuje X z 15” po wykluczeniach); „Pokaż 3 propozycje” zablokowane przy pustej puli
+- [ ] FP3-07 `storage` 40/82/100 — **wstrzymane do FP6**: pomiar na sesji użytkowniczki zamienia jej trzecią kartę (Note 17 Pro → Edge 60) przed zakupem (`E12-zmiany-rankingu.md`)
 - [x] FP3-02 plakietka „Wyraźny kompromis w Twoim priorytecie: Aparat” (grupa z trójki G1 z GroupScore < 40 **lub** kryterium z wagą 5 i oceną < 55); **bez kary punktowej** (decyzja użytkownika) — u „żony” dostaje ją Redmi Note 17 Pro (aparat 62 przy wadze 5), Edge 70 Fusion nie
 - [x] FP3-05 budżet elastyczny: czwarta opcja F1 „Najlepiej do 1500 zł, dopłacę do 1800 zł, jeśli telefon będzie wyraźnie lepszy” (`budgetMax: 1500`, `budgetStretch: 1800`, `value: 4`), segment w panelu filtrów; karty = 2 najlepsze ≤ 1500 + najlepsza z pasma 1501-1800 **tylko gdy ma wyższy S** niż najlepsza w budżecie, z plakietką „Dopłata +X zł za +Y pkt”; ranking i S bez zmian. U „żony”: Edge 60 (59,7) · Redmi Note 15 Pro (54,9) · **vivo V70 FE 61,9 za 1799 zł — dopłata +400 zł za +2,2 pkt**. Opcje twarde 1500/1800/2000 zostają; dotychczasowe persony (F1-c) nie zmieniły się
-- [ ] FP3-01, FP3-03, FP3-04, FP3-06, FP3-07, FP3-08, FP3-09, FP3-10, FP3-11 — czekają na bramkę kandydata (FP0-02) i datę zakupu (FP0-04)
-**FP4 — dane i metodyka** (po zakupie, chyba że kandydat zależy od spornych danych): FP4-01 jedna miara baterii (EPREL / Active Use), FP4-02 aparaty z recenzji, FP4-03 `updates` = pozostałe wsparcie od daty zakupu, FP4-04 struktura aparatów, FP4-05 IP66/IP68 → 92, FP4-06 `basis` bez odwołań do innych modeli, FP4-07 Monte Carlo puli, FP4-08 Mi Band i daty wsparcia 15/15.
-**FP5 — proces i v1.0:** FP5-01 `package.json` (nazwa, wersja, skrypty, ESLint/Prettier) — **poza zasięgiem tej sesji** (nie edytujemy `package.json` ręcznie); FP5-02 walidator (częściowo: promo, `userNote`, slug wariantu — zrobione; `securitySupportUntil` wymagane — po FP4-08); FP5-03 `storage.ts` nowszy schemat → `persistent: false`; FP5-04 statusy sesji; FP5-05 link wznowienia v2; FP5-06 dokumentacja; FP5-07 `vite.config.ts`; FP5-08 wydanie.
+- [ ] FP3-01 „Pasuje, bo… / Na co uważać”, FP3-08 cechy użytkowe (data końca poprawek na karcie anonimowej — uwaga żony o aktualizacjach), FP3-09 plakietka niskiej pewności (15T: 6 × `low` w aparacie!), FP3-10 suwaki „Dostrój” — następna tura
+- [x] FP3-11 — **decyzja użytkownika: quiz zostaje 19 pytań** (zamknięte bez zmian)
+**FP4 — dane i metodyka** — **przed zakupem (decyzja 17.11)**, priorytet dla top 5 użytkowniczki (15T, Edge 70 Fusion, Note 17 Pro, Edge 60, A57):
+- [x] FP4-05 IP66/IP68 = 92 (Redmi Note 15 Pro) — bramka: bez wpływu na karty
+- [x] FP4-08 daty wsparcia 15/15; Mi Band 6 dla trzech kandydatów (żona używa opaski)
+- [ ] **FP4-02 aparaty z recenzji — najpilniejsze**: kandydat #1 (15T) ma 6 ocen aparatu z pewnością `low` („z 15T Pro −10”), a aparat to jej priorytet 5; do tego Edge 70 Fusion, Note 17 Pro, Edge 60
+- [ ] FP4-01 jedna miara baterii (EPREL/Active Use) dla top 5; FP4-03 `updates` jako pozostałe lata od 26.11.2026; FP4-04 struktura aparatów; FP4-06 `basis`; FP4-07 Monte Carlo
+**FP5 — proces i v1.0**
+- [x] FP5-01 gotowy `planning/package.release.json` (nazwa `phone-selection`, `version 1.0.0`, `engines`, skrypty `typecheck`/`test`/`test:coverage`/`validate-data`/`data-gaps`/`stale-prices`/`release`) — **do wklejenia jako `package.json` w repo** (łańcuch `release` sprawdzony); ESLint/Prettier nieinstalowane — konfiguracje zostają, CI używa `--if-present`
+- [x] FP5-04 statusy sesji: `in_progress` → **`awaiting_pick`** (ranking policzony, bez wyboru) → `completed` (po wyborze); **migracja v2 → v3** z testem; Start i historia prowadzą do „Wróć do swoich 3 propozycji”; `session/status: completed` bez `picks` daje `awaiting_pick`
+- [~] FP5-02 walidator: promo, `userNote`, slug wariantu, `priceCompareUrl` — jest; `securitySupportUntil` wymagane — po FP4-03
+- [ ] FP5-03 `storage.ts` nowszy schemat → `persistent: false`; FP5-05 link wznowienia v2; FP5-06 dokumentacja; FP5-07 `vite.config.ts`; FP5-08 wydanie — **tag v1.0 po FP3 (decyzja)**
 **FP6 — po zakupie:** FP6-01 zakup (`stale-prices` + ręczne sprawdzenie), FP6-02 retro po 2 tygodniach (`E12-retro.md`), FP6-03 decyzja o zamknięciu/kontynuacji, FP6-04 lekcje w PROJECT.
 
-**Stan po drugiej turze (16.11.2026, wieczór):** 30 plików testów, **379 zielonych + 3 pomijane** (bramka kandydata); `validate-data` 0 błędów, 2 ostrzeżenia (NFC Realme, link Realme bez „plus”). Ścieżka krytyczna do zakupu: **FP0-01 → FP0-02 → FP0-04 → FP1-03 (dzień zakupu) → FP6-01**. **Otwarte decyzje:** (1) Xiaomi 15T — zostawić w puli z ostrzeżeniem czy `over_budget`; (2) Edge 70 Fusion — kupować z Allegro (promocja, gwarancja do potwierdzenia) czy za 1899 zł w sieci; (3) data zakupu.
+**Stan po trzeciej turze (17.11.2026):** 31 plików testów, **404 zielone, 0 pomijanych** (bramka kandydata aktywna na prawdziwej sesji); `validate-data` 0 błędów, 3 ostrzeżenia (NFC Realme, 2 linki Realme bez „plus”). Wszystkie decyzje z listy pytań podjęte (patrz `E9-wynik-testu.md` §4). Ścieżka do zakupu 26.11: **FP4-02 (aparaty top 5) → FP3-01/08/09 → ponowne przejrzenie kart z użytkowniczką → FP1-03 (ceny 26.11) → FP6-01**.
 
 ---
 
@@ -313,12 +326,14 @@ Zmiany algorytmu i ocen przechodzą przez **bramkę kandydata** (`tests/user-ses
 - [x] UIP2-04 karta anonimowa: **cena największą liczbą** (`text-price`), miejsce jako `Chip`, dopasowanie `text-h3` + `Meter`, chipy „w budżecie / Powyżej budżetu / Dopłata”, kompromis i niedostępna oferta jako `Callout`, cechy `text-small` z ikonami 20 px, „Wszystkie cechy” i CTA przez `Button`; hover-lift usunięty — sygnał hover to kolor obramowania
 - [x] UIP2-08 (część) pełny ranking: „Twój wybór n/m” = `Chip ok`, „Wykluczony” = `Chip neutral` + przekreślenie, nazwa `text-h3`, przycisk „Poza pulą” przez `Button` — **zostaje:** mini-`Meter` z etykietami B·A·P·W·E·C, `SectionHeading` w rozwinięciu
 - [x] UIP2-09 (część) historia: status jako `Chip` (ok/accent), Wznów/Podgląd/Usuń przez `Button primary/secondary/danger`, tytuł `text-h3` — **zostaje:** `EmptyState`, `Toast`
-- [ ] UIP2-05 pasek porównawczy mobile + „Porównaj cechy”; UIP2-06 animacja ujawnienia (`rotateY`, reduced-motion = fade); UIP2-07 suwaki (wartości słownie, znacznik jako kreska, szybki wybór tylko na desktopie)
+- [x] UIP2-06 animacja ujawnienia: `card-flip` 400 ms (`rotateY` z `backface-visibility`), przy `prefers-reduced-motion` samo przenikanie; keyframes nadal 6 (`fade-in` zszyty ze `screen-in`)
+- [ ] UIP2-05 pasek porównawczy mobile — **wariant A** (decyzja): przyklejony pasek „#1 · 1799 zł · 67 %” z przewijaniem do karty; UIP2-07 suwaki (wartości słownie, znacznik jako kreska, szybki wybór tylko na desktopie)
 
 **UIP3 — szlif**
 - [x] UIP3-01 (część) keyframes **9 → 6** (usunięte `breathe`, `rule-draw`, `step-in` jako alias `screen-in`), `@media (hover: none)` wyłącza przesunięcia na dotyku, czasy z tokenów; `--radius-sheet` w arkuszach (D9)
 - [x] UIP3-02 tło jasne: poświaty 0,13/0,16 → 0,07/0,08, kropki wyłączone (zostają w ciemnym)
-- [ ] UIP3-03 przegląd 130 % czcionki i 320 px; UIP3-04 strażnik → `fail` + `UI-SPEC` sekcje 1/5/6/7; UIP3-05 10-minutowy przegląd z użytkowniczką
+- [ ] UIP3-03 przegląd 130 % czcionki i 320 px; UIP3-04 strażnik → `fail` **po domknięciu UIP2** (decyzja) + `UI-SPEC`; UIP3-05 10-minutowy przegląd z użytkowniczką — połączyć z ponownym przejrzeniem kart przed 26.11
+- [x] Decyzja 17.11: etykiety jasnego motywu jako zwykły tekst 12 px — **zostają globalnie**
 
 **Metryki (FIX-UI §9) — przed → po tej turze → cel:** ręczne przyciski główne 21 → **0** → 0 · `text-[Npx]` 209 → 163 → 0 · `text-[clamp(…)]` 13 → 9 → 0 (tokeny) · `hover:-translate-y` 34 → 13 → 0 · keyframes 9 → **6** → ≤ 6 · pary kontrastu 7 → **12** · największa liczba na karcie: „67 %” → **cena** · testy 379 → **396** zielonych + 3 pomijane.
 
@@ -340,6 +355,7 @@ Skrót tego, co i kiedy zmieniło się w projekcie (szczegóły w sekcjach etap�
 | 16.11.2026 | **Etap 11** — wykluczanie marek i modeli: schemat v2, `lib/exclusions.ts`, `rank().fullRanking`, ekran `#/s/:id/exclude`, panel filtrów, plakietki w pełnym rankingu i historii, testy akceptacyjne 1-9 | `baf7f06` |
 | 16.11.2026 | **Etap 12** — grupa „Wymiary i waga” z kryterium `compactness`, pytanie D4, `PhonePhoto` i zdjęcia po ujawnieniu | `3281614` |
 | 16.11.2026 | Stabilizacja testów: limit czasu 20 s dla przepływów komponentowych (`vitest.config.ts`), jawny limit testu „2., 7. i 8.” w `tests/exclusions.test.ts`; wpisy etapu 12 i ta historia w ROADMAP | — |
+| 17.11.2026 | **Etap 13, tura 3 (decyzje użytkownika)**: sesja żony w bramce kandydata (zielona), `E9-wynik-testu.md` wypełniony, data zakupu 26.11; 15T z aktualną ceną rynkową 2249,99 zł; FP3-03 (charging z A3), FP3-04 (microSD jako bonus), FP3-06 (licznik „w budżecie”), FP4-05 (IP66/IP68 = 92) przez bramkę — karty użytkowniczki bez zmian; FP3-07 wstrzymane (zmieniałoby jej #3); FP5-04 statusy `awaiting_pick` + migracja v3; FP5-01 `planning/package.release.json`; UIP2-06 animacja ujawnienia | — |
 | 16.11.2026 | **Etap 14 — poprawa interfejsu (FIX-UI, tura 1)**: tokeny typografii/kolorów/promieni/ruchu, `.label` przez motyw, komponenty `ui/` (Button, Chip, Callout, Meter, Stat, SectionHeading, ActionBar), kodmod przycisków (21 → 0 ręcznych głównych), nagłówek z okruszkiem kroku i prosta stopka, Start z jednym CTA, karta „cena → dopasowanie → cechy”, opcje quizu bez liter, chipy w historii i rankingu, 6 keyframes, słabsze tło, strażnik `ui-guard` | — |
 | 16.11.2026 | Etap 13, tura 2: weryfikacja trzech kandydatów (FP1-01; oferta 15T za 1999 zł wygasła), Mi Band i daty wsparcia 15/15 (FP1-07), plakietka kompromisu bez kary (FP3-02), budżet elastyczny 1500/1800 (FP3-05), panele dev usunięte (FP2-02) | — |
 | 16.11.2026 | **Etap 13 — faza poprawkowa (FIX-PHASE)**: FP1 bezpieczny zakup (promocje z datą końca, ładowarka, linki z ceną/datą/typem, porównywarka, daty wsparcia, `userNote`/`auditNote`, „Sprawdzone przed zakupem”), FP2 produkt bez szumu (jeden CTA, wykluczenia jako opcja, panele dev tylko w `?dev=1`, blokada rankingu przed wyborem, etykiety przycisków, procent z wyjaśnieniem), bramka kandydata (`tests/user-session.test.ts`), szablony `E9-wynik-testu.md` i `E12-zmiany-rankingu.md` | — |

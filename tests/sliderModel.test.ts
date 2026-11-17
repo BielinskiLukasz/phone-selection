@@ -264,7 +264,7 @@ describe('DoD · trzy tryby kończą się tym samym kształtem sesji (test akcep
       expect(Object.keys(session.weights).sort()).toEqual([...CRITERION_IDS].sort());
       expect(Object.keys(session.groupImportance).sort()).toEqual(GROUPS.map((g) => g.id).sort());
       expect(session.filters.budgetMax).toBe(2000);
-      expect(session.status).toBe('completed');
+      expect(session.status).toBe('awaiting_pick'); // FP5-04: trzy tryby kończą na propozycjach, wybór domyka
       expect(session.ranking).not.toBeNull();
       expect(session.ranking!.entries.length).toBe(PHONES.length);
       expect(session.ranking!.cards.length).toBe(3);

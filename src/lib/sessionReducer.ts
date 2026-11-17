@@ -91,7 +91,7 @@ export function selectActiveSession(state: AppState): Session | null {
 /** Najnowsza nieukończona sesja — do baneru „Wróć do rozpoczętego wyboru”. */
 export function selectUnfinished(state: AppState): Session | null {
   return (
-    sortSessions(state.sessions.filter((session) => session.status === 'in_progress'))[0] ?? null
+    sortSessions(state.sessions.filter((session) => session.status !== 'completed'))[0] ?? null
   );
 }
 
@@ -404,7 +404,12 @@ export function reducer(state: AppState, action: Action): AppState {
       return withSession(
         state,
         action.sessionId,
-        (session) => ({ ...session, status: action.status }),
+        (session) => ({
+          ...session,
+          /* FP5-04: `completed` wymaga wyboru — bez `picks` sesja jest co najwyżej `awaiting_pick`. */
+          status:
+            action.status === 'completed' && session.picks.length === 0 ? 'awaiting_pick' : action.status,
+        }),
         action.now ?? new Date(),
       );
 

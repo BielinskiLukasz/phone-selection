@@ -1,0 +1,183 @@
+{
+  // --- IDENTYFIKACJA ---
+  "id": "string — slug: <model>-<ram>-<storage>, np. \"galaxy-a57-8-256\"",
+  "brand": "string — np. \"Samsung\" | \"Google\" | \"Xiaomi\" | \"Motorola\" | \"OnePlus\" | \"Honor\" | \"vivo\" | \"realme\"",
+  "modelName": "string — bez marki, z wariantem pamięci, np. \"Galaxy A57 5G 8/256 GB\"",
+  "status": "enum: \"ok\" | \"unavailable\" | \"rejected\" | \"draft\"",
+
+  // --- DANE PREZENTACYJNE I ZAKUPOWE ---
+  "reveal": {
+    "name": "string — pełna nazwa (marka + modelName), np. \"Samsung Galaxy A57 5G 8/256 GB\"",
+    "brand": "string — zgodne z głównym polem brand",
+    "imageUrl": "string (URL) | null — główne zdjęcie/render (np. GSMArena bigpic)",
+    "photoUrl": "string (URL) | null — dodatkowe zdjęcie realne urządzenia",
+    "shopLinks": [
+      {
+        "label": "string — domena sklepu, np. \"sferis.pl\"",
+        "url": "string (URL) — czysty link BEZ utm_* i ceneo_cid",
+        "pricePln": "number — cena w PLN",
+        "checkedAt": "string (YYYY-MM-DD)",
+        "kind": "enum: \"shop\" | \"marketplace\" | \"operator\" | \"manufacturer\"",
+        "note": "string | null — opcjonalny opis oferty/dostępności"
+      }
+    ],
+    "priceCompareUrl": "string (URL) | null — link do porównywarki (np. Ceneo) bez parametrów śledzących",
+    "verifiedForPurchaseAt": "string (YYYY-MM-DD) | null — data ręcznej weryfikacji kandydata",
+    "verifiedForPurchase": "string[] | null — lista punktów kontrolnych po ręcznej weryfikacji"
+  },
+
+  // --- WARIANT ---
+  "variant": {
+    "ramGb": "number — pojemność RAM w GB, np. 8 | 12",
+    "storageGb": "number — pojemność pamięci w GB, np. 128 | 256 | 512",
+    "fromList": "string — nazwa z pierwotnej listy lub adnotacja o zamianie",
+    "variantOf": "string | null — id modelu bazowego, jeśli to wariant alternatywny"
+  },
+
+  // --- CENA I PROMOCJE ---
+  "price": {
+    "pln": "number | null — najniższa aktualna cena z polskiej dystrybucji (<= budgetMaxPln)",
+    "source": "string — nazwa sklepu źródłowego, np. \"sferis.pl\"",
+    "url": "string (URL) — czysty link bez parametrów śledzących",
+    "checkedAt": "string (YYYY-MM-DD)",
+    "providedBy": "enum: \"user\" | \"claude\" | \"search\" | \"manual\"",
+    "userNote": "string | null — krótka notatka widoczna dla użytkownika (kolor, wariant, kontekst)",
+    "auditNote": "string | null — notatka techniczna/audytowa z weryfikacji cen",
+    "regularPricePln": "number | null — cena regularna przed promocją (opcjonalnie)",
+    "promoEndsAt": "string (YYYY-MM-DD) | null — data końca promocji (opcjonalnie)",
+    "promoCondition": "string | null — warunek promocji, np. kod rabatowy, cashback (opcjonalnie)",
+    "priceUnavailableSince": "string (YYYY-MM-DD) | null — data wygaśnięcia oferty <= budżet (opcjonalnie)",
+    "otherObservations": [
+      {
+        "pln": "number",
+        "source": "string",
+        "url": "string (URL)",
+        "checkedAt": "string (YYYY-MM-DD)",
+        "providedBy": "string",
+        "note": "string | null"
+      }
+    ]
+  },
+
+  // --- SPECYFIKACJA TECHNICZNA (brak danych = null, nigdy nie zgadywać) ---
+  "specs": {
+    "displayInch": "number | null — przekątna w calach, np. 6.7",
+    "panel": "string | null — np. \"Super AMOLED\" | \"pOLED\" | \"AMOLED\" | \"LTPO OLED\" | \"IPS LCD\"",
+    "refreshHz": "number | string | null — np. 120 lub zakres \"60-120\" / \"1-120\"",
+    "resolution": "string | null — format \"<szer>x<wys>\", np. \"1080x2340\"",
+    "peakNits": "number | null — jasność szczytowa w nitach (opcjonalnie)",
+    "glass": "string | null — np. \"Gorilla Glass Victus 2\" (opcjonalnie)",
+    "ramGb": "number | null",
+    "storageGb": "number | null",
+    "storageType": "string | null — np. \"UFS 2.2\" | \"UFS 3.1\" | \"UFS 4.0\" | \"UFS\"",
+    "microSd": "boolean | null",
+    "microSdNote": "string | null — (opcjonalnie)",
+    "chip": "string | null — pełna nazwa SoC, np. \"Exynos 1680\"",
+    "batteryMah": "number | null — pojemność baterii w mAh (skala 4000–8000 mAh)",
+    "batteryCycles": "number | null — liczba cykli wg etykiety UE/EPREL, np. 1000 | 1200",
+    "batteryEndurance": "number | null — wynik testu wytrzymałości (godziny)",
+    "batteryTests": "string[] | null — cytaty/wyniki z testów baterii (opcjonalnie)",
+    "chargingW": "number | null — moc ładowania przewodowego w W",
+    "chargingNote": "string | null — rozbieżności w źródłach dot. mocy (opcjonalnie)",
+    "chargingTests": "string | null — czasy ładowania z testów, np. \"GSMArena: 36% w 15 min...\"",
+    "chargerInBox": "boolean | null — czy zasilacz jest w pudełku (PL dystrybucja)",
+    "chargerInBoxNote": "string | null — (opcjonalnie)",
+    "wirelessCharging": "boolean | null",
+    "wirelessW": "number | null — moc ładowania indukcyjnego w W (opcjonalnie)",
+    "ip": "string | null — np. \"IP68\" | \"IP67\" | \"IP66/IP68\" | \"IP65\" | \"IP64\" | \"IP54\" | null",
+    "ipNote": "string | null — (opcjonalnie)",
+    "weightG": "number | null — waga w gramach",
+    "weightNote": "string | null — (opcjonalnie)",
+    "heightMm": "number | null — wysokość w mm",
+    "widthMm": "number | null — szerokość w mm",
+    "thicknessMm": "number | null — grubość w mm",
+    "dimensionsMm": "string | null — format \"<wys> × <szer> × <grub>\", np. \"161,5 × 76,8 × 6,9\"",
+    "cameras": {
+      "main": "string | null — np. \"50 MP f/1.8 z OIS\"",
+      "ultrawide": "string | null — np. \"12 MP f/2.2\" lub null jeśli brak",
+      "macro": "string | null — np. \"5 MP f/2.4\" lub null jeśli brak",
+      "selfie": "string | null — np. \"12 MP\"",
+      "telephoto": "string | null — opis teleobiektywu lub null jeśli brak"
+    },
+    "video": "string | null — maksymalna rozdzielczość wideo, np. \"4K\" | \"1080p\"",
+    "os": "string | null — system na start, np. \"Android 16, One UI 8.5\"",
+    "updatesYears": "number | null — gwarantowane lata wsparcia",
+    "updatesOsGenerations": "number | null — liczba dużych aktualizacji OS (opcjonalnie)",
+    "updatesSecurityYears": "number | null — lata poprawek bezpieczeństwa (opcjonalnie)",
+    "updatesNote": "string | null — źródło i szczegóły polityki aktualizacji",
+    "releasedAt": "string (YYYY-MM) | null — data premiery",
+    "securitySupportUntil": "string (YYYY-MM) | null — koniec poprawek bezpieczeństwa",
+    "supportNote": "string | null — uzasadnienie daty securitySupportUntil",
+    "sim": "string | null — np. \"nanoSIM + eSIM\" | \"Dual nanoSIM\"",
+    "nfc": "boolean | null",
+    "wifi": "string | null — np. \"Wi-Fi 6\" | \"Wi-Fi 6E\" | \"Wi-Fi 7\" (opcjonalnie)",
+    "bluetooth": "string | null — np. \"5.4\" | \"6.0\"",
+    "fingerprint": "string | null — np. \"w ekranie\" | \"w przycisku zasilania\" (opcjonalnie)",
+    "satelliteSos": "boolean | null — (opcjonalnie)",
+    "polishLaunchPricePln": "number | null — cena premierowa w Polsce (opcjonalnie)",
+    "reviewNotes": "string[] | null — kluczowe wnioski z polskich recenzji (opcjonalnie)",
+    "wearableNotes": "string | null — uwagi dot. kompatybilności z opaską/zegarkiem (np. Mi Band 6 / Zepp Life)"
+  },
+
+  // --- PUNKTACJA (0–100; brak danych = 50 + wpis w scoresEstimatedNeutral; value = zawsze null) ---
+  "scores": {
+    "battery": "integer (0-100)",
+    "charging": "integer (0-100)",
+    "updates": "integer (0-100)",
+    "storage": "integer (0-100)",
+    "durability": "integer (0-100)",
+    "smoothness": "integer (0-100)",
+    "display": "integer (0-100)",
+    "photoDay": "integer (0-100)",
+    "photoIndoor": "integer (0-100)",
+    "photoMotion": "integer (0-100)",
+    "selfie": "integer (0-100)",
+    "video": "integer (0-100)",
+    "zoom": "integer (0-100)",
+    "compactness": "integer (0-100)",
+    "value": "null — zawsze null, wyliczane dynamicznie przez aplikację"
+  },
+
+  // --- UZASADNIENIA PUNKTACJI (krótki dowód/wzór dla każdego kryterium) ---
+  "basis": {
+    "battery": "string",
+    "charging": "string",
+    "updates": "string",
+    "storage": "string",
+    "durability": "string",
+    "smoothness": "string",
+    "display": "string",
+    "photoDay": "string",
+    "photoIndoor": "string",
+    "photoMotion": "string",
+    "selfie": "string",
+    "video": "string",
+    "zoom": "string",
+    "compactness": "string",
+    "value": "string — stały opis: \"liczone w aplikacji z ceny i budżetu sesji\""
+  },
+
+  // --- ŹRÓDŁA I PEWNOŚĆ DANYCH ---
+  "sources": [
+    "string (URL) — wszystkie wykorzystane źródła (sklepy, producent, testy)"
+  ],
+  "scoreConfidence": {
+    "battery": "enum: \"high\" | \"medium\" | \"low\"",
+    "charging": "enum: \"high\" | \"medium\" | \"low\"",
+    "updates": "enum: \"high\" | \"medium\" | \"low\"",
+    "storage": "enum: \"high\" | \"medium\" | \"low\"",
+    "durability": "enum: \"high\" | \"medium\" | \"low\"",
+    "smoothness": "enum: \"high\" | \"medium\" | \"low\"",
+    "display": "enum: \"high\" | \"medium\" | \"low\"",
+    "photoDay": "enum: \"high\" | \"medium\" | \"low\"",
+    "photoIndoor": "enum: \"high\" | \"medium\" | \"low\"",
+    "photoMotion": "enum: \"high\" | \"medium\" | \"low\"",
+    "selfie": "enum: \"high\" | \"medium\" | \"low\"",
+    "video": "enum: \"high\" | \"medium\" | \"low\"",
+    "zoom": "enum: \"high\" | \"medium\" | \"low\"",
+    "compactness": "enum: \"high\" | \"medium\" | \"low\""
+  },
+  "scoresEstimatedNeutral": [
+    "enum (klucze z scores, bez value): \"battery\" | \"charging\" | \"updates\" | \"storage\" | \"durability\" | \"smoothness\" | \"display\" | \"photoDay\" | \"photoIndoor\" | \"photoMotion\" | \"selfie\" | \"video\" | \"zoom\" | \"compactness\" — wpisać tylko te kryteria, które dostały 50 z braku danych"
+  ]
+}

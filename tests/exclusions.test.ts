@@ -155,7 +155,7 @@ describe('Etap 11 · testy akceptacyjne 1–5 (silnik i persony, QUIZ-SPEC 9.5)'
   it('1. i 2. wykluczenie modelu #1 persony „żona” usuwa go z kart, ale zostawia #1 i ten sam S w fullRanking', () => {
     const baseline = rankFromAnswers(PHONES, WIFE.answers, WIFE.topThree);
     const leaderId = baseline.cards[0]!.phoneId;
-    expect(leaderId).toBe('vivo-v70-fe-5g-8-256');
+    expect(leaderId).toBe('motorola-edge-70-fusion-12-256'); // FP3-03: lider „żony” po zmianie wag A3
 
     const withExclusion = rankFromAnswers(PHONES, WIFE.answers, WIFE.topThree, {
       excludedPhoneIds: [leaderId],

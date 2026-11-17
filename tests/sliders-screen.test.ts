@@ -299,7 +299,7 @@ describe('E5-06 · zakończenie i dostępność', () => {
     expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/cards$/);
     await flushStorage();
     const session = storedSession();
-    expect(session.status).toBe('completed');
+    expect(session.status).toBe('awaiting_pick'); // FP5-04
     expect(session.ranking.cards.length).toBe(3);
   });
 

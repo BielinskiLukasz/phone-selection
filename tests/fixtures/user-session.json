@@ -1,4 +1,57 @@
 {
-  "pending": true,
-  "howTo": "FP0-02: w aplikacji otwórz Historia → Eksport (plik wybor-telefonu-historia-RRRR-MM-DD.json), skopiuj z niego obiekt sesji użytkowniczki (pole sessions[i]) i wklej tutaj zamiast tego obiektu. Usuń albo zanonimizuj id i daty, jeśli są wrażliwe. Test tests/user-session.test.ts porówna karty ze snapshotu z aktualnym algorytmem (bramka kandydata, FIX-PHASE §1.2)."
+  "id": "58751825335961005",
+  "createdAt": "2026-11-16T19:52:31.829Z",
+  "updatedAt": "2026-11-17T20:09:55.641Z",
+  "mode": "sliders",
+  "status": "completed",
+  "exclusionsStep": "done",
+  "answers": {},
+  "topThree": null,
+  "weights": {
+    "battery": 2, "charging": 2, "photoDay": 2, "photoIndoor": 2, "photoMotion": 2, "selfie": 2, "video": 2, "zoom": 2,
+    "storage": 2, "updates": 2, "durability": 2, "display": 2, "smoothness": 2, "compactness": 2, "value": 2
+  },
+  "groupImportance": { "battery": 4.5, "camera": 5, "storage": 4, "longevity": 3, "smooth": 1, "size": 2, "price": 0 },
+  "filters": {
+    "budgetMax": 2000, "minStorageGb": null, "requireMicroSd": false,
+    "excludedBrands": ["Google", "Honor", "vivo", "Realme", "OnePlus", "Nothing"], "excludedPhoneIds": []
+  },
+  "ranking": {
+    "computedAt": "2026-11-16T19:54:00.077Z",
+    "dataVersion": "2026-11-16",
+    "poolSize": 15, "inBudgetCount": 8, "excludedCount": 7, "bestScore": 72.17,
+    "weights": {
+      "battery": 2, "charging": 2, "photoDay": 2, "photoIndoor": 2, "photoMotion": 2, "selfie": 2, "video": 2, "zoom": 2,
+      "storage": 2, "updates": 2, "durability": 2, "display": 2, "smoothness": 2, "value": 2
+    },
+    "groupImportance": { "battery": 4.5, "camera": 5, "storage": 4, "longevity": 3, "smooth": 1, "price": 0 },
+    "filters": {
+      "budgetMax": 2000, "minStorageGb": null, "requireMicroSd": false,
+      "excludedBrands": ["Google", "Honor", "vivo", "Realme", "OnePlus", "Nothing"], "excludedPhoneIds": []
+    },
+    "entries": [
+      { "phoneId": "xiaomi-15t-12-512", "place": 1, "score": 72.17, "matchPercent": 72, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "vivo-v70-fe-5g-8-256", "groupScores": { "battery": 50.84, "camera": 69.7, "storage": 100, "longevity": 71.98, "smooth": 69.82, "price": 0 }, "excluded": null },
+      { "phoneId": "vivo-v70-fe-5g-8-256", "place": 2, "score": 71.25, "matchPercent": 71, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "xiaomi-15t-12-512", "groupScores": { "battery": 89.59, "camera": 54.91, "storage": 66.67, "longevity": 81.51, "smooth": 58.04, "price": 26.7 }, "excluded": "brand" },
+      { "phoneId": "realme-16-pro-plus-5g-8-256", "place": 3, "score": 69.92, "matchPercent": 70, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "vivo-v70-fe-5g-8-256", "groupScores": { "battery": 82.94, "camera": 67.78, "storage": 66.67, "longevity": 61.54, "smooth": 60.18, "price": 5.34 }, "excluded": "brand" },
+      { "phoneId": "motorola-edge-70-fusion-12-256", "place": 4, "score": 67.35, "matchPercent": 67, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "redmi-note-17-pro-5g-8-512", "groupScores": { "battery": 70.33, "camera": 62.43, "storage": 66.67, "longevity": 70.39, "smooth": 72.07, "price": 45.93 }, "excluded": null },
+      { "phoneId": "redmi-note-17-pro-5g-8-512", "place": 5, "score": 65.87, "matchPercent": 66, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "motorola-edge-70-fusion-12-256", "groupScores": { "battery": 82.68, "camera": 25.35, "storage": 100, "longevity": 71.98, "smooth": 38, "price": 26.7 }, "excluded": null },
+      { "phoneId": "motorola-edge-60-12-256", "place": 6, "score": 65.6, "matchPercent": 66, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "redmi-note-17-pro-5g-8-512", "groupScores": { "battery": 53.18, "camera": 72.3, "storage": 73.33, "longevity": 65.57, "smooth": 57.18, "price": 80.11 }, "excluded": null },
+      { "phoneId": "oneplus-nord-5-5g-8-256", "place": 7, "score": 60.5, "matchPercent": 61, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "honor-400-8-256", "groupScores": { "battery": 50.49, "camera": 71.68, "storage": 66.67, "longevity": 43.78, "smooth": 75.07, "price": 53.41 }, "excluded": "brand" },
+      { "phoneId": "honor-400-8-256", "place": 8, "score": 59.17, "matchPercent": 59, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "oneplus-nord-5-5g-8-256", "groupScores": { "battery": 47.83, "camera": 66.28, "storage": 66.67, "longevity": 54.11, "smooth": 59.86, "price": 53.41 }, "excluded": "brand" },
+      { "phoneId": "galaxy-a57-8-256", "place": 9, "score": 58.99, "matchPercent": 59, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "honor-400-8-256", "groupScores": { "battery": 32.19, "camera": 62.07, "storage": 66.67, "longevity": 82.3, "smooth": 63.61, "price": 36.32 }, "excluded": null },
+      { "phoneId": "galaxy-a56-5g-8-256", "place": 10, "score": 55.97, "matchPercent": 56, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "galaxy-a37-5g-8-256", "groupScores": { "battery": 32.8, "camera": 58.13, "storage": 66.67, "longevity": 74.25, "smooth": 51.71, "price": 37.39 }, "excluded": null },
+      { "phoneId": "galaxy-a37-5g-8-256", "place": 11, "score": 55.32, "matchPercent": 55, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "galaxy-a56-5g-8-256", "groupScores": { "battery": 26.07, "camera": 58.7, "storage": 66.67, "longevity": 82.3, "smooth": 43.79, "price": 85.45 }, "excluded": null },
+      { "phoneId": "redmi-note-15-pro-5g-8-256", "place": 12, "score": 52.38, "matchPercent": 52, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "nothing-phone-3a-12-256", "groupScores": { "battery": 40.15, "camera": 43.6, "storage": 66.67, "longevity": 70.36, "smooth": 40.14, "price": 94 }, "excluded": null },
+      { "phoneId": "nothing-phone-3a-12-256", "place": 13, "score": 52.25, "matchPercent": 52, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "redmi-note-15-pro-5g-8-256", "groupScores": { "battery": 42.84, "camera": 66.77, "storage": 66.67, "longevity": 24.5, "smooth": 47.64, "price": 29.91 }, "excluded": "brand" },
+      { "phoneId": "pixel-10a-8-128", "place": 14, "score": 51.47, "matchPercent": 51, "inBudget": true, "overBudgetBy": null, "practicalTieWith": "nothing-phone-3a-12-256", "groupScores": { "battery": 31, "camera": 70.01, "storage": 20, "longevity": 91.94, "smooth": 55.36, "price": 13.89 }, "excluded": "brand" },
+      { "phoneId": "pixel-9a-8-128", "place": 15, "score": 48.58, "matchPercent": 49, "inBudget": true, "overBudgetBy": null, "practicalTieWith": null, "groupScores": { "battery": 23.52, "camera": 67.45, "storage": 20, "longevity": 91.94, "smooth": 51.29, "price": 33.11 }, "excluded": "brand" }
+    ],
+    "cards": ["xiaomi-15t-12-512", "motorola-edge-70-fusion-12-256", "redmi-note-17-pro-5g-8-512"]
+  },
+  "picks": [
+    { "phoneId": "xiaomi-15t-12-512", "at": "2026-11-16T19:54:02.899Z" },
+    { "phoneId": "motorola-edge-70-fusion-12-256", "at": "2026-11-17T20:09:53.607Z" },
+    { "phoneId": "redmi-note-17-pro-5g-8-512", "at": "2026-11-17T20:09:55.641Z" }
+  ],
+  "manualOverride": true
 }

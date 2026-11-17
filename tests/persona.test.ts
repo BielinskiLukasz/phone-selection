@@ -64,11 +64,13 @@ describe('persony · podstawy', () => {
 });
 
 describe('9.1 · persona „żona”', () => {
-  it('trójka odpowiada stanowi referencyjnemu (etap 10): bateria przed aparatem, pamięć ≥ 256 GB', () => {
+  it('trójka odpowiada stanowi referencyjnemu (FP3-03): bateria przed aparatem, pamięć ≥ 256 GB', () => {
+    /* FP3-03 (17.11.2026): „zawsze na noc” → charging 0,25; vivo (90 W) traci przewagę z ładowania:
+       #1 Edge 70 Fusion 66,9 · #2 Redmi Note 17 Pro 66,7 (remis) · #3 vivo V70 FE 65,7 · #4 realme 64,5. */
     const ids = wife().cards.map((entry) => entry.phoneId);
-    expect(ids[0]).toBe('vivo-v70-fe-5g-8-256');
-    expect(ids[1]).toBe('motorola-edge-70-fusion-12-256');
-    expect(ids[2]).toBe('redmi-note-17-pro-5g-8-512');
+    expect(ids[0]).toBe('motorola-edge-70-fusion-12-256');
+    expect(ids[1]).toBe('redmi-note-17-pro-5g-8-512');
+    expect(ids[2]).toBe('vivo-v70-fe-5g-8-256');
     expect(wife().ranked[3]!.phoneId).toBe('realme-16-pro-plus-5g-8-256');
     for (const entry of wife().cards) {
       expect(phoneOf(entry).variant.storageGb).toBeGreaterThanOrEqual(256);

@@ -166,6 +166,7 @@ export const strings = {
   storageLabel: 'Pamięć',
   storageAny: 'dowolna',
   storage256: 'minimum 256 GB',
+  filtersCounterLabel: 'w budżecie',
   microSdLabel: 'Karta microSD',
   microSdRequired: 'musi mieć',
   microSdAny: 'obojętnie',
@@ -223,6 +224,7 @@ export const strings = {
   supportLabel: 'Wsparcie',
   wearableLabel: 'Opaska',
   offerLabel: 'Oferta',
+  currentPriceLabel: 'Aktualna cena',
   chargerIncluded: 'Zasilacz jest w zestawie.',
   chargerNotIncluded: 'W pudełku nie ma ładowarki.',
   chargerUnknown: 'Producent nie deklaruje ładowarki w zestawie.',
@@ -358,6 +360,8 @@ export const strings = {
   sessionFieldOverride: 'ręczna korekta',
   statusInProgress: 'W trakcie',
   statusCompleted: 'Ukończona',
+  statusAwaitingPick: 'Propozycje gotowe — bez wyboru',
+  resumeToCards: 'Wróć do swoich 3 propozycji',
   snapshotNone: 'brak — pojawi się po pierwszej zmianie',
   harnessTitle: 'Krok testowy zapisu',
   harnessNote:
@@ -569,6 +573,9 @@ export const sessionTexts = {
     if (inBudget === 2) return 'W tym budżecie mieszczą się tylko dwa telefony. Trzecia propozycja jest droższa.';
     return '';
   },
+  /* FP3-06 */
+  inBudgetCount: (inBudget: number, budgetMax: number, total: number): string =>
+    `W budżecie do ${budgetMax} zł: ${inBudget} z ${total}`,
   poolMatches: (matches: number, total: number): string =>
     `Pasuje ${matches} z ${total} ${total === 1 ? 'telefonu' : matches === 1 ? 'telefonów' : 'telefonów'}`,
   proposalHeading: (place: number): string => `Propozycja #${place}`,
@@ -601,8 +608,10 @@ export const sessionTexts = {
   stretchBadge: (extraPln: number, extraPoints: number): string =>
     `Dopłata +${extraPln} zł za +${String(extraPoints).replace('.', ',')} pkt dopasowania`,
   /* FP1-01 */
-  priceUnavailableNote: (since: string): string =>
-    `Oferta z ${since.split('-').reverse().join('.')} wygasła — aktualne ceny mogą przekraczać 2000 zł. Sprawdź cenę przed zakupem.`,
+  priceUnavailableNote: (since: string, currentPln?: number | null): string =>
+    currentPln
+      ? `Oferta z ${since.split('-').reverse().join('.')} wygasła — dziś najtaniej ok. ${Math.round(currentPln)} zł (powyżej limitu 2000 zł). Sprawdź cenę przed zakupem.`
+      : `Oferta z ${since.split('-').reverse().join('.')} wygasła — aktualne ceny mogą przekraczać 2000 zł. Sprawdź cenę przed zakupem.`,
   /* FP3-02 */
   tradeoffNote: (groups: string[]): string => `${groups.join(', ')} — ten telefon ma tu wyraźnie słabszy wynik niż w innych grupach.`,
   /* FP1-05 */

@@ -60,7 +60,7 @@ export function SessionListItem({ summary, index, isLast, onDelete, onCopyLink }
         <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <h3 className="text-h3 text-[var(--color-text)]">{summary.modeLabel}</h3>
           {/* UIP2-09 (FIX-UI §5.8): status jako Chip — ukończona = ok, w toku = accent. */}
-          <Chip tone={completed ? 'ok' : 'accent'}>{summary.statusLabel}</Chip>
+          <Chip tone={completed ? 'ok' : summary.status === 'awaiting_pick' ? 'info' : 'accent'}>{summary.statusLabel}</Chip>
           <span className="num ml-auto text-small text-[var(--color-muted)]" title={summary.updatedAbsolute}>
             {summary.updatedLabel}
           </span>
@@ -141,7 +141,7 @@ export function SessionListItem({ summary, index, isLast, onDelete, onCopyLink }
 
         <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-[var(--color-border)] pt-3">
           <Button href={targetHref} variant={completed ? 'secondary' : 'primary'} iconRight={<ArrowRightIcon />}>
-            {completed ? strings.historyPreviewAction : strings.historyResume}
+            {completed ? strings.historyPreviewAction : summary.status === 'awaiting_pick' ? strings.resumeToCards : strings.historyResume}
           </Button>
 
           <Button

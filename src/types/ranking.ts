@@ -40,6 +40,8 @@ export interface QuizOption {
   budgetMax?: BudgetOption;
   /** FP3-05: budżet elastyczny — górna granica pasma „dopłacę, jeśli wyraźnie lepszy”. */
   budgetStretch?: BudgetOption;
+  /** FP3-04: odpowiedź C3 „Chcę, jeśli się da” — bonus w `storage` dla telefonów ze slotem microSD. */
+  preferMicroSd?: true;
   /** Tylko C2. */
   minStorageGb?: 256;
   /** „Nie wiem / pomiń” — nie wnosi nic do wag. */
@@ -83,6 +85,8 @@ export interface Filters {
    * i jeden najlepszy z pasma (budgetMax, budgetStretch] z plakietką „Dopłata +X zł za +Y pkt”.
    */
   budgetStretch?: number | null;
+  /** FP3-04: preferencja (nie wymóg) microSD — +15 pkt `storage` dla telefonów ze slotem w tej sesji. */
+  preferMicroSd?: boolean;
 }
 
 /** Waga kryterium wewnątrz grupy, skala 0-5. */
@@ -185,6 +189,7 @@ export interface AnonCard {
   regularPricePln: number | null;
   /* FP1-01: oferta z price.pln przestała być dostępna — karta ostrzega i odsyła do „Sprawdź aktualną cenę”. */
   priceUnavailableSince: string | null;
+  currentMarketPricePln: number | null;
   /* FP3-05 */
   stretch: { extraPln: number; extraPoints: number } | null;
   /* FP3-02: grupy z top 3 G1, w których telefon ma wyraźny kompromis (GroupScore < 40 lub ocena < 55 przy wadze 5). */

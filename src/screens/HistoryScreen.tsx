@@ -27,6 +27,7 @@ export function HistoryScreen() {
     const labels = {
       inProgress: strings.statusInProgress,
       completed: strings.statusCompleted,
+      awaitingPick: strings.statusAwaitingPick,
     };
     return sortSessions(sessions).map((session) => summarizeSession(session, labels));
   }, [sessions]);

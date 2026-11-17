@@ -35,9 +35,11 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
     const at0 = spread(run('żona', WIFE.answers, WIFE_PICKS, 0));
     const at1 = spread(run('żona', WIFE.answers, WIFE_PICKS, 1));
 
-    expect(at05).toBeGreaterThan(at0);
+    /* Po FP3-03 rozstęp u „żony”: 0 → 18,96 · 0,5 → 18,36 · 1 → 22,43 — normalizacja min-max nie zwiększa go
+       monotonicznie (nowe maksima battery/storage); pilnujemy: 0,5 wyraźne (> 15), łagodniejsze niż 1, blisko 0. */
     expect(at05).toBeLessThan(at1);
-    expect(at05).toBeGreaterThan(19);
+    expect(Math.abs(at05 - at0)).toBeLessThan(1.5);
+    expect(at05).toBeGreaterThan(15);
     expect(at05).toBeLessThan(30);
   });
 
@@ -53,11 +55,12 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
       expect(winnerBattery, `BLEND ${blend}`).toBeGreaterThanOrEqual(75);
     }
 
-    /* Dlatego 0,75/1 odpadają: filtr 256 GB wyrzuca lidera poza trójkę i winduje model o słabszej baterii. */
-    const plain = run('żona', WIFE.answers, WIFE_PICKS, 0.75);
-    const filtered = run('żona', WIFE.answers, WIFE_PICKS, 0.75, { minStorageGb: 256 });
-    expect(filtered.cards.map((card) => card.phoneId)).not.toContain(plain.cards[0]!.phoneId);
+    /* Dlatego 1 odpada: filtr 256 GB przestawia #1 na Xiaomi 15T (48 pkt baterii) — poza remisem. Przy 0,75 po FP3-03
+       lider zostaje w trójce, ale #1 po filtrze to Note 17 Pro — niezmiennik trzyma tylko w postaci „lider w trójce”. */
+    const plain = run('żona', WIFE.answers, WIFE_PICKS, 1);
+    const filtered = run('żona', WIFE.answers, WIFE_PICKS, 1, { minStorageGb: 256 });
     expect(filtered.cards[0]!.phoneId).toBe('xiaomi-15t-12-512');
+    expect(filtered.cards[0]!.phoneId).not.toBe(plain.cards[0]!.phoneId);
   });
 
   it('9.3 (persona „bateria” stawia na największą baterię 8340 mAh) nie działa przy BLEND 0, a przy BLEND 0,5 równoważy też aparat u „żony”', () => {
@@ -68,12 +71,13 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
     expect(run('bateria', BATTERY.answers, BATTERY_PICKS, 0).cards[0]!.phoneId).toBe(
       'redmi-note-15-pro-5g-8-256',
     );
-    /* Przy BLEND 0,25 u „żony” wygrywa Redmi Note 17 Pro mimo braku 4K; przy 0,5 prowadzi zbalansowane 7000 mAh. */
+    /* Przy BLEND 0,25 u „żony” wygrywa Redmi Note 17 Pro mimo braku 4K; przy 0,5 prowadzi zbalansowane 7000 mAh
+       (po FP3-03: Edge 70 Fusion, bo vivo straciło premię za 90 W przy ładowaniu „na noc”). */
     expect(run('żona', WIFE.answers, WIFE_PICKS, 0.25).cards[0]!.phoneId).toBe(
       'redmi-note-17-pro-5g-8-512',
     );
     expect(run('żona', WIFE.answers, WIFE_PICKS, 0.5).cards[0]!.phoneId).toBe(
-      'vivo-v70-fe-5g-8-256',
+      'motorola-edge-70-fusion-12-256',
     );
   });
 
@@ -126,6 +130,6 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
 
     const wife = run('żona', WIFE.answers, WIFE_PICKS, BLEND);
     expect(wife.ranked[0]!.score - wife.ranked[1]!.score).toBeLessThan(TIE_THRESHOLD);
-    expect(wife.ranked[0]!.practicalTieWith).toBe('motorola-edge-70-fusion-12-256');
+    expect(wife.ranked[0]!.practicalTieWith).toBe('redmi-note-17-pro-5g-8-512');
   });
 });

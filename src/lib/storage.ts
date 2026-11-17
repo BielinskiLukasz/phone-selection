@@ -15,7 +15,7 @@ import { newSessionId, sanitizeSession, sortSessions, trimSessions } from './ses
 export const STORAGE_KEY = 'wybor-telefonu:v1';
 export const BACKUP_KEY = 'wybor-telefonu:backup';
 export const THEME_KEY = 'wybor-telefonu:theme';
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
 export const MAX_SESSIONS = 50;
 export const SAVE_DEBOUNCE_MS = 300;
 
@@ -120,6 +120,23 @@ export const migrations: Record<number, Migration> = {
       schemaVersion: 2,
       sessions,
     };
+  },
+  /* FP5-04 · v2 → v3: sesje „ukończone” bez żadnego wyboru stają się `awaiting_pick` (ranking jest, wyboru nie ma). */
+  2: (raw) => {
+    const entries = Array.isArray(raw.sessions) ? raw.sessions : [];
+    const sessions = entries.map((entry) => {
+      if (typeof entry !== 'object' || entry === null) return entry;
+      const session = entry as Record<string, unknown>;
+      const picks = Array.isArray(session.picks) ? session.picks : [];
+      const status =
+        session.status === 'completed' && picks.length === 0
+          ? 'awaiting_pick'
+          : session.status === 'completed' || session.status === 'awaiting_pick' || session.status === 'in_progress'
+            ? session.status
+            : 'in_progress';
+      return { ...session, status };
+    });
+    return { ...raw, schemaVersion: 3, sessions };
   },
 };
 
