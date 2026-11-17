@@ -80,8 +80,8 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
     dispatch({ type: 'session/override-weights', sessionId: session.id, weights: { [id]: value } });
   }
 
-  function setBudget(value: number) {
-    dispatch({ type: 'session/filters', sessionId: session.id, filters: { budgetMax: value } });
+  function setBudget(value: number, stretch: number | null = null) {
+    dispatch({ type: 'session/filters', sessionId: session.id, filters: { budgetMax: value, budgetStretch: stretch } });
   }
 
   function setStorage(value: number | null) {
@@ -301,7 +301,7 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
           onClick={finish}
           className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
         >
-          {strings.quizShowResults}
+          {strings.showProposals}
           <ArrowRightIcon className="h-4 w-4" />
         </button>
         {variant === 'tune' ? (
@@ -327,7 +327,7 @@ export function SlidersScreen({ session, variant }: SlidersScreenProps) {
           onClick={finish}
           className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
         >
-          {strings.quizShowResults}
+          {strings.showProposals}
           <ArrowRightIcon className="h-4 w-4" />
         </button>
       </div>

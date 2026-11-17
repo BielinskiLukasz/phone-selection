@@ -3,7 +3,8 @@ import type { SpecRow } from '@/lib/cardSpecs';
 import type { AnonCard, Phone } from '@/types';
 import { DetailsAccordion } from './DetailsAccordion';
 import { PhonePhoto } from './PhonePhoto';
-import { ArrowRightIcon, CheckIcon } from './Icons';
+import { PurchaseInfo } from './PurchaseInfo';
+import { CheckIcon } from './Icons';
 
 interface PhoneCardRevealedProps {
   card: AnonCard;
@@ -12,6 +13,8 @@ interface PhoneCardRevealedProps {
   pickLabel: string;
   specs: SpecRow[];
   alwaysOpenDetails: boolean;
+  /** FP2-04: wyklucza markę odsłoniętego telefonu i dobiera inną propozycję bez przeliczania ocen. */
+  onExcludeBrand?: () => void;
 }
 
 /** Karta po ujawnieniu: nazwa, marka, linki do sklepów i plakietka wyboru (E6-06). */
@@ -21,6 +24,7 @@ export function PhoneCardRevealed({
   pickLabel,
   specs,
   alwaysOpenDetails,
+  onExcludeBrand,
 }: PhoneCardRevealedProps) {
   return (
     <article className="surface screen-in relative flex flex-col overflow-hidden border-[var(--color-accent)] shadow-[0_18px_50px_-30px_var(--color-accent)]">
@@ -64,30 +68,17 @@ export function PhoneCardRevealed({
       </div>
 
       <div className="grid gap-2 px-[var(--pad-card)] py-4">
-        {phone.reveal.shopLinks.map((link, index) => {
-          const url = typeof link === 'string' ? link : link.url;
-          const label = typeof link === 'string' ? url.replace(/^https?:\/\//, '') : (link.label ?? link.shop ?? url);
-          return (
-            <a
-              key={`${url}-${index}`}
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/shop flex min-h-12 items-center gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface-2)] px-4 text-sm font-medium transition-[border-color,transform] duration-200 hover:-translate-y-px hover:border-[var(--color-accent)]"
-            >
-              <span className="min-w-0 flex-1 truncate">
-                {strings.cardsShopLink}
-                <span className="num text-[11px] tracking-[0.08em] text-[var(--color-muted)] uppercase">
-                  {' '}
-                  ({label})
-                </span>
-              </span>
-              <span className="shrink-0 text-[var(--color-muted)] transition-transform duration-200 group-hover/shop:translate-x-1 group-hover/shop:text-[var(--color-accent)]">
-                <ArrowRightIcon className="h-4 w-4" />
-              </span>
-            </a>
-          );
-        })}
+        {/* FP1: promocja, ładowarka, wsparcie, weryfikacja, linki z ceną/datą/typem, porównywarka. */}
+        <PurchaseInfo phone={phone} variant="card" />
+        {onExcludeBrand ? (
+          <button
+            type="button"
+            onClick={onExcludeBrand}
+            className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-pill)] border border-[var(--color-border)] px-4 text-sm transition-colors duration-200 hover:border-[var(--color-warn)] hover:text-[var(--color-warn)]"
+          >
+            {strings.revealedExcludeBrand}
+          </button>
+        ) : null}
         <p className="mt-1 text-[11px] leading-relaxed text-[var(--color-muted)]">
           {strings.cardsRevealedNote} {strings.dataWarning}
         </p>

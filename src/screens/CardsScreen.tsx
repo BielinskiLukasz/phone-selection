@@ -50,8 +50,14 @@ export function CardsScreen({ session }: CardsScreenProps) {
 
   const snapshot = session.ranking;
   const cards = useMemo(
-    () => (snapshot ? toAnonCardsFromSnapshot(PHONES, snapshot, session.filters.budgetMax) : []),
-    [snapshot, session.filters.budgetMax],
+    () =>
+      snapshot
+        ? toAnonCardsFromSnapshot(PHONES, snapshot, session.filters.budgetMax, {
+            priorityGroups: session.topThree?.picks ?? null,
+            weights: session.weights,
+          })
+        : [],
+    [snapshot, session.filters.budgetMax, session.topThree, session.weights],
   );
   const specsByCard = useMemo(
     () =>
@@ -225,6 +231,15 @@ export function CardsScreen({ session }: CardsScreenProps) {
                       pickLabel={sessionTexts.pickBadge(order, reveal.total)}
                       specs={specsByCard[index] ?? []}
                       alwaysOpenDetails={state.theme === 'dark'}
+                      onExcludeBrand={() =>
+                        saveExclusions({
+                          excludedBrands: [
+                            ...(session.filters.excludedBrands ?? []).filter((brand) => brand !== phone.brand),
+                            phone.brand ?? phone.reveal.brand,
+                          ],
+                          excludedPhoneIds: [...(session.filters.excludedPhoneIds ?? [])],
+                        })
+                      }
                     />
                   ) : (
                     <PhoneCardAnon

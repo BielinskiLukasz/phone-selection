@@ -18,7 +18,8 @@ Legenda: `[ ]` do zrobienia · `[~]` w toku · `[x]` zrobione
 | 9 | Pełny ranking, szlify i wydanie | `[~]` w toku (kod gotowy, czeka test i wydanie v1.0) |
 | 10 | Rozszerzenie puli modeli (10 → 15, przed v1.0) | `[x]` zrobione |
 | 11 | Wykluczanie marek i modeli (opcjonalny filtr startowy) | `[x]` zrobione |
-| 12 | Zdjęcia telefonów, wymiary i waga (suwak poręczności) oraz objaśnienia UI | `[x]` zrobione |
+| 12 | Wymiary i waga (grupa „Wymiary i waga”) oraz zdjęcia telefonów | `[x]` zrobione |
+| 13 | Faza poprawkowa i zakup (`FIX-PHASE.md`; w planie nazwana „etapem 12”, bo powstał przed commitem poręczności) | `[~]` FP0 i FP1 w kodzie, FP2 w większości; FP3-FP6 czekają na dane z testu i decyzje |
 
 ---
 
@@ -44,27 +45,7 @@ i microSD Redmi, zawartość pudełek, raport luk, odświeżenie cen).
 
 ### Stan danych (aktualizowany na bieżąco)
 
-**Stan po etapach 10–12 (16.11.2026 — 15 modeli, 15 kryteriów w 7 grupach):** `src/data/phones.json` zawiera **15 zweryfikowanych rekordów** (`status: ok`, ceny ≤ 2000 zł sprawdzone 14–16.11.2026, `scoresEstimatedNeutral: []`). Wszystkie 15 rekordów ma ustandaryzowane `brand` i `modelName` (Etap 11), komplet wymiarów i wagi (`heightMm`, `widthMm`, `thicknessMm`, `dimensionsMm`, `weightG`), wyliczoną ze wzoru ocenę poręczności `scores.compactness` (`scoreConfidence: high`) oraz zweryfikowane zdjęcia `reveal.imageUrl` (przód + tył) i `reveal.photoUrl` (zdjęcie prasowe) pokazywane wyłącznie po ujawnieniu (Etap 12). Skala pojemności baterii poszerzona do `4000–8000 mAh` (D4). Walidator: **0 błędów**, 1 dotychczasowe ostrzeżenie (`specs.nfc: null` w Realme 16 Pro+); wszystkie 5 nowych modeli ma **0 luk w `specs`** (`honor-400-8-256`, `oneplus-nord-5-5g-8-256`, `galaxy-a37-5g-8-256` i `vivo-v70-fe-5g-8-256` — pełny komplet także bez ocen `low`).
-
-| # | Model (`id`) | Cena PL | Waga i wymiary | `compactness` | Zdjęcia (`reveal`) | Status |
-|---|---|---|---|---|---|---|
-| 1 | Samsung Galaxy A57 5G 8/256 (`galaxy-a57-8-256`) | 1729,00 zł | 179 g · 161,5 × 76,8 × 6,9 mm | 61/100 | `[x]` studio + prasowe | `[x]` ok |
-| 2 | Google Pixel 10a 8/128 (`pixel-10a-8-128`) | 1899,99 zł | 183 g · 153,9 × 73 × 9 mm | 75/100 | `[x]` studio + prasowe | `[x]` ok |
-| 3 | Samsung Galaxy A56 5G 8/256 (`galaxy-a56-5g-8-256`) | 1718,99 zł | 198 g · 162,2 × 77,5 × 7,4 mm | 44/100 | `[x]` studio + prasowe | `[x]` ok |
-| 4 | Xiaomi Redmi Note 15 Pro 5G 8/256 (`redmi-note-15-pro-5g-8-256`) | 1299,00 zł | 210 g · 163,6 × 78,1 × 8 mm | 30/100 | `[x]` studio + prasowe | `[x]` ok |
-| 5 | Motorola Edge 60 12/256 (`motorola-edge-60-12-256`) | 1399,00 zł | 179 g · 161,2 × 73,1 × 7,9 mm | 70/100 | `[x]` studio + prasowe | `[x]` ok (microSD) |
-| 6 | Xiaomi 15T 12/512 (`xiaomi-15t-12-512`) | 1999,00 zł | 194 g · 163,2 × 78 × 7,5 mm | 43/100 | `[x]` studio + prasowe | `[x]` ok |
-| 7 | Motorola Edge 70 Fusion 12/256 (`motorola-edge-70-fusion-12-256`) | 1658,12 zł | 193 g · 162,8 × 75,6 × 8 mm | 50/100 | `[x]` studio + prasowe | `[x]` ok |
-| 8 | Google Pixel 9a 8/128 (`pixel-9a-8-128`) | 1749,99 zł | 186 g · 154,7 × 73,3 × 8,9 mm | 72/100 | `[x]` studio + prasowe | `[x]` ok |
-| 9 | Nothing Phone (3a) 12/256 (`nothing-phone-3a-12-256`) | 1779,00 zł | 201 g · 163,5 × 77,5 × 8,4 mm | 36/100 | `[x]` studio + prasowe | `[x]` ok |
-| 10 | Realme 16 Pro+ 5G 8/256 (`realme-16-pro-plus-5g-8-256`) | 1959,99 zł | 203 g · 162,5 × 76,2 × 8,5 mm | 41/100 | `[x]` studio + prasowe | `[x]` ok (`nfc: null`) |
-| 11 | Honor 400 5G 8/256 (`honor-400-8-256`) | 1599,00 zł | 184 g · 156,5 × 74,6 × 7,3 mm | 71/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
-| 12 | OnePlus Nord 5 5G 8/256 (`oneplus-nord-5-5g-8-256`) | 1600,99 zł | 211 g · 163,4 × 77 × 8,1 mm | 33/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
-| 13 | Samsung Galaxy A37 5G 8/256 (`galaxy-a37-5g-8-256`) | 1359,00 zł | 196 g · 162,9 × 78,2 × 7,4 mm | 42/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
-| 14 | vivo V70 FE 5G 8/256 (`vivo-v70-fe-5g-8-256`) | 1799,00 zł | 200 g · 163,7 × 76,2 × 7,6 mm | 44/100 | `[x]` studio + prasowe | `[x]` ok (komplet) |
-| 15 | Xiaomi Redmi Note 17 Pro 5G 8/512 (`redmi-note-17-pro-5g-8-512`) | 1799,00 zł | 223 g · 163,5 × 78,3 × 8,6 mm | 19/100 | `[x]` studio + prasowe | `[x]` ok (aparat `low`) |
-
-**Historia wcześniejszych uzupełnień (14.11.2026, pula 10 modeli):** pola potwierdzone w oficjalnych specyfikacjach producentów (Motorola, Xiaomi mi.com, Google Pixel Help) trafiły do `phones.json`: IP, waga, microSD, NFC, ładowanie bezprzewodowe, zawartość pudełka, ekran i aparaty 15T. Oceny liczone ze wzorów PROJECT 7.5 zaktualizowane: Edge 60 `durability` 90 i `storage` 80 (slot microSD), 15T `charging` 69, `durability` 90, `zoom` 60. Nic nie zostało uzupełnione „z pamięci”; pola bez potwierdzenia zostały `null` (m.in. `updatesYears` dla 15T i Realme, jakość ekranu 15T, testy czasu pracy). Skutek uboczny: Edge 60 ma slot microSD, więc pytanie warunkowe **C3 jest aktywne** (18 pytań zamiast 17), a walidator zgłasza 16 zamiast ~40 ostrzeżeń. Referencja QUIZ-SPEC 9.1 zmieniła się na #3: Xiaomi 15T (57,9) wyprzedza Realme 16 Pro+ (55,9) — #1 Edge 70 Fusion (71,2) i #2 Edge 60 (62,4) bez zmian; testy person sprawdzają niezmienniki, nie te liczby.
+**Uzupełnienia specyfikacji (po 14.11.2026):** pola potwierdzone w oficjalnych specyfikacjach producentów (Motorola, Xiaomi mi.com, Google Pixel Help) trafiły do `phones.json`: IP, waga, microSD, NFC, ładowanie bezprzewodowe, zawartość pudełka, ekran i aparaty 15T. Oceny liczone ze wzorów PROJECT 7.5 zaktualizowane: Edge 60 `durability` 90 i `storage` 80 (slot microSD), 15T `charging` 69, `durability` 90, `zoom` 60. Nic nie zostało uzupełnione „z pamięci”; pola bez potwierdzenia zostały `null` (m.in. `updatesYears` dla 15T i Realme, jakość ekranu 15T, testy czasu pracy). Skutek uboczny: Edge 60 ma slot microSD, więc pytanie warunkowe **C3 jest aktywne** (18 pytań zamiast 17), a walidator zgłasza 16 zamiast ~40 ostrzeżeń. Referencja QUIZ-SPEC 9.1 zmieniła się na #3: Xiaomi 15T (57,9) wyprzedza Realme 16 Pro+ (55,9) — #1 Edge 70 Fusion (71,2) i #2 Edge 60 (62,4) bez zmian; testy person sprawdzają niezmienniki, nie te liczby.
 
 Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5); pewność ocen i braki danych są w `phones.json` (`scoreConfidence`, `scoresEstimatedNeutral`). Ceny i linki podał użytkownik (14.11.2026). Wariant 8/128 GB zostaje dla Pixela 10a i 9a, a Xiaomi 15T bierzemy w wersji 12/512 GB. Pixel 8a i Galaxy A55 wypadły z listy, weszły Redmi Note 15 Pro 5G i Realme 16 Pro+ 5G.
 
@@ -215,8 +196,10 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 
 - [x] Przycisk „Pokaż pełny ranking” (wszystkie 15 telefonów z nazwami) po wyborze zwycięzcy
 - [x] Kalibracja stałych rankingu na prawdziwych danych
-- [~] Odświeżenie cen i dat przed wydaniem (narzędzia gotowe: `npm run stale-prices`, próg 7 dni; ceny z 14.11.2026 są świeże, odświeżenie w dniu publikacji)
-- [~] Przejście całego procesu przez żonę (test użyteczności), poprawki — protokół i arkusz obserwacji: `E9-test-uzytkownika.md`
+- [~] E9-05 Odświeżenie cen i dat — **przesunięte na dzień zakupu** (FIX-PHASE FP1-03/FP6-01): narzędzia gotowe (`npm run stale-prices` zna teraz także daty końca promocji), ceny z 14-16.11.2026
+- [x] E9-06 Test z użytkowniczką **wykonany** — użytkowniczka przeszła proces i ma kandydata do zakupu; wynik do wpisania w `E9-wynik-testu.md` (FP0-01)
+- [~] E9-07 Poprawki po teście = **faza poprawkowa (etap 13, `FIX-PHASE.md`)**
+- [ ] Tag `v1.0`, adres Pages na telefonie — po FP1-FP3
 
 **DoD:** wersja gotowa do realnego użycia; ceny odświeżone w ciągu ostatnich 7 dni.
 
@@ -244,19 +227,90 @@ Nowa referencja 9.1: #1 Edge 70 Fusion 69 pkt, #2 Realme 16 Pro+ 67, #3 Xiaomi 1
 - [x] `ExcludeScreen` (`#/s/:id/exclude`), `ExclusionPicker` i `ExclusionSheet` z leniwym ładowaniem katalogu nazw (`src/data/exclusionCatalog.ts`), integracja ze Startem, `FilterPanel`, `CardsScreen` (zmiana bez przeliczania `S`), `RankingScreen` (plakietki „Wykluczony (marka)/(model)” + „Uwzględnij ponownie”) i `HistoryScreen` („Wykluczono: …” + „Teraz wykluczony”)
 - [x] Testy akceptacyjne 1–9 w `tests/exclusions.test.ts`, audyt `axe-core` w obu motywach i test wycieku nazw po kliknięciu „Pomiń”
 
-## Etap 12 — Zdjęcia telefonów, wymiary i waga (suwak poręczności) oraz objaśnienia UI
+---
 
-**Cel:** dodać zdjęcia telefonów po ujawnieniu (rozstrzygnięcie PROJECT 14.4), uzupełnić dokładne wymiary i wagę wszystkich 15 modeli w zestawieniu i na kartach, wprowadzić obiektywne kryterium oraz suwak poręczności (im mniejszy, smuklejszy i lżejszy telefon, tym wyżej) oraz objaśnić użytkowniczce różnicę między aktualizacjami systemu a poprawkami bezpieczeństwa.
+## Etap 12 — Wymiary i waga (poręczność) oraz zdjęcia telefonów
 
-- [x] **Objaśnienie wsparcia aktualizacjami:** dodano zwięzłą, neutralną podpowiedź (`strings.cardsUpdatesHelp`) pod wierszem „Aktualizacje” w `DetailsAccordion.tsx` i `RankingScreen.tsx` wyjaśniającą różnicę między dużymi aktualizacjami systemu (nowe funkcje, raz w roku) a łatkami bezpieczeństwa (dalsze bezpieczne działanie telefonu i bankowości po zakończeniu nowych wersji systemu)
-- [x] **Zdjęcia telefonów po ujawnieniu (`src/components/PhonePhoto.tsx`):** uzupełniono `reveal.imageUrl` (ujęcie studyjne przód + tył) i `reveal.photoUrl` (oficjalne zdjęcie prasowe) dla 15/15 modeli w `src/data/phones.json` + walidację URL w `scripts/validate-data.ts` i token `--color-photo-bg` w `src/index.css`; miniatury w wierszach `RankingScreen`, zdjęcie na odsłoniętej karcie `PhoneCardRevealed`, duży podgląd z przełącznikiem ujęć i oknem powiększenia (`Esc`, pułapka fokusu) w szczegółach rankingu oraz awaryjna sylwetka SVG w skali wymiarów offline; przed wyborem nadal **0 elementów `<img>`** w DOM
-- [x] **Wymiary i waga (15/15) oraz kryterium `compactness` (grupa `size`):** uzupełniono `heightMm`, `widthMm`, `thicknessMm`, `dimensionsMm` i `weightG` dla całej puli; dodano obiektywny wzór `compactnessScore` w `src/data/scoringRules.ts` (`0,45 × lekkość [165–235 g] + 0,45 × mała powierzchnia [11 000–13 200 mm²] + 0,10 × smukłość [6,5–9,5 mm]`, pilnowany w `tests/score-rules.test.ts`); rozszerzono model do **15 kryteriów w 7 grupach** i **7 cech na karcie** (`dimensionsFact`), dodano wagi, wymiary i odznakę `poręczność X/100` w wierszach pełnego rankingu i podglądzie suwaków
-- [x] **Suwak i pytanie quizu oceniające poręczność:** suwak grupy „Wymiary i waga” (0–5) na `SlidersScreen` (suwaki i dostrojenie hybrydy), szybki suwak 0–5 (z przyciskami szybkiego wyboru) bezpośrednio nad listą w `RankingScreen`, pytanie `D4` w `src/data/questions.ts` (19 pytań; odpowiedź „bez znaczenia” = `0` zeruje wagę grupy w `computedGroupImportance`, nie zmieniając rankingów referencyjnych person) oraz opcja w kroku G1
-- [x] **Testy i stabilność CI:** pokrycie testami wzoru `compactness`, suwaka poręczności (w suwakach i pełnym rankingu), zdjęć po ujawnieniu, braku `<img>` przed wyborem i audytu `axe-core` w obu motywach; ustabilizowano `tests/exclusions.test.ts` i `tests/a11y-audit.test.ts` (deterministyczne `findByRole` dla leniwego importu katalogu, rozdzielenie testów akceptacyjnych `7.` i `2./8.`, szybkie selektory wierszy rankingu oraz `testTimeout: 15_000` w `vitest.config.ts`)
+**Cel:** pozwolić premiować mniejsze i lżejsze telefony (obecny telefon użytkowniczki to kompakt, a cała pula ma 6,3-6,83″) i pokazać, jak telefon wygląda — bez naruszania anonimowości kart.
 
-**DoD:** wszystkie 15 modeli ma komplet wymiarów, wagi, ocen `compactness` i zdjęć w `reveal`; przed wyborem w DOM nie ma zdjęć ani nazw; suwak „Wymiary i waga” działa w suwakach, hybrydzie i pełnym rankingu (przy wartości 5 na szczycie lądują najlżejsze/najmniejsze modele: Pixel 10a 75 pkt, Pixel 9a 72, Honor 400 71, Edge 60 70, Galaxy A57 61); komplet 28 plików testowych Vitest, walidatory i `npm run build` zielone.
+- [x] Nowa, siódma grupa **`size` — „Wymiary i waga”** z kryterium **`compactness`** (`src/data/criteria.ts`, `src/types/criteria.ts`): własny suwak grupy i chip w kroku G1; `CRITERIA_COUNT = 15`
+- [x] Wzór obiektywny w `src/data/scoringRules.ts`: `compactness = 0,45 × lekkość (g) + 0,45 × mała powierzchnia (wys. × szer.) + 0,10 × smukłość (mm)`; `scores.compactness` dla 15 rekordów, walidacja w `scripts/validate-data.ts`
+- [x] Pytanie **D4** w bloku „Codzienność” („Czy zależy Ci na mniejszym i lżejszym telefonie?” → `compactness` 0 / 3 / 5), quiz ma 19 pytań; persony zaktualizowane (`tests/personas.ts`)
+- [x] `PhonePhoto` (`src/components/PhonePhoto.tsx`): wizualizacja telefonu na karcie anonimowej bez nazw oraz zdjęcie producenta (`reveal.photoUrl`, wypełnione dla 15 rekordów) pokazywane dopiero po ujawnieniu — w karcie, szczegółach i pełnym rankingu
+- [x] Wiersz „Wymiary i waga” w `cardSpecs`, nowe tokeny w anonimizacji, aktualizacja testów (`ranking-screen`, `sliders-screen`, `score-rules`, `phones-schema`, `calibration`, liczebności kryteriów i pytań)
+
+**Stan po etapie 12:** 15 kryteriów w 7 grupach, 19 pytań; komplet testów zielony. **Poprawka 16.11.2026 (wieczór):** test „2., 7. i 8.” w `tests/exclusions.test.ts` (pełny przepływ karty → ranking → historia) trwa 4-6 s w jsdom i wysypywał się na domyślnym limicie 5 s Vitest — podniesiony `testTimeout`/`hookTimeout` do 20 s w `vitest.config.ts` i jawny limit tego testu.
 
 ---
+
+## Etap 13 — Faza poprawkowa i zakup (FIX-PHASE)
+
+**Podstawa:** [`FIX-PHASE.md`](./FIX-PHASE.md) (review 1 + review 2, 22 zmiany P0-P3; test E9-06 wykonany — jest kandydat).
+**Cel fazy:** nie „czy produkt działa”, tylko **„czy zakup na podstawie tego wyniku będzie trafny i bezpieczny”**.
+Kolejność = ryzyko zakupowe: FP1 (bezpieczny zakup) → FP2 (produkt bez szumu) → FP3 (zaufanie do wyniku) → FP4 (dane) → FP5 (proces, v1.0) → FP6 (po zakupie).
+Zmiany algorytmu i ocen przechodzą przez **bramkę kandydata** (`tests/user-session.test.ts` + `E12-zmiany-rankingu.md`).
+
+**FP0 — utrwalenie testu (dzień 0)**
+- [ ] FP0-01 `E9-wynik-testu.md` — **szablon gotowy, do wypełnienia przez użytkownika** (tryb, czasy, kandydat, drugi wybór, uwagi → FP1-FP5)
+- [~] FP0-02 bramka kandydata: `tests/user-session.test.ts` + `tests/fixtures/user-session.json` (placeholder z instrukcją eksportu; testy pomijane do czasu wklejenia sesji)
+- [x] FP0-03 ROADMAP (ten wpis, tabela §0.2 w etapie 9)
+- [ ] FP0-04 **data planowanego zakupu** — nadal do podania (wpis w `E9-wynik-testu.md`); determinuje, czy FP4 wchodzi przed zakupem
+- [x] Decyzje użytkownika 16.11.2026: kandydaci = **Edge 70 Fusion 12/256, Galaxy A57 8/256, Xiaomi 15T 12/512**; budżet **elastyczny** jako domyślny (FP3-05); FP3-02 **tylko plakietka**, bez kary; daty premiery doszukać (FP1-07); panele dev **usunąć** (FP2-02)
+
+**FP1 — bezpieczny zakup (P0)**
+- [x] FP1-01 weryfikacja trzech kandydatów (16.11.2026, `reveal.verifiedForPurchase`): **Edge 70 Fusion** — 1658,12 zł to promocja Allegro (X-KOM_PL) do 30.11, limit 1 szt., po niej **1899 zł** w x-kom/Media Expert/RTV Euro AGD (nadal ≤ 2000); gwarancję producenta potwierdzić u sprzedawcy. **Galaxy A57** — sferis.pl nadal 1729 zł (SM-A576B), morele 1799 zł, bez promocji czasowej. **Xiaomi 15T 12/512** — oferta 1999 zł (Komputronik) **zakończona**; aktualnie 12/512 od 2249,99 zł, 12/256 od 2149 zł → **powyżej limitu**; rekord ma `price.priceUnavailableSince` i ostrzeżenie na karcie — **decyzja użytkownika: zostawić w puli czy `over_budget`?**
+- [x] FP1-02 Realme 16 Pro+: walidator ostrzega, gdy link modelu z „+” nie zawiera członu „plus”; strona produktu Ceneo 193078329 („realme 16 Pro+ 5G 8/256GB”) potwierdza, że oferta 1959,99 zł to wariant Pro+ (drugie źródło: realmeshop.pl 2299 zł) — zapis w `auditNote`, `priceCompareUrl`, drugi link
+- [~] FP1-03 odświeżenie 15 cen — **w dniu zakupu** (D5/FP6-01); dziś: promocje opisane polami, `stale-prices` zgłasza „PROMOCJA WYGASŁA” po `promoEndsAt`
+- [x] FP1-04 `price.regularPricePln / promoEndsAt / promoCondition` + walidacja; Edge 70 Fusion (do 30.11, Allegro, limit 1 szt., regularnie 1799 zł) i Redmi Note 17 Pro (kod do 19.11, regularnie 2199 zł); tekst na karcie anonimowej (bez sklepu) i odsłoniętej (z warunkiem)
+- [x] FP1-05 ładowarka: zdanie przy cenie na odsłoniętej karcie i w pełnym rankingu („W pudełku nie ma ładowarki… dolicz ok. 80-150 zł, pełna moc X W…”); dla `null` — „producent nie deklaruje”
+- [x] FP1-06 każdy link sklepu z ceną, datą i typem (sklep / oficjalna dystrybucja / marketplace); porównywarka wydzielona jako przycisk „Sprawdź aktualną cenę” (`reveal.priceCompareUrl`, 15/15; Ceneo — strona produktu albo wyszukiwanie)
+- [x] FP1-07 `specs.securitySupportUntil` dla **15/15** (Pixel 10a 03.2033 — 7 lat od dostępności 5.03.2026; Edge 70 Fusion 03.2031 — 3 wersje + 5 lat poprawek wg microsite Motoroli; realme 02.2030 — 4 lata od premiery PL 12.02.2026); `wearableNotes` (Mi Band 6 przez Zepp Life, Mi Fitness nie obsługuje Band 6; wyłączyć optymalizację baterii dla aplikacji) dla trzech kandydatów
+- [x] FP1-08 `price.note` → `userNote` (UI) + `auditNote` (weryfikacja); walidator odrzuca stare `note`
+- [x] FP1-09 sekcja „Sprawdzone przed zakupem: ✓ … · data” — kod gotowy, pokazuje się po wypełnieniu `verifiedForPurchaseAt` (FP1-01)
+
+**FP2 — produkt bez szumu**
+- [x] FP2-01 mobilny CTA: „Zacznij quiz” tworzy sesję; przy niedokończonej — „Wznów wybór” na właściwy ekran (wykluczenia / tryb / karty)
+- [x] FP2-02 panele deweloperskie (eyebrow „Etap…”, mapa ekranów, konsola routera, panel etapów, linki „podgląd”, demo) **usunięte ze Startu** (decyzja użytkownika; komponenty zostają w repo, makiety `#/s/demo/*` osiągalne tylko z adresu); **zostaje:** stopka z postępem etapów i komunikaty „etap 3/7” w `strings`
+- [x] FP2-03 Start = jeden główny przycisk „Zacznij quiz (ok. 5 min)”; suwaki pod zwijanym „Inne sposoby”; hybryda tylko w dev (kod zostaje)
+- [x] FP2-04 wykluczenia jako opcja: nowa sesja startuje od pytań (`exclusionsStep: 'done'`), link „Chcę z góry wykluczyć markę lub model” na Starcie i w podsumowaniu quizu, po ujawnieniu przycisk „Nie chcę tej marki — pokaż inną propozycję” (bez przeliczania S)
+- [x] FP2-05 `#/s/:id/ranking` bez wyboru → przyjazna blokada „Najpierw wybierz jedną z trzech propozycji” (test wycieku: zero nazw)
+- [ ] FP2-06 `value` w pełnym rankingu z `rawScore(…, snapshot.filters.budgetMax)` i cena ze snapshotu — **do zrobienia**
+- [x] FP2-07 etykiety wg celu: G1 → „Dalej: podsumowanie”, podsumowanie i dostrojenie → „Pokaż 3 propozycje”
+- [ ] FP2-08 fleksja `plural()` w całym `strings.ts` — **do zrobienia** (częściowo w tekstach etapu 11)
+- [x] FP2-09 na karcie „67 %” z wyjaśnieniem w `title`; „% najlepszego” tylko w szczegółach
+
+**FP3 — zaufanie do wyniku**
+- [x] FP3-02 plakietka „Wyraźny kompromis w Twoim priorytecie: Aparat” (grupa z trójki G1 z GroupScore < 40 **lub** kryterium z wagą 5 i oceną < 55); **bez kary punktowej** (decyzja użytkownika) — u „żony” dostaje ją Redmi Note 17 Pro (aparat 62 przy wadze 5), Edge 70 Fusion nie
+- [x] FP3-05 budżet elastyczny: czwarta opcja F1 „Najlepiej do 1500 zł, dopłacę do 1800 zł, jeśli telefon będzie wyraźnie lepszy” (`budgetMax: 1500`, `budgetStretch: 1800`, `value: 4`), segment w panelu filtrów; karty = 2 najlepsze ≤ 1500 + najlepsza z pasma 1501-1800 **tylko gdy ma wyższy S** niż najlepsza w budżecie, z plakietką „Dopłata +X zł za +Y pkt”; ranking i S bez zmian. U „żony”: Edge 60 (59,7) · Redmi Note 15 Pro (54,9) · **vivo V70 FE 61,9 za 1799 zł — dopłata +400 zł za +2,2 pkt**. Opcje twarde 1500/1800/2000 zostają; dotychczasowe persony (F1-c) nie zmieniły się
+- [ ] FP3-01, FP3-03, FP3-04, FP3-06, FP3-07, FP3-08, FP3-09, FP3-10, FP3-11 — czekają na bramkę kandydata (FP0-02) i datę zakupu (FP0-04)
+**FP4 — dane i metodyka** (po zakupie, chyba że kandydat zależy od spornych danych): FP4-01 jedna miara baterii (EPREL / Active Use), FP4-02 aparaty z recenzji, FP4-03 `updates` = pozostałe wsparcie od daty zakupu, FP4-04 struktura aparatów, FP4-05 IP66/IP68 → 92, FP4-06 `basis` bez odwołań do innych modeli, FP4-07 Monte Carlo puli, FP4-08 Mi Band i daty wsparcia 15/15.
+**FP5 — proces i v1.0:** FP5-01 `package.json` (nazwa, wersja, skrypty, ESLint/Prettier) — **poza zasięgiem tej sesji** (nie edytujemy `package.json` ręcznie); FP5-02 walidator (częściowo: promo, `userNote`, slug wariantu — zrobione; `securitySupportUntil` wymagane — po FP4-08); FP5-03 `storage.ts` nowszy schemat → `persistent: false`; FP5-04 statusy sesji; FP5-05 link wznowienia v2; FP5-06 dokumentacja; FP5-07 `vite.config.ts`; FP5-08 wydanie.
+**FP6 — po zakupie:** FP6-01 zakup (`stale-prices` + ręczne sprawdzenie), FP6-02 retro po 2 tygodniach (`E12-retro.md`), FP6-03 decyzja o zamknięciu/kontynuacji, FP6-04 lekcje w PROJECT.
+
+**Stan po drugiej turze (16.11.2026, wieczór):** 30 plików testów, **379 zielonych + 3 pomijane** (bramka kandydata); `validate-data` 0 błędów, 2 ostrzeżenia (NFC Realme, link Realme bez „plus”). Ścieżka krytyczna do zakupu: **FP0-01 → FP0-02 → FP0-04 → FP1-03 (dzień zakupu) → FP6-01**. **Otwarte decyzje:** (1) Xiaomi 15T — zostawić w puli z ostrzeżeniem czy `over_budget`; (2) Edge 70 Fusion — kupować z Allegro (promocja, gwarancja do potwierdzenia) czy za 1899 zł w sieci; (3) data zakupu.
+
+---
+
+## Historia zmian
+
+Skrót tego, co i kiedy zmieniło się w projekcie (szczegóły w sekcjach etapów i plikach `ETAP-*.md`).
+
+| Data | Zmiana | Commit |
+|---|---|---|
+| 14.11.2026 | Dokumenty planistyczne: PROJECT, ROADMAP, QUIZ-SPEC, UI-SPEC, plany etapów 1-9; lista 10 telefonów z cenami od użytkownika | `8c5a1be` … `9f26373` |
+| 15.11.2026 | Etap 1 — szkielet, router hashowy, workflow GitHub Pages | `bacbe7b` |
+| 16.11.2026 | Etap 2 — silnik rankingu (wagi, pula, normalizacja, anonimizacja); etap 3 — zapis sesji z migracjami; dane telefonów domknięte (etap 0) | `4634f94`, `b992723`, `e6b4fbf` |
+| 16.11.2026 | Etap 4 — quiz A-F + G1; etap 5 — suwaki i hybryda; etap 6 — anonimowe karty, wybór i ujawnienie; korekta pasm G1 | `f538b6f`, `a43b801`, `d60d5df`, `e98a14a` |
+| 16.11.2026 | Etap 7 — historia, wznawianie, link `#/r/<kod>`, eksport/import; etap 8 — motywy, mobile, audyt axe | `1422d17`, `0ded9d7` |
+| 16.11.2026 | Etap 9 (część techniczna) — pełny ranking, kalibracja `BLEND = 0,5`, `stale-prices`, `release`; przygotowanie v1.0 | `3a4caf3` |
+| 16.11.2026 | **Etap 10** — przegląd 21 kandydatów (decyzje D1-D6), pula 10 → 15 (Honor 400, Galaxy A37 5G, OnePlus Nord 5, vivo V70 FE, Redmi Note 17 Pro 5G 8/512), wzór baterii 4000-8000 mAh, nowe referencje person | `864815d` |
+| 16.11.2026 | **Etap 11** — wykluczanie marek i modeli: schemat v2, `lib/exclusions.ts`, `rank().fullRanking`, ekran `#/s/:id/exclude`, panel filtrów, plakietki w pełnym rankingu i historii, testy akceptacyjne 1-9 | `baf7f06` |
+| 16.11.2026 | **Etap 12** — grupa „Wymiary i waga” z kryterium `compactness`, pytanie D4, `PhonePhoto` i zdjęcia po ujawnieniu | `3281614` |
+| 16.11.2026 | Stabilizacja testów: limit czasu 20 s dla przepływów komponentowych (`vitest.config.ts`), jawny limit testu „2., 7. i 8.” w `tests/exclusions.test.ts`; wpisy etapu 12 i ta historia w ROADMAP | — |
+| 16.11.2026 | Etap 13, tura 2: weryfikacja trzech kandydatów (FP1-01; oferta 15T za 1999 zł wygasła), Mi Band i daty wsparcia 15/15 (FP1-07), plakietka kompromisu bez kary (FP3-02), budżet elastyczny 1500/1800 (FP3-05), panele dev usunięte (FP2-02) | — |
+| 16.11.2026 | **Etap 13 — faza poprawkowa (FIX-PHASE)**: FP1 bezpieczny zakup (promocje z datą końca, ładowarka, linki z ceną/datą/typem, porównywarka, daty wsparcia, `userNote`/`auditNote`, „Sprawdzone przed zakupem”), FP2 produkt bez szumu (jeden CTA, wykluczenia jako opcja, panele dev tylko w `?dev=1`, blokada rankingu przed wyborem, etykiety przycisków, procent z wyjaśnieniem), bramka kandydata (`tests/user-session.test.ts`), szablony `E9-wynik-testu.md` i `E12-zmiany-rankingu.md` | — |
+
+**Do zrobienia przed v1.0 (etap 9 + 13):** FP0-01/FP0-04 (wynik testu i data zakupu), FP1-01 (ręczna weryfikacja kandydata), odświeżenie cen w dniu zakupu (`npm run stale-prices`), FP3 przez bramkę kandydata, tag `v1.0`.
 
 ## Zasada pracy
 

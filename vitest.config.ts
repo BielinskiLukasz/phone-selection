@@ -17,9 +17,15 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    testTimeout: 15_000,
     env: { VITE_QUIZ_ADVANCE_MS: '10' },
     include: ['tests/**/*.test.{ts,tsx}'],
     css: false,
+    /*
+     * Testy przepływów renderują cały App w jsdom (karty, pełny ranking z 15 wierszami, historia) i czekają na
+     * debounce zapisu (300 ms). Najdłuższy („2., 7. i 8.” w tests/exclusions.test.ts) zajmuje 4-6 s zależnie od
+     * maszyny, więc domyślne 5 s dawało losowe timeouty. 20 s to zapas, a nie zachęta do wolnych testów.
+     */
+    testTimeout: 20_000,
+    hookTimeout: 20_000,
   },
 });

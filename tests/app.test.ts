@@ -39,23 +39,18 @@ describe('Etap 1 — szkielet aplikacji', () => {
     expect(heading(strings.heroTitle)).toBeTruthy();
     expect(screen.getByRole('heading', { name: strings.chooseMode })).toBeTruthy();
 
-    const links = screen.getAllByRole('link').map((link) => link.textContent ?? '');
-    expect(links.some((text) => text.includes('#/s/demo/quiz'))).toBe(true);
-    expect(links.some((text) => text.includes('#/s/demo/sliders'))).toBe(true);
-    expect(links.some((text) => text.includes('#/s/demo/tune'))).toBe(true);
+    /* FP2-02 (decyzja użytkownika): panele deweloperskie i linki demo usunięte ze Startu. */
+    const text = document.body.textContent ?? '';
+    expect(text).not.toContain('#/s/demo');
+    expect(text).not.toMatch(/\bEtap \d/);
+    expect(screen.getAllByRole('button', { name: strings.startPrimaryCta }).length).toBeGreaterThan(0);
   });
 
   test('E4-07: wybór trybu na starcie tworzy sesję i otwiera działający quiz', async () => {
     render(createElement(App));
 
-    fireEvent.click(
-      screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }),
-    );
-    /* E11-06: najpierw opcjonalny krok wykluczeń; „Pomiń” otwiera właściwy quiz. */
-    expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/exclude$/);
-    goTo(window.location.hash);
-    expect(heading(strings.excludeTitle)).toBeTruthy();
-    fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: strings.startPrimaryCta })[0]!);
+    /* FP2-04: od Startu prosto do pytań — krok wykluczeń tylko z linku. */
     expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/quiz$/);
     goTo(window.location.hash);
 
@@ -117,13 +112,8 @@ describe('Etap 1 — szkielet aplikacji', () => {
   test('DoD etapu 6: od Startu przez quiz do ujawnienia nazwy', async () => {
     render(createElement(App));
 
-    // 1. Start → tryb Quiz → opcjonalny krok wykluczeń → Pomiń → quiz
-    fireEvent.click(
-      screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }),
-    );
-    expect(window.location.hash).toMatch(/^#\/s\/\d+\/exclude$/);
-    act(() => window.dispatchEvent(new Event('hashchange')));
-    fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
+    // 1. Start → tryb Quiz → od razu quiz (FP2-04: wykluczenia są opcją, nie krokiem)
+    fireEvent.click(screen.getAllByRole('button', { name: strings.startPrimaryCta })[0]!);
     expect(window.location.hash).toMatch(/^#\/s\/\d+\/quiz$/);
     act(() => window.dispatchEvent(new Event('hashchange')));
 
@@ -142,14 +132,14 @@ describe('Etap 1 — szkielet aplikacji', () => {
     fireEvent.click(screen.getByRole('button', { name: /Bateria i ładowanie/ }));
     fireEvent.click(screen.getByRole('button', { name: /^Aparat/ }));
     fireEvent.click(screen.getByRole('button', { name: /^Pamięć/ }));
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     await act(async () => {
       await new Promise((resolve) => setTimeout(resolve, 40));
     });
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Podsumowanie odpowiedzi');
 
     // 4. „Pokaż wyniki” → ekran kart
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     act(() => window.dispatchEvent(new Event('hashchange')));
     expect(window.location.hash).toMatch(/\/cards$/);
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Trzy propozycje');

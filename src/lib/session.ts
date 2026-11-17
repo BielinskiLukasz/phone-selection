@@ -73,7 +73,8 @@ export function createSession(mode: Mode, now: Date = new Date(), id?: string): 
     updatedAt: stamp,
     mode,
     status: 'in_progress',
-    exclusionsStep: 'pending',
+    /* FP2-04: wykluczenia to opcja (link na Starcie / po ujawnieniu), nie krok — nowa sesja zaczyna od pytań. */
+    exclusionsStep: 'done',
     answers: {},
     topThree: null,
     weights: neutralWeights(),

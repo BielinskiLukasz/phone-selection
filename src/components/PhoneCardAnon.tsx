@@ -103,7 +103,7 @@ export function PhoneCardAnon({ card, specs, alwaysOpenDetails, onSelect }: Phon
         </span>
         <p className="num mt-1.5 text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase">
           {card.matchLabel}
-          {card.matchRescaledPercent ? ` · ${card.matchRescaledPercent}% najlepszego` : ''}
+
         </p>
       </div>
 
@@ -115,12 +115,40 @@ export function PhoneCardAnon({ card, specs, alwaysOpenDetails, onSelect }: Phon
         <span className="text-[11px] text-[var(--color-muted)]">
           {sessionTexts.priceWithDate(card.priceCheckedAt)}
         </span>
-        {card.overBudgetBy ? (
+        {card.promoEndsAt || card.regularPricePln ? (
+          <span className="num basis-full text-[11px] text-[var(--color-warn)]">
+            {sessionTexts.pricePromoAnon(card.promoEndsAt, card.regularPricePln)}
+          </span>
+        ) : null}
+        {card.stretch ? (
+          <span
+            data-testid="stretch-badge"
+            className="num ml-auto rounded-[var(--radius-pill)] bg-[var(--color-accent-soft)] px-2.5 py-1 text-[10px] font-semibold tracking-[0.08em] text-[var(--color-accent-ink)] uppercase"
+          >
+            {sessionTexts.stretchBadge(card.stretch.extraPln, card.stretch.extraPoints)}
+          </span>
+        ) : card.overBudgetBy ? (
           <span className="num ml-auto rounded-[var(--radius-pill)] bg-[var(--color-warn-soft)] px-2.5 py-1 text-[10px] font-semibold tracking-[0.08em] text-[var(--color-warn)] uppercase">
             {sessionTexts.overBudgetBy(card.overBudgetBy)}
           </span>
         ) : null}
+        {card.priceUnavailableSince ? (
+          <span role="status" className="basis-full text-[11px] leading-relaxed text-[var(--color-warn)]">
+            <strong className="font-semibold">{strings.priceUnavailableTitle}.</strong>{' '}
+            {sessionTexts.priceUnavailableNote(card.priceUnavailableSince)}
+          </span>
+        ) : null}
       </div>
+
+      {/* FP3-02: plakietka kompromisu w priorytecie (bez kary punktowej — decyzja użytkownika). */}
+      {card.priorityTradeoffs.length > 0 ? (
+        <p
+          data-testid="tradeoff-badge"
+          className="mx-[var(--pad-card)] mt-3 rounded-[var(--radius-card)] border border-[var(--color-warn)] bg-[var(--color-warn-soft)] px-3 py-2 text-[12px] leading-relaxed text-[var(--color-warn)]"
+        >
+          <strong className="font-semibold">{strings.tradeoffLabel}:</strong> {sessionTexts.tradeoffNote(card.priorityTradeoffs)}
+        </p>
+      ) : null}
 
       {/* Cechy: jasny motyw pokazuje 4 od razu i pozwala rozwinąć, ciemny — wszystkie w tabeli (UI-SPEC 6) */}
       {dense ? (

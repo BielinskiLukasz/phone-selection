@@ -259,6 +259,19 @@ export function validatePhoneData(data: unknown, now = new Date()) {
         }
       }
       const links = value.reveal.shopLinks;
+      /* FP1-06: porównywarka jako osobny przycisk „Sprawdź aktualną cenę”. */
+      if (!validShopUrl(value.reveal.priceCompareUrl)) {
+        errors.push(`${path}.reveal.priceCompareUrl musi być adresem https porównywarki (FP1-06).`);
+      }
+      /* FP1-02: model z „+” w nazwie musi mieć link do wariantu „plus”, inaczej ostrzeżenie. */
+      if (nonEmptyString(value.modelName) && value.modelName.includes('+') && Array.isArray(links)) {
+        for (const link of links) {
+          const url = String(isRecord(link) ? link.url : link).toLowerCase();
+          if (!/plus|pro\+|%2b/.test(url)) {
+            warnings.push(`${path}: link ${url.slice(0, 60)}… nie zawiera członu „plus” mimo wariantu „${value.modelName}” — sprawdź wariant na stronie oferty przed zakupem.`);
+          }
+        }
+      }
       if (!Array.isArray(links) || links.length === 0) {
         errors.push(`${path}.reveal.shopLinks musi zawierać przynajmniej jeden link.`);
       } else {
@@ -303,6 +316,29 @@ export function validatePhoneData(data: unknown, now = new Date()) {
         errors.push(`${path}.price.checkedAt musi być poprawną datą YYYY-MM-DD.`);
       } else if (now.getTime() - checkedAt.getTime() > 30 * 24 * 60 * 60 * 1000) {
         warnings.push(`${path}: cena nie była sprawdzana od ponad 30 dni.`);
+      }
+      /* FP1-08: notatka dla użytkowniczki osobno od notatek weryfikacyjnych. */
+      if (!nonEmptyString(price.userNote)) {
+        errors.push(`${path}.price.userNote jest wymagane (krótka informacja o wariancie/kolorze dla użytkowniczki).`);
+      }
+      if (price.auditNote !== undefined && price.auditNote !== null && !nonEmptyString(price.auditNote)) {
+        errors.push(`${path}.price.auditNote musi być tekstem albo null.`);
+      }
+      if (price.note !== undefined) {
+        errors.push(`${path}.price.note zastąpione przez userNote/auditNote (FP1-08) — usuń pole.`);
+      }
+      /* FP1-04: promocja = cena regularna + data końca + warunek. */
+      if (price.promoEndsAt !== undefined && price.promoEndsAt !== null) {
+        if (!validDate(price.promoEndsAt)) {
+          errors.push(`${path}.price.promoEndsAt musi być datą YYYY-MM-DD.`);
+        } else if (!nonEmptyString(price.promoCondition)) {
+          warnings.push(`${path}.price.promoCondition: promocja bez opisu warunku (kod, limit sztuk, marketplace).`);
+        }
+      }
+      if (price.regularPricePln !== undefined && price.regularPricePln !== null) {
+        if (typeof price.regularPricePln !== 'number' || price.regularPricePln < (typeof price.pln === 'number' ? price.pln : 0)) {
+          errors.push(`${path}.price.regularPricePln musi być liczbą nie mniejszą niż price.pln.`);
+        }
       }
     }
 

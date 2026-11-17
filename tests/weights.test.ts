@@ -194,6 +194,7 @@ describe('E2-05 · filtry z odpowiedzi', () => {
     const answers = { C2: 'C2-b', F1: 'F1-b' };
     expect(filtersFromAnswers(answers)).toEqual({
       budgetMax: 1800,
+      budgetStretch: null,
       minStorageGb: 256,
       requireMicroSd: false,
     });
@@ -203,6 +204,7 @@ describe('E2-05 · filtry z odpowiedzi', () => {
   it('„pomiń” w F1 i C2 nie zmienia filtrów', () => {
     expect(answersToFilters({ F1: 'F1-skip', C2: 'C2-skip' })).toEqual({
       budgetMax: 2000,
+      budgetStretch: null,
       minStorageGb: null,
       requireMicroSd: false,
     });

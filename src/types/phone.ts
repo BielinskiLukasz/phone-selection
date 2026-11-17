@@ -21,6 +21,10 @@ export interface ShopLink {
   shop?: string;
   url: string;
   note?: string | null;
+  /* FP1-06: cena, data i typ oferty przy każdym linku — bez „szoku cenowego” po kliknięciu. */
+  pricePln?: number | null;
+  checkedAt?: string | null;
+  kind?: 'shop' | 'official' | 'marketplace' | 'compare' | null;
 }
 
 /** Dane ujawniane dopiero po wyborze karty (PROJECT 8) — w tym zdjęcia produktu. */
@@ -32,6 +36,11 @@ export interface Reveal {
   /** Zdjęcie prasowe w wyższej rozdzielczości — do rozwiniętych szczegółów i powiększenia. */
   photoUrl?: string | null;
   shopLinks: (ShopLink | string)[];
+  /* FP1-06: stały przycisk „Sprawdź aktualną cenę” (porównywarka) — osobno od linków sklepów. */
+  priceCompareUrl?: string | null;
+  /* FP1-09: ręczna weryfikacja przed zakupem (wariant, cena, promocja, ładowarka, wsparcie, Mi Band) z datą. */
+  verifiedForPurchaseAt?: string | null;
+  verifiedForPurchase?: string[] | null;
 }
 
 export interface PriceObservation {
@@ -50,7 +59,16 @@ export interface Price {
   /** Data sprawdzenia ceny, format RRRR-MM-DD. */
   checkedAt: string;
   providedBy?: string;
+  /** @deprecated FP1-08: zastąpione przez `userNote` (dla użytkowniczki) i `auditNote` (notatki weryfikacyjne). */
   note?: string | null;
+  userNote?: string | null;
+  auditNote?: string | null;
+  /* FP1-04: promocje — cena regularna, data końca i warunek (kod, limit sztuk, marketplace). */
+  regularPricePln?: number | null;
+  promoEndsAt?: string | null;
+  promoCondition?: string | null;
+  /* FP1-01: data, od której oferta z `pln` jest niedostępna (sprzedaż zakończona / cena wzrosła ponad limit). */
+  priceUnavailableSince?: string | null;
   otherObservations?: PriceObservation[];
 }
 
@@ -101,6 +119,11 @@ export interface UpdatesSpec {
 }
 
 export interface Specs {
+  /* FP1-07 / FP4-03: koniec poprawek bezpieczeństwa (RRRR-MM), data premiery i uwagi o opasce (Mi Band 6). */
+  securitySupportUntil?: string | null;
+  supportNote?: string | null;
+  releasedAt?: string | null;
+  wearableNotes?: string | null;
   displayInch?: number | null;
   /** Opis ekranu jako tekst albo obiekt z przekątną, panelem i odświeżaniem. */
   display?: string | DisplaySpec | null;

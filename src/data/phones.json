@@ -8,7 +8,9 @@
       "Tylko dane ze źródeł; brak danych = null, nigdy wartość zgadywana.",
       "Ceny z pola price.pln pochodzą z polskiej dystrybucji (nowe egzemplarze, data sprawdzenia w checkedAt); ostateczne odświeżenie cen tuż przed publikacją (ROADMAP, etap 9).",
       "Pula rozszerzona w etapie 10 z 10 do 15 modeli (decyzje D1-D5): Pixel 10a i 9a zostają w wersji 8/128 GB, Xiaomi 15T zostaje w wersji 12/512 GB (D3); dodano Honor 400 8/256 GB, OnePlus Nord 5 5G 8/256 GB, Samsung Galaxy A37 5G 8/256 GB, vivo V70 FE 5G 8/256 GB (D1) i Xiaomi Redmi Note 17 Pro 5G 8/512 GB (D2). Odrzucono modele z 2024 r. (Nord 4, Edge 50 Neo, Nothing 2a, Redmi Note 14 Pro+, Honor 200) oraz iPhone 16e (>2000 zł).",
-      "Linki w price.url i reveal.shopLinks bez parametrów śledzących (utm_*, ceneo_cid)."
+      "Linki w price.url i reveal.shopLinks bez parametrów śledzących (utm_*, ceneo_cid).",
+      "Faza poprawkowa FP1 (16.11.2026): price.note rozdzielone na userNote/auditNote; promocje opisane polami regularPricePln/promoEndsAt/promoCondition (Edge 70 Fusion do 30.11, Redmi Note 17 Pro do 19.11); każdy link sklepu ma cenę, datę i typ oferty; porównywarka w reveal.priceCompareUrl; specs.securitySupportUntil (RRRR-MM) ze źródła albo z daty premiery + lat poprawek (supportNote); reveal.verifiedForPurchaseAt wypełniane po ręcznej weryfikacji kandydata (FP1-01).",
+      "FP1-01 (16.11.2026): trzej kandydaci użytkowniczki zweryfikowani (Edge 70 Fusion, Galaxy A57, Xiaomi 15T) — reveal.verifiedForPurchase; oferta Xiaomi 15T 12/512 za 1999 zł wygasła (Komputronik: sprzedaż zakończona), aktualne ceny > 2000 zł — pole price.priceUnavailableSince, decyzja o statusie rekordu należy do użytkownika; securitySupportUntil uzupełnione dla 15/15 (Pixel 10a 03.2033, Edge 70 Fusion 03.2031, realme 02.2030); wearableNotes (Mi Band 6 / Zepp Life) dla trzech kandydatów."
     ],
     "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja.",
     "specsCompletedNote": "Etap 0 + Etap 10 (16.11.2026): specyfikacje i oceny 15 modeli zweryfikowane z oficjalnych stron producentów, kart produktowych polskich sklepów oraz niezależnych testów (GSMArena + etykiety energetyczne UE/EPREL, PhoneArena, DXOMARK, Notebookcheck, 91mobiles, mGSM, gsmManiaK). Zgodnie z decyzją D4 sufit wzoru pojemności baterii podniesiono z 7000 do 8000 mAh (4000 mAh = 0, 8000 mAh = 100) i przeliczono scores.battery dla całej puli."
@@ -27,12 +29,29 @@
         "shopLinks": [
           {
             "label": "sferis.pl",
-            "url": "https://www.sferis.pl/samsung-galaxy-a57-sm-a576b-8-256gb-5g-ds-gray-i688666"
+            "url": "https://www.sferis.pl/samsung-galaxy-a57-sm-a576b-8-256gb-5g-ds-gray-i688666",
+            "pricePln": 1729,
+            "checkedAt": "2026-11-16",
+            "kind": "shop",
+            "note": "sferis.pl 16.11.2026: 1729 zł, dostępny (monitorpromocji.pl)"
           },
           {
             "label": "morele.net",
-            "url": "https://www.morele.net/smartfon-samsung-galaxy-a57-5g-8-256gb-granatowy-sm-a576bdb-15914652"
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-a57-5g-8-256gb-granatowy-sm-a576bdb-15914652",
+            "pricePln": 1799,
+            "checkedAt": "2026-11-16",
+            "kind": "shop",
+            "note": "morele.net 16.11.2026: 1799 zł (sprzedaż bezpośrednia); x-kom 1829 zł"
           }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Samsung+Galaxy+A57+5G",
+        "verifiedForPurchaseAt": "2026-11-16",
+        "verifiedForPurchase": [
+          "wariant 8/256 GB zgodny z ofertą (SM-A576B)",
+          "cena 1729 zł w sferis.pl (sklep, polska dystrybucja), 1799 zł w morele.net — bez promocji czasowej",
+          "w pudełku nie ma ładowarki (45 W wymaga zasilacza Samsung 45 W / USB PD PPS)",
+          "6 wersji Androida + poprawki bezpieczeństwa do 03.2032",
+          "Mi Band 6: Zepp Life, dodać do aplikacji nieuśpionych"
         ]
       },
       "variant": {
@@ -45,9 +64,9 @@
         "pln": 1729,
         "source": "sferis.pl",
         "url": "https://www.sferis.pl/samsung-galaxy-a57-sm-a576b-8-256gb-5g-ds-gray-i688666",
-        "checkedAt": "2026-11-14",
+        "checkedAt": "2026-11-16",
         "providedBy": "user",
-        "note": "szary, 8/256 GB",
+        "userNote": "szary, 8/256 GB",
         "otherObservations": [
           {
             "pln": 1799.96,
@@ -57,7 +76,8 @@
             "providedBy": "claude (odczyt strony)",
             "note": "granatowy; na stronie „więcej propozycji od 1790 zł”"
           }
-        ]
+        ],
+        "auditNote": " | FP1-01 (16.11.2026): sferis.pl nadal 1729 zł (szary, SM-A576B, dostępny w 1 dzień); morele.net 1799 zł, x-kom 1829 zł, Neonet 2099 zł — brak promocji czasowej, cena stabilna (średnia najniższych 1636 zł wg monitorpromocji). Wariant 8/256 GB potwierdzony w nazwie oferty."
       },
       "specs": {
         "displayInch": 6.7,
@@ -95,7 +115,11 @@
         "dimensionsMm": "161,5 × 76,8 × 6,9",
         "batteryEndurance": 62.7,
         "heightMm": 161.5,
-        "widthMm": 76.8
+        "widthMm": 76.8,
+        "securitySupportUntil": "2032-03",
+        "supportNote": "6 lat poprawek od premiery (03.2026) — jak Galaxy A56/A37 (Samsung liczy od premiery)",
+        "releasedAt": "2026-03",
+        "wearableNotes": "Mi Band 6 działa z każdym z tych telefonów przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Powiadomienia z komunikatorów wymagają wyłączenia optymalizacji baterii dla Zepp Life w ustawieniach Androida — bez tego po kilku godzinach przestają dochodzić. Na Samsungu dodać Zepp Life do „Aplikacji nieuśpionych” (Bateria → Limity użycia w tle)."
       },
       "scores": {
         "battery": 44,
@@ -172,9 +196,15 @@
         "shopLinks": [
           {
             "label": "mediaexpert.pl",
-            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-google-pixel-10a-5g-8-128gb-6-3-120hz-obsydian"
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-google-pixel-10a-5g-8-128gb-6-3-120hz-obsydian",
+            "pricePln": 1899.99,
+            "checkedAt": "2026-11-14",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Google+Pixel+10a",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -188,7 +218,8 @@
         "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-google-pixel-10a-5g-8-128gb-6-3-120hz-obsydian",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "note": "obsydian, 8/128 GB; oficjalna cena premierowa 8/128 GB: 2349 zł",
+        "userNote": "obsydian, 8/128 GB (cena premierowa 2349 zł)",
+        "auditNote": "obsydian, 8/128 GB; oficjalna cena premierowa 8/128 GB: 2349 zł",
         "otherObservations": []
       },
       "specs": {
@@ -230,7 +261,11 @@
         "batteryEndurance": 79.3,
         "heightMm": 153.9,
         "widthMm": 73,
-        "thicknessMm": 9
+        "thicknessMm": 9,
+        "securitySupportUntil": "2033-03",
+        "supportNote": "Google: 7 lat aktualizacji systemu i poprawek od dostępności w sprzedaży (PL: 5.03.2026; morele.net, mGSM) → do 03.2033",
+        "releasedAt": "2026-03",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 53,
@@ -308,9 +343,15 @@
         "shopLinks": [
           {
             "label": "empik.com",
-            "url": "https://www.empik.com/smartfon-samsung-galaxy-a56-5g-8-gb-256-gb-grafitowy-samsung,p1592668618,elektronika-p"
+            "url": "https://www.empik.com/smartfon-samsung-galaxy-a56-5g-8-gb-256-gb-grafitowy-samsung,p1592668618,elektronika-p",
+            "pricePln": 1718.99,
+            "checkedAt": "2026-11-14",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Samsung+Galaxy+A56+5G",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -324,7 +365,7 @@
         "url": "https://www.empik.com/smartfon-samsung-galaxy-a56-5g-8-gb-256-gb-grafitowy-samsung,p1592668618,elektronika-p",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "note": "grafitowy, 8/256 GB",
+        "userNote": "grafitowy, 8/256 GB",
         "otherObservations": []
       },
       "specs": {
@@ -360,7 +401,11 @@
         "batteryEndurance": 64.7,
         "heightMm": 162.2,
         "widthMm": 77.5,
-        "dimensionsMm": "162,2 × 77,5 × 7,4"
+        "dimensionsMm": "162,2 × 77,5 × 7,4",
+        "securitySupportUntil": "2032-03",
+        "supportNote": "android.com.pl: „do 31.03.2032”",
+        "releasedAt": "2025-03",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 45,
@@ -440,9 +485,15 @@
         "shopLinks": [
           {
             "label": "euro.com.pl",
-            "url": "https://www.euro.com.pl/telefony-komorkowe/xiaomi-redmi-note-15-pro-5g-8-256gb-6-83-120hz-200mpix-czarny.bhtml"
+            "url": "https://www.euro.com.pl/telefony-komorkowe/xiaomi-redmi-note-15-pro-5g-8-256gb-6-83-120hz-200mpix-czarny.bhtml",
+            "pricePln": 1299,
+            "checkedAt": "2026-11-14",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Xiaomi+Redmi+Note+15+Pro+5G",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -456,7 +507,8 @@
         "url": "https://www.euro.com.pl/telefony-komorkowe/xiaomi-redmi-note-15-pro-5g-8-256gb-6-83-120hz-200mpix-czarny.bhtml",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "note": "czarny, 8/256 GB; cena premierowa w Polsce (grudzień 2025): 1699 zł, więc 1299 zł to duża obniżka. Warto sprawdzić, czy to oferta nowego egzemplarza z polską gwarancją",
+        "userNote": "czarny, 8/256 GB; duża obniżka względem premiery (1699 zł) — sprawdź, czy to nowy egzemplarz z polską gwarancją",
+        "auditNote": "czarny, 8/256 GB; cena premierowa w Polsce (grudzień 2025): 1699 zł, więc 1299 zł to duża obniżka. Warto sprawdzić, czy to oferta nowego egzemplarza z polską gwarancją",
         "otherObservations": []
       },
       "specs": {
@@ -508,7 +560,11 @@
         "chargerInBoxNote": "nanoreview podaje „Bundled charger: Yes, 45 W”, FAQ mi.com rozróżnia wersje z ładowarką i bez — dla PL zostaje false",
         "heightMm": 163.6,
         "thicknessMm": 8,
-        "dimensionsMm": "163,6 × 78,1 × 8"
+        "dimensionsMm": "163,6 × 78,1 × 8",
+        "securitySupportUntil": "2031-12",
+        "supportNote": "6 lat poprawek liczone od polskiej premiery (12.2025); do potwierdzenia na trust.mi.com",
+        "releasedAt": "2025-12",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 57,
@@ -587,9 +643,15 @@
         "shopLinks": [
           {
             "label": "euro.com.pl",
-            "url": "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml"
+            "url": "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml",
+            "pricePln": 1399,
+            "checkedAt": "2026-11-14",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Motorola+Edge+60",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 12,
@@ -603,7 +665,8 @@
         "url": "https://www.euro.com.pl/telefony-komorkowe/motorola-edge-60-12-256gb-6-67-120hz-50mpix-zielony.bhtml",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "note": "zielony, 12/256 GB; zakres 6,67″ 120 Hz i 50 MP wynika z adresu strony sklepu",
+        "userNote": "zielony, 12/256 GB",
+        "auditNote": "zielony, 12/256 GB; zakres 6,67″ 120 Hz i 50 MP wynika z adresu strony sklepu",
         "otherObservations": []
       },
       "specs": {
@@ -645,7 +708,11 @@
         "heightMm": 161.2,
         "widthMm": 73.1,
         "thicknessMm": 7.9,
-        "dimensionsMm": "161,2 × 73,1 × 7,9"
+        "dimensionsMm": "161,2 × 73,1 × 7,9",
+        "securitySupportUntil": "2029-04",
+        "supportNote": "4 lata poprawek od premiery 04.2025 (deklaracja Motoroli)",
+        "releasedAt": "2025-04",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 50,
@@ -723,8 +790,37 @@
         "shopLinks": [
           {
             "label": "komputronik.pl",
-            "url": "https://www.komputronik.pl/product/983816/telefon-xiaomi-15t-12-512gb-black.html"
+            "url": "https://www.komputronik.pl/product/983816/telefon-xiaomi-15t-12-512gb-black.html",
+            "pricePln": 1999,
+            "checkedAt": "2026-11-14",
+            "kind": "shop",
+            "note": "UWAGA 16.11.2026: oferta oznaczona „produkt archiwalny — sprzedaż zakończona”"
+          },
+          {
+            "label": "ceneo.pl (12/512 czarny)",
+            "url": "https://www.ceneo.pl/188731528",
+            "pricePln": 2249.99,
+            "checkedAt": "2026-11-16",
+            "kind": "compare",
+            "note": "najniższa aktualna oferta 12/512 — Allegro 2249,99 zł; Neonet 2499 zł"
+          },
+          {
+            "label": "ceneo.pl (12/256 czarny)",
+            "url": "https://www.ceneo.pl/188032996",
+            "pricePln": 2149,
+            "checkedAt": "2026-11-16",
+            "kind": "compare",
+            "note": "wariant 12/256 GB od 2149 zł (Kaufland marketplace); x-kom 12/256 2299 zł"
           }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/188731528",
+        "verifiedForPurchaseAt": "2026-11-16",
+        "verifiedForPurchase": [
+          "wariant 12/512 GB — oferta 1999 zł (Komputronik) ZAKOŃCZONA 16.11.2026",
+          "aktualnie 12/512 od 2249,99 zł (Allegro) i 12/256 od 2149 zł — powyżej limitu 2000 zł; sprawdź „Sprawdź aktualną cenę” przed zakupem",
+          "w pudełku nie ma ładowarki (67 W wymaga zasilacza Xiaomi)",
+          "4 wersje Androida + poprawki bezpieczeństwa do 09.2031",
+          "Mi Band 6: Zepp Life; na HyperOS włączyć autostart dla aplikacji"
         ]
       },
       "variant": {
@@ -739,8 +835,10 @@
         "url": "https://www.komputronik.pl/product/983816/telefon-xiaomi-15t-12-512gb-black.html",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "note": "czarny, 12/512 GB (zgodnie z adresem strony)",
-        "otherObservations": []
+        "userNote": "czarny, 12/512 GB — UWAGA: oferta 1999 zł z 14.11 jest już niedostępna (Komputronik: „sprzedaż zakończona”); aktualne ceny 12/512 od 2249,99 zł, 12/256 od 2149 zł — powyżej limitu 2000 zł",
+        "otherObservations": [],
+        "auditNote": " | FP1-01 (16.11.2026): Komputronik 983816 (12/512 Black 1999 zł) ma status Discontinued/„produkt archiwalny”; Ceneo 12/512: czarny od 2249,99 zł (Allegro), szary od 2269 zł, Neonet 2499 zł; 12/256: od 2149 zł (Kaufland), x-kom 2299 zł. Brak oferty ≤ 2000 zł w polskiej dystrybucji na dzień 16.11.2026. Cena w price.pln pozostawiona jako ostatnia zweryfikowana (14.11) z flagą priceUnavailable — rekord zostaje w puli do decyzji użytkownika (status over_budget wyłączyłby go z kart i rankingu).",
+        "priceUnavailableSince": "2026-11-16"
       },
       "specs": {
         "ramGb": 12,
@@ -784,7 +882,11 @@
         "heightMm": 163.2,
         "widthMm": 78,
         "thicknessMm": 7.5,
-        "dimensionsMm": "163,2 × 78 × 7,5"
+        "dimensionsMm": "163,2 × 78 × 7,5",
+        "securitySupportUntil": "2031-09",
+        "supportNote": "GSMArena: 6 lat poprawek; liczone od premiery 09.2025",
+        "releasedAt": "2025-09",
+        "wearableNotes": "Mi Band 6 działa z każdym z tych telefonów przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Powiadomienia z komunikatorów wymagają wyłączenia optymalizacji baterii dla Zepp Life w ustawieniach Androida — bez tego po kilku godzinach przestają dochodzić. Na Xiaomi (HyperOS) włączyć „Autostart” i „Bez ograniczeń” w oszczędzaniu baterii dla Zepp Life."
       },
       "scores": {
         "battery": 48,
@@ -860,8 +962,38 @@
         "shopLinks": [
           {
             "label": "allegro.pl (X-KOM_PL)",
-            "url": "https://allegro.pl/oferta/smartfon-motorola-edge-70-fusion-5g-12-256gb-orient-blue-120hz-18538693570"
+            "url": "https://allegro.pl/oferta/smartfon-motorola-edge-70-fusion-5g-12-256gb-orient-blue-120hz-18538693570",
+            "pricePln": 1658.12,
+            "checkedAt": "2026-11-14",
+            "kind": "marketplace",
+            "note": "promocja do 30.11.2026, limit 1 szt., nowy egzemplarz; w opisie oferty brak informacji o gwarancji producenta — zapytać sprzedawcę"
+          },
+          {
+            "label": "x-kom.pl",
+            "url": "https://www.x-kom.pl/szukaj?q=motorola%20edge%2070%20fusion",
+            "pricePln": 1899,
+            "checkedAt": "2026-11-16",
+            "kind": "official",
+            "note": "cena regularna w sieciach (x-kom, Media Expert, RTV Euro AGD, Media Markt — wszystkie 1899 zł wg e-katalog/Media Expert 16.11.2026)"
+          },
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/motorola",
+            "pricePln": 1899,
+            "checkedAt": "2026-11-16",
+            "kind": "official",
+            "note": "Media Expert: 1899 zł; wariant z Moto Buds 2 — 1999 zł z kodem do 01.12.2026"
           }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Motorola+Edge+70+Fusion",
+        "verifiedForPurchaseAt": "2026-11-16",
+        "verifiedForPurchase": [
+          "wariant 12/256 GB zgodny z ofertą",
+          "cena 1658,12 zł to promocja Allegro (X-KOM_PL) do 30.11.2026, limit 1 szt.; po niej 1899 zł w x-kom / Media Expert / RTV Euro AGD",
+          "w pudełku nie ma ładowarki (68 W wymaga zasilacza Motorola TurboPower)",
+          "3 wersje Androida + poprawki bezpieczeństwa do 03.2031",
+          "Mi Band 6: Zepp Life, powiadomienia po wyłączeniu optymalizacji baterii",
+          "do potwierdzenia u sprzedawcy: gwarancja producenta w ofercie Allegro"
         ]
       },
       "variant": {
@@ -876,8 +1008,12 @@
         "url": "https://allegro.pl/oferta/smartfon-motorola-edge-70-fusion-5g-12-256gb-orient-blue-120hz-18538693570",
         "checkedAt": "2026-11-14",
         "providedBy": "user, zweryfikowane przez claude",
-        "note": "Sprawdzone przez Claude 14.11.2026: stan NOWY; sprzedawca X-KOM_PL (Super Sprzedawca, firma, poleca 98,6%); Allegro Smart (darmowa dostawa i zwrot 15 dni); Gwarancja najniższej ceny; promocja do 30.11.2026 lub wyczerpania zapasów (poprzednia najniższa cena z 30 dni 1799 zł); limit 1 szt.; opinie 5,00 (17 ocen). W opisie oferty nie podano gwarancji producenta",
-        "otherObservations": []
+        "userNote": "12/256 GB; oferta Allegro (sprzedawca X-KOM_PL, nowy egzemplarz) — promocja do 30.11.2026, limit 1 szt.; cena regularna z ostatnich 30 dni 1799 zł",
+        "auditNote": "Sprawdzone przez Claude 14.11.2026: stan NOWY; sprzedawca X-KOM_PL (Super Sprzedawca, firma, poleca 98,6%); Allegro Smart (darmowa dostawa i zwrot 15 dni); Gwarancja najniższej ceny; promocja do 30.11.2026 lub wyczerpania zapasów (poprzednia najniższa cena z 30 dni 1799 zł); limit 1 szt.; opinie 5,00 (17 ocen). W opisie oferty nie podano gwarancji producenta | FP1-01 (16.11.2026): wariant 12/256 GB zgodny z ofertą; po 30.11 lub po wyczerpaniu promocji Allegro cena regularna 1899 zł (x-kom, Media Expert, RTV Euro AGD, Media Markt) — nadal ≤ 2000 zł; Ceneo od 1749 zł (sprzedawcy marketplace). Gwarancja: oferta Allegro X-KOM_PL (firma, 98,6% poleceń) — gwarancję producenta potwierdzić u sprzedawcy przed zakupem.",
+        "otherObservations": [],
+        "regularPricePln": 1799,
+        "promoEndsAt": "2026-11-30",
+        "promoCondition": "aukcja Allegro (sprzedawca X-KOM_PL), limit 1 szt."
       },
       "specs": {
         "displayInch": 6.78,
@@ -934,7 +1070,11 @@
         "batteryEndurance": 80,
         "heightMm": 162.8,
         "widthMm": 75.6,
-        "thicknessMm": 8
+        "thicknessMm": 8,
+        "securitySupportUntil": "2031-03",
+        "supportNote": "Motorola (microsite Flipkart, 03.2026; 91mobiles, Gizmochina): 3 wersje Androida i 5 lat poprawek bezpieczeństwa — liczone od premiery 03.2026 → do 03.2031",
+        "releasedAt": "2026-03",
+        "wearableNotes": "Mi Band 6 działa z każdym z tych telefonów przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Powiadomienia z komunikatorów wymagają wyłączenia optymalizacji baterii dla Zepp Life w ustawieniach Androida — bez tego po kilku godzinach przestają dochodzić. Na Motoroli dodatkowo pominąć tryb „Adaptive Battery” dla aplikacji."
       },
       "scores": {
         "battery": 78,
@@ -1014,9 +1154,15 @@
         "shopLinks": [
           {
             "label": "mediaexpert.pl",
-            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-Google-pixel-9a-5g-8-128gb-6-3-120hz-obsydian"
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-Google-pixel-9a-5g-8-128gb-6-3-120hz-obsydian",
+            "pricePln": 1749.99,
+            "checkedAt": "2026-11-14",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Google+Pixel+9a",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -1030,7 +1176,7 @@
         "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-Google-pixel-9a-5g-8-128gb-6-3-120hz-obsydian",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "note": "obsydian, 8/128 GB",
+        "userNote": "obsydian, 8/128 GB",
         "otherObservations": []
       },
       "specs": {
@@ -1071,7 +1217,11 @@
         "batteryEndurance": 71.3,
         "heightMm": 154.7,
         "widthMm": 73.3,
-        "thicknessMm": 8.9
+        "thicknessMm": 8.9,
+        "securitySupportUntil": "2032-04",
+        "supportNote": "Google: 7 lat aktualizacji od dostępności (04.2025) → do 04.2032",
+        "releasedAt": "2025-04",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 49,
@@ -1146,9 +1296,15 @@
         "shopLinks": [
           {
             "label": "proshop.pl",
-            "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300"
+            "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300",
+            "pricePln": 1779,
+            "checkedAt": "2026-11-14",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Nothing+Phone+(3a)",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 12,
@@ -1162,7 +1318,7 @@
         "url": "https://www.proshop.pl/Telefon-komorkowy/Nothing-Phone-3a-256GB12GB-Black/3336300",
         "checkedAt": "2026-11-14",
         "providedBy": "user",
-        "note": "czarny, 12/256 GB",
+        "userNote": "czarny, 12/256 GB",
         "otherObservations": []
       },
       "specs": {
@@ -1212,7 +1368,11 @@
         "batteryEndurance": 84.7,
         "heightMm": 163.5,
         "widthMm": 77.5,
-        "thicknessMm": 8.4
+        "thicknessMm": 8.4,
+        "securitySupportUntil": "2029-03",
+        "supportNote": "ostrożnie: 4 lata poprawek od premiery 03.2025 (Tech Advisor, gsmManiaK); część źródeł podaje 6 lat → 03.2031",
+        "releasedAt": "2025-03",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 55,
@@ -1288,9 +1448,23 @@
         "shopLinks": [
           {
             "label": "empik.com",
-            "url": "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p"
+            "url": "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p",
+            "pricePln": 1959.99,
+            "checkedAt": "2026-11-14",
+            "kind": "shop"
+          },
+          {
+            "label": "realmeshop.pl (sklep producenta)",
+            "url": "https://www.ceneo.pl/193078329",
+            "note": "oficjalna cena 2299 zł — link przez stronę produktu Ceneo „realme 16 Pro+ 5G 8/256GB”, która potwierdza wariant Pro+ oferty 1959,99 zł",
+            "pricePln": 2299,
+            "checkedAt": "2026-11-16",
+            "kind": "official"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/193078329",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -1304,8 +1478,18 @@
         "url": "https://www.empik.com/smartfon-realme-16-pro-5g-8-256gb-zloty-realme,p1725649004,elektronika-p",
         "checkedAt": "2026-11-14",
         "providedBy": "user, potwierdzone przez claude (zgodność specyfikacji ze źródłami)",
-        "note": "Wersja Pro+ potwierdzona przez użytkownika (14.11.2026) i zgodna ze specyfikacją modelu: Snapdragon 7 Gen 4, 7000 mAh, 80 W, peryskop 50 MP 3,5x (gadgets360, Notebookcheck, 91mobiles). Adres oferty Empik nadal zawiera „realme-16-pro-5g” bez „plus” — cena 1959,99 zł pomiędzy premierowymi 1799 zł (Pro) i 2299 zł (Pro+)",
-        "otherObservations": []
+        "userNote": "8/256 GB; wariant Pro+ potwierdzony 14.11.2026 — przed zakupem sprawdź nazwę i wariant na stronie oferty (adres zawiera „16 pro 5g” bez „plus”)",
+        "auditNote": "Wersja Pro+ potwierdzona przez użytkownika (14.11.2026) i zgodna ze specyfikacją modelu: Snapdragon 7 Gen 4, 7000 mAh, 80 W, peryskop 50 MP 3,5x (gadgets360, Notebookcheck, 91mobiles). Adres oferty Empik nadal zawiera „realme-16-pro-5g” bez „plus” — cena 1959,99 zł pomiędzy premierowymi 1799 zł (Pro) i 2299 zł (Pro+) | FP1-02 (16.11.2026): strona produktu Ceneo 193078329 („realme 16 Pro+ 5G 8/256GB Złoty”) wymienia ofertę 1959,99 zł wśród ofert wariantu Pro+ oraz realmeshop.pl 2299 zł; Ceneo podaje też oferty od 1682,99 zł w 13 sklepach (nie zweryfikowane co do sprzedawcy) — w dniu zakupu sprawdzić nazwę modelu na stronie Empiku i rozważyć tańszą ofertę ze sklepu stacjonarnego.",
+        "otherObservations": [
+          {
+            "pln": 1682.99,
+            "source": "ceneo.pl (najniższa z 13 ofert, złoty)",
+            "url": "https://www.ceneo.pl/193078329",
+            "checkedAt": "2026-11-16",
+            "providedBy": "claude (odczyt indeksu Ceneo)",
+            "note": "sprzedawca niezweryfikowany; cena orientacyjna do sprawdzenia w dniu zakupu"
+          }
+        ]
       },
       "specs": {
         "displayInch": 6.8,
@@ -1361,7 +1545,11 @@
         "confirmationNote": "Specyfikacja Pro+ zweryfikowana po potwierdzeniu użytkownika; wariant `ifItIsPlainPro` zostaje jako historia rozbieżności oferty",
         "heightMm": 162.45,
         "widthMm": 76.17,
-        "thicknessMm": 8.49
+        "thicknessMm": 8.49,
+        "securitySupportUntil": "2030-02",
+        "supportNote": "realme: 3 wersje Androida i 4 lata poprawek (91mobiles; x-kom: „do 4 lat wsparcia aktualizacjami zabezpieczeń”) — liczone od polskiej premiery 12.02.2026 (tabletowo, Komputronik) → do 02.2030",
+        "releasedAt": "2026-02",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 84,
@@ -1407,7 +1595,8 @@
         "https://www.notebookcheck.net/Realme-16-Pro.1238116.0.html",
         "https://www.91mobiles.com/realme-16-pro-plus-price-in-india",
         "https://www.gomibo.fr/en/realme-16-pro-plus-5g",
-        "https://www.gsmarena.com/realme_16_pro+_5g-pictures-14363.php"
+        "https://www.gsmarena.com/realme_16_pro+_5g-pictures-14363.php",
+        "https://www.ceneo.pl/193078329"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -1440,17 +1629,29 @@
         "shopLinks": [
           {
             "label": "komputronik.pl",
-            "url": "https://www.komputronik.pl/product/969768/telefon-honor-400-8-256gb-czarny.html"
+            "url": "https://www.komputronik.pl/product/969768/telefon-honor-400-8-256gb-czarny.html",
+            "pricePln": 1599,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           },
           {
             "label": "mediaexpert.pl",
-            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/warianty-produktu_honor-400-5g"
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/warianty-produktu_honor-400-5g",
+            "pricePln": 1699,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           },
           {
             "label": "euro.com.pl",
-            "url": "https://www.euro.com.pl/telefony-komorkowe/honor-400-8-256gb-6-55-120hz-200mpix-zloty.bhtml"
+            "url": "https://www.euro.com.pl/telefony-komorkowe/honor-400-8-256gb-6-55-120hz-200mpix-zloty.bhtml",
+            "pricePln": null,
+            "checkedAt": null,
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Honor+400+5G",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -1464,7 +1665,8 @@
         "url": "https://www.komputronik.pl/product/969768/telefon-honor-400-8-256gb-czarny.html",
         "checkedAt": "2026-11-16",
         "providedBy": "etap-10 (odczyt kart sklepów)",
-        "note": "czarny, 8/256 GB; w promocjach z kodem w RTV Euro AGD bywał po 1499 zł (premiera PL: 1999 zł)",
+        "userNote": "czarny, 8/256 GB",
+        "auditNote": "czarny, 8/256 GB; w promocjach z kodem w RTV Euro AGD bywał po 1499 zł (premiera PL: 1999 zł)",
         "otherObservations": [
           {
             "pln": 1699,
@@ -1533,7 +1735,11 @@
         "stereoSpeakers": true,
         "polishLaunchPricePln": 1999,
         "heightMm": 156.5,
-        "widthMm": 74.6
+        "widthMm": 74.6,
+        "securitySupportUntil": "2031-05",
+        "supportNote": "producent (via GSMArena): 6 lat poprawek w UE „do 2031”; miesiąc = premiera 05.2025 + 6 lat",
+        "releasedAt": "2025-05",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 44,
@@ -1609,17 +1815,22 @@
         "shopLinks": [
           {
             "label": "morele.net",
-            "url": "https://www.morele.net/smartfon-oneplus-nord-5-5g-8-256gb-grafitowy-tkoonesza0070-15473688/"
-          },
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/185352075"
+            "url": "https://www.morele.net/smartfon-oneplus-nord-5-5g-8-256gb-grafitowy-tkoonesza0070-15473688/",
+            "pricePln": 1600.99,
+            "checkedAt": "2026-11-16",
+            "kind": "marketplace"
           },
           {
             "label": "komputronik.pl",
-            "url": "https://www.komputronik.pl/product/976051/telefon-oneplus-nord-5-5g-8-256gb-bialy.html"
+            "url": "https://www.komputronik.pl/product/976051/telefon-oneplus-nord-5-5g-8-256gb-bialy.html",
+            "pricePln": null,
+            "checkedAt": null,
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/185352075",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -1633,7 +1844,8 @@
         "url": "https://www.morele.net/smartfon-oneplus-nord-5-5g-8-256gb-grafitowy-tkoonesza0070-15473688/",
         "checkedAt": "2026-11-16",
         "providedBy": "etap-10 (odczyt kart sklepów)",
-        "note": "grafitowy (Phantom Grey), 8/256 GB; w Morele bezpośrednio wariant kremowy 1722,42 zł (premiera PL: 2199 zł)",
+        "userNote": "grafitowy (Phantom Grey), 8/256 GB",
+        "auditNote": "grafitowy (Phantom Grey), 8/256 GB; w Morele bezpośrednio wariant kremowy 1722,42 zł (premiera PL: 2199 zł)",
         "otherObservations": [
           {
             "pln": 1685,
@@ -1703,7 +1915,11 @@
         "polishLaunchPricePln": 2199,
         "ramType": "LPDDR5X",
         "heightMm": 163.4,
-        "widthMm": 77
+        "widthMm": 77,
+        "securitySupportUntil": "2031-07",
+        "supportNote": "ITdaily: „support will end after July 2031” (premiera 07.2025 + 6 lat)",
+        "releasedAt": "2025-07",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 31,
@@ -1779,17 +1995,29 @@
         "shopLinks": [
           {
             "label": "sferis.pl",
-            "url": "https://www.sferis.pl/samsung-galaxy-a37-a376-5g-ds-8-256gb-awesome-gray-green-i742616"
+            "url": "https://www.sferis.pl/samsung-galaxy-a37-a376-5g-ds-8-256gb-awesome-gray-green-i742616",
+            "pricePln": 1359,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           },
           {
             "label": "morele.net",
-            "url": "https://www.morele.net/smartfon-samsung-galaxy-a37-5g-8-256gb-bialy-sm-a376bzw-15914650/"
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-a37-5g-8-256gb-bialy-sm-a376bzw-15914650/",
+            "pricePln": null,
+            "checkedAt": null,
+            "kind": "shop"
           },
           {
             "label": "x-kom.pl",
-            "url": "https://www.x-kom.pl/p/1507078-smartfon-telefon-samsung-galaxy-a37-5g-8-256gb-zielony.html"
+            "url": "https://www.x-kom.pl/p/1507078-smartfon-telefon-samsung-galaxy-a37-5g-8-256gb-zielony.html",
+            "pricePln": 1799,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-Samsung+Galaxy+A37+5G",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -1803,7 +2031,8 @@
         "url": "https://www.sferis.pl/samsung-galaxy-a37-a376-5g-ds-8-256gb-awesome-gray-green-i742616",
         "checkedAt": "2026-11-16",
         "providedBy": "etap-10 (odczyt kart sklepów)",
-        "note": "szarozielony (SM-A376BDGGEUE), 8/256 GB; w elektromarketach (x-kom, RTV Euro AGD, Media Expert) 1799 zł, cena sugerowana 2269 zł",
+        "userNote": "szarozielony (SM-A376BDGGEUE), 8/256 GB",
+        "auditNote": "szarozielony (SM-A376BDGGEUE), 8/256 GB; w elektromarketach (x-kom, RTV Euro AGD, Media Expert) 1799 zł, cena sugerowana 2269 zł",
         "otherObservations": [
           {
             "pln": 1299,
@@ -1873,7 +2102,11 @@
         "frame": "plastik",
         "chargingTests": "GSMArena: 34% w 15 min, 62-64% w 30 min, pełne ładowanie w 72 min",
         "heightMm": 162.9,
-        "widthMm": 78.2
+        "widthMm": 78.2,
+        "securitySupportUntil": "2032-03",
+        "supportNote": "GSMArena / Android Enterprise Recommended: do 03.2032",
+        "releasedAt": "2026-04",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 34,
@@ -1950,17 +2183,29 @@
         "shopLinks": [
           {
             "label": "euro.com.pl",
-            "url": "https://www.euro.com.pl/telefony-komorkowe/vivo-v70-fe-5gb-8-256gb-6-83-120hz-200mpix-granatowy.bhtml"
+            "url": "https://www.euro.com.pl/telefony-komorkowe/vivo-v70-fe-5gb-8-256gb-6-83-120hz-200mpix-granatowy.bhtml",
+            "pricePln": 1799,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           },
           {
             "label": "mediaexpert.pl",
-            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-vivo-v70-fe-5g-8-256gb-6-83-120hz-jasnofioletowy"
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-vivo-v70-fe-5g-8-256gb-6-83-120hz-jasnofioletowy",
+            "pricePln": 1799,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           },
           {
             "label": "neonet.pl",
-            "url": "https://www.neonet.pl/p/1512452-smartfon-vivo-v70-fe-5g-8-256gb-fioletowy.html"
+            "url": "https://www.neonet.pl/p/1512452-smartfon-vivo-v70-fe-5g-8-256gb-fioletowy.html",
+            "pricePln": 1799,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-vivo+V70+FE+5G",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -1974,7 +2219,8 @@
         "url": "https://www.euro.com.pl/telefony-komorkowe/vivo-v70-fe-5gb-8-256gb-6-83-120hz-200mpix-granatowy.bhtml",
         "checkedAt": "2026-11-16",
         "providedBy": "etap-10 (odczyt kart sklepów, decyzja D1)",
-        "note": "granatowy, 8/256 GB, polska dystrybucja z baterią 7000 mAh (cena sugerowana 2099 zł; identyczne 1799 zł w Media Expert, x-kom i Neonet)",
+        "userNote": "granatowy, 8/256 GB, polska dystrybucja z baterią 7000 mAh (cena sugerowana 2099 zł",
+        "auditNote": "granatowy, 8/256 GB, polska dystrybucja z baterią 7000 mAh (cena sugerowana 2099 zł; identyczne 1799 zł w Media Expert, x-kom i Neonet)",
         "otherObservations": [
           {
             "pln": 1799,
@@ -2046,7 +2292,11 @@
         "polishLaunchPricePln": 2099,
         "glass": "szkło wzmacniane",
         "heightMm": 163.7,
-        "widthMm": 76.2
+        "widthMm": 76.2,
+        "securitySupportUntil": "2032-03",
+        "supportNote": "gsmManiaK / Android Enterprise Recommended: do 03.2032",
+        "releasedAt": "2026-03",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 83,
@@ -2123,17 +2373,22 @@
         "shopLinks": [
           {
             "label": "mediaexpert.pl",
-            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-redmi-note-17-pro-5g-8-512gb-6-83-120hz-czarny"
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-redmi-note-17-pro-5g-8-512gb-6-83-120hz-czarny",
+            "pricePln": 1799,
+            "checkedAt": "2026-11-16",
+            "kind": "shop"
           },
           {
             "label": "morele.net",
-            "url": "https://www.morele.net/smartfon-xiaomi-redmi-note-17-pro-5g-5g-8-512gb-niebieski-69390930108220-600564838/"
-          },
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/200380835"
+            "url": "https://www.morele.net/smartfon-xiaomi-redmi-note-17-pro-5g-5g-8-512gb-niebieski-69390930108220-600564838/",
+            "pricePln": null,
+            "checkedAt": null,
+            "kind": "shop"
           }
-        ]
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/200380835",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
       },
       "variant": {
         "ramGb": 8,
@@ -2147,7 +2402,8 @@
         "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-redmi-note-17-pro-5g-8-512gb-6-83-120hz-czarny",
         "checkedAt": "2026-11-16",
         "providedBy": "etap-10 (odczyt kart sklepów, decyzja D2)",
-        "note": "czarny, 8/512 GB, promocja z kodem w Media Expert do 19.11.2026 (cena regularna w sieciach 2199 zł; na Ceneo/Kaufland od 1579 zł, Siglo 1779 zł)",
+        "userNote": "czarny, 8/512 GB, promocja z kodem w Media Expert do 19.11.2026 (cena regularna w sieciach 2199 zł",
+        "auditNote": "czarny, 8/512 GB, promocja z kodem w Media Expert do 19.11.2026 (cena regularna w sieciach 2199 zł; na Ceneo/Kaufland od 1579 zł, Siglo 1779 zł)",
         "otherObservations": [
           {
             "pln": 1579,
@@ -2165,7 +2421,10 @@
             "providedBy": "etap-10 (odczyt strony)",
             "note": "fioletowy, 8/512 GB"
           }
-        ]
+        ],
+        "regularPricePln": 2199,
+        "promoEndsAt": "2026-11-19",
+        "promoCondition": "kod rabatowy w koszyku Media Expert"
       },
       "specs": {
         "displayInch": 6.83,
@@ -2219,7 +2478,11 @@
         "polishLaunchPricePln": 2199,
         "ramType": "LPDDR4X",
         "heightMm": 163.5,
-        "widthMm": 78.3
+        "widthMm": 78.3,
+        "securitySupportUntil": "2032-08",
+        "supportNote": "xGSM / mGSM / iXBT: 6 lat poprawek do 08.2032",
+        "releasedAt": "2026-08",
+        "wearableNotes": null
       },
       "scores": {
         "battery": 100,

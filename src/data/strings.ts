@@ -198,6 +198,40 @@ export const strings = {
   cardsConfirmBack: 'Wróć',
   cardsRevealedNote: 'Cena orientacyjna, sprawdź w sklepie.',
   cardsShopLink: 'Zobacz w sklepie',
+  /* Faza poprawkowa FP2 — produkt bez szumu */
+  startPrimaryCta: 'Zacznij quiz (ok. 5 min)',
+  startResumeCta: 'Wznów wybór',
+  startOtherWays: 'Inne sposoby: ustaw suwaki samodzielnie',
+  startExcludeLink: 'Chcę z góry wykluczyć markę lub model',
+  quizNextSummary: 'Dalej: podsumowanie',
+  showProposals: 'Pokaż 3 propozycje',
+  revealedExcludeBrand: 'Nie chcę tej marki — pokaż inną propozycję',
+  rankingLockedTitle: 'Najpierw wybierz jedną z trzech propozycji',
+  rankingLockedBody:
+    'Pełna lista z nazwami odsłania się dopiero po pierwszym wyborze — tak działa wybór po cechach, a nie po marce. Wróć do kart, wybierz propozycję, a potem pokażemy wszystko.',
+  rankingLockedCta: 'Wróć do trzech propozycji',
+  budgetFlexible: 'do 1500 zł, dopłacę do 1800, jeśli warto',
+  priceUnavailableTitle: 'Ta oferta już nie jest dostępna',
+  tradeoffLabel: 'Wyraźny kompromis w Twoim priorytecie',
+  matchTooltip:
+    '100% miałby telefon najlepszy we wszystkim i najtańszy — taki nie istnieje. Procent to średnia ważona ocen cech według Twoich odpowiedzi.',
+  /* Faza poprawkowa FP1 — informacje zakupowe po ujawnieniu */
+  promoLabel: 'Promocja',
+  chargerLabel: 'Ładowarka',
+  supportLabel: 'Wsparcie',
+  wearableLabel: 'Opaska',
+  offerLabel: 'Oferta',
+  chargerIncluded: 'Zasilacz jest w zestawie.',
+  chargerNotIncluded: 'W pudełku nie ma ładowarki.',
+  chargerUnknown: 'Producent nie deklaruje ładowarki w zestawie.',
+  supportUnknown: 'data końca poprawek bezpieczeństwa do potwierdzenia',
+  priceCompare: 'Sprawdź aktualną cenę',
+  linkKindShop: 'sklep',
+  linkKindOfficial: 'oficjalna dystrybucja',
+  linkKindMarketplace: 'marketplace — sprawdź sprzedawcę i gwarancję',
+  linkKindCompare: 'porównywarka',
+  verifiedTitle: 'Sprawdzone przed zakupem',
+  promoAnonNote: 'cena promocyjna',
   cardsStartOver: 'Zacznij od nowa',
   cardsChangeAnswers: 'Zmień odpowiedzi',
   cardsFullRanking: 'Pokaż pełny ranking',
@@ -529,6 +563,47 @@ export const sessionTexts = {
   proposalHeading: (place: number): string => `Propozycja #${place}`,
   practicalTie: (place: number): string => `Praktyczny remis z #${place}`,
   overBudgetBy: (amount: number): string => `Powyżej budżetu o ${amount} zł`,
+  /* FP2-09: przeskalowanie względem najlepszego w puli tylko w szczegółach (QUIZ-SPEC 10.1). */
+  matchRescaledDetails: (percent: number): string => `${percent}% wyniku najlepszego telefonu w puli`,
+  /* FP1-04: „1799 zł w promocji z kodem do 19.11 (regularnie 2199 zł)” */
+  pricePromo: (
+    pln: number,
+    promoEndsAt: string | null,
+    regularPricePln: number | null,
+    condition: string | null,
+  ): string => {
+    const parts: string[] = [`${Math.round(pln)} zł w promocji`];
+    if (condition) parts.push(`(${condition})`);
+    if (promoEndsAt) parts.push(`do ${promoEndsAt.split('-').slice(1).reverse().join('.')}`);
+    const regular = regularPricePln ? ` — regularnie ${Math.round(regularPricePln)} zł` : '';
+    return `${parts.join(' ')}${regular}`;
+  },
+  /* FP1-04 na karcie anonimowej: bez warunku (nazwy sklepów), tylko data i cena regularna */
+  pricePromoAnon: (promoEndsAt: string | null, regularPricePln: number | null): string =>
+    [
+      promoEndsAt ? `cena promocyjna do ${promoEndsAt.split('-').slice(1).reverse().join('.')}` : 'cena promocyjna',
+      regularPricePln ? `regularnie ${Math.round(regularPricePln)} zł` : null,
+    ]
+      .filter((part): part is string => Boolean(part))
+      .join(' · '),
+  /* FP3-05 */
+  stretchBadge: (extraPln: number, extraPoints: number): string =>
+    `Dopłata +${extraPln} zł za +${String(extraPoints).replace('.', ',')} pkt dopasowania`,
+  /* FP1-01 */
+  priceUnavailableNote: (since: string): string =>
+    `Oferta z ${since.split('-').reverse().join('.')} wygasła — aktualne ceny mogą przekraczać 2000 zł. Sprawdź cenę przed zakupem.`,
+  /* FP3-02 */
+  tradeoffNote: (groups: string[]): string => `${groups.join(', ')} — ten telefon ma tu wyraźnie słabszy wynik niż w innych grupach.`,
+  /* FP1-05 */
+  chargerAdvice: (chargingW: number | null): string =>
+    `Jeśli nie masz ładowarki USB-C, dolicz ok. 80–150 zł${
+      chargingW ? ` (pełna moc ${chargingW} W wymaga zasilacza zgodnego z producentem)` : ''
+    }.`,
+  /* FP1-07 */
+  supportUntil: (monthLabel: string, years: number | null): string =>
+    `poprawki bezpieczeństwa do ${monthLabel}${
+      years !== null && years > 0 ? ` (ok. ${String(years).replace('.', ',')} ${years < 1.5 ? 'roku' : years < 5 ? 'lat' : 'lat'})` : ''
+    }`,
   priceWithDate: (iso: string): string => {
     const [year, month, day] = iso.split('-');
     return `cena z ${day}.${month}.${year}`;

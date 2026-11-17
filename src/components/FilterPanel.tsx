@@ -8,7 +8,7 @@ interface FilterPanelProps {
   matches: number;
   inBudget: number;
   excludedCount?: number;
-  onBudget: (value: number) => void;
+  onBudget: (value: number, stretch?: number | null) => void;
   onStorage: (value: number | null) => void;
   onMicroSd: (value: boolean) => void;
   onOpenExclusions?: () => void;
@@ -88,10 +88,17 @@ export function FilterPanel({
                 key={value}
                 name="filtr-budzet"
                 label={`do ${value} zł`}
-                checked={filters.budgetMax === value}
-                onChange={() => onBudget(value)}
+                checked={filters.budgetMax === value && !filters.budgetStretch}
+                onChange={() => onBudget(value, null)}
               />
             ))}
+            {/* FP3-05: budżet elastyczny — 2 karty ≤ 1500 zł + 1 karta ≤ 1800 zł z plakietką dopłaty. */}
+            <Segment
+              name="filtr-budzet"
+              label={strings.budgetFlexible}
+              checked={filters.budgetMax === 1500 && filters.budgetStretch === 1800}
+              onChange={() => onBudget(1500, 1800)}
+            />
           </div>
         </fieldset>
 

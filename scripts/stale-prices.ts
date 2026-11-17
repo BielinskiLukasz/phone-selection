@@ -16,7 +16,7 @@ export const RELEASE_MAX_AGE_DAYS = 7;
 export interface PhonePriceRecord {
   id: string;
   reveal?: { name?: string };
-  price?: { pln?: number; checkedAt?: string };
+  price?: { pln?: number; checkedAt?: string; promoEndsAt?: string | null };
 }
 
 export interface PriceAge {
@@ -25,6 +25,9 @@ export interface PriceAge {
   pln: number;
   checkedAt: string;
   days: number;
+  /** FP1-04: data końca promocji (RRRR-MM-DD) i czy już minęła — wygasła promocja = cena przeterminowana. */
+  promoEndsAt: string | null;
+  promoExpired: boolean;
 }
 
 export function priceAges(
@@ -43,9 +46,18 @@ export function priceAges(
         pln: phone.price?.pln ?? 0,
         checkedAt,
         days: Math.max(0, Math.floor((now.getTime() - time) / 86_400_000)),
+        promoEndsAt: typeof phone.price?.promoEndsAt === 'string' ? phone.price.promoEndsAt : null,
+        promoExpired: promoExpired(phone.price?.promoEndsAt, now),
       },
     ];
   });
+}
+
+/** Promocja trwa do końca dnia `promoEndsAt`; brak daty = brak promocji. */
+export function promoExpired(promoEndsAt: string | null | undefined, now: Date = new Date()): boolean {
+  if (typeof promoEndsAt !== 'string') return false;
+  const end = new Date(`${promoEndsAt}T23:59:59.999Z`).getTime();
+  return Number.isFinite(end) && now.getTime() > end;
 }
 
 export function stalePrices(
@@ -53,7 +65,7 @@ export function stalePrices(
   now: Date = new Date(),
   maxAgeDays: number = RELEASE_MAX_AGE_DAYS,
 ): PriceAge[] {
-  return priceAges(phones, now).filter((entry) => entry.days > maxAgeDays);
+  return priceAges(phones, now).filter((entry) => entry.days > maxAgeDays || entry.promoExpired);
 }
 
 function runCli(): void {
@@ -64,11 +76,11 @@ function runCli(): void {
   const path = resolve(process.cwd(), 'src/data/phones.json');
   const data = JSON.parse(readFileSync(path, 'utf8')) as { phones?: PhonePriceRecord[] };
   const ages = priceAges(data.phones ?? []).sort((a, b) => b.days - a.days);
-  const stale = ages.filter((entry) => entry.days > maxAge);
+  const stale = ages.filter((entry) => entry.days > maxAge || entry.promoExpired);
 
   console.log(`WIEK CEN (próg ${maxAge} dni) — ${ages.length} telefonów`);
   for (const entry of ages) {
-    const flag = entry.days > maxAge ? 'PRZETERMINOWANA' : 'ok';
+    const flag = entry.promoExpired ? 'PROMOCJA WYGASŁA' : entry.days > maxAge ? 'PRZETERMINOWANA' : 'ok';
     console.log(
       `  ${entry.checkedAt}  ${String(entry.days).padStart(3)} dni  ${flag.padEnd(15)} ${entry.name} (${entry.pln} zł)`,
     );

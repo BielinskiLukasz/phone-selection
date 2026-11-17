@@ -1,0 +1,4 @@
+{
+  "pending": true,
+  "howTo": "FP0-02: w aplikacji otwórz Historia → Eksport (plik wybor-telefonu-historia-RRRR-MM-DD.json), skopiuj z niego obiekt sesji użytkowniczki (pole sessions[i]) i wklej tutaj zamiast tego obiektu. Usuń albo zanonimizuj id i daty, jeśli są wrażliwe. Test tests/user-session.test.ts porówna karty ze snapshotu z aktualnym algorytmem (bramka kandydata, FIX-PHASE §1.2)."
+}

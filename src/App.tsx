@@ -105,6 +105,23 @@ function Screen({ route }: ScreenProps) {
       }
       /* Etap 9: pełny ranking z nazwami — dostępny po pierwszym wyborze. */
       if (found && route.name === 'ranking') {
+        /* FP2-05: przed pierwszym wyborem pełna lista z nazwami jest zablokowana — przyjazny ekran zamiast 404. */
+        if (found.picks.length === 0) {
+          return (
+            <section className="screen-in mx-auto w-full max-w-3xl px-5 py-16">
+              <div className="surface flex flex-col items-start gap-3 p-[var(--pad-card)]">
+                <h1 className="text-2xl font-bold tracking-tight">{strings.rankingLockedTitle}</h1>
+                <p className="max-w-prose text-sm leading-relaxed text-[var(--color-muted)]">{strings.rankingLockedBody}</p>
+                <a
+                  href={`#/s/${found.id}/cards`}
+                  className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-5 text-sm font-semibold text-[var(--color-on-accent)]"
+                >
+                  {strings.rankingLockedCta}
+                </a>
+              </div>
+            </section>
+          );
+        }
         return <RankingScreen session={found} />;
       }
       return (

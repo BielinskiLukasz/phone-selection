@@ -1,6 +1,6 @@
-import { CRITERIA, groupOf, labelOf } from '@/data/criteria';
+import { CRITERIA, groupOf, labelOf, GROUPS } from '@/data/criteria';
 import type { AnonCard, AnonCriterion, AnonFact, FactKey, Phone, Specs } from '@/types';
-import type { RankResult, RankedPhone } from '@/types';
+import type { CriterionId, GroupId, RankResult, RankedPhone } from '@/types';
 import type { RankingSnapshot } from '@/types/state';
 import { DEFAULT_BUDGET, NEUTRAL_SCORE, TIE_THRESHOLD } from './scoringConfig';
 import { matchDisplay } from './matchDisplay';
@@ -456,6 +456,13 @@ export function findLeaks(value: unknown, tokens: readonly string[], path = '$')
 
 export interface AnonCardOptions {
   budgetMax?: number;
+  /** FP3-05: najlepszy wynik i cena telefonu w budżecie — do plakietki „Dopłata +X zł za +Y pkt”. */
+  bestInBudget?: { score: number; pricePln: number } | null;
+  /** FP3-05: górna granica pasma dopłaty; bez niej karta ponad budżetem dostaje zwykłe „Powyżej budżetu”. */
+  budgetStretch?: number | null;
+  /** FP3-02: grupy z top 3 G1 (kolejność ważności) i wagi kryteriów — do plakietki „Wyraźny kompromis”. */
+  priorityGroups?: readonly GroupId[] | null;
+  weights?: Partial<Record<CriterionId, number>> | null;
   /** Najlepszy wynik w puli — do przeskalowanego procentu w szczegółach. */
   bestScore?: number | null;
   /** Miejsce telefonu, z którym ta karta jest w „praktycznym remisie”. */
@@ -507,6 +514,21 @@ export function toAnonCard(
     pricePln: phone.price.pln,
     priceCheckedAt: phone.price.checkedAt,
     priceNote: PRICE_NOTE,
+    promoEndsAt: phone.price.promoEndsAt ?? null,
+    regularPricePln: phone.price.regularPricePln ?? null,
+    priceUnavailableSince: phone.price.priceUnavailableSince ?? null,
+    stretch:
+      options.bestInBudget &&
+      typeof options.budgetStretch === 'number' &&
+      phone.price.pln > budgetMax &&
+      phone.price.pln <= options.budgetStretch &&
+      ranked.score > options.bestInBudget.score
+        ? {
+            extraPln: Math.round(phone.price.pln - options.bestInBudget.pricePln),
+            extraPoints: Math.round((ranked.score - options.bestInBudget.score) * 10) / 10,
+          }
+        : null,
+    priorityTradeoffs: priorityTradeoffs(phone, ranked, options.priorityGroups ?? null, options.weights ?? null),
     overBudgetBy: ranked.overBudgetBy,
     storageGb: phone.variant.storageGb,
     hasMicroSd: phone.specs.microSd ?? null,
@@ -526,13 +548,27 @@ export function toAnonCard(
 }
 
 /** Karty dla całego wyniku rankingu (kolejność jak na ekranie). */
+export interface AnonCardsContext {
+  /** FP3-02: trójka G1 w kolejności ważności (grupy z najwyższą ważnością, gdy G1 pominięte). */
+  priorityGroups?: readonly GroupId[] | null;
+  weights?: Partial<Record<CriterionId, number>> | null;
+  /** FP3-05: pasmo dopłaty z filtrów sesji. */
+  budgetStretch?: number | null;
+}
+
 export function toAnonCards(
   phones: readonly Phone[],
   result: RankResult,
   budgetMax?: number,
+  context: AnonCardsContext = {},
 ): AnonCard[] {
   const byId = new Map(phones.map((phone) => [phone.id, phone]));
   const placeById = new Map(result.cards.map((entry) => [entry.phoneId, entry.place]));
+  /* FP3-05: punkt odniesienia dla plakietki dopłaty — najlepszy telefon w budżecie wśród kart. */
+  const bestCardInBudget = result.cards.find((entry) => entry.inBudget);
+  const bestInBudget = bestCardInBudget
+    ? { score: bestCardInBudget.score, pricePln: byId.get(bestCardInBudget.phoneId)?.price.pln ?? 0 }
+    : null;
 
   return result.cards.flatMap((ranked) => {
     const phone = byId.get(ranked.phoneId);
@@ -542,12 +578,45 @@ export function toAnonCards(
         budgetMax,
         pool: phones,
         bestScore: result.bestScore,
+        bestInBudget,
+        budgetStretch: context.budgetStretch ?? null,
+        priorityGroups: context.priorityGroups ?? null,
+        weights: context.weights ?? null,
         tieWithPlace: ranked.practicalTieWith
           ? (placeById.get(ranked.practicalTieWith) ?? null)
           : null,
       }),
     ];
   });
+}
+
+/**
+ * FP3-02: „Wyraźny kompromis w Twoim priorytecie” — grupa z trójki G1, w której telefon ma GroupScore < 40,
+ * albo kryterium z wagą 5 (odpowiedź „często/zawsze”) z oceną < 55. Zwraca etykiety grup (bez nazw modeli).
+ * Decyzja użytkownika (FIX-PHASE §2, 16.11.2026): tylko plakietka, bez kary punktowej.
+ */
+export const TRADEOFF_GROUP_SCORE_BELOW = 40;
+export const TRADEOFF_CRITERION_SCORE_BELOW = 55;
+
+export function priorityTradeoffs(
+  phone: Phone,
+  ranked: Pick<RankedPhone, 'groupScores'>,
+  priorityGroups: readonly GroupId[] | null,
+  weights: Partial<Record<CriterionId, number>> | null,
+): string[] {
+  if (!priorityGroups || priorityGroups.length === 0) return [];
+  const labels: string[] = [];
+  for (const groupId of priorityGroups) {
+    const group = GROUPS.find((item) => item.id === groupId);
+    if (!group) continue;
+    const groupScore = ranked.groupScores?.[groupId];
+    const weakGroup = typeof groupScore === 'number' && groupScore < TRADEOFF_GROUP_SCORE_BELOW;
+    const weakCriterion = group.criteria.some(
+      (id) => (weights?.[id] ?? 0) >= 5 && (phone.scores[id] ?? 50) < TRADEOFF_CRITERION_SCORE_BELOW,
+    );
+    if (weakGroup || weakCriterion) labels.push(group.label);
+  }
+  return labels;
 }
 
 /** Snapshot sesji → wpisy w kształcie `RankedPhone` (karty liczone w etapie 2/3). */
@@ -590,9 +659,21 @@ export function toAnonCardsFromSnapshot(
   phones: readonly Phone[],
   snapshot: RankingSnapshot,
   budgetMax?: number,
+  context: AnonCardsContext = {},
 ): AnonCard[] {
   const ranked = rankedFromSnapshot(snapshot);
-  return toAnonCards(phones, snapshotRankResult(ranked, snapshot), budgetMax);
+  /* FP3-02: bez jawnej trójki G1 bierzemy trzy grupy o najwyższej ważności ze snapshotu. */
+  const priorityGroups =
+    context.priorityGroups ??
+    (Object.entries(snapshot.groupImportance ?? {}) as [GroupId, number][])
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([id]) => id);
+  return toAnonCards(phones, snapshotRankResult(ranked, snapshot), budgetMax, {
+    priorityGroups,
+    weights: context.weights ?? snapshot.weights ?? null,
+    budgetStretch: context.budgetStretch ?? snapshot.filters?.budgetStretch ?? null,
+  });
 }
 
 function snapshotRankResult(ranked: RankedPhone[], snapshot: RankingSnapshot): RankResult {

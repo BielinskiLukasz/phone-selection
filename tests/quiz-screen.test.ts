@@ -161,7 +161,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(
       'Wybierz trzy najważniejsze rzeczy',
     );
-    expect(action(/Pokaż wyniki/).hasAttribute('disabled')).toBe(true);
+    expect(action(/Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/).hasAttribute('disabled')).toBe(true);
 
     fireEvent.click(action(/Pomiń ten krok/));
     await settle();
@@ -194,7 +194,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     fireEvent.click(screen.getByRole('button', { name: /^Pamięć/ }));
 
     expect(screen.getByText(/wybrane 3 z 3/)).toBeTruthy();
-    fireEvent.click(action(/Pokaż wyniki/));
+    fireEvent.click(action(/Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/));
     await settle();
 
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Podsumowanie odpowiedzi');
@@ -224,7 +224,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
       screen.getByText('Większość odpowiedzi to „nie wiem”, więc wynik jest ogólny.'),
     ).toBeTruthy();
 
-    fireEvent.click(action(/Pokaż wyniki/));
+    fireEvent.click(action(/Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/));
     await settle();
     expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9-]+\/cards$/);
 
@@ -248,7 +248,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     await settle();
     expect(screen.getByText(/krótki quiz \(hybryda\) · 7 pytań/)).toBeTruthy();
 
-    fireEvent.click(action(/Pokaż wyniki/));
+    fireEvent.click(action(/Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/));
     await settle();
     expect(window.location.hash).toMatch(/\/tune$/);
   });

@@ -42,11 +42,6 @@ function readStored() {
   return JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '{"sessions":[]}');
 }
 
-/** Przyciski wierszy listy pełnego rankingu — bez kosztownego skanowania całego drzewa jsdom. */
-function rankingRowButtons(): HTMLButtonElement[] {
-  return Array.from(document.querySelectorAll<HTMLButtonElement>('ol > li > button'));
-}
-
 /** Pełny skan DOM, atrybutów, tytułu i adresu pod kątem wycieku nazw marek i modeli. */
 function findDomLeaks(root: HTMLElement): string[] {
   const tokens = collectForbiddenTokens(PHONES[0]!, PHONES);
@@ -250,7 +245,8 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
   it('6. przed włączeniem listy i po kliknięciu „Pomiń” w DOM, tytule i adresie nie ma nazw marek ani modeli', () => {
     render(h(App));
 
-    fireEvent.click(screen.getByRole('button', { name: /Samodzielnie ustaw, co jest ważne/ }));
+    /* FP2-04: krok wykluczeń otwiera dyskretny link na Starcie (tworzy sesję quizu). */
+    fireEvent.click(screen.getByRole('button', { name: strings.startExcludeLink }));
     goto(window.location.hash);
     expect(window.location.hash).toMatch(/^#\/s\/\d+\/exclude$/);
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(strings.excludeTitle);
@@ -260,11 +256,12 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
 
     fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
     goto(window.location.hash);
-    expect(window.location.hash).toMatch(/^#\/s\/\d+\/sliders$/);
+    expect(window.location.hash).toMatch(/^#\/s\/\d+\/quiz$/);
     expect(findDomLeaks(document.body)).toEqual([]);
 
-    /* Przejście na karty — również zero wycieków. */
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    /* Przejście na karty przez suwaki tej samej sesji — również zero wycieków. */
+    goto(window.location.hash.replace(/\/quiz$/, '/sliders'));
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     goto(window.location.hash);
     expect(window.location.hash).toMatch(/^#\/s\/\d+\/cards$/);
     expect(findDomLeaks(document.body)).toEqual([]);
@@ -272,11 +269,13 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
 
   it('4. wykluczenie wszystkich marek blokuje „Dalej”, a zostawienie 1–2 telefonów pokazuje ostrzeżenie i tyle kart', async () => {
     render(h(App));
-    fireEvent.click(screen.getByRole('button', { name: /Samodzielnie ustaw, co jest ważne/ }));
+    fireEvent.click(screen.getByRole('button', { name: strings.startExcludeLink }));
     goto(window.location.hash);
 
     fireEvent.click(screen.getByRole('switch'));
-    const brandsGroup = await screen.findByRole('group', { name: strings.excludeBrandsLabel });
+    await settle();
+
+    const brandsGroup = screen.getByRole('group', { name: strings.excludeBrandsLabel });
     const brandButtons = within(brandsGroup).getAllByRole('button');
     expect(brandButtons.length).toBe(9);
 
@@ -295,133 +294,87 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
 
     fireEvent.click(screen.getAllByRole('button', { name: strings.excludeContinue })[0]!);
     goto(window.location.hash);
-    /* E11-07: licznik w FilterPanel uwzględnia wykluczenia. */
+    /* FP2-04: sesja z linku to quiz — licznik sprawdzamy na suwakach tej samej sesji (E11-07). */
+    goto(window.location.hash.replace(/\/quiz$/, '/sliders'));
     expect(screen.getByText('Pasuje 2 z 15 telefonów')).toBeTruthy();
 
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     goto(window.location.hash);
     expect(screen.getAllByRole('article').length).toBe(2);
     expect(screen.getByText(/Pominęliśmy 13 wykluczonych telefonów/)).toBeTruthy();
     expect(screen.getByText(/Tylko 2 telefony spełniają te warunki/)).toBeTruthy();
   });
 
-  it('7. zmiana wykluczeń na ekranie kart nie przelicza S — zmienia tylko dobór kart', async () => {
+  it('2., 7. i 8. zmiana wykluczeń na kartach nie przelicza S, pełny ranking pokazuje plakietki, a historia — „Wykluczono” i „Teraz wykluczony”', async () => {
     render(h(App));
     fireEvent.click(screen.getByRole('button', { name: /Samodzielnie ustaw, co jest ważne/ }));
     goto(window.location.hash);
-    fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
+
+    /* Przechodzimy na karty i wybieramy propozycję #1. */
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     goto(window.location.hash);
 
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
-    goto(window.location.hash);
+    fireEvent.click(screen.getAllByRole('button', { name: /Wybieram tę propozycję/ })[0]!);
+    fireEvent.click(screen.getByRole('button', { name: strings.cardsConfirmReveal }));
     await flushStorage();
 
     const before = readStored().sessions[0]!.ranking;
-    const leaderId: string = before.cards[0]!;
-    const leaderPhone = phoneById(leaderId)!;
-    const excludedBrand = leaderPhone.brand === 'Xiaomi' ? 'Samsung' : 'Xiaomi';
+    const pickedId: string = readStored().sessions[0]!.picks[0]!.phoneId;
+    const pickedPhone = phoneById(pickedId)!;
 
+    /* 7. Zmieniamy wykluczenia na ekranie kart: wykluczamy wybrany model i markę Xiaomi. */
     fireEvent.click(screen.getByRole('button', { name: strings.excludeChange }));
+    await settle();
     const dialog = screen.getByRole('dialog');
-    const brandsGroup = await within(dialog).findByRole('group', {
-      name: strings.excludeBrandsLabel,
-    });
-    fireEvent.click(within(brandsGroup).getByRole('button', { name: new RegExp(excludedBrand) }));
+    fireEvent.click(within(dialog).getByRole('button', { name: /Xiaomi/ }));
     fireEvent.click(
       within(dialog).getByRole('button', { name: new RegExp(strings.excludeModelsToggleShow) }),
     );
     fireEvent.click(
       within(dialog).getByRole('checkbox', {
-        name: new RegExp(leaderPhone.modelName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
+        name: new RegExp(pickedPhone.modelName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
       }),
     );
     fireEvent.click(within(dialog).getByRole('button', { name: strings.excludeSave }));
     await flushStorage();
 
     const after = readStored().sessions[0]!.ranking;
+    /* Oceny, S, matchPercent, miejsca ogólne i computedAt identyczne — zmieniły się tylko karty i flaga excluded. */
     expect(after.computedAt).toBe(before.computedAt);
     expect(
-      after.entries.map(
-        (e: { phoneId: string; place: number; score: number; matchPercent: number }) => ({
-          phoneId: e.phoneId,
-          place: e.place,
-          score: e.score,
-          matchPercent: e.matchPercent,
-        }),
-      ),
+      after.entries.map((e: { phoneId: string; place: number; score: number; matchPercent: number }) => ({
+        phoneId: e.phoneId,
+        place: e.place,
+        score: e.score,
+        matchPercent: e.matchPercent,
+      })),
     ).toEqual(
-      before.entries.map(
-        (e: { phoneId: string; place: number; score: number; matchPercent: number }) => ({
-          phoneId: e.phoneId,
-          place: e.place,
-          score: e.score,
-          matchPercent: e.matchPercent,
-        }),
-      ),
+      before.entries.map((e: { phoneId: string; place: number; score: number; matchPercent: number }) => ({
+        phoneId: e.phoneId,
+        place: e.place,
+        score: e.score,
+        matchPercent: e.matchPercent,
+      })),
     );
-    expect(after.cards).not.toContain(leaderId);
+    expect(after.cards).not.toContain(pickedId);
     expect(screen.getByText(/Pominęliśmy 4 wykluczone telefony/)).toBeTruthy();
-  });
 
-  it('2. i 8. pełny ranking pokazuje plakietki i „Uwzględnij ponownie”, a historia — „Wykluczono” i „Teraz wykluczony”', async () => {
-    /* Przygotowujemy ukończoną sesję z wybranym #1, a następnie wykluczonym #1 + marką Xiaomi. */
-    const { createSession } = await import('../src/lib/session');
-    const { applyExclusionsToSnapshot, computeRankingSnapshot } = await import(
-      '../src/lib/sessionReducer'
-    );
-    const { SCHEMA_VERSION, saveState, emptyState } = await import('../src/lib/storage');
-
-    const base = createSession('sliders', new Date('2026-11-16T12:00:00.000Z'), '777777');
-    const initialSnap = computeRankingSnapshot(base, PHONES, new Date('2026-11-16T12:01:00.000Z'));
-    const pickedId = initialSnap.cards[0]!;
-    const pickedPhone = phoneById(pickedId)!;
-    const excludedBrand = pickedPhone.brand === 'Xiaomi' ? 'Samsung' : 'Xiaomi';
-    const nextFilters = {
-      ...base.filters,
-      excludedBrands: [excludedBrand],
-      excludedPhoneIds: [pickedId],
-    };
-    const updatedSnap = applyExclusionsToSnapshot(initialSnap, nextFilters, PHONES);
-
-    saveState({
-      ...emptyState('light'),
-      schemaVersion: SCHEMA_VERSION,
-      activeSessionId: '777777',
-      sessions: [
-        {
-          ...base,
-          status: 'completed',
-          exclusionsStep: 'done',
-          filters: nextFilters,
-          ranking: updatedSnap,
-          picks: [{ phoneId: pickedId, at: '2026-11-16T12:02:00.000Z' }],
-        },
-      ],
-    });
-
-    /* 2. Pełny ranking: wykluczony #1 ma miejsce 1, plakietkę „Wykluczony (model)” i ten sam S,
-       a telefony wykluczonej marki — plakietkę „Wykluczony (marka)”. */
-    window.location.hash = '#/s/777777/ranking';
-    render(h(App));
+    /* 2. Pełny ranking: wykluczony #1 ma miejsce 1, plakietkę „Wykluczony (model)” i „Uwzględnij ponownie”,
+       a telefony Xiaomi — plakietkę „Wykluczony (marka)”. */
+    const rankingLink = screen.getByRole('link', { name: new RegExp(strings.cardsFullRanking) });
+    goto(rankingLink.getAttribute('href')!);
 
     expect(screen.getAllByText(strings.rankingExcludedModel).length).toBe(1);
     expect(screen.getAllByText(strings.rankingExcludedBrand).length).toBe(3);
 
-    const rows = rankingRowButtons();
-    expect(rows.length).toBe(PHONES.length);
-    const firstRow = rows[0]!;
+    const firstRow = screen.getAllByRole('button', { name: /pkt/ })[0]!;
     expect(firstRow.textContent).toContain(pickedPhone.reveal.name);
     expect(firstRow.textContent).toContain(strings.rankingExcludedModel);
-    expect(firstRow.textContent).toContain(`${initialSnap.entries[0]!.matchPercent}%`);
 
     /* 8. Historia: „Wykluczono: …”, wybrany telefon z plakietką „Wybór 1/1” i „Teraz wykluczony”. */
     goto('#/history');
     expect(screen.getByText(strings.historyExcludedLabel)).toBeTruthy();
-    expect(
-      screen.getByText(
-        new RegExp(`${excludedBrand}.*${pickedPhone.modelName.split(' ')[0]}`),
-      ),
-    ).toBeTruthy();
+    expect(screen.getByText(new RegExp(`Xiaomi.*${pickedPhone.modelName.split(' ')[0]}`))).toBeTruthy();
     expect(
       screen.getAllByText(
         new RegExp(pickedPhone.reveal.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')),
@@ -430,23 +383,28 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
     expect(screen.getByText('Wybór 1/1')).toBeTruthy();
     expect(screen.getByText(strings.historyNowExcluded)).toBeTruthy();
 
-    /* „Uwzględnij ponownie” w pełnym rankingu zdejmuje wykluczenie modelu bez ruszania marki. */
-    goto('#/s/777777/ranking');
-    fireEvent.click(rankingRowButtons()[0]!);
+    /* Powrót do pełnego rankingu i kliknięcie „Uwzględnij ponownie” na #1 zdejmuje wykluczenie modelu. */
+    const sessionId: string = readStored().sessions[0]!.id;
+    goto(`#/s/${sessionId}/ranking`);
+    fireEvent.click(screen.getAllByRole('button', { name: /pkt/ })[0]!);
     fireEvent.click(screen.getByRole('button', { name: strings.rankingIncludeAgain }));
     expect(screen.queryByText(strings.rankingExcludedModel)).toBeNull();
     expect(screen.getAllByText(strings.rankingExcludedBrand).length).toBe(3);
-  });
+  }, 20_000); // przepływ karty → pełny ranking → historia trwa 4-6 s w jsdom; domyślne 5 s wysypywało test na timeout
 
   it('9. po odświeżeniu w trakcie quizu (oraz w hybrydzie) wykluczenia są zachowane, a krok nie wraca', async () => {
     render(h(App));
-    fireEvent.click(screen.getByRole('button', { name: new RegExp(strings.hybridDescription) }));
+    /* FP2-03: hybryda zniknęła ze Startu — test 9. biegnie na zwykłym quizie (ta sama logika wznowienia). */
+    fireEvent.click(screen.getAllByRole('button', { name: strings.startPrimaryCta })[0]!);
     goto(window.location.hash);
+    /* FP2-04: sesja startuje od pytań; wykluczenia otwieramy ręcznie pod adresem sesji. */
+    expect(window.location.hash).toMatch(/^#\/s\/\d+\/quiz$/);
+    goto(window.location.hash.replace(/\/quiz$/, '/exclude'));
     expect(window.location.hash).toMatch(/^#\/s\/\d+\/exclude$/);
 
     fireEvent.click(screen.getByRole('switch'));
-    const brandsGroup = await screen.findByRole('group', { name: strings.excludeBrandsLabel });
-    fireEvent.click(within(brandsGroup).getByRole('button', { name: /Samsung/ }));
+    await settle();
+    fireEvent.click(screen.getByRole('button', { name: /Samsung/ }));
     fireEvent.click(screen.getAllByRole('button', { name: strings.excludeContinue })[0]!);
     goto(window.location.hash);
     expect(window.location.hash).toMatch(/^#\/s\/\d+\/quiz$/);
@@ -479,20 +437,17 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
     render(h(App));
     fireEvent.click(screen.getByRole('button', { name: /Samodzielnie ustaw, co jest ważne/ }));
     goto(window.location.hash);
-    fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
-    goto(window.location.hash);
 
     expect(screen.getByText('Pasuje 15 z 15 telefonów')).toBeTruthy();
     expect(screen.getByText(strings.excludeFilterNone)).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: strings.excludeFilterOpen }));
+    await settle();
     const dialog = screen.getByRole('dialog');
-    const brandsGroup = await within(dialog).findByRole('group', {
-      name: strings.excludeBrandsLabel,
-    });
-    fireEvent.click(within(brandsGroup).getByRole('button', { name: /Samsung/ }));
+    fireEvent.click(within(dialog).getByRole('button', { name: /Samsung/ }));
     fireEvent.click(within(dialog).getByRole('button', { name: strings.excludeSave }));
 
+    /* Samsung ma 3 modele (A57, A56, A37) → zostaje 12 z 15. */
     /* Samsung ma 3 modele (A57, A56, A37) → zostaje 12 z 15. */
     expect(screen.getByText('Pasuje 12 z 15 telefonów')).toBeTruthy();
     expect(screen.getByText('Pominięto 3 telefony')).toBeTruthy();

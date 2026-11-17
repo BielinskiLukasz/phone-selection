@@ -1,4 +1,5 @@
 import { GROUPS, groupLabel } from '@/data/criteria';
+import { sessionTexts } from '@/data/strings';
 import { strings } from '@/data/strings';
 import type { SpecRow } from '@/lib/cardSpecs';
 import type { AnonCard } from '@/types';
@@ -29,6 +30,9 @@ export function DetailsAccordion({ card, specs, alwaysOpen }: DetailsAccordionPr
     <div className="grid gap-6 px-[var(--pad-card)] py-4 lg:grid-cols-2">
       <section>
         <h3 className="label-mono">{strings.cardsDetailsScores}</h3>
+        {card.matchRescaledPercent ? (
+          <p className="num mt-1 text-[11px] text-[var(--color-muted)]">{sessionTexts.matchRescaledDetails(card.matchRescaledPercent)}</p>
+        ) : null}
         <ul className="mt-2">
           {grouped.map((criterion, index) => (
             <ScoreBar

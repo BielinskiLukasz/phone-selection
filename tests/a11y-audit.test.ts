@@ -51,13 +51,13 @@ async function auditEveryScreen(theme: 'light' | 'dark'): Promise<void> {
   expect(document.documentElement.dataset.theme).toBe(theme);
   await audit(`${theme}: start`);
 
-  /* Krok 0 (etap 11): wykluczenia zwinięte i rozwinięte, potem quiz. */
-  fireEvent.click(screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ }));
+  /* FP2-04: wykluczenia to opcja — wejście z linku na Starcie (tworzy sesję quizu), potem quiz. */
+  fireEvent.click(screen.getByRole('button', { name: strings.startExcludeLink }));
   goto(window.location.hash);
   await audit(`${theme}: wykluczenia — zwinięte`);
 
   fireEvent.click(screen.getByRole('switch'));
-  await screen.findByRole('group', { name: strings.excludeBrandsLabel });
+  await settle(80);
   await audit(`${theme}: wykluczenia — chipy marek`);
 
   fireEvent.click(
@@ -77,15 +77,13 @@ async function auditEveryScreen(theme: 'light' | 'dark'): Promise<void> {
   goto('#/');
   fireEvent.click(screen.getByRole('button', { name: /Samodzielnie ustaw, co jest ważne/ }));
   goto(window.location.hash);
-  fireEvent.click(screen.getAllByRole('button', { name: strings.excludeSkip })[0]!);
-  goto(window.location.hash);
   await audit(`${theme}: suwaki`);
 
   fireEvent.click(screen.getAllByRole('button', { name: new RegExp(strings.slidersDetails) })[0]!);
   await audit(`${theme}: suwaki — kryteria`);
 
   /* Karty + szczegóły + okno potwierdzenia. */
-  fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+  fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
   goto(window.location.hash);
   await audit(`${theme}: karty`);
 
@@ -193,17 +191,13 @@ describe('test akceptacyjny 4 · przejście samą klawiaturą', () => {
       }
     }
 
-    /* Start → wykluczenia (Pomiń) → quiz → odpowiedź spacją → krok dalej. */
-    const startButton = screen.getByRole('button', { name: /Pytania o to, jak korzystasz z telefonu/ });
+    /* FP2-04: Start → quiz bez kroku pośredniego → odpowiedź spacją → krok dalej. */
+    const startButton = screen.getAllByRole('button', { name: strings.startPrimaryCta })[0]!;
     startButton.focus();
+    expect(document.activeElement).toBe(startButton);
     fireEvent.click(startButton); // przeglądarka odpala click dla Enter/Space na button
     goto(window.location.hash);
-
-    const skipButton = screen.getAllByRole('button', { name: strings.excludeSkip })[0]!;
-    skipButton.focus();
-    expect(document.activeElement).toBe(skipButton);
-    fireEvent.click(skipButton);
-    goto(window.location.hash);
+    expect(window.location.hash).toMatch(/\/quiz$/);
 
     fireEvent.click(screen.getByRole('button', { name: new RegExp(strings.next) }));
     const options = screen.getAllByRole('radio');

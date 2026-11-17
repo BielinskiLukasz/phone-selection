@@ -179,7 +179,7 @@ describe('E5-03/E5-04 · filtry i licznik na żywo', () => {
     open();
     expect(screen.getByText(sessionTexts.poolMatches(PHONES.length, PHONES.length))).toBeTruthy();
 
-    fireEvent.click(screen.getByRole('radio', { name: /do 1500 zł/ }));
+    fireEvent.click(screen.getByRole('radio', { name: /^do 1500 zł$/ }));
 
     const expected = buildPool(PHONES, { budgetMax: 1500 }).length;
     expect(inBudgetSubset(PHONES, 1500).length).toBe(3);
@@ -242,11 +242,11 @@ describe('E5-06/E5-07 · hybryda i dostrojenie', () => {
     fireEvent.click(screen.getByRole('button', { name: /Bateria i ładowanie/ }));
     fireEvent.click(screen.getByRole('button', { name: /^Aparat/ }));
     fireEvent.click(screen.getByRole('button', { name: /^Pamięć/ }));
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     await settle();
 
     /* Podsumowanie → „Pokaż wyniki” prowadzi do dostrojenia. */
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     await settle();
     expect(window.location.hash).toMatch(/\/tune$/);
 
@@ -293,7 +293,7 @@ describe('E5-06 · zakończenie i dostępność', () => {
   it('„Pokaż wyniki” liczy ranking, domyka sesję i prowadzi do kart', async () => {
     open();
     fireEvent.change(slider(/Bateria i ładowanie/), { target: { value: '4' } });
-    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki/ })[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     await settle();
 
     expect(window.location.hash).toMatch(/^#\/s\/[a-z0-9]+\/cards$/);

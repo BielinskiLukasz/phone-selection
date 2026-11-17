@@ -162,7 +162,11 @@ export function applyExclusionsToSnapshot(
     return { ...entry, excluded };
   });
 
-  const { cards, inBudgetCount, excludedCount } = selectCardsFromFullRanking(entries, CARD_COUNT);
+  const { cards, inBudgetCount, excludedCount } = selectCardsFromFullRanking(entries, CARD_COUNT, {
+    budgetMax: nextFilters.budgetMax,
+    budgetStretch: nextFilters.budgetStretch ?? null,
+    priceOf: (phoneId) => byId.get(phoneId)?.price.pln ?? null,
+  });
 
   return {
     ...snapshot,

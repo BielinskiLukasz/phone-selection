@@ -142,7 +142,10 @@ describe('E2-10 · schemat danych', () => {
     expect(POOL.filter((phone) => phone.status === 'needs_confirmation')).toEqual([]);
     const realme = POOL.find((phone) => phone.id === 'realme-16-pro-plus-5g-8-256')!;
     expect(realme.status).toBe('ok');
-    expect(realme.price.note).toContain('potwierdz');
+    /* FP1-08: notatka weryfikacyjna żyje w auditNote, użytkowniczka widzi tylko userNote. */
+    expect(realme.price.auditNote ?? '').toContain('potwierdz');
+    expect(realme.price.userNote ?? '').toContain('Pro+');
+    expect(realme.price.note).toBeUndefined();
     expect(realme.sources!.length).toBeGreaterThan(5);
   });
 

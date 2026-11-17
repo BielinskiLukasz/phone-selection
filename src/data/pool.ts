@@ -57,7 +57,6 @@ export const ROADMAP_STAGES: { id: number; name: string; done: boolean; active: 
   { id: 9, name: 'Pełny ranking, szlify i wydanie', done: false, active: false },
   { id: 10, name: 'Rozszerzenie puli modeli (15 telefonów)', done: true, active: false },
   { id: 11, name: 'Wykluczanie marek i modeli (filtr startowy)', done: true, active: false },
-  { id: 12, name: 'Zdjęcia, wymiary i waga (suwak poręczności)', done: true, active: false },
 ];
 
 /** Stałe silnika rankingu (etap 2) — QUIZ-SPEC 2.6, trzymane w `lib/scoringConfig.ts`. */

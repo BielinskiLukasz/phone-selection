@@ -127,15 +127,15 @@ describe('E9-01 · pełny ranking', () => {
     );
     expect(sizeSlider.getAttribute('aria-valuetext')).toBe('5 z 5, kluczowe');
 
-    const rows = Array.from(document.querySelectorAll<HTMLButtonElement>('ol > li > button'));
-    const topThreeText = rows
+    const topThreeText = screen
+      .getAllByRole('button', { name: /pkt/ })
       .slice(0, 3)
       .map((row) => row.textContent ?? '')
       .join(' ');
     expect(/Motorola Edge 60|Google Pixel 10a|Honor 400/.test(topThreeText)).toBe(true);
 
     /* Rozwinięty wiersz pokazuje duże zdjęcie z przełącznikiem ujęć i oknem powiększenia. */
-    fireEvent.click(rows[0]!);
+    fireEvent.click(screen.getAllByRole('button', { name: /pkt/ })[0]!);
     expect(screen.getByRole('img', { name: new RegExp(strings.photoLabel) })).toBeTruthy();
     fireEvent.click(screen.getByRole('button', { name: new RegExp(strings.photoZoomOpen) }));
     expect(screen.getByRole('dialog')).toBeTruthy();

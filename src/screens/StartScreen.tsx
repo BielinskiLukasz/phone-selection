@@ -7,8 +7,6 @@ import { quizProgress } from '@/lib/session';
 import { AnonCardPreview } from '@/components/AnonCardPreview';
 import { ModeRow } from '@/components/ModeRow';
 import { Reveal } from '@/components/Reveal';
-import { SkeletonPanel } from '@/components/SkeletonPanel';
-import { RouterConsole } from '@/components/RouterConsole';
 import { Badge } from '@/components/Badge';
 import {
   ArrowRightIcon,
@@ -56,24 +54,15 @@ const MODES: ModeEntry[] = [
   },
 ];
 
-const ROUTE_MAP = [
-  { hash: '#/', label: strings.home, kind: 'ok' },
-  { hash: '#/s/demo/quiz', label: strings.quiz, kind: 'stub' },
-  { hash: '#/s/demo/sliders', label: strings.sliders, kind: 'stub' },
-  { hash: '#/s/demo/tune', label: strings.tune, kind: 'stub' },
-  { hash: '#/s/demo/cards', label: strings.cards, kind: 'stub' },
-  { hash: '#/s/demo/ranking', label: strings.ranking, kind: 'stub' },
-  { hash: '#/history', label: strings.history, kind: 'ready' },
-  { hash: '#/r/kod-z-drugiego-urządzenia', label: strings.resumeLinkTitle, kind: 'ready' },
-  { hash: '#/s/2f9c1a/quiz', label: strings.missingSession, kind: 'error' },
-  { hash: '#/ustawienia', label: strings.unknownRoute, kind: 'error' },
-] as const;
 
 const DECK_BARS = [
   [78, 62, 88, 44, 70],
   [71, 55, 80, 66, 48],
   [69, 47, 74, 58, 62],
 ];
+
+/* FP2-02 (decyzja użytkownika 16.11.2026): panele deweloperskie usunięte z produktu — Start pokazuje tylko to,
+   czego potrzebuje użytkowniczka. Makiety demo (`#/s/demo/*`) zostają osiągalne z adresu, ale nie są linkowane. */
 
 export function StartScreen() {
   const { sessions, unfinished, startSession, persistent } = useAppState();
@@ -82,10 +71,25 @@ export function StartScreen() {
 
   /* E11-06: po wyborze trybu najpierw opcjonalny krok wykluczeń (`exclusionsStep = 'pending'`),
      a po „Pomiń” lub „Dalej” właściwy ekran trybu (quiz / suwaki / hybryda). */
+  /* FP2-04: od Startu prosto do pytań; wykluczenia tylko z dyskretnego linku (krok opcjonalny). */
   const openSession = (mode: Mode) => {
     const id = startSession(mode);
+    window.location.hash = `#/s/${id}/${MODE_ENTRY_VIEW[mode]}`;
+  };
+  const openExclusions = () => {
+    const id = startSession('quiz');
     window.location.hash = `#/s/${id}/exclude`;
   };
+  /* FP2-01: „Wznów wybór” prowadzi na właściwy ekran niedokończonej sesji. */
+  const resumeHref = unfinished
+    ? `#/s/${unfinished.id}/${
+        unfinished.exclusionsStep === 'pending'
+          ? 'exclude'
+          : unfinished.ranking && unfinished.status === 'completed'
+            ? 'cards'
+            : MODE_ENTRY_VIEW[unfinished.mode]
+      }`
+    : null;
 
   return (
     <>
@@ -93,10 +97,6 @@ export function StartScreen() {
         {/* ── Hero: obietnica anonimowych kart, nie wyśrodkowany baner ── */}
         <section className="grid gap-10 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.88fr)] lg:items-center lg:gap-12">
           <div className="screen-in">
-            <span className="inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5">
-              <span className="breathe h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
-              <span className="label-mono">{strings.heroEyebrow}</span>
-            </span>
 
             <h1 className="mt-5 text-[clamp(2.6rem,9vw,4.3rem)] leading-[0.98] font-bold tracking-[-0.045em] text-balance">
               {words.join(' ')}{' '}
@@ -179,23 +179,43 @@ export function StartScreen() {
               {strings.chooseMode}
             </h2>
             <span className="num text-[11px] tracking-[0.14em] text-[var(--color-muted)] uppercase">
-              3 tryby · ten sam wynik
+              ok. 5 minut · 19 pytań
             </span>
           </Reveal>
 
-          <Reveal delay={50} className="mt-5 border-t border-[var(--color-border)]">
-            {MODES.map((entry, index) => (
-              <ModeRow
-                key={entry.mode}
-                index={index + 1}
-                title={entry.title}
-                description={entry.description}
-                time={entry.time}
-                icon={entry.icon}
-                onStart={() => openSession(entry.mode)}
-                previewHref={`#/s/demo/${entry.preview}`}
-              />
-            ))}
+          <Reveal delay={50} className="mt-5">
+            <button
+              type="button"
+              onClick={() => openSession('quiz')}
+              data-testid="start-quiz"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-base font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.99]"
+            >
+              {strings.startPrimaryCta}
+              <ArrowRightIcon className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              onClick={openExclusions}
+              className="mt-3 min-h-11 text-[12px] text-[var(--color-muted)] underline-offset-2 hover:text-[var(--color-accent-ink)] hover:underline"
+            >
+              {strings.startExcludeLink}
+            </button>
+            <details className="mt-4 border-t border-[var(--color-border)]">
+              <summary className="label-mono min-h-11 cursor-pointer list-none py-3 select-none">
+                {strings.startOtherWays}
+              </summary>
+              {MODES.filter((entry) => entry.mode !== 'quiz' && entry.mode !== 'hybrid').map((entry, index) => (
+                <ModeRow
+                  key={entry.mode}
+                  index={index + 2}
+                  title={entry.title}
+                  description={entry.description}
+                  time={entry.time}
+                  icon={entry.icon}
+                  onStart={() => openSession(entry.mode)}
+                />
+              ))}
+            </details>
           </Reveal>
         </section>
 
@@ -282,78 +302,28 @@ export function StartScreen() {
           </ol>
         </section>
 
-        {/* ── Mapa ekranów: routing hashowy działa po odświeżeniu ── */}
-        <section className="mt-16 sm:mt-20" aria-labelledby="routes-heading">
-          <Reveal>
-            <h2
-              id="routes-heading"
-              className="text-[clamp(1.5rem,4.5vw,1.9rem)] font-bold tracking-[-0.03em]"
-            >
-              {strings.routesTitle}
-            </h2>
-            <p className="mt-2 max-w-prose text-sm leading-relaxed text-[var(--color-muted)]">
-              {strings.routesNote}
-            </p>
-          </Reveal>
-
-          <ul className="mt-6 grid gap-2">
-            {ROUTE_MAP.map((entry, index) => (
-              <Reveal as="li" key={entry.hash} delay={Math.min(index * 35, 240)}>
-                <a
-                  href={entry.hash}
-                  className="group flex min-h-12 items-center gap-3 rounded-[var(--radius-card)] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 transition-[border-color,transform] duration-200 hover:-translate-y-px hover:border-[var(--color-accent)]"
-                >
-                  <code className="num shrink-0 text-xs font-semibold text-[var(--color-accent-ink)]">
-                    {entry.hash}
-                  </code>
-                  <span className="ml-auto truncate text-right text-xs text-[var(--color-muted)]">
-                    {entry.label}
-                  </span>
-                  <span
-                    className={`num shrink-0 rounded-[var(--radius-pill)] px-2 py-1 text-[10px] tracking-[0.12em] uppercase ${
-                      entry.kind === 'error'
-                        ? 'bg-[var(--color-warn-soft)] text-[var(--color-warn)]'
-                        : entry.kind === 'stub'
-                          ? 'bg-[var(--color-surface-2)] text-[var(--color-muted)]'
-                          : 'bg-[var(--color-accent-soft)] text-[var(--color-accent-ink)]'
-                    }`}
-                  >
-                    {entry.kind === 'error'
-                      ? 'błąd'
-                      : entry.kind === 'stub'
-                        ? strings.routeWorks
-                        : entry.kind === 'ready'
-                          ? 'gotowy'
-                          : 'start'}
-                  </span>
-                  <span className="shrink-0 text-[var(--color-border-strong)] transition-transform duration-200 group-hover:translate-x-1 group-hover:text-[var(--color-accent)]">
-                    <ArrowRightIcon className="h-4 w-4" />
-                  </span>
-                </a>
-              </Reveal>
-            ))}
-          </ul>
-
-          <Reveal delay={40} className="mt-8">
-            <p className="max-w-prose text-sm leading-relaxed text-[var(--color-muted)]">
-              {strings.routerConsoleNote}
-            </p>
-            <RouterConsole knownSessions={sessions.map((item) => item.id)} />
-          </Reveal>
-        </section>
-
-        <SkeletonPanel />
       </div>
 
       {/* UI-SPEC 7: główny przycisk w pasku przyklejonym do dołu (<640 px) */}
       <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-surface)_94%,transparent)] px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] backdrop-blur-md sm:hidden">
-        <a
-          href="#/s/demo/quiz"
-          className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
-        >
-          {strings.quiz} — {strings.quizTime}
-          <ArrowRightIcon className="h-4 w-4" />
-        </a>
+        {resumeHref ? (
+          <a
+            href={resumeHref}
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
+          >
+            {strings.startResumeCta}
+            <ArrowRightIcon className="h-4 w-4" />
+          </a>
+        ) : (
+          <button
+            type="button"
+            onClick={() => openSession('quiz')}
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
+          >
+            {strings.startPrimaryCta}
+            <ArrowRightIcon className="h-4 w-4" />
+          </button>
+        )}
       </div>
     </>
   );

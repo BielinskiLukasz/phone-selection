@@ -10,7 +10,8 @@ interface ModeRowProps {
   /** Tworzy prawdziwą sesję i otwiera jej pierwszy ekran (etap 3). */
   onStart: () => void;
   /** Adres podglądu szkieletu, bez zapisywania sesji. */
-  previewHref: string;
+  /** FP2-02: link „podgląd” (makieta demo) tylko w trybie deweloperskim — brak = nie renderuj. */
+  previewHref?: string;
 }
 
 /** Wiersz trybu (UI-SPEC 3.1): jedna główna czynność ekranu + link do podglądu. */
@@ -53,12 +54,14 @@ export function ModeRow({
           <ArrowRightIcon className="h-5 w-5" />
         </span>
       </button>
-      <a
-        href={previewHref}
-        className="num flex min-h-11 shrink-0 items-center self-center pr-3 pl-2 text-[10px] uppercase tracking-[0.14em] text-[var(--color-border-strong)] transition-colors duration-200 hover:text-[var(--color-accent-ink)]"
-      >
-        podgląd
-      </a>
+      {previewHref ? (
+        <a
+          href={previewHref}
+          className="num flex min-h-11 shrink-0 items-center self-center pr-3 pl-2 text-[10px] uppercase tracking-[0.14em] text-[var(--color-border-strong)] transition-colors duration-200 hover:text-[var(--color-accent-ink)]"
+        >
+          podgląd
+        </a>
+      ) : null}
     </div>
   );
 }

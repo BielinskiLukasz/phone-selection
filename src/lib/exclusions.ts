@@ -240,6 +240,18 @@ export function toggleModelExclusion(
  * tylko niewykluczone, najpierw mieszczące się w budżecie, potem uzupełnienie
  * powyżej budżetu wyłącznie z niewykluczonych; numeracja kart 1..k.
  */
+/**
+ * FP3-05: budżet elastyczny. `stretch` = { budgetMax, budgetStretch, priceOf } — gdy ustawione, karty to
+ * (cardCount − 1) najlepsze telefony w budżecie oraz jeden najlepszy z pasma (budgetMax, budgetStretch],
+ * jeśli ma wyższy wynik niż najlepszy telefon w budżecie. Gdy w paśmie nie ma lepszego — trzecia karta
+ * z budżetu jak dotąd. Plakietka „Dopłata +X zł za +Y pkt” jest liczona na karcie z cen i S (anonymize).
+ */
+export interface StretchOptions {
+  budgetMax: number;
+  budgetStretch: number | null | undefined;
+  priceOf: (phoneId: string) => number | null;
+}
+
 export function selectCardsFromFullRanking<
   T extends {
     phoneId: string;
@@ -252,6 +264,7 @@ export function selectCardsFromFullRanking<
 >(
   fullRanking: readonly T[],
   cardCount: number = CARD_COUNT,
+  stretch?: StretchOptions,
 ): { cards: T[]; inBudgetCount: number; excludedCount: number } {
   const excludedCount = fullRanking.filter(
     (entry) => entry.excluded === 'brand' || entry.excluded === 'model',
@@ -261,7 +274,23 @@ export function selectCardsFromFullRanking<
   );
   const withinBudget = eligible.filter((entry) => entry.inBudget);
   const aboveBudget = eligible.filter((entry) => !entry.inBudget);
-  const picked = [...withinBudget, ...aboveBudget]
+
+  let ordered: T[] = [...withinBudget, ...aboveBudget];
+  if (stretch && typeof stretch.budgetStretch === 'number' && stretch.budgetStretch > stretch.budgetMax && cardCount > 1) {
+    const bestInBudget = withinBudget[0]?.score ?? Number.NEGATIVE_INFINITY;
+    const candidate = aboveBudget.find((entry) => {
+      const price = stretch.priceOf(entry.phoneId);
+      return price !== null && price <= stretch.budgetStretch! && entry.score > bestInBudget;
+    });
+    if (candidate) {
+      /* Dwie najlepsze w budżecie + jedna z pasma dopłaty; braki w budżecie dopełnia reszta pasma/ponad. */
+      const base = withinBudget.slice(0, cardCount - 1);
+      const rest = [...withinBudget.slice(cardCount - 1), ...aboveBudget.filter((entry) => entry !== candidate)];
+      ordered = [...base, candidate, ...rest];
+    }
+  }
+
+  const picked = ordered
     .slice(0, cardCount)
     .map((entry, index) => ({ ...entry, place: index + 1, practicalTieWith: null as string | null }));
 

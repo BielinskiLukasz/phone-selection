@@ -38,6 +38,8 @@ export interface QuizOption {
   sets?: Partial<Record<CriterionId, number>>;
   /** Tylko F1. */
   budgetMax?: BudgetOption;
+  /** FP3-05: budżet elastyczny — górna granica pasma „dopłacę, jeśli wyraźnie lepszy”. */
+  budgetStretch?: BudgetOption;
   /** Tylko C2. */
   minStorageGb?: 256;
   /** „Nie wiem / pomiń” — nie wnosi nic do wag. */
@@ -76,6 +78,11 @@ export interface Filters {
   excludedBrands?: string[];
   /** Wykluczone pojedyncze modele (`phone.id`). */
   excludedPhoneIds?: string[];
+  /**
+   * FP3-05: budżet elastyczny. Gdy ustawione (> budgetMax), karty to dwa najlepsze telefony ≤ budgetMax
+   * i jeden najlepszy z pasma (budgetMax, budgetStretch] z plakietką „Dopłata +X zł za +Y pkt”.
+   */
+  budgetStretch?: number | null;
 }
 
 /** Waga kryterium wewnątrz grupy, skala 0-5. */
@@ -101,6 +108,8 @@ export interface RankedPhone {
   overBudgetBy: number | null;
   /** Id telefonu, z którym ten wynik to „praktyczny remis”. */
   practicalTieWith: string | null;
+  /** FP3-05: karta z pasma dopłaty — o ile zł drożej i o ile punktów lepiej niż najlepszy telefon w budżecie. */
+  stretch?: { extraPln: number; extraPoints: number } | null;
   /** Powód wykluczenia: `null` = bierze udział w kartach, `'brand'` / `'model'` = tylko w pełnym rankingu. */
   excluded?: ExclusionReason;
 }
@@ -171,6 +180,15 @@ export interface AnonCard {
   pricePln: number;
   priceCheckedAt: string;
   priceNote: string;
+  /* FP1-04: promocja widoczna już na karcie anonimowej — bez warunku (nazwy sklepów), tylko data i cena regularna. */
+  promoEndsAt: string | null;
+  regularPricePln: number | null;
+  /* FP1-01: oferta z price.pln przestała być dostępna — karta ostrzega i odsyła do „Sprawdź aktualną cenę”. */
+  priceUnavailableSince: string | null;
+  /* FP3-05 */
+  stretch: { extraPln: number; extraPoints: number } | null;
+  /* FP3-02: grupy z top 3 G1, w których telefon ma wyraźny kompromis (GroupScore < 40 lub ocena < 55 przy wadze 5). */
+  priorityTradeoffs: string[];
   overBudgetBy: number | null;
   storageGb: number;
   hasMicroSd: boolean | null;

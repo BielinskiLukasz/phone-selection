@@ -321,7 +321,10 @@ export function QuizScreen({ session }: QuizScreenProps) {
             {strings.quizSummaryTitle}
           </h1>
           <p className="mt-3 max-w-prose text-sm leading-relaxed text-[var(--color-muted)] sm:text-base">
-            {strings.quizSummaryNote}
+            {strings.quizSummaryNote}{' '}
+            <a href={`#/s/${session.id}/exclude`} className="underline-offset-2 hover:underline">
+              {strings.startExcludeLink}
+            </a>
           </p>
 
           <p className="num mt-3 text-[11px] tracking-[0.12em] text-[var(--color-muted)] uppercase">
@@ -387,7 +390,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                   onClick={finish}
                   className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
                 >
-                  {strings.quizShowResults}
+                  {strings.showProposals}
                   <ArrowRightIcon className="h-4 w-4" />
                 </button>
                 <button
@@ -406,7 +409,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                   disabled={picks.length !== 3}
                   className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-on-accent)] transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
                 >
-                  {strings.quizShowResults}
+                  {strings.quizNextSummary}
                   <ArrowRightIcon className="h-4 w-4" />
                 </button>
                 <button
@@ -427,7 +430,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                 onClick={finish}
                 className="flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)]"
               >
-                {strings.quizShowResults}
+                {strings.showProposals}
                 <ArrowRightIcon className="h-4 w-4" />
               </button>
             ) : (
@@ -438,7 +441,7 @@ export function QuizScreen({ session }: QuizScreenProps) {
                   disabled={picks.length !== 3}
                   className="flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[var(--color-accent)] text-sm font-semibold text-[var(--color-on-accent)] disabled:opacity-40"
                 >
-                  {strings.quizShowResults}
+                  {strings.showProposals}
                 </button>
                 <button
                   type="button"

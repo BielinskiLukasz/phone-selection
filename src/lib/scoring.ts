@@ -207,7 +207,11 @@ export function rank(input: RankInput): RankResult {
   });
 
   /* E11-04: karty to trzy najlepsze niewykluczone, z uzupełnieniem ponad budżetem tylko z niewykluczonych. */
-  const { cards, inBudgetCount, excludedCount } = selectCardsFromFullRanking(entries, CARD_COUNT);
+  const { cards, inBudgetCount, excludedCount } = selectCardsFromFullRanking(entries, CARD_COUNT, {
+    budgetMax,
+    budgetStretch: filters.budgetStretch ?? null,
+    priceOf: (phoneId) => byId.get(phoneId)?.price.pln ?? null,
+  });
 
   return {
     poolSize: pool.length,

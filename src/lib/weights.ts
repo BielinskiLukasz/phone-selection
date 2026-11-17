@@ -211,6 +211,20 @@ export function budgetFromAnswers(
   return DEFAULT_BUDGET;
 }
 
+/** FP3-05: pasmo dopłaty z odpowiedzi F1 (null = budżet twardy). */
+export function budgetStretchFromAnswers(
+  answers: Answers,
+  questions: readonly QuizQuestion[] = QUESTIONS,
+): number | null {
+  for (const question of questions) {
+    const optionId = answers[question.id];
+    if (!optionId) continue;
+    const option = question.options.find((item) => item.id === optionId);
+    if (option?.budgetMax) return option.budgetStretch ? clamp(option.budgetStretch, 0, BUDGET_LIMIT) : null;
+  }
+  return null;
+}
+
 /** Filtry twarde z odpowiedzi: budżet (F1) i minimalna pamięć (C2). */
 export function filtersFromAnswers(
   answers: Answers,
@@ -225,7 +239,8 @@ export function filtersFromAnswers(
     if (option?.minStorageGb) minStorageGb = option.minStorageGb;
   }
 
-  return { budgetMax: budgetFromAnswers(answers, questions), minStorageGb, requireMicroSd: false };
+  return { budgetMax: budgetFromAnswers(answers, questions),
+    budgetStretch: budgetStretchFromAnswers(answers, questions), minStorageGb, requireMicroSd: false };
 }
 
 /** Alias nazewniczy używany w testach i w ekranach suwaków. */

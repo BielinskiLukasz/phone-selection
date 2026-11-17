@@ -363,7 +363,8 @@ describe('E3-01 · pomocniki sesji', () => {
     expect(session.createdAt).toBe(NOW.toISOString());
     expect(neutralWeights().display).toBe(2);
     expect(neutralGroupImportance().camera).toBeCloseTo(1.3, 5);
-    expect(session.exclusionsStep).toBe('pending');
+    /* FP2-04: wykluczenia są opcją — nowa sesja nie ma kroku pośredniego. */
+    expect(session.exclusionsStep).toBe('done');
     expect(defaultFilters()).toEqual({
       budgetMax: 2000,
       minStorageGb: null,

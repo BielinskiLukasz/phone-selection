@@ -32,6 +32,8 @@ export interface RankingSnapshotEntry {
   inBudget: boolean;
   overBudgetBy: number | null;
   practicalTieWith: string | null;
+  /** FP3-05 */
+  stretch?: { extraPln: number; extraPoints: number } | null;
   /** GroupScore dla sześciu grup — mini-paski w pełnym rankingu (UI-SPEC 3.6). */
   groupScores?: Record<GroupId, number>;
   /** Powód wykluczenia w chwili zapisu snapshotu (etap 11). */

@@ -22,6 +22,7 @@ import { NO_DATA, formatBodySummary } from '@/lib/anonymize';
 import type { GroupId } from '@/types';
 import type { Session } from '@/types/state';
 import { Badge } from '@/components/Badge';
+import { PurchaseInfo } from '@/components/PurchaseInfo';
 import { PhonePhoto } from '@/components/PhonePhoto';
 import { RouteChip } from '@/components/RouteChip';
 import { ScoreBar } from '@/components/ScoreBar';
@@ -502,8 +503,9 @@ export function RankingScreen({ session }: RankingScreenProps) {
                         <p className="num mt-2 text-[11px] text-[var(--color-muted)]">
                           {Math.round(phone.price.pln)} zł · {phone.price.source} ·{' '}
                           {sessionTexts.priceWithDate(phone.price.checkedAt)}
-                          {phone.price.note ? ` · ${phone.price.note}` : ''}
+                          {phone.price.userNote ? ` · ${phone.price.userNote}` : ''}
                         </p>
+                        <PurchaseInfo phone={phone} variant="ranking" className="mt-3" />
                       </div>
 
                       {(phone.price.otherObservations ?? []).length > 0 ? (
