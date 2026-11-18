@@ -4405,6 +4405,210 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "xiaomi-14t-pro-12-512",
+      "brand": "Xiaomi",
+      "modelName": "14T Pro 12/512 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Xiaomi 14T Pro 12/512 GB",
+        "brand": "Xiaomi",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-14t-pro.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-14t-pro-1.jpg",
+        "shopLinks": [
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-14t-pro-5g-12-512gb-6-67-144hz-czarny",
+            "pricePln": 2699.99,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny i szary (2407FPN8EG), 12/512 GB — oficjalna sieć Media Expert (ograniczona dostępność w wybranych sklepach; niebieski online 3258,33 zł)"
+          },
+          {
+            "label": "ceneo.pl (kaufland.pl)",
+            "url": "https://www.ceneo.pl/173615199",
+            "pricePln": 2767.44,
+            "checkedAt": "2026-11-17",
+            "kind": "marketplace",
+            "note": "czarny Titan Black, 12/512 GB — oferta Kaufland Marketplace na Ceneo 173615199, darmowa wysyłka w 1 dzień"
+          },
+          {
+            "label": "allegro.pl",
+            "url": "https://allegro.pl/oferta/smartfon-xiaomi-14t-pro-5g-12-512gb-6-67-144hz-niebieski-16586839047",
+            "pricePln": 2098,
+            "checkedAt": "2026-11-17",
+            "kind": "marketplace",
+            "note": "niebieski Titan Blue (EAN 6941812789353), 12/512 GB — nowy egzemplarz na Allegro (przed zakupem sprawdzić dostępność i rodzaj gwarancji)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/173615199",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 512,
+        "fromList": "Xiaomi 14T Pro 12/512 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2699.99,
+        "source": "mediaexpert.pl",
+        "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-14t-pro-5g-12-512gb-6-67-144hz-czarny",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "czarny lub szary (2407FPN8EG), 12/512 GB — końcówka sprzedaży, powyżej progu 2000 zł",
+        "auditNote": "Model z 09.2024 stopniowo wycofywany ze sprzedaży po premierze serii 15T: Komputronik (sprzedaż zakończona), AB Foto (niedostępny, ostatnio 2439 zł), Morele.net (niebieski 14171589 OutOfStock). W Media Expert warianty czarny i szary 12/512 GB po 2699,99 zł (dostępność ograniczona do wybranych sklepów; niebieski online 3258,33 zł); na Ceneo 173615199 jedyna aktywna oferta czarnego to Kaufland Marketplace 2767,44 zł (InStock), a niebieskiego (Ceneo 173615197) od 3245,33 zł; na Allegro pojedyncze oferty nowych sztuk od ok. 2098 zł, a na starszych kartach Sferis 2085–2522 zł. Jako price.pln przyjęto zweryfikowaną cenę sklepową 2699,99 zł (drożej od szacunku ~2300 zł z listy; dla porównania nowszy Xiaomi 15T Pro 12/512 GB na Ceneo zaczyna się już od ok. 2564–2575 zł).",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 2098,
+            "source": "allegro.pl",
+            "url": "https://allegro.pl/oferta/smartfon-xiaomi-14t-pro-5g-12-512gb-6-67-144hz-niebieski-16586839047",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "niebieski Titan Blue (EAN 6941812789353), 12/512 GB, marketplace"
+          },
+          {
+            "pln": 2767.44,
+            "source": "kaufland.pl (przez Ceneo 173615199)",
+            "url": "https://www.ceneo.pl/173615199",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny Titan Black, 12/512 GB, dostępny z wysyłką w 1 dzień"
+          },
+          {
+            "pln": 3258.33,
+            "source": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-14t-pro-5g-12-512gb-6-67-144hz-niebieski",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "niebieski Titan Blue, 12/512 GB, dostępny online (JSON-LD InStock)"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.67,
+        "panel": "AMOLED",
+        "refreshHz": 144,
+        "resolution": "1220x2712",
+        "peakNits": 4000,
+        "glass": "Corning Gorilla Glass 5 (przód), Panda X (tył)",
+        "ramGb": 12,
+        "storageGb": 512,
+        "storageType": "UFS 4.0",
+        "microSd": false,
+        "chip": "MediaTek Dimensity 9300+ (4 nm)",
+        "batteryMah": 5000,
+        "batteryCycles": 1600,
+        "batteryEndurance": 38,
+        "batteryTests": [
+          "Tech Advisor (PCMark Work 3.0, 144 Hz): 12 h 32 min → wytrzymałość 38 wg skali PCMark 8–20 h (mediana UL Solutions: 12 h 15 min → 35)",
+          "GSMArena active use score: 12:32 h (rozmowy 24:46 h, WWW 11:53 h, wideo 13:50 h, gry 8:05 h)",
+          "DXOMARK Battery: 128 pkt (54 h umiarkowanego użycia); deklaracja producenta: min. 80% pojemności po 1600 cyklach"
+        ],
+        "chargingW": 120,
+        "chargingNote": "do 120 W HyperCharge przewodowo (PD3.0, QC4; deklaracja producenta: 100% w 19 min, realny pobór w teście GSMArena do 98 W) oraz do 50 W indukcyjnie (z dedykowaną ładowarką Xiaomi: 100% w 45 min); brak ładowarki w pudełku (GSMArena, Tech Advisor)",
+        "chargingTests": "GSMArena (zasilacz Xiaomi 120 W): 74% w 15 min, pełne ładowanie w 23 min; DXOMARK: pełne ładowanie w 21 min",
+        "chargerInBox": false,
+        "wirelessCharging": true,
+        "wirelessW": 50,
+        "ip": "IP68",
+        "weightG": 209,
+        "heightMm": 160.4,
+        "widthMm": 75.1,
+        "thicknessMm": 8.4,
+        "dimensionsMm": "160,4 × 75,1 × 8,4",
+        "cameras": {
+          "main": "50 MP f/1.6 (23 mm, 1/1,31″, Light Fusion 900 / OmniVision OV50H, PDAF) z OIS, optyka Leica",
+          "ultrawide": "12 MP f/2.2 (15 mm, 1/3,06″, stała ostrość)",
+          "macro": null,
+          "selfie": "32 MP f/2.0 (25 mm, 1/3,44″, stała ostrość)",
+          "telephoto": "50 MP f/2.0 (60 mm, 1/2,88″, Samsung ISOCELL JN1, PDAF, bez OIS), zoom optyczny 2,6x"
+        },
+        "video": "8K 24/30 kl./s, 4K 24/30/60 kl./s HDR10+ / 10-bit Log (główny i tele 4K60), 4K 30 kl./s (szeroki kąt i selfie)",
+        "os": "Android 14, HyperOS",
+        "updatesYears": 5,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 5,
+        "updatesNote": "4 duże aktualizacje Androida (od Androida 14 do Androida 18) i 5 lat poprawek bezpieczeństwa co 90 dni od premiery 09.2024 do 09.2029 (Xiaomi Security Center, Notebookcheck)",
+        "releasedAt": "2024-09",
+        "securitySupportUntil": "2029-09",
+        "supportNote": "Xiaomi Security Center / Notebookcheck: 5 lat poprawek bezpieczeństwa (cykl kwartalny) od premiery we wrześniu 2024 r. → do 09.2029 (niespełna 3 lata pozostałego wsparcia)",
+        "sim": "nanoSIM + nanoSIM / nanoSIM + eSIM / dual eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 7 (dwuzakresowe)",
+        "bluetooth": "5.4",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Aby powiadomienia nie były blokowane, należy wyłączyć oszczędzanie baterii dla Zepp Life w ustawieniach Androida oraz w HyperOS włączyć dla niej Autostart w tle."
+      },
+      "scores": {
+        "battery": 32,
+        "charging": 100,
+        "updates": 64,
+        "storage": 100,
+        "durability": 90,
+        "smoothness": 90,
+        "display": 82,
+        "photoDay": 83,
+        "photoIndoor": 80,
+        "photoMotion": 74,
+        "selfie": 66,
+        "video": 79,
+        "zoom": 75,
+        "compactness": 44,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh Li-Po (pojemność 25 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 38 (50%) z testu PCMark Work 3.0 w Tech Advisor (12 h 32 min przy 144 Hz, skala 8–20 h; mediana UL Solutions 12 h 15 min, GSMArena active use 12:32 h, DXOMARK 54 h) → 0,5 × 25 + 0,5 × 38 = 32 pkt; przeciętny czas pracy na tle nowszych ogniw 6000+ mAh, na plus deklaracja 1600 cykli",
+        "charging": "120 W HyperCharge przewodowo (GSMArena: 74% w 15 min, pełne w 23 min) + 50 W ładowanie bezprzewodowe (+8 pkt) → obcięte do 100 pkt; pełna moc przewodowa i indukcyjna wymaga dokupienia firmowych ładowarek Xiaomi (brak zasilacza w pudełku)",
+        "updates": "4 duże aktualizacje Androida (do Androida 18) i 5 lat kwartalnych poprawek bezpieczeństwa do 09.2029 (Xiaomi Security Center, Notebookcheck): średnia 4,5 roku → 4,5 / 7 × 100 = 64 pkt (z uwagi na premierę w 09.2024 zostało niespełna 3 lata poprawek)",
+        "storage": "512 GB bardzo szybkiej pamięci UFS 4.0 z 12 GB RAM LPDDR5X, brak slotu microSD (GSMArena, Notebookcheck) = 100 pkt",
+        "durability": "IP68 (zanurzenie do 2 m na 30 min) i sztywna aluminiowa ramka 6M13 = 90 pkt wg reguły IP68 (z przodu starsze szkło Gorilla Glass 5, z tyłu Panda X — słabsza ochrona przed zarysowaniami niż Victus+)",
+        "smoothness": "flagowy układ z 2024 r. MediaTek Dimensity 9300+ (4 nm), 12 GB LPDDR5X, UFS 4.0 i 144 Hz; GSMArena: AnTuTu v10 2 015 655, Geekbench 6 multi-core 7081, 3DMark Wild Life Extreme 3998, stabilność 79,3% w Notebookcheck — bardzo wysoka wydajność, nieznacznie poniżej nowszych układów 2025/2026 w GPU",
+        "display": "6,67″ AMOLED 1,5K (1220×2712, 12-bit, 144 Hz, Dolby Vision, HDR10+, brak migotania PWM); mimo deklarowanych 4000 nitów w teście GSMArena osiągnął przeciętne 1228 nitów w trybie auto (560/752 nity ręcznie), a DXOMARK Display (143 pkt) wytyka ograniczoną czytelność w ostrym słońcu i nierównomierność jasności, a także brak LTPO",
+        "photoDay": "duży główny sensor 50 MP f/1.6 (1/1,31″, Light Fusion 900, OIS, Leica) + tele 50 MP 2,6x + podstawowy szeroki kąt 12 MP bez AF; DXOMARK Camera 135 pkt i GSMArena chwalą szczegółowość i ekspozycję, ale punktują węższą rozpiętość tonalną w silnym kontraście, lekkie przeostrzanie faktur i słabsze brzegi szerokiego kąta",
+        "photoIndoor": "jasny aparat główny 1/1,31″ f/1.6 z OIS bardzo dobrze radzi sobie w nocy w teście GSMArena (zachowane światła i cienie, trafne kolory), choć DXOMARK odnotowuje wahania balansu bieli, szum i utratę najdrobniejszej faktury w ciemniejszych wnętrzach",
+        "photoMotion": "szybki PDAF z OIS i wydajny ISP Dimensity 9300+ dają pewne ostrzenie, ale DXOMARK odnotowuje okazjonalny ghosting, artefakty łączenia klatek w kontrastowych scenach i niestabilność ekspozycji między kolejnymi ujęciami",
+        "selfie": "przedni aparat 32 MP f/2.0 (mała matryca 1/3,44″, stała ostrość, 4K 30 kl./s); recenzja GSMArena ocenia selfie chłodno — zawyżona rozdzielczość 32 MP bez realnego przyrostu detali, zbyt agresywne przetwarzanie i brak autofokusu",
+        "video": "8K 30 kl./s oraz 4K 60 kl./s (główny i tele, 10-bit Log, HDR10+) z bardzo skuteczną stabilizacją i udanymi nagraniami nocnymi; ocena obniżona za mocne przeostrzanie z obwódkami na krawędziach (GSMArena) oraz wyprane kolory w dzień i wahania ekspozycji (DXOMARK Video 130 pkt)",
+        "zoom": "dedykowany teleobiektyw 50 MP f/2.0 (60 mm, 1/2,88″, ISOCELL JN1, PDAF, 2,6x zoom optyczny); w teście GSMArena bardzo ostry przy 2,6x (także w portretach) i użyteczny przy 5x w dzień, ale ograniczony brakiem OIS, krótszą ogniskową niż 3x, słabszym 5x w nocy i brakiem telemakro (ostrzy dopiero od ok. 45 cm)",
+        "compactness": "209 g, wymiary 160,4 × 75,1 × 8,4 mm (GSMArena) — wzór poręczności: lekkość 37, mała powierzchnia 52 (12 046 mm²), smukłość 37 → 44 pkt (umiarkowana szerokość 75,1 mm, ale odczuwalna waga 209 g i grubość 8,4 mm)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.ceneo.pl/173615199",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-14t-pro-5g-12-512gb-6-67-144hz-czarny",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-xiaomi-14t-pro-5g-12-512gb-6-67-144hz-niebieski",
+        "https://www.sferis.pl/smartfon-xiaomi-14t-pro-12-512gb-5g-titanium-blue-i542045",
+        "https://www.gsmarena.com/xiaomi_14t_pro-13328.php",
+        "https://www.gsmarena.com/xiaomi_14t_pro-review-2746p3.php",
+        "https://www.gsmarena.com/xiaomi_14t_pro-review-2746p5.php",
+        "https://www.dxomark.com/xiaomi-14t-pro-camera-test/",
+        "https://www.dxomark.com/xiaomi-14t-pro-display-test/",
+        "https://www.notebookcheck.net/Xiaomi-14T-Pro-smartphone-review-Amazing-value-amazing-screen-brightness.907877.0.html",
+        "https://www.techadvisor.com/article/2469199/xiaomi-14t-pro-review.html",
+        "https://benchmarks.ul.com/hardware/phone/Xiaomi+14T+Pro+review"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "high",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
