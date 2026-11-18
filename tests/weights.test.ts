@@ -33,11 +33,12 @@ describe('E2-05 · wagi kryteriów z odpowiedzi', () => {
     for (const id of CRITERION_IDS) expect(answersToCriterionWeights(noAnswers())[id]).toBe(2);
   });
 
-  it('kilka pytań o jedno kryterium daje średnią (E1=1, E2=5 → display 3)', () => {
-    expect(answersToCriterionWeights({ E1: 'E1-a', E2: 'E2-c' }).display).toBe(3);
+  it('kilka pytań o jedno kryterium daje maksimum (E1=0, E2=5 → display 5)', () => {
+    expect(answersToCriterionWeights({ E1: 'E1-a', E2: 'E2-c' }).display).toBe(5);
+    expect(answersToCriterionWeights({ E1: 'E1-a', E2: 'E2-a' }).display).toBe(0);
   });
 
-  it('kilka pytań o baterię: A1 i A2 uśredniają się do wagi kryterium', () => {
+  it('kilka pytań o baterię: A1 i A2 łączą się do wagi kryterium (max)', () => {
     expect(answersToCriterionWeights(BATTERY.answers).battery).toBe(5);
     expect(answersToCriterionWeights(WIFE.answers).battery).toBe(3);
     /* FP3-03 (17.11.2026): „zawsze na noc” → charging 0,25 (było 1). */
@@ -101,8 +102,8 @@ describe('E2-05 · ważności grup', () => {
 
     // longevity: updates 3 i durability 3 → 0,5 + 0,4 × 3 (poza trójką, bez korekty)
     expect(importance.longevity).toBeCloseTo(GROUP_BASE + GROUP_FACTOR * 3, 5);
-    // price: value 2 z odpowiedzi F1 → 0,5 + 0,4 × 2 = 1,3
-    expect(importance.price).toBeCloseTo(1.3, 5);
+    // price: value 1 z odpowiedzi F1 (plan 5) → 0,5 + 0,4 × 1 = 0,9
+    expect(importance.price).toBeCloseTo(0.9, 5);
   });
 
   it('kolejność trójki jest zachowana zawsze — pasma się nie nakładają', () => {

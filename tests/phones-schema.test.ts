@@ -6,6 +6,7 @@ import { CRITERIA as CRITERIA_DEFS, CRITERION_IDS, GROUPS } from '../src/data/cr
 import { CRITERIA as VALIDATOR_CRITERIA, validatePhoneData } from '../scripts/validate-data';
 import { BUDGET_LIMIT } from '../src/lib/scoringConfig';
 import { EXPECTED_POOL_SIZE } from '../src/data/pool';
+import { isCompleteRecord } from '../src/data/phones';
 
 /**
  * E2-10 / E10 · `phones.json` zgodny z typami i ze wspólnym walidatorem.
@@ -85,8 +86,11 @@ describe('E2-10 · schemat danych', () => {
     }
   });
 
-  it('każdy rekord ma kształt typu Phone', () => {
-    phonesData.phones.forEach((phone, index) => assertPhoneShape(phone, `phones[${index}]`));
+  it('każdy kompletny rekord ma kształt typu Phone, a niekompletny jest jawnym szkicem kandydata', () => {
+    RAW_RECORDS.forEach((phone, index) => {
+      if (isCompleteRecord(phone)) assertPhoneShape(phone, `phones[${index}]`);
+      else expect(['unverified', 'needs_confirmation'], `phones[${index}] (${phone.id}): szkic musi mieć status`).toContain(phone.status);
+    });
     POOL.forEach((phone, index) => assertPhoneShape(phone, `pool[${index}]`));
   });
 
@@ -138,8 +142,10 @@ describe('E2-10 · schemat danych', () => {
     }
   });
 
-  it('po potwierdzeniu oferty (A1) nie ma rekordów `needs_confirmation`', () => {
-    expect(RAW_RECORDS.filter((phone) => phone.status === 'needs_confirmation')).toEqual([]);
+  it('po potwierdzeniu oferty (A1) żaden kompletny rekord nie jest `needs_confirmation` (szkice pilnuje release-guard)', () => {
+    expect(
+      RAW_RECORDS.filter((phone) => isCompleteRecord(phone) && phone.status === 'needs_confirmation'),
+    ).toEqual([]);
     const realme = POOL.find((phone) => phone.id === 'realme-16-pro-plus-5g-8-256')!;
     expect(realme.status).toBe('ok');
     /* FP1-08: notatka weryfikacyjna żyje w auditNote, użytkowniczka widzi tylko userNote. */

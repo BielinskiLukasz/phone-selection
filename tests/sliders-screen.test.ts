@@ -270,7 +270,7 @@ describe('E5-06/E5-07 · hybryda i dostrojenie', () => {
       '3,4 z 5, ważne',
     );
     expect(screen.getByRole('slider', { name: /Cena/ }).getAttribute('aria-valuetext')).toBe(
-      '1,3 z 5, mało ważne',
+      '0,9 z 5, mało ważne',
     );
   });
 

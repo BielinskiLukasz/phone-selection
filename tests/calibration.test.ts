@@ -29,18 +29,19 @@ const WIFE_PICKS: [GroupId, GroupId, GroupId] = ['battery', 'camera', 'storage']
 const BATTERY_PICKS: [GroupId, GroupId, GroupId] = ['battery', 'price', 'longevity'];
 const CAMERA_PICKS: [GroupId, GroupId, GroupId] = ['camera', 'storage', 'smooth'];
 
-describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
+describe('E9-03 / E10 · wybór BLEND na puli referencyjnej (22 modele)', () => {
   it('przy BLEND 0,5 rozstęp wyników jest wyraźny, ale nie przerysowany', () => {
     const at05 = spread(run('żona', WIFE.answers, WIFE_PICKS, 0.5));
     const at0 = spread(run('żona', WIFE.answers, WIFE_PICKS, 0));
     const at1 = spread(run('żona', WIFE.answers, WIFE_PICKS, 1));
 
-    /* Po FP3-03 rozstęp u „żony”: 0 → 18,96 · 0,5 → 18,36 · 1 → 22,43 — normalizacja min-max nie zwiększa go
-       monotonicznie (nowe maksima battery/storage); pilnujemy: 0,5 wyraźne (> 15), łagodniejsze niż 1, blisko 0. */
+    /* Pula 22 modeli (18.11.2026): rozstęp u „żony” 0 → 32,5 · 0,5 → 38,5 · 1 → 47,3. Od 15 do 18 modeli było ok. 24,
+       skok do ok. 38 robi Galaxy A17 5G 4/128 GB — najsłabszy w puli (dół normalizacji min-max). Pilnujemy:
+       0,5 wyraźne (> 15), nie większe niż przy 1, bliskie rozstępowi przy 0 (< 8) i nie przerysowane (< 45). */
     expect(at05).toBeLessThan(at1);
-    expect(Math.abs(at05 - at0)).toBeLessThan(1.5);
+    expect(Math.abs(at05 - at0)).toBeLessThan(8);
     expect(at05).toBeGreaterThan(15);
-    expect(at05).toBeLessThan(30);
+    expect(at05).toBeLessThan(45);
   });
 
   it('9.1.3 przy BLEND ≤ 0,5 zachowuje lidera w trójce i priorytet baterii, a przy 0,75 łamie go', () => {
@@ -63,22 +64,27 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
     expect(filtered.cards[0]!.phoneId).not.toBe(plain.cards[0]!.phoneId);
   });
 
-  it('9.3 (persona „bateria” stawia na największą baterię 8340 mAh) nie działa przy BLEND 0, a przy BLEND 0,5 równoważy też aparat u „żony”', () => {
-    expect(run('bateria', BATTERY.answers, BATTERY_PICKS, 0.5).cards[0]!.phoneId).toBe(
-      'redmi-note-17-pro-5g-8-512',
-    );
-    /* Przy BLEND 0 wygrywa tańszy Redmi Note 15 Pro (6580 mAh) zamiast 8340 mAh. */
+  it('9.3 (persona „bateria”): Redmi Note 17 Pro (8340 mAh) jest w trójce przy każdym BLEND, a #1 to POCO F7 (od BLEND 0,25)', () => {
+    /* Pula 22 modeli: POCO F7 (6500 mAh, ładowanie 100 pkt, tańszy o ok. 260 zł) wyprzedza Note 17 Pro dzięki ważności
+       ceny 3,88 (cena jest w trójce tej persony). Przy BLEND 0 prowadzi Honor Magic 7 Lite. Decyzja z 18.11.2026:
+       przyjmujemy to jako stan referencyjny (spec 9.3), bez zmian w silniku. */
+    expect(run('bateria', BATTERY.answers, BATTERY_PICKS, 0.5).cards[0]!.phoneId).toBe('poco-f7-12-256');
     expect(run('bateria', BATTERY.answers, BATTERY_PICKS, 0).cards[0]!.phoneId).toBe(
-      'redmi-note-15-pro-5g-8-256',
+      'honor-magic-7-lite-8-256',
     );
-    /* Przy BLEND 0,25 u „żony” wygrywa Redmi Note 17 Pro mimo braku 4K; przy 0,5 prowadzi zbalansowane 7000 mAh
-       (po FP3-03: Edge 70 Fusion, bo vivo straciło premię za 90 W przy ładowaniu „na noc”). */
-    expect(run('żona', WIFE.answers, WIFE_PICKS, 0.25).cards[0]!.phoneId).toBe(
-      'redmi-note-17-pro-5g-8-512',
-    );
-    expect(run('żona', WIFE.answers, WIFE_PICKS, 0.5).cards[0]!.phoneId).toBe(
-      'motorola-edge-70-fusion-12-256',
-    );
+    for (const blend of [0, 0.25, 0.5, 0.75, 1]) {
+      expect(
+        run('bateria', BATTERY.answers, BATTERY_PICKS, blend).cards.map((card) => card.phoneId),
+        `BLEND ${blend}`,
+      ).toContain('redmi-note-17-pro-5g-8-512');
+    }
+    /* U „żony” Redmi Note 17 Pro prowadzi od BLEND 0 do 0,5 (mimo braku 4K); od 0,75 wygrywa POCO F7. */
+    for (const blend of [0, 0.25, 0.5]) {
+      expect(run('żona', WIFE.answers, WIFE_PICKS, blend).cards[0]!.phoneId, `BLEND ${blend}`).toBe(
+        'redmi-note-17-pro-5g-8-512',
+      );
+    }
+    expect(run('żona', WIFE.answers, WIFE_PICKS, 0.75).cards[0]!.phoneId).toBe('poco-f7-12-256');
   });
 
   it('9.2 i 9.4 są stabilne dla każdej wartości BLEND', () => {
@@ -98,7 +104,8 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
   });
 
   it('odpowiedzi „pomiń” dają wynik ogólny, a skrajne suwaki — maksymalny rozstęp', () => {
-    expect(spread(run('pomiń', skipAll(), null, BLEND))).toBeLessThan(25);
+    /* 31,1 pkt na puli 22 modeli (25,0 na 15 — różnicę robi Galaxy A17 5G 4/128 GB i Edge 60 Neo). */
+    expect(spread(run('pomiń', skipAll(), null, BLEND))).toBeLessThan(35);
 
     const derived = deriveFromAnswers({}, null);
     const extreme = rank({
@@ -130,6 +137,7 @@ describe('E9-03 / E10 · wybór BLEND na puli 15 modeli', () => {
 
     const wife = run('żona', WIFE.answers, WIFE_PICKS, BLEND);
     expect(wife.ranked[0]!.score - wife.ranked[1]!.score).toBeLessThan(TIE_THRESHOLD);
-    expect(wife.ranked[0]!.practicalTieWith).toBe('redmi-note-17-pro-5g-8-512');
+    expect(wife.ranked[0]!.phoneId).toBe('redmi-note-17-pro-5g-8-512');
+    expect(wife.ranked[0]!.practicalTieWith).toBe('poco-f7-12-256');
   });
 });

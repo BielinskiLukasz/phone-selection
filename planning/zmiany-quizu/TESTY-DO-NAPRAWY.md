@@ -89,3 +89,27 @@ Uwagi:
   aparat 15T 73,3 · POCO F7 68,2 · Edge 60 Neo 68,1; bateria POCO F7 68,1 · Note 17 Pro 67,1 · Note 15 Pro
   65,8). Pełna pula: u „aparatu” 15T (75,1) i Edge 60 Pro (74,9) zamieniły się miejscami #1/#2.
 - Ważność ceny: poza trójką 1,3 → 0,9; przy trójce `['battery','price','longevity']` 4 → 3,88.
+
+## Sesja końcowa — wynik (18.11.2026)
+
+Pełny bieg: **429 z 430 testów przechodzi**; jedyny czerwony to `release-guard` › „żaden rekord nie czeka na
+potwierdzenie” — **celowo** (14 szkiców kandydatów `unverified`/`needs_confirmation` w `phones.json`; bramka
+wydania zgaśnie po uzupełnieniu albo usunięciu szkiców). `tsc --noEmit` OK, `validate-data` OK (14 ostrzeżeń
+„szkic kandydata”), `stale-prices` OK, pokrycie `src/lib` 96,7% linii.
+
+**Grupa B (plany 1–5)** — poprawione oczekiwania: `weights` (max zamiast średniej; cena 0,9), `sliders-screen`
+(cena 0,9), `fix-phase` FP3-03 (`A3-c` → 5), komentarz w `tests/personas.ts`. Nowe testy planów:
+`tests/quiz-weight-changes.test.ts` (waga 0, ładowanie 5, agregacja max i przełącznik `'mean'`, opis odporności,
+cena) oraz rozszerzone testy w `weights.test.ts`/`validate-data.test.ts`.
+
+**Grupa A (baza) — diagnoza:**
+
+| Przyczyna | Testy | Rozstrzygnięcie |
+|---|---|---|
+| Szkice kandydatów bez `variant/specs/price/scores/basis` | `phones-schema` ×3, `fix-phase` FP1-02 | `validate-data` traktuje szkic (`unverified`/`needs_confirmation` bez sekcji danych) jako ostrzeżenie; testy schematu sprawdzają kształt tylko kompletnych rekordów i wymagają statusu szkicu u niekompletnych. `release-guard` bez zmian (celowo czerwony). |
+| POCO F7 (rekord 17) wyprzedza Note 17 Pro u persony „bateria” (cena, ładowanie 100 pkt) | `persona` 9.3, `calibration` 9.3 + remis, `sliderModel` | Przyjęte jako stan referencyjny (decyzja użytkownika); Note 17 Pro (battery 100) zostaje w trójce przy każdym `BLEND`; spec §9.3 zaktualizowany. |
+| Galaxy A17 4/128 (rekord 19) rozciąga min-max (rozstęp „żony” 24 → 38, „pomiń” 25 → 31) | `calibration` ×2 | Progi rozstępu przesunięte (< 45, < 35, różnica względem BLEND 0 < 8) z opisem przyczyny. |
+| Zbyt wiele wątków Vitest (13) → losowe braki elementów w ciężkich testach jsdom | `a11y-audit` (jasny), `exclusions` ×4 | `maxWorkers: 6` w `vitest.config.ts`; w izolacji i przy ≤ 6 wątkach przechodziły (3 pełne biegi bez błędu). |
+
+`ranking-screen.test.ts` (uwaga z planu 5) też było niestabilnością pod obciążeniem — nie padło po zmianie.
+

@@ -245,11 +245,12 @@ describe('FP1-01 · kandydaci użytkowniczki', () => {
 });
 
 describe('FP3-03 / FP3-04 / FP3-06 · zmiany przez bramkę kandydata (17.11.2026)', () => {
-  it('FP3-03: A3 ustawia charging 0,25 / 1,5 / 4, a waga domyślna bez odpowiedzi zostaje 2 (start neutralny)', async () => {
+  it('FP3-03: A3 ustawia charging 0,25 / 1,5 / 5, a waga domyślna bez odpowiedzi zostaje 2 (start neutralny)', async () => {
     const { answersToCriterionWeights } = await import('../src/lib/weights');
     expect(answersToCriterionWeights({ A3: 'A3-a' }).charging).toBe(0.25);
     expect(answersToCriterionWeights({ A3: 'A3-b' }).charging).toBe(1.5);
-    expect(answersToCriterionWeights({ A3: 'A3-c' }).charging).toBe(4);
+    /* Plan 2 (18.11.2026): „często potrzebuję szybkiego doładowania” → 5 (było 4). */
+    expect(answersToCriterionWeights({ A3: 'A3-c' }).charging).toBe(5);
     expect(answersToCriterionWeights({}).charging).toBe(2);
   });
 

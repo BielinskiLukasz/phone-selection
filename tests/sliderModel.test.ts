@@ -177,9 +177,10 @@ describe('E5-05/E5-08 · spójność z silnikiem (test akceptacyjny 1)', () => {
     expect(session.ranking!.entries.map((entry) => entry.score)).toEqual(
       expected.ranked.map((entry) => entry.score),
     );
-    /* Grupa bateria (battery + charging) = 5, reszta 0 → wygrywają 7000 mAh + 90 W (vivo) i 80 W (Realme). */
+    /* Grupa bateria (battery + charging) = 5, reszta 0 → wygrywają 7000 mAh + 90 W (vivo) i POCO F7 (ładowanie 100 pkt,
+       dodany 17.11.2026), przed Realme (80 W). */
     expect(session.ranking!.cards[0]).toBe('vivo-v70-fe-5g-8-256');
-    expect(session.ranking!.cards[1]).toBe('realme-16-pro-plus-5g-8-256');
+    expect(session.ranking!.cards[1]).toBe('poco-f7-12-256');
   });
 });
 

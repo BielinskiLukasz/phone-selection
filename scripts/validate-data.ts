@@ -93,6 +93,21 @@ const CAMERA_SPECS = ['main', 'ultrawide', 'macro', 'selfie', 'telephoto'] as co
 
 const PHONE_STATUSES = ['ok', 'over_budget', 'variant_swapped', 'unverified', 'needs_confirmation'];
 
+/** Sekcje, które ma każdy kompletny rekord (zgodne z `isCompleteRecord` w `src/data/phones.ts`). */
+const FULL_RECORD_SECTIONS = ['variant', 'specs', 'price', 'scores', 'basis'] as const;
+
+/**
+ * Szkic kandydata: rekord `unverified`/`needs_confirmation` bez sekcji danych (tylko id, marka, reveal).
+ * Silnik go ignoruje, więc pełny schemat sprawdzamy dopiero po uzupełnieniu; do tego czasu to ostrzeżenie.
+ * Kompletny rekord z takim statusem jest walidowany w całości.
+ */
+function isDraftRecord(record: DataRecord): boolean {
+  return (
+    (record.status === 'unverified' || record.status === 'needs_confirmation') &&
+    FULL_RECORD_SECTIONS.some((key) => !isRecord(record[key]))
+  );
+}
+
 /** „50 MP f/1.8 z OIS” → 50; brak liczby Mpix → null (nie zgadujemy). */
 function megapixelsOf(value: unknown): number | null {
   if (typeof value !== 'string') return null;
@@ -284,6 +299,17 @@ export function validatePhoneData(data: unknown, now = new Date()) {
       }
     }
 
+    if (!PHONE_STATUSES.includes(String(value.status))) {
+      errors.push(`${path}.status ma nieznaną wartość.`);
+    }
+
+    if (isDraftRecord(value)) {
+      warnings.push(
+        `${path}: szkic kandydata (${String(value.status)}) bez variant/specs/price/scores/basis — pominięty w walidacji schematu i w rankingu.`,
+      );
+      continue;
+    }
+
     if (
       !isRecord(value.variant) ||
       !positiveInteger(value.variant.ramGb) ||
@@ -297,10 +323,6 @@ export function validatePhoneData(data: unknown, now = new Date()) {
     } else {
       validateSpecs(value.specs, path, errors, warnings, value);
     }
-    if (!PHONE_STATUSES.includes(String(value.status))) {
-      errors.push(`${path}.status ma nieznaną wartość.`);
-    }
-
     if (!isRecord(value.price)) {
       errors.push(`${path}.price musi być obiektem.`);
     } else {

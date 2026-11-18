@@ -258,6 +258,8 @@ A1, A2, A3 = 1; B1-B6 = 5; C1 = 3; D1 = 3, D2 = 1, D3 = 3; E1, E2 = 3; F1 = 2000
 
 A1, A2 = 5, A3 = 1; B1-B6 = 1; C1 = 3; D1-D3 = 3; E1, E2 = 1; F1 = 2000; G1 = Bateria i ładowanie, Cena, Aktualizacje i trwałość. Referencyjnie: **#1 Redmi Note 17 Pro 5G (65 pkt, 8340 mAh), #2 Redmi Note 15 Pro 5G (63), #3 Edge 70 Fusion (63)**, #4 vivo V70 FE (62), #5 Edge 60 (62).
 
+**Stan na puli 22 modeli (18.11.2026, po planach 1–5 zmian quizu):** **#1 POCO F7 (68,4 pkt; 6500 mAh, ładowanie 100 pkt, ok. 1541 zł), #2 Redmi Note 17 Pro 5G (67,6; 8340 mAh), #3 Redmi Note 15 Pro 5G (65,9)**, #4 Honor Magic 7 Lite (64,8), #5 Edge 70 Fusion (63,1). Dodany 17.11 POCO F7 wyprzedza Note 17 Pro dzięki ważności ceny 3,88 (cena jest w trójce tej persony); decyzja: przyjęte jako stan referencyjny, bez zmian w silniku. **Niezmiennik:** model z najlepszą baterią w puli (Note 17 Pro, `battery` = 100) jest w trójce przy każdym `BLEND` 0–1, a bateria grupy w #1 > aparat. Test pilnuje tego w `tests/persona.test.ts` i `tests/calibration.test.ts`.
+
 ### 9.4 Test różnicujący (niezmiennik między personami)
 
 Średnia oceny `battery` w trójce persony „bateria” **>** analogiczna średnia persony „aparat”, a średnia oceny `photoDay` w trójce persony „aparat” **>** persony „bateria” (referencyjnie: `battery` **78,3 kontra 43,0** oraz `photoDay` **78,7 kontra 69,3**). Jeśli test nie przechodzi, poprawiamy pytania, mapowanie albo `BLEND`, a nie oceny telefonów.

@@ -27,5 +27,11 @@ export default defineConfig({
      */
     testTimeout: 20_000,
     hookTimeout: 20_000,
+    /*
+     * Przy domyślnej liczbie wątków (rdzenie − 1; 13 na maszynie 14-rdzeniowej) ciężkie testy jsdom (a11y-audit,
+     * exclusions) losowo nie znajdowały elementów w drzewie — przechodzą w izolacji i przy ≤ 6 wątkach.
+     * Limit nie spowalnia CI (runnery mają 2-4 rdzenie).
+     */
+    maxWorkers: 6,
   },
 });

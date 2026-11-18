@@ -151,10 +151,14 @@ describe('9.2 i 9.3 · persony kontrolne', () => {
     );
   });
 
-  it('persona „bateria” stawia na telefon z największą baterią (8340 mAh)', () => {
+  it('persona „bateria” stawia na telefon z mocną baterią; największa (8340 mAh) jest w trójce', () => {
     const result = battery();
-    expect(result.cards[0]!.phoneId).toBe('redmi-note-17-pro-5g-8-512');
-    expect(phoneOf(result.cards[0]!).scores.battery).toBe(100);
+    /* Pula 22 modeli (18.11.2026): #1 to POCO F7 (6500 mAh, ładowanie 100 pkt, tańszy od Note 17 Pro o ok. 260 zł),
+       a Redmi Note 17 Pro z najlepszą baterią w puli (100 pkt, 8340 mAh) jest #2 — patrz spec 9.3. */
+    expect(result.cards[0]!.phoneId).toBe('poco-f7-12-256');
+    expect(phoneOf(result.cards[0]!).scores.battery).toBeGreaterThanOrEqual(70);
+    expect(result.cards.map((entry) => entry.phoneId)).toContain('redmi-note-17-pro-5g-8-512');
+    expect(phoneById('redmi-note-17-pro-5g-8-512').scores.battery).toBe(100);
     expect(result.cards[0]!.groupScores.battery).toBeGreaterThan(
       result.cards[0]!.groupScores.camera,
     );

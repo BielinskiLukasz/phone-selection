@@ -36,7 +36,7 @@ export const WIFE: Persona = {
     D4: 'D4-a', // rozmiar i waga bez znaczenia → compactness 0 (PROJECT 2)
     E1: 'E1-b', // czasem → display 3
     E2: 'E2-b', // czasem → display 3
-    F1: 'F1-c', // do 2000 zł → value 2, budżet 2000
+    F1: 'F1-c', // do 2000 zł → value 1, budżet 2000
   },
   topThree: { picks: ['battery', 'camera', 'storage'] },
 };

@@ -102,4 +102,33 @@ describe('phone data validation', () => {
     repeatedBrand.phones[0]!.modelName = 'Example phone';
     expect(validatePhoneData(repeatedBrand, today).errors.some((e) => e.includes('.modelName'))).toBe(true);
   });
+
+  it('szkic kandydata (unverified/needs_confirmation bez sekcji danych) daje ostrzeżenie, nie błąd', () => {
+    for (const status of ['unverified', 'needs_confirmation']) {
+      const data = sampleData();
+      const { variant, specs, price, scores, basis, ...draft } = data.phones[0]! as Record<string, unknown>;
+      void variant; void specs; void price; void scores; void basis;
+      data.phones[0] = { ...draft, status } as never;
+      const { errors, warnings } = validatePhoneData(data, today);
+      expect(errors, status).toEqual([]);
+      expect(warnings.some((warning) => warning.includes('szkic kandydata')), status).toBe(true);
+    }
+  });
+
+  it('szkic nadal musi mieć poprawne id, markę i reveal; brak sekcji w rekordzie `ok` to błąd', () => {
+    const badReveal = sampleData();
+    const { variant, specs, price, scores, basis, ...draft } = badReveal.phones[0]! as Record<string, unknown>;
+    void variant; void specs; void price; void scores; void basis;
+    badReveal.phones[0] = { ...draft, status: 'unverified', reveal: { name: 'X', brand: 'Example' } } as never;
+    expect(validatePhoneData(badReveal, today).errors.some((e) => e.includes('shopLinks'))).toBe(true);
+
+    const notDraft = sampleData();
+    delete (notDraft.phones[0] as Record<string, unknown>).price;
+    expect(validatePhoneData(notDraft, today).errors.some((e) => e.includes('.price'))).toBe(true);
+
+    const completeUnverified = sampleData();
+    completeUnverified.phones[0]!.status = 'unverified';
+    completeUnverified.phones[0]!.price.pln = 0;
+    expect(validatePhoneData(completeUnverified, today).errors.some((e) => e.includes('price.pln'))).toBe(true);
+  });
 });
