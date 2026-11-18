@@ -3982,6 +3982,217 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "motorola-edge-60-neo-5g-12-256",
+      "brand": "Motorola",
+      "modelName": "Edge 60 Neo 5G 12/256 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Motorola Edge 60 Neo 5G 12/256 GB",
+        "brand": "Motorola",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/motorola-edge-60-neo.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-60-neo-1.jpg",
+        "shopLinks": [
+          {
+            "label": "allegro.pl",
+            "url": "https://allegro.pl/oferta/motorola-edge-60-neo-12-256gb-red-18139538845",
+            "pricePln": 1599,
+            "checkedAt": "2026-11-17",
+            "kind": "marketplace",
+            "note": "czerwony Pantone Poinciana, 12/256 GB, nowy (szary Pantone Grisaille 12/256 GB na Ceneo 191205019 od 1475 zł)"
+          },
+          {
+            "label": "t-mobile.pl",
+            "url": "https://www.t-mobile.pl/sklep/kategoria/telefony/lista/produkty/motorola",
+            "pricePln": 1599,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "stalowy Pantone Grisaille, 12/256 GB — urządzenie bez abonamentu (raty 0%, darmowa dostawa)"
+          },
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/motorola-xt2509-1-moto-edge-60-neo-12-256gb-czerwony",
+            "pricePln": 1893.99,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czerwony Pantone Poinciana (XT2509-1), 12/256 GB — Media Expert"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-motorola-edge-60-neo-5g-12-256gb-szary-pba80006pl-15629072/",
+            "pricePln": null,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "szary Pantone Grisaille (PBA80006PL, polska dystrybucja), 12/256 GB — chwilowo wyprzedany (wcześniej 1310–1547,93 zł)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/191205019",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "Motorola Edge 60 Neo 5G 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1475,
+        "source": "allegro.pl (przez Ceneo 191205019)",
+        "url": "https://www.ceneo.pl/191205019",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "szary Pantone Grisaille (XT2509-1), 12/256 GB",
+        "auditNote": "Model zastąpił na liście #18 wycofaną Motorolę Edge 50 Neo 12/256 GB (wariant nieistniejący w PL). Polska premiera Edge 60 Neo 12/256 GB odbyła się 19.01.2026 w cenie sugerowanej 1499 zł (komputronik.pl; kody PL: PBA80006PL szary, PBA80008PL turkusowy). Ceneo 191205019 (szary 12/256 GB): najniższa oferta 1475 zł na Allegro Smart (+10,49 zł wysyłka), T-Mobile bez abonamentu 1599 zł (darmowa wysyłka), Allegro (czerwony 18139538845) 1599 zł, Ceneo 192732353 (turkusowy Amazonit/Frostbite) 1700,99 zł, Media Expert (czerwony XT2509-1) 1893,99 zł, Proshop 2199 zł; w Morele.net (PBA80006PL/PBA80008PL, wcześniej 1310–1399 zł) chwilowo brak stanu.",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 1599,
+            "source": "allegro.pl",
+            "url": "https://allegro.pl/oferta/motorola-edge-60-neo-12-256gb-red-18139538845",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czerwony Pantone Poinciana, 12/256 GB, nowy"
+          },
+          {
+            "pln": 1599,
+            "source": "t-mobile.pl",
+            "url": "https://www.t-mobile.pl/sklep/kategoria/telefony/lista/produkty/motorola",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "stalowy Pantone Grisaille, 12/256 GB, bez umowy (raty 0%)"
+          },
+          {
+            "pln": 1893.99,
+            "source": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/motorola-xt2509-1-moto-edge-60-neo-12-256gb-czerwony",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czerwony Pantone Poinciana (XT2509-1), 12/256 GB"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.36,
+        "panel": "LTPO pOLED",
+        "refreshHz": "1-120",
+        "resolution": "1200x2670",
+        "peakNits": 3000,
+        "glass": "Corning Gorilla Glass 7i",
+        "ramGb": 12,
+        "storageGb": 256,
+        "storageType": "UFS 3.1 (uMCP)",
+        "microSd": false,
+        "chip": "MediaTek Dimensity 7400 (4 nm)",
+        "batteryMah": 5000,
+        "batteryCycles": 1000,
+        "batteryEndurance": 48,
+        "batteryTests": [
+          "EPREL / GSMArena (etykieta UE): klasa A, 54:28 h szacowanej wytrzymałości, 1000 cykli → wytrzymałość 48 (skala 40–70 h)",
+          "Notebookcheck test Wi-Fi v1.3: 24 h 24 min (rewelacyjny wynik — o 78% dłużej niż Edge 50 Neo 13,7 h i dłużej niż Poco F7 22,7 h)"
+        ],
+        "chargingW": 68,
+        "chargingNote": "68 W TurboPower przewodowo oraz 15 W ładowanie indukcyjne Qi; brak ładowarki w pudełku, w zestawie twarde etui ochronne w kolorze obudowy i kabel USB-C (GSMArena, Notebookcheck, mediaexpert.pl)",
+        "chargingTests": "NanoReview: ok. 76% w 30 min, pełne ładowanie w ok. 45 min (zasilacz 68 W sprzedawany osobno)",
+        "chargerInBox": false,
+        "wirelessCharging": true,
+        "wirelessW": 15,
+        "ip": "IP68/IP69",
+        "militaryStandard": "MIL-STD-810H",
+        "weightG": 174.5,
+        "heightMm": 154.1,
+        "widthMm": 71.2,
+        "thicknessMm": 8.1,
+        "dimensionsMm": "154,1 × 71,2 × 8,1",
+        "cameras": {
+          "main": "50 MP f/1.8 (24 mm, 1/1,56″, Sony LYT-700C, multi-directional PDAF) z OIS",
+          "ultrawide": "13 MP f/2.2 (13 mm, 120°, 1/3,0″) z PDAF i trybem makro",
+          "macro": null,
+          "selfie": "32 MP f/2.4 (1/3,14″)",
+          "telephoto": "10 MP f/2.0 (73 mm, 1/3,94″, PDAF) z OIS, zoom optyczny 3x"
+        },
+        "video": "4K 30 kl./s, 1080p 30/60/120/240 kl./s z gyro-EIS (tył); 4K 30 kl./s (selfie)",
+        "os": "Android 15",
+        "updatesYears": 6,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "Poprawki bezpieczeństwa co najmniej co 2 miesiące oficjalnie do 06.2031 (ok. 5 lat i 9 mies. od premiery 09.2025 — oficjalna strona Motorola Support i Notebookcheck; w EPREL zadeklarowane 7 lat); 4 aktualizacje Androida do Androida 19 wg Notebookcheck (GSMArena i mGSM podają do 5 aktualizacji OS)",
+        "releasedAt": "2025-10",
+        "securitySupportUntil": "2031-06",
+        "supportNote": "Oficjalna strona wsparcia Motorola EMEA (en-emea.support.motorola.com) i Notebookcheck: poprawki bezpieczeństwa do czerwca 2031 r. (co najmniej co 2 miesiące)",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E (z pasmem 6 GHz)",
+        "bluetooth": "5.4",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Czysty system Hello UI Motoroli nie ubija agresywnie aplikacji w tle — wystarczy wyłączyć optymalizację baterii dla Zepp Life (Aplikacje → Zepp Life → Bateria → Nieograniczone), aby powiadomienia przychodziły niezawodnie."
+      },
+      "scores": {
+        "battery": 37,
+        "charging": 79,
+        "updates": 71,
+        "storage": 75,
+        "durability": 100,
+        "smoothness": 58,
+        "display": 89,
+        "photoDay": 80,
+        "photoIndoor": 75,
+        "photoMotion": 68,
+        "selfie": 72,
+        "video": 70,
+        "zoom": 74,
+        "compactness": 89,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (pojemność 25 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 48 (50%) z etykiety UE EPREL (klasa A, 54:28 h przy skali 40–70 h, 1000 cykli) → 0,5 × 25 + 0,5 × 48 = 37 pkt (w praktyce w teście Wi-Fi Notebookcheck znakomite 24 h 24 min dzięki LTPO 1–120 Hz)",
+        "charging": "68 W TurboPower przewodowo + 15 W ładowanie indukcyjne Qi (+8 pkt), bez zasilacza w pudełku, z twardym etui w zestawie (GSMArena, Notebookcheck) — (68 − 15) / 75 × 100 + 8 = 79 pkt",
+        "updates": "4 duże aktualizacje Androida (do Androida 19 wg Notebookcheck; GSMArena i mGSM podają do 5) + prawie 6 lat poprawek bezpieczeństwa oficjalnie do 06.2031 (Motorola Support EMEA, co 2 mies.): średnia 5 lat → 5 / 7 × 100 = 71 pkt",
+        "storage": "256 GB UFS 3.1 (uMCP, ok. 215 GB wolne) z 12 GB RAM LPDDR4X, brak slotu microSD (Notebookcheck, GSMArena) = 75 pkt",
+        "durability": "IP68/IP69 (zanurzenie do 1,5 m na 30 min i strumienie pod wysokim ciśnieniem) + certyfikat MIL-STD-810H + szkło Gorilla Glass 7i + antypoślizgowe plecki z ekoskóry oraz najwyższa klasa A naprawialności (4,04) i klasa B upadków (180) w EPREL = 100 pkt",
+        "smoothness": "MediaTek Dimensity 7400 (4 nm) z 12 GB RAM i UFS 3.1; Geekbench 6 multi-core ok. 3051, AnTuTu v11 ok. 930–996 tys. — lekka nakładka Motoroli i LTPO 120 Hz działają przyjemnie na co dzień, choć Notebookcheck wytyka przeciętny zapas mocy SoC i GPU pod gry",
+        "display": "6,36″ płaski LTPO pOLED 1,5K (1200×2670, 460 ppi, 10-bit, adaptacyjne 1–120 Hz, HDR10+); deklarowane 3000 nitów szczytowo, w pomiarach Notebookcheck bardzo wysokie 1942 cd/m² (APL18), 98% równomierności podświetlenia i świetne odwzorowanie barw (ΔE 1,55)",
+        "photoDay": "główny 50 MP f/1.8 (1/1,56″, Sony LYT-700C) z OIS + teleobiektyw 10 MP OIS 3x + szeroki kąt 13 MP z PDAF (funkcja makro); Notebookcheck chwali dobrą ostrość i naturalną kolorystykę głównego aparatu oraz teleobiektywu, wytykając jednak miękki i podatny na artefakty moduł ultraszerokokątny 13 MP",
+        "photoIndoor": "recenzja Notebookcheck pozytywnie ocenia zdjęcia w słabym świetle i odwzorowanie barw z dużego sensora 50 MP Sony LYT-700C (1/1,56″) z OIS jak na średnią półkę cenową (słabszy po zmroku szeroki kąt 13 MP)",
+        "photoMotion": "matryca 50 MP z wielokierunkowym PDAF i OIS oraz teleobiektyw z PDAF i OIS dobrze radzą sobie w codziennych ujęciach, z ograniczeniem wynikającym ze średniopółkowego procesora Dimensity 7400 (Notebookcheck, GSMArena)",
+        "selfie": "przedni aparat 32 MP f/2.4 (1/3,14″) z HDR i nagrywaniem 4K 30 kl./s — szczegółowe i udane autoportrety w dobrym świetle w segmencie do 1600 zł (GSMArena, Notebookcheck)",
+        "video": "4K 30 kl./s z głównego i przedniego aparatu oraz 1080p do 240 kl./s, OIS + gyro-EIS — solidne, stabilizowane nagrania codzienne w swojej klasie, bez 4K 60 kl./s (GSMArena, Notebookcheck)",
+        "zoom": "dedykowany teleobiektyw 10 MP f/2.0 (73 mm) z PDAF, OIS i 3-krotnym zoomem optycznym — rzadkość w kompakcie za ok. 1500 zł; Notebookcheck ocenia przybliżenia 3x (do 5x) jako bardzo udane",
+        "compactness": "174,5 g, wymiary 154,1 × 71,2 × 8,1 mm (GSMArena, Notebookcheck) — wzór poręczności: lekkość 86, mała powierzchnia 100 (10 972 mm²), smukłość 47 → 89 pkt (jeden z najlżejszych i najwygodniejszych jednorącz smartfonów z Androidem)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://en-emea.support.motorola.com/app/software-security-update/g_id/7112/productid/12388",
+        "https://www.ceneo.pl/191205019",
+        "https://www.komputronik.pl/informacje/aktualnosci/premiera-motorola-edge-60-neo/",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/motorola-xt2509-1-moto-edge-60-neo-12-256gb-czerwony",
+        "https://www.morele.net/smartfon-motorola-edge-60-neo-5g-12-256gb-szary-pba80006pl-15629072/",
+        "https://www.mgsm.pl/pl/katalog/motorola/edge-60-neo/",
+        "https://www.gsmmaniak.pl/1676402/motorola-edge-60-neo-tele-ltpo-indukcja-za-1100-zlotych/",
+        "https://www.telepolis.pl/telefony/motorola/edge-60-neo",
+        "https://www.gsmarena.com/motorola_edge_60_neo_5g-14124.php",
+        "https://www.notebookcheck.net/Stylish-bargain-smartphone-with-a-premium-feel-Motorola-Edge-60-Neo-review.1179325.0.html",
+        "https://nanoreview.net/en/phone/motorola-edge-60-neo"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
