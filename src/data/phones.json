@@ -12,7 +12,8 @@
       "Faza poprawkowa FP1 (16.11.2026): price.note rozdzielone na userNote/auditNote; promocje opisane polami regularPricePln/promoEndsAt/promoCondition (Edge 70 Fusion do 30.11, Redmi Note 17 Pro do 19.11); każdy link sklepu ma cenę, datę i typ oferty; porównywarka w reveal.priceCompareUrl; specs.securitySupportUntil (RRRR-MM) ze źródła albo z daty premiery + lat poprawek (supportNote); reveal.verifiedForPurchaseAt wypełniane po ręcznej weryfikacji kandydata (FP1-01).",
       "FP1-01 (16.11.2026): trzej kandydaci użytkowniczki zweryfikowani (Edge 70 Fusion, Galaxy A57, Xiaomi 15T) — reveal.verifiedForPurchase; oferta Xiaomi 15T 12/512 za 1999 zł wygasła (Komputronik: sprzedaż zakończona), aktualne ceny > 2000 zł — pole price.priceUnavailableSince, decyzja o statusie rekordu należy do użytkownika; securitySupportUntil uzupełnione dla 15/15 (Pixel 10a 03.2033, Edge 70 Fusion 03.2031, realme 02.2030); wearableNotes (Mi Band 6 / Zepp Life) dla trzech kandydatów.",
       "FP0/FP1 (17.11.2026): sesja użytkowniczki w tests/fixtures/user-session.json (karty 15T → Edge 70 Fusion → Note 17 Pro, 3 wybory); data zakupu 26.11.2026; Xiaomi 15T zostaje w puli z price.currentMarketPricePln (2249,99 zł, Ceneo) obok ostatniej ceny w limicie; Edge 70 Fusion — zakup z promocji Allegro przed 30.11.",
-      "FP3-03 (17.11.2026): A3 ustawia charging 0,25 / 1,5 / 4 (było 1 / 3 / 5), domyślna waga charging bez odpowiedzi = 1. FP4-05: IP66/IP68 = 92 pkt (było 88). FP3-07 (storage 256 GB = 82) NIE wdrożone — zmieniłoby trzecią kartę w zapisanej sesji użytkowniczki przed zakupem (bramka kandydata)."
+      "FP3-03 (17.11.2026): A3 ustawia charging 0,25 / 1,5 / 4 (było 1 / 3 / 5), domyślna waga charging bez odpowiedzi = 1. FP4-05: IP66/IP68 = 92 pkt (było 88). FP3-07 (storage 256 GB = 82) NIE wdrożone — zmieniłoby trzecią kartę w zapisanej sesji użytkowniczki przed zakupem (bramka kandydata).",
+      "Przegląd danych (18.11.2026): wytrzymałość baterii A56/A57/Pixel 10a/Pixel 9a/Nothing 3a przeliczona z godzin etykiety UE zamiast wartości wpisanych ręcznie; Galaxy A56 i A36 — 7 lat poprawek (do 03.2032, przedłużenie Samsunga), Nothing Phone (3a) — 6 lat poprawek jak 3a Pro; chargerInBox potwierdzone jako false dla Note 15 Pro, Edge 60, Edge 70 Fusion i Nothing 3a (sklepy PL / Nothing); iPhone 15, S26 FE i 14T Pro oznaczone over_budget. Nie zmieniono generatedOn (wersja danych zapisanych sesji)."
     ],
     "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja.",
     "specsCompletedNote": "Etap 0 + Etap 10 (16.11.2026): specyfikacje i oceny 15 modeli zweryfikowane z oficjalnych stron producentów, kart produktowych polskich sklepów oraz niezależnych testów (GSMArena + etykiety energetyczne UE/EPREL, PhoneArena, DXOMARK, Notebookcheck, 91mobiles, mGSM, gsmManiaK). Zgodnie z decyzją D4 sufit wzoru pojemności baterii podniesiono z 7000 do 8000 mAh (4000 mAh = 0, 8000 mAh = 100) i przeliczono scores.battery dla całej puli."
@@ -115,16 +116,19 @@
         "chargingTests": "GSMArena: 36% w 15 min, 64% w 30 min, pełne ładowanie w 69 min",
         "thicknessMm": 6.9,
         "dimensionsMm": "161,5 × 76,8 × 6,9",
-        "batteryEndurance": 62.7,
+        "batteryEndurance": 40.0,
         "heightMm": 161.5,
         "widthMm": 76.8,
         "securitySupportUntil": "2032-03",
         "supportNote": "6 lat poprawek od premiery (03.2026) — jak Galaxy A56/A37 (Samsung liczy od premiery)",
         "releasedAt": "2026-03",
-        "wearableNotes": "Mi Band 6 działa z każdym z tych telefonów przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Powiadomienia z komunikatorów wymagają wyłączenia optymalizacji baterii dla Zepp Life w ustawieniach Androida — bez tego po kilku godzinach przestają dochodzić. Na Samsungu dodać Zepp Life do „Aplikacji nieuśpionych” (Bateria → Limity użycia w tle)."
+        "wearableNotes": "Mi Band 6 działa z każdym z tych telefonów przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Powiadomienia z komunikatorów wymagają wyłączenia optymalizacji baterii dla Zepp Life w ustawieniach Androida — bez tego po kilku godzinach przestają dochodzić. Na Samsungu dodać Zepp Life do „Aplikacji nieuśpionych” (Bateria → Limity użycia w tle).",
+        "batteryTests": [
+          "etykieta UE: klasa A, 52:00 h szacowanej wytrzymałości → wytrzymałość 40,0 (skala 40–70 h); Gizmochina: „52 h”, klasa A — bez minut, do potwierdzenia"
+        ]
       },
       "scores": {
-        "battery": 44,
+        "battery": 33,
         "charging": 40,
         "updates": 86,
         "storage": 75,
@@ -141,7 +145,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck chwali długi czas pracy, inne źródła nazywają baterię słabszym punktem; ocena środkowa",
+        "battery": "5000 mAh (pojemność 25,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 40,0 (50%) z etykiety UE (klasa A, 52:00 h przy skali 40–70 h; Gizmochina: „52 h”, klasa A — bez minut, do potwierdzenia) → 0,5 × 25,0 + 0,5 × 40,0 = 33 pkt. Korekta 18.11.2026: wcześniej wytrzymałość była wpisana ręcznie, bez godzin ze źródła.",
         "charging": "45 W przewodowo, bez zasilacza w zestawie (chargerInBox: false) — (45 − 15) / 75 × 100 = 40",
         "updates": "6 lat aktualizacji systemu i zabezpieczeń",
         "storage": "256 GB, brak slotu microSD",
@@ -165,7 +169,8 @@
         "https://android.com.pl/tech/1036870-samsung-galaxy-a57-i-a37-vs-a55-i-a35/",
         "https://www.notebookcheck.pl/Samsung-Galaxy-A57.1262292.0.html",
         "https://www.gsmarena.com/samsung_galaxy_a57_vs_galaxy_a56_review_battery_camera_price_compared-news-72660.php",
-        "https://www.gsmarena.com/samsung_galaxy_a57_5g-pictures-14379.php"
+        "https://www.gsmarena.com/samsung_galaxy_a57_5g-pictures-14379.php",
+        "https://www.gizmochina.com/2026/02/27/galaxy-a57-a37-eu-energy-labels-confirm-battery-sizes-and-endurance-ahead-of-launch/"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -237,7 +242,7 @@
         "chip": "Google Tensor G4",
         "batteryMah": 5100,
         "chargingW": 30,
-        "chargingNote": "recenzje (benchmark.pl, spidersweb.pl, android.com.pl): 30 W przewodowo i 10 W Qi; część materiałów (Komputronik, Engadget) podaje 23 W — rozbieżność, do sprawdzenia na stronie producenta. Test Tom's Guide: 31% w 15 min, 64% w 30 min",
+        "chargingNote": "Google (specyfikacja, androidcentral): do 30 W przewodowo (zasilacz Google 45 W sprzedawany osobno) i 10 W Qi (bez Qi2); 23 W przewodowo i 7,5 W bezprzewodowo to parametry Pixela 9a. Test Tom's Guide: 31% w 15 min, 64% w 30 min",
         "wirelessCharging": true,
         "ip": "IP68",
         "weightG": 183,
@@ -256,11 +261,12 @@
         "satelliteSos": true,
         "wirelessW": 10,
         "batteryTests": [
+          "etykieta UE: klasa A, 53:14 h szacowanej wytrzymałości → wytrzymałość 44,1 (skala 40–70 h); GSMArena news o etykiecie UE (53 h 14 min), do potwierdzenia na stronie specyfikacji",
           "Tom's Guide: czas pracy o ok. 2 godziny dłuższy niż w Pixelu 9a (przy tej samej baterii)",
           "producent: ok. 30 h w typowym użyciu"
         ],
         "chargerInBox": false,
-        "batteryEndurance": 79.3,
+        "batteryEndurance": 44.1,
         "heightMm": 153.9,
         "widthMm": 73,
         "thicknessMm": 9,
@@ -270,7 +276,7 @@
         "wearableNotes": null
       },
       "scores": {
-        "battery": 53,
+        "battery": 36,
         "charging": 28,
         "updates": 100,
         "storage": 40,
@@ -287,7 +293,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Tom's Guide: ok. 2 h dłużej niż 9a; Galaxus: 9a ok. 17 h w PCMark; Notebookcheck: duża żywotność baterii",
+        "battery": "5100 mAh (pojemność 27,5 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 44,1 (50%) z etykiety UE (klasa A, 53:14 h przy skali 40–70 h; GSMArena news o etykiecie UE (53 h 14 min), do potwierdzenia na stronie specyfikacji) → 0,5 × 27,5 + 0,5 × 44,1 = 36 pkt. Korekta 18.11.2026: wcześniej wytrzymałość była wpisana ręcznie, bez godzin ze źródła.",
         "charging": "30 W przewodowo + bezprzewodowe Qi; w pudełku kabel USB-C, igła SIM i dokumentacja — bez zasilacza (support.google.com)",
         "updates": "7 lat systemu i zabezpieczeń",
         "storage": "128 GB, brak slotu microSD",
@@ -312,7 +318,9 @@
         "https://tomsguide.com/phones/google-pixel-phones/google-pixel-10a-vs-pixel-9a-whats-the-difference",
         "https://spidersweb.pl/2026/03/google-pixel-10a-stary-procesor-i-nowe-bajery.html",
         "https://support.google.com/pixelphone/answer/7158537",
-        "https://www.gsmarena.com/google_pixel_10a-pictures-14474.php"
+        "https://www.gsmarena.com/google_pixel_10a-pictures-14474.php",
+        "https://m.gsmarena.com/eu_energy_label_reveals_some_google_pixel_10a_battery_details_and_more-news-71527.php",
+        "https://www.androidcentral.com/phones/google-pixel/google-pixel-10a-charging-speed"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -394,25 +402,30 @@
           "telephoto": null
         },
         "os": "Android 15, One UI 7 (start)",
-        "updatesYears": 6,
+        "updatesYears": 7,
         "updatesNote": "6 lat aktualizacji systemu i zabezpieczeń, do 31.03.2032 (android.com.pl)",
         "sim": "nanoSIM + eSIM",
         "nfc": true,
         "chargerInBox": false,
         "chargingTests": "GSMArena: 38% w 15 min, 65% w 30 min, pełne ładowanie w 73 min",
-        "batteryEndurance": 64.7,
+        "batteryEndurance": 15.2,
         "heightMm": 162.2,
         "widthMm": 77.5,
         "dimensionsMm": "162,2 × 77,5 × 7,4",
         "securitySupportUntil": "2032-03",
-        "supportNote": "android.com.pl: „do 31.03.2032”",
+        "supportNote": "Samsung przedłużył w 11.2025 poprawki bezpieczeństwa Galaxy A56 do 7 lat (do 31.03.2032); liczba dużych aktualizacji systemu bez zmian — 6 (androidcentral, nextpit). Wcześniej: android.com.pl: „do 31.03.2032”.",
         "releasedAt": "2025-03",
-        "wearableNotes": null
+        "wearableNotes": null,
+        "batteryTests": [
+          "etykieta UE: klasa B, 44:34 h szacowanej wytrzymałości, 2000 cykli → wytrzymałość 15,2 (skala 40–70 h); GSMArena, strona specyfikacji (wynik z wyszukiwania; strona nie była otwarta przez narzędzie — do potwierdzenia)"
+        ],
+        "updatesOsGenerations": 6,
+        "updatesSecurityYears": 7
       },
       "scores": {
-        "battery": 45,
+        "battery": 20,
         "charging": 40,
-        "updates": 86,
+        "updates": 93,
         "storage": 75,
         "durability": 80,
         "smoothness": 62,
@@ -427,9 +440,9 @@
         "value": null
       },
       "basis": {
-        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): android.com.pl: dobre czasy pracy; rankingpro: ok. 1,5 dnia przy umiarkowanym użyciu",
+        "battery": "5000 mAh (pojemność 25,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 15,2 (50%) z etykiety UE (klasa B, 44:34 h przy skali 40–70 h, 2000 cykli; GSMArena, strona specyfikacji (wynik z wyszukiwania; strona nie była otwarta przez narzędzie — do potwierdzenia)) → 0,5 × 25,0 + 0,5 × 15,2 = 20 pkt. Korekta 18.11.2026: wcześniej wytrzymałość była wpisana ręcznie, bez godzin ze źródła.",
         "charging": "45 W przewodowo, bez zasilacza w zestawie (chargerInBox: false) — (45 − 15) / 75 × 100 = 40",
-        "updates": "6 lat aktualizacji systemu i zabezpieczeń",
+        "updates": "6 dużych aktualizacji systemu i 7 lat poprawek bezpieczeństwa do 31.03.2032 (przedłużenie wsparcia przez producenta w 11.2025, media branżowe): średnia 6,5 → 6,5 / 7 × 100 = 93 pkt",
         "storage": "256 GB, brak slotu microSD",
         "durability": "IP67 (GSMArena, specyfikacja Samsung) = 80 pkt wg PROJECT 7.5",
         "smoothness": "Exynos 1580; GSMArena: Geekbench 6 ok. 3900 (wielordzeniowy)",
@@ -454,7 +467,9 @@
         "https://www.gsmarena.com/samsung_galaxy_a56-review-2812.php",
         "https://www.gsmarena.com/samsung_galaxy_a56-review-2812p5.php",
         "https://www.phonearena.com/reviews/samsung-galaxy-a56-5g-review_id7068",
-        "https://www.gsmarena.com/samsung_galaxy_a56-13603.php"
+        "https://www.gsmarena.com/samsung_galaxy_a56-13603.php",
+        "https://www.androidcentral.com/phones/samsung-galaxy/samsung-silently-gives-these-mid-range-phones-and-tablets-a-software-extension",
+        "https://www.nextpit.com/news/samsung-extends-software-android-update-galaxy-a56-a36-tablets"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -587,7 +602,7 @@
       },
       "basis": {
         "battery": "6580 mAh (50% wagi) + wytrzymałość (50%): etykieta EPREL 60 h 50 min na cyklu; tabletowo „świetna bateria na papierze”, w praktyce słabsze wyniki i problemy z oprogramowaniem",
-        "charging": "45 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "charging": "45 W przewodowo; bez zasilacza w pudełku (Orange.pl i Play.pl: „brak ładowarki w zestawie”; strona Xiaomi PL o serii jest niejednoznaczna)",
         "updates": "4 duże aktualizacje Androida + 6 lat poprawek (nanoreview, gsmspecs): średnia 5 lat → 5/7 × 100 = 71",
         "storage": "256 GB, brak slotu microSD",
         "durability": "IP66/IP68 (producent) — FP4-05: IP66/IP68 = 92 pkt",
@@ -612,7 +627,9 @@
         "https://nanoreview.net/en/phone/xiaomi-redmi-note-15-pro-5g",
         "https://www.gsmspecs.com/xiaomi/xiaomi_redmi_note_15_pro-88643",
         "https://www.newmobile.com/global/phones/xiaomi/redmi-note-15-pro-5g/specifications",
-        "https://www.gsmarena.com/xiaomi_redmi_note_15_pro_5g_(global)-14327.php"
+        "https://www.gsmarena.com/xiaomi_redmi_note_15_pro_5g_(global)-14327.php",
+        "https://www.orange.pl/esklep/smartfony/xiaomi/xiaomi-redmi-note-15-pro-5g-8-256-gb",
+        "https://www.play.pl/dlaciebie/produkty/xiaomi/xiaomi-redmi-note-15-pro-5g"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -704,7 +721,7 @@
         "peakNits": 4500,
         "resolution": "1220x2712",
         "batteryNote": "GSMArena podaje w skrócie 5500 mAh, w recenzji i u innych źródeł 5200 mAh (wersja globalna) — zostaje 5200",
-        "batteryEndurance": 70,
+        "batteryEndurance": 66.7,
         "updatesOsGenerations": 3,
         "updatesSecurityYears": 4,
         "heightMm": 161.2,
@@ -714,10 +731,13 @@
         "securitySupportUntil": "2029-04",
         "supportNote": "4 lata poprawek od premiery 04.2025 (deklaracja Motoroli)",
         "releasedAt": "2025-04",
-        "wearableNotes": null
+        "wearableNotes": null,
+        "batteryTests": [
+          "etykieta UE: 60 h na cyklu, 1000 cykli → wytrzymałość 66,7 (skala 40–70 h); kopia karty EPREL nr 2208423 (strona trzecia), do potwierdzenia"
+        ]
       },
       "scores": {
-        "battery": 50,
+        "battery": 48,
         "charging": 71,
         "updates": 50,
         "storage": 80,
@@ -734,13 +754,13 @@
         "value": null
       },
       "basis": {
-        "battery": "5200 mAh (50% wagi) + wytrzymałość w użyciu (50%): Notebookcheck: wyróżnia się długim czasem pracy; Tabletowo: obiecujące wstępne wyniki",
-        "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "battery": "5200 mAh (pojemność 30 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 66,7 (50%) z etykiety UE (60 h na cyklu, 1000 cykli; wg kopii karty EPREL nr 2208423 na stronie trzeciej — tożsamość modelu i wynik do potwierdzenia w rejestrze EPREL) → 0,5 × 30 + 0,5 × 66,7 = 48 pkt. Korekta 18.11.2026: wcześniej wytrzymałość 70 wpisana ręcznie, bez godzin ze źródła.",
+        "charging": "68 W przewodowo; bez zasilacza w pudełku (Play.pl: telefon, przewód, dokumentacja, narzędzie do SIM, etui; x-kom sprzedaje osobny pakiet z ładowarką 68 W)",
         "updates": "3 duże aktualizacje systemu + 4 lata poprawek",
-        "storage": "256 GB + slot microSD (bonus 5 pkt, PROJECT 7.5) — jedyny telefon w puli z kartą pamięci",
+        "storage": "256 GB + slot microSD (bonus 5 pkt, PROJECT 7.5) — jeden z dwóch telefonów w puli z kartą pamięci (slot microSDXC wg GSMArena)",
         "durability": "IP68/IP69 + MIL-STD-810H (GSMArena, Coolsmartphone) = 100 pkt wg PROJECT 7.5",
         "smoothness": "Notebookcheck i PurePC: wydajność przeciętna, spowolnienia przy aplikacji aparatu",
-        "display": "zakrzywiony AMOLED, do 4000 nitów (Notebookcheck)",
+        "display": "zakrzywiony P-OLED 120 Hz, do 4500 nitów szczytowo wg producenta (GSMArena; Notebookcheck podaje 4000 nitów)",
         "photoDay": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
         "photoIndoor": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
         "photoMotion": "PhoneArena: wynik aparatu 135 (zdjęcia 141); potrójny aparat z teleobiektywem 3x (Notebookcheck)",
@@ -759,10 +779,11 @@
         "https://en-emea.support.motorola.com/app/answers/detail/a_id/185974/~/specifications---motorola-edge-60",
         "https://www.gsmarena.com/motorola_edge_60-13779.php",
         "https://www.gsmarena.com/motorola_edge_60-review-2831.php",
-        "https://www.coolsmartphone.com/2025-08-19/motorola-edge-60-review/"
+        "https://www.coolsmartphone.com/2025-08-19/motorola-edge-60-review/",
+        "https://www.play.pl/dlaciebie/produkty/motorola/motorola-edge-60-5g"
       ],
       "scoreConfidence": {
-        "battery": "medium",
+        "battery": "low",
         "charging": "high",
         "updates": "high",
         "storage": "high",
@@ -1100,7 +1121,7 @@
       },
       "basis": {
         "battery": "7000 mAh (pojemność 75 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 80 (50%) z PCMark 17 h 34 min (91mobiles) → 0,5 × 75 + 0,5 × 80 = 78; recenzje: bateria na cały dzień i dłużej",
-        "charging": "68 W przewodowo; ładowarki w zestawie brak lub nieznana",
+        "charging": "68 W przewodowo; bez zasilacza w pudełku (Orange.pl: „brak ładowarki w zestawie”; Play.pl: ładowarka — nie, kabel USB-A/USB-C — tak)",
         "updates": "3 duże aktualizacje systemu + 5 lata poprawek",
         "storage": "256 GB, brak slotu microSD",
         "durability": "IP68/IP69 + MIL-STD-810H",
@@ -1126,7 +1147,9 @@
         "https://www.trustedreviews.com/reviews/motorola-edge-70-fusion",
         "https://www.notebookcheck.net/Motorola-Edge-70-Fusion.1251578.0.html",
         "https://www.91mobiles.com/motorola-edge-70-fusion-price-in-india",
-        "https://www.gsmarena.com/motorola_edge_70_fusion_5g-14432.php"
+        "https://www.gsmarena.com/motorola_edge_70_fusion_5g-14432.php",
+        "https://www.orange.pl/esklep/smartfony/motorola/motorola-edge-70-fusion-power-5g-12-256g",
+        "https://www.play.pl/dlafirm/produkty/motorola/motorola-edge-70-fusion-power/"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -1213,13 +1236,14 @@
         "nfc": true,
         "satelliteSos": false,
         "batteryTests": [
+          "etykieta UE: klasa B, 52:19 h szacowanej wytrzymałości → wytrzymałość 41,1 (skala 40–70 h); etykieta UE (52 h 19 min) cytowana w GSMArena news o następcy, do potwierdzenia",
           "Galaxus: wynik PCMark ok. 17 h",
           "producent: ponad 30 h w typowym użyciu"
         ],
         "polishLaunchPricePln": "8/128: 1799 zł, 8/256: 2299 zł (wg Komputronik, premiera 2025)",
         "sourceNote": "benchmark.pl, komputronik.pl (porównanie z 10a), spidersweb.pl, galaxus.ch",
         "chargerInBox": false,
-        "batteryEndurance": 71.3,
+        "batteryEndurance": 41.1,
         "heightMm": 154.7,
         "widthMm": 73.3,
         "thicknessMm": 8.9,
@@ -1229,7 +1253,7 @@
         "wearableNotes": null
       },
       "scores": {
-        "battery": 49,
+        "battery": 34,
         "charging": 19,
         "updates": 100,
         "storage": 40,
@@ -1246,7 +1270,7 @@
         "value": null
       },
       "basis": {
-        "battery": "5100 mAh (50% wagi) + wytrzymałość w użyciu (50%): Galaxus: PCMark ok. 17 h; producent: ponad 30 h w typowym użyciu",
+        "battery": "5100 mAh (pojemność 27,5 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 41,1 (50%) z etykiety UE (klasa B, 52:19 h przy skali 40–70 h; etykieta UE (52 h 19 min) cytowana w GSMArena news o następcy, do potwierdzenia) → 0,5 × 27,5 + 0,5 × 41,1 = 34 pkt. Korekta 18.11.2026: wcześniej wytrzymałość była wpisana ręcznie, bez godzin ze źródła.",
         "charging": "23 W przewodowo + bezprzewodowe Qi; w pudełku kabel, igła SIM i dokumentacja — bez zasilacza (support.google.com)",
         "updates": "7 lat systemu i zabezpieczeń",
         "storage": "128 GB, brak slotu microSD",
@@ -1268,7 +1292,8 @@
         "https://nano.komputronik.pl/n/google-pixel-10a-vs-pixel-9a-porownanie/",
         "https://www.galaxus.ch/en/page/jetzt-noch-in-klein-dann-passt-das-pixel-10a-im-test-41653",
         "https://support.google.com/pixelphone/answer/7158537",
-        "https://www.gsmarena.com/google_pixel_9a-13478.php"
+        "https://www.gsmarena.com/google_pixel_9a-13478.php",
+        "https://m.gsmarena.com/eu_energy_label_reveals_some_google_pixel_10a_battery_details_and_more-news-71527.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -1354,7 +1379,7 @@
           "selfie": "32 MP",
           "macro": null
         },
-        "updatesYears": null,
+        "updatesYears": 6,
         "updatesNote": "3 duże aktualizacje Androida (Tech Advisor, Visermark, polityka Nothing); lata poprawek rozbieżne w źródłach: 4 lata (Tech Advisor, gsmManiaK) albo 6 lat (Visermark) — pole zostaje null",
         "fingerprint": "w ekranie (optyczny)",
         "nfc": true,
@@ -1365,24 +1390,25 @@
         "sourceNote": "gsmmaniak.pl (test), telepolis.pl, gsmarena.com, phonearena.com",
         "boxContents": "telefon, kabel USB-C, igła SIM, dokumentacja — bez zasilacza (Tech Advisor, Beebom, Visermark)",
         "updatesOsGenerations": 3,
-        "updatesSecurityYears": null,
+        "updatesSecurityYears": 6,
         "batteryTests": [
+          "etykieta UE: klasa C, 43:56 h szacowanej wytrzymałości, 1400 cykli → wytrzymałość 13,1 (skala 40–70 h); GSMArena, strona specyfikacji (wynik z wyszukiwania; strona nie była otwarta przez narzędzie — do potwierdzenia)",
           "Visermark: ok. 56 h aktywnego użycia, „dwa dni w realnym użyciu”",
           "gsmManiaK: 7-8 h ekranu, w nocy ok. 1%"
         ],
-        "batteryEndurance": 84.7,
+        "batteryEndurance": 13.1,
         "heightMm": 163.5,
         "widthMm": 77.5,
         "thicknessMm": 8.4,
-        "securitySupportUntil": "2029-03",
-        "supportNote": "ostrożnie: 4 lata poprawek od premiery 03.2025 (Tech Advisor, gsmManiaK); część źródeł podaje 6 lat → 03.2031",
+        "securitySupportUntil": "2031-03",
+        "supportNote": "3 duże aktualizacje Androida (do Androida 18) i 6 lat poprawek bezpieczeństwa dla serii Phone (3a) (9to5google, Notebookcheck; Notebookcheck powołuje się na usunięty wpis na X, więc źródło wtórne) → od premiery 03.2025 do 03.2031; jak w Phone (3a) Pro",
         "releasedAt": "2025-03",
         "wearableNotes": null
       },
       "scores": {
-        "battery": 55,
+        "battery": 19,
         "charging": 47,
-        "updates": 43,
+        "updates": 64,
         "storage": 75,
         "durability": 55,
         "smoothness": 62,
@@ -1397,9 +1423,9 @@
         "value": null
       },
       "basis": {
-        "battery": "5000 mAh (50% wagi) + wytrzymałość w użyciu (50%): gsmManiaK: 7-8 h ekranu, w nocy traci ok. 1%",
-        "charging": "50 W przewodowo; ładowarki w zestawie brak lub nieznana",
-        "updates": "3 duże aktualizacje Androida (polityka Nothing, Tech Advisor/Visermark); lata poprawek rozbieżne (4 vs 6), więc ocena z samych wersji: 3/7 × 100 = 43",
+        "battery": "5000 mAh (pojemność 25,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 13,1 (50%) z etykiety UE (klasa C, 43:56 h przy skali 40–70 h, 1400 cykli; GSMArena, strona specyfikacji (wynik z wyszukiwania; strona nie była otwarta przez narzędzie — do potwierdzenia)) → 0,5 × 25,0 + 0,5 × 13,1 = 19 pkt. Korekta 18.11.2026: wcześniej wytrzymałość była wpisana ręcznie, bez godzin ze źródła.",
+        "charging": "50 W przewodowo; bez zasilacza w pudełku (oficjalne wsparcie Nothing: telefon, kabel USB-C, dokumenty, narzędzie do SIM)",
+        "updates": "3 duże aktualizacje Androida + 6 lat poprawek bezpieczeństwa (polityka tej serii wg mediów branżowych): średnia 4,5 → 4,5 / 7 × 100 = 64 pkt — tak samo jak w droższym wariancie serii; wcześniej 43 pkt z samej liczby wersji z powodu rozbieżnych źródeł (4 vs 6 lat)",
         "storage": "256 GB, brak slotu microSD",
         "durability": "IP64 (tylko zachlapania)",
         "smoothness": "Snapdragon 7s Gen 3; opinie: bardzo dobre dopracowanie",
@@ -1420,7 +1446,10 @@
         "https://www.gsmarena.com/nothing_phone_(3a)-13672.php",
         "https://www.techadvisor.com/article/2624191/nothing-phone-3a-review.html",
         "https://gadgets.beebom.com/reviews/nothing-phone-3a",
-        "https://www.visermark.com/post/nothing-phone-3a"
+        "https://www.visermark.com/post/nothing-phone-3a",
+        "https://9to5google.com/2025/03/04/nothing-phone-3a-3-years-android-updates/",
+        "https://www.notebookcheck.net/Nothing-Phone-3a-series-will-offer-disappointing-software-support.969069.0.html",
+        "https://fi.nothing.tech/pages/phone-3a"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -1580,7 +1609,7 @@
         "storage": "256 GB, brak slotu microSD",
         "durability": "IP68/IP69 bez normy wojskowej (Notebookcheck, 91mobiles) = 95 pkt wg reguły C1/PROJECT 7.5",
         "smoothness": "Snapdragon 7 Gen 4 (LPDDR5X)",
-        "display": "6,8″ AMOLED 144 Hz (jasność nieznana)",
+        "display": "6,8″ AMOLED 144 Hz, 6500 nitów szczytowo wg producenta (600 nitów typowo, 1800 nitów HBM); GSMArena zmierzył ok. 1800 nitów (nieco poniżej 1800 przy 75% bieli, 1973 nity przy 10%)",
         "photoDay": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
         "photoIndoor": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
         "photoMotion": "200 MP z OIS + peryskop 50 MP 3,5x + 8 MP UW, selfie 50 MP; brak niezależnych wyników w zebranych źródłach",
@@ -1601,7 +1630,9 @@
         "https://www.91mobiles.com/realme-16-pro-plus-price-in-india",
         "https://www.gomibo.fr/en/realme-16-pro-plus-5g",
         "https://www.gsmarena.com/realme_16_pro+_5g-pictures-14363.php",
-        "https://www.ceneo.pl/193078329"
+        "https://www.ceneo.pl/193078329",
+        "https://www.realme.com/sa-en/realme-16-pro-plus-5g/specs",
+        "https://www.gsmarena.com/realme_16_pro_plus-review-2919p3.php"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -3471,13 +3502,13 @@
         },
         "video": "4K 30 kl./s (główny z gyro-EIS i selfie z 10-bit HDR), 1080p 30/60 kl./s",
         "os": "Android 15, One UI 7",
-        "updatesYears": 6,
+        "updatesYears": 7,
         "updatesOsGenerations": 6,
-        "updatesSecurityYears": 6,
+        "updatesSecurityYears": 7,
         "updatesNote": "6 dużych aktualizacji Androida (do Androida 21) i 6 lat poprawek bezpieczeństwa do 31.03.2031 (Samsung, GSMArena)",
         "releasedAt": "2025-03",
-        "securitySupportUntil": "2031-03",
-        "supportNote": "Oficjalna strona Samsung (SM-A366B): poprawki bezpieczeństwa gwarantowane do 31 marca 2031 r. (6 lat od premiery 03.2025)",
+        "securitySupportUntil": "2032-03",
+        "supportNote": "Samsung przedłużył w 11.2025 poprawki bezpieczeństwa Galaxy A36 do 7 lat (do 31.03.2032); liczba dużych aktualizacji systemu bez zmian — 6 (androidcentral, nextpit). Strona Samsunga SM-A366B z wcześniejszego odczytu podawała 31.03.2031.",
         "sim": "nanoSIM + nanoSIM + dual eSIM (maks. 2 aktywne jednocześnie)",
         "nfc": true,
         "wifi": "Wi-Fi 6 (dwuzakresowe)",
@@ -3487,7 +3518,7 @@
       "scores": {
         "battery": 15,
         "charging": 40,
-        "updates": 86,
+        "updates": 93,
         "storage": 40,
         "durability": 80,
         "smoothness": 53,
@@ -3504,7 +3535,7 @@
       "basis": {
         "battery": "5000 mAh (pojemność 25 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 5 (50%) z etykiety UE na GSMArena (klasa C, 41:28 h przy skali 40–70 h, wysoka żywotność 2000 cykli; active use 11:38 h) → 0,5 × 25 + 0,5 × 5 = 15 pkt",
         "charging": "45 W przewodowo USB PD (GSMArena: 36% w 15 min, 60% w 30 min, pełne ładowanie w 74 min), bez indukcji i bez ładowarki w pudełku (GSMArena, mediaexpert.pl) — (45 − 15) / 75 × 100 = 40 pkt",
-        "updates": "6 dużych aktualizacji Androida i 6 lat poprawek bezpieczeństwa do 31.03.2031 (Samsung, GSMArena): 6 / 7 × 100 = 86 pkt",
+        "updates": "6 dużych aktualizacji systemu i 7 lat poprawek bezpieczeństwa do 31.03.2032 (przedłużenie wsparcia przez producenta w 11.2025, media branżowe): średnia 6,5 → 6,5 / 7 × 100 = 93 pkt",
         "storage": "128 GB UFS 2.2 (z 6 GB RAM LPDDR4X), brak slotu microSD (GSMArena, euro.com.pl, mediaexpert.pl) = 40 pkt",
         "durability": "IP67 (zanurzenie do 1 m na 30 min), szkło Gorilla Glass Victus+ z przodu i z tyłu, plastikowa ramka oraz klasa C odporności na upadki (90 upadków) na etykiecie UE (GSMArena) = 80 pkt wg reguły IP67",
         "smoothness": "Snapdragon 6 Gen 3 (4 nm) z 6 GB RAM i pamięcią UFS 2.2; GSMArena (wariant 6/128 GB): AnTuTu v10 613 492, Geekbench 6 multi-core 2917, bardzo wysoka stabilność termiczna — poprawna praca codzienna, ale słabszy układ i mniej RAM niż w Galaxy A37 (Exynos 1480, 8 GB)",
@@ -3530,7 +3561,9 @@
         "https://www.gsmarena.com/samsung_galaxy_a36-review-2814p5.php",
         "https://www.gsmarena.com/samsung_galaxy_a36_vs_samsung_galaxy_a35_review_battery_camera_price_compared-news-67279.php",
         "https://www.gsmarena.com/samsung_galaxy_a36_and_a56_hands_on-review-2804p4.php",
-        "https://www.notebookcheck.net/Samsung-Galaxy-A36-5G-review-The-affordable-smartphone-focuses-on-security-a-premium-feel.1013221.0.html"
+        "https://www.notebookcheck.net/Samsung-Galaxy-A36-5G-review-The-affordable-smartphone-focuses-on-security-a-premium-feel.1013221.0.html",
+        "https://www.androidcentral.com/phones/samsung-galaxy/samsung-silently-gives-these-mid-range-phones-and-tablets-a-software-extension",
+        "https://www.nextpit.com/news/samsung-extends-software-android-update-galaxy-a56-a36-tablets"
       ],
       "scoreConfidence": {
         "battery": "high",
@@ -3767,7 +3800,7 @@
       "id": "iphone-15-128",
       "brand": "Apple",
       "modelName": "iPhone 15 128 GB",
-      "status": "ok",
+      "status": "over_budget",
       "reveal": {
         "name": "Apple iPhone 15 128 GB",
         "brand": "Apple",
@@ -3995,6 +4028,14 @@
         "photoUrl": "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-60-neo-1.jpg",
         "shopLinks": [
           {
+            "label": "allegro.pl (przez Ceneo)",
+            "url": "https://www.ceneo.pl/191205019",
+            "pricePln": 1475,
+            "checkedAt": "2026-11-17",
+            "kind": "marketplace",
+            "note": "szary Pantone Grisaille, 12/256 GB — najniższa oferta Allegro Smart (+10,49 zł wysyłki); ostatnie sprawdzenie 17.11.2026"
+          },
+          {
             "label": "allegro.pl",
             "url": "https://allegro.pl/oferta/motorola-edge-60-neo-12-256gb-red-18139538845",
             "pricePln": 1599,
@@ -4198,7 +4239,7 @@
       "id": "galaxy-s26-fe-5g-8-128",
       "brand": "Samsung",
       "modelName": "Galaxy S26 FE 5G 8/128 GB",
-      "status": "ok",
+      "status": "over_budget",
       "reveal": {
         "name": "Samsung Galaxy S26 FE 5G 8/128 GB",
         "brand": "Samsung",
@@ -4410,7 +4451,7 @@
       "id": "xiaomi-14t-pro-12-512",
       "brand": "Xiaomi",
       "modelName": "14T Pro 12/512 GB",
-      "status": "ok",
+      "status": "over_budget",
       "reveal": {
         "name": "Xiaomi 14T Pro 12/512 GB",
         "brand": "Xiaomi",
