@@ -6,7 +6,7 @@ import { SHORT_QUIZ_IDS, activeQuestions } from './questions';
 export const BUDGET_LIMIT_PLN = 2000;
 export const PRICES_CHECKED_AT = '2026-11-16';
 /** Rozmiar puli rankingowej (kompletne rekordy w limicie 2000 zł): 15 po etapie 10 + 7 kandydatów z 17–18.11.2026. */
-export const EXPECTED_POOL_SIZE = 22;
+export const EXPECTED_POOL_SIZE = 24;
 export const CRITERIA_COUNT = 15;
 
 export const CI_PIPELINE = [

@@ -13,7 +13,9 @@
       "FP1-01 (16.11.2026): trzej kandydaci użytkowniczki zweryfikowani (Edge 70 Fusion, Galaxy A57, Xiaomi 15T) — reveal.verifiedForPurchase; oferta Xiaomi 15T 12/512 za 1999 zł wygasła (Komputronik: sprzedaż zakończona), aktualne ceny > 2000 zł — pole price.priceUnavailableSince, decyzja o statusie rekordu należy do użytkownika; securitySupportUntil uzupełnione dla 15/15 (Pixel 10a 03.2033, Edge 70 Fusion 03.2031, realme 02.2030); wearableNotes (Mi Band 6 / Zepp Life) dla trzech kandydatów.",
       "FP0/FP1 (17.11.2026): sesja użytkowniczki w tests/fixtures/user-session.json (karty 15T → Edge 70 Fusion → Note 17 Pro, 3 wybory); data zakupu 26.11.2026; Xiaomi 15T zostaje w puli z price.currentMarketPricePln (2249,99 zł, Ceneo) obok ostatniej ceny w limicie; Edge 70 Fusion — zakup z promocji Allegro przed 30.11.",
       "FP3-03 (17.11.2026): A3 ustawia charging 0,25 / 1,5 / 4 (było 1 / 3 / 5), domyślna waga charging bez odpowiedzi = 1. FP4-05: IP66/IP68 = 92 pkt (było 88). FP3-07 (storage 256 GB = 82) NIE wdrożone — zmieniłoby trzecią kartę w zapisanej sesji użytkowniczki przed zakupem (bramka kandydata).",
-      "Przegląd danych (18.11.2026): wytrzymałość baterii A56/A57/Pixel 10a/Pixel 9a/Nothing 3a przeliczona z godzin etykiety UE zamiast wartości wpisanych ręcznie; Galaxy A56 i A36 — 7 lat poprawek (do 03.2032, przedłużenie Samsunga), Nothing Phone (3a) — 6 lat poprawek jak 3a Pro; chargerInBox potwierdzone jako false dla Note 15 Pro, Edge 60, Edge 70 Fusion i Nothing 3a (sklepy PL / Nothing); iPhone 15, S26 FE i 14T Pro oznaczone over_budget. Nie zmieniono generatedOn (wersja danych zapisanych sesji)."
+      "Przegląd danych (18.11.2026): wytrzymałość baterii A56/A57/Pixel 10a/Pixel 9a/Nothing 3a przeliczona z godzin etykiety UE zamiast wartości wpisanych ręcznie; Galaxy A56 i A36 — 7 lat poprawek (do 03.2032, przedłużenie Samsunga), Nothing Phone (3a) — 6 lat poprawek jak 3a Pro; chargerInBox potwierdzone jako false dla Note 15 Pro, Edge 60, Edge 70 Fusion i Nothing 3a (sklepy PL / Nothing); iPhone 15, S26 FE i 14T Pro oznaczone over_budget. Nie zmieniono generatedOn (wersja danych zapisanych sesji).",
+      "Uzupełnienie danych (18.11.2026): Edge 60 — chip (Dimensity 7300 wg GSMArena, wersja globalna), system i aparat selfie; Redmi Note 15 Pro — aparat ultraszerokokątny 8 MP. Bez weryfikacji pozostają: Edge 60 storageType, Galaxy S26 FE storageType (źródła rozbieżne), Realme 16 Pro+ NFC (strony realme: „zależnie od regionu”, polskie karty niepotwierdzone).",
+      "Uzupełnienie placeholderów (18.11.2026, źródła w `sources` i `price.auditNote` każdego rekordu): uzupełniono 11 z 25 rekordów (wariant i oferta w PL potwierdzone); 14 zostało szkicami, bo wariant lub nowa oferta w PL nie dały się zweryfikować (szczegóły w `reveal.shopLinks[0].note`). W pulę rankingową weszły 2 rekordy w limicie 2000 zł (Edge 60 Pro, TCL 50 NXTPAPER); pozostałe uzupełnione są over_budget. Brakujące wartości = null, oceny bez niezależnych dowodów = 50 + scoresEstimatedNeutral."
     ],
     "scoresNote": "Oceny 0-100 wyliczone wg reguł z PROJECT.md (sekcja 7.5): kryteria obiektywne (bateria, ładowanie, aktualizacje, pamięć, odporność) z wzorów, kryteria subiektywne (aparat, płynność, ekran) z tabel dowodów. Brak danych = wartość neutralna 50 i wpis w scoresEstimatedNeutral. scoreConfidence mówi, jak mocne są dowody (high/medium/low). Kryterium value liczy aplikacja.",
     "specsCompletedNote": "Etap 0 + Etap 10 (16.11.2026): specyfikacje i oceny 15 modeli zweryfikowane z oficjalnych stron producentów, kart produktowych polskich sklepów oraz niezależnych testów (GSMArena + etykiety energetyczne UE/EPREL, PhoneArena, DXOMARK, Notebookcheck, 91mobiles, mGSM, gsmManiaK). Zgodnie z decyzją D4 sufit wzoru pojemności baterii podniesiono z 7000 do 8000 mAh (4000 mAh = 0, 8000 mAh = 100) i przeliczono scores.battery dla całej puli."
@@ -116,7 +118,7 @@
         "chargingTests": "GSMArena: 36% w 15 min, 64% w 30 min, pełne ładowanie w 69 min",
         "thicknessMm": 6.9,
         "dimensionsMm": "161,5 × 76,8 × 6,9",
-        "batteryEndurance": 40.0,
+        "batteryEndurance": 40,
         "heightMm": 161.5,
         "widthMm": 76.8,
         "securitySupportUntil": "2032-03",
@@ -546,7 +548,7 @@
         "ipNote": "wg strony producenta IP66/IP68; nanoreview podaje IP69, producent tego nie potwierdza",
         "cameras": {
           "main": "200 MP",
-          "ultrawide": null,
+          "ultrawide": "8 MP f/2.2",
           "macro": null,
           "selfie": "20 MP",
           "telephoto": null
@@ -629,7 +631,8 @@
         "https://www.newmobile.com/global/phones/xiaomi/redmi-note-15-pro-5g/specifications",
         "https://www.gsmarena.com/xiaomi_redmi_note_15_pro_5g_(global)-14327.php",
         "https://www.orange.pl/esklep/smartfony/xiaomi/xiaomi-redmi-note-15-pro-5g-8-256-gb",
-        "https://www.play.pl/dlaciebie/produkty/xiaomi/xiaomi-redmi-note-15-pro-5g"
+        "https://www.play.pl/dlaciebie/produkty/xiaomi/xiaomi-redmi-note-15-pro-5g",
+        "https://www.mi.com/au/product/redmi-note-15-pro-5g/specs/"
       ],
       "scoreConfidence": {
         "battery": "medium",
@@ -698,7 +701,7 @@
         "cameras": {
           "main": "50 MP (z adresu strony sklepu)",
           "telephoto": "10 MP 3x zoom optyczny",
-          "selfie": null
+          "selfie": "50 MP f/2.0"
         },
         "updates": "3 aktualizacje systemu Android i 4 lata poprawek zabezpieczeń (wg Tabletowo, dla premierowych modeli Edge 60 i Edge 60 Pro)",
         "updatesYears": 4,
@@ -706,7 +709,7 @@
         "performanceNote": "wydajność „standardowa”; Notebookcheck zwraca uwagę na spowolnienia przy uruchamianiu aplikacji aparatu",
         "ip": "IP69/IP68",
         "weightG": 179,
-        "os": null,
+        "os": "Android 15",
         "displayInch": 6.67,
         "ipNote": "IP69/IP68 wg oficjalnej specyfikacji producenta (pl-pl.support.motorola.com)",
         "wirelessCharging": false,
@@ -734,7 +737,8 @@
         "wearableNotes": null,
         "batteryTests": [
           "etykieta UE: 60 h na cyklu, 1000 cykli → wytrzymałość 66,7 (skala 40–70 h); kopia karty EPREL nr 2208423 (strona trzecia), do potwierdzenia"
-        ]
+        ],
+        "chip": "MediaTek Dimensity 7300 (4 nm)"
       },
       "scores": {
         "battery": 48,
@@ -780,7 +784,9 @@
         "https://www.gsmarena.com/motorola_edge_60-13779.php",
         "https://www.gsmarena.com/motorola_edge_60-review-2831.php",
         "https://www.coolsmartphone.com/2025-08-19/motorola-edge-60-review/",
-        "https://www.play.pl/dlaciebie/produkty/motorola/motorola-edge-60-5g"
+        "https://www.play.pl/dlaciebie/produkty/motorola/motorola-edge-60-5g",
+        "https://www.phonearena.com/motorola-edge-60-release-date-price-features-news",
+        "https://www.kimovil.com/en/where-to-buy-motorola-edge-60"
       ],
       "scoreConfidence": {
         "battery": "low",
@@ -4666,7 +4672,7 @@
             "pricePln": 2699,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#8): ~2 699 zł (szacunek, cena niezweryfikowana; uwaga: model nieogłoszony — w sprzedaży jest Galaxy XCover7 Pro)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Galaxy XCover 8 Pro nie istnieje jako produkt: Samsung nigdy go nie ogłosił ani nie wprowadził do sprzedaży w Polsce. Nazwa 'XCover8 Pro' pochodzi wyłącznie z przecieków z lat 2024-2025 (certyfikat baterii BIS EB-BG766GBY, certyfikat TUV Rheinland, wpis Geekbench) dla numeru modelu SM-G766B. Samsung oficjalnie wprowadził ten sam numer SM-G766B jako Galaxy XCover7 Pro (polska strona Samsunga: 'Galaxy XCover7 Pro Black 128 GB', SM-G766BZKDEEE, 6 GB RAM + 128 GB, status 'Produkt niedostępny'; komunikat prasowy Samsung Polska z 14.04.2025: 6 GB + 1"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-samsung+galaxy+xcover+8+pro"
@@ -4676,22 +4682,247 @@
       "id": "poco-f8-ultra-12-256",
       "brand": "POCO",
       "modelName": "F8 Ultra 12/256 GB",
-      "status": "needs_confirmation",
+      "status": "over_budget",
       "reveal": {
         "name": "POCO F8 Ultra 12/256 GB",
         "brand": "POCO",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-poco-f8-ultra.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-poco-f8-ultra-2.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-poco+f8+ultra",
-            "pricePln": 2899,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#14): ~2 899 zł (szacunek, cena i dostępność w PL do sprawdzenia)"
+            "label": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1613074-smartfon-telefon-xiaomi-poco-f8-ultra-5g-12-256gb-denim-blue.html",
+            "pricePln": 3099,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Denim Blue, 12/256 GB, ostatnie sztuki, wysyłka od następnego dnia; cena sugerowana producenta 2999 zł"
+          },
+          {
+            "label": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1613073-smartfon-telefon-xiaomi-poco-f8-ultra-5g-12-256gb-black.html",
+            "pricePln": 3299,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Black, 12/256 GB, cena z listy wyszukiwania x-kom (strona produktu nie była osobno otwierana)"
+          },
+          {
+            "label": "mediamarkt.pl",
+            "url": "https://mediamarkt.pl/pl/product/_smartfon-xiaomi-f8-ultra-5g-12-gb-256-gb-niebieski-167446591.html",
+            "pricePln": 3489.18,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "Denim Blue, sprzedawca Digital Bay PL (MediaMarkt Marketplace), dostawa 30.11-02.12.2026"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-poco-f8-ultra-5g-12-256gb-czarny-6932554472177-15694483/",
+            "pricePln": 3515.35,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "Black, oferta główna marketplace Morele (cena z listy wyszukiwania)"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-poco+f8+ultra"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/190832582",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "F8 Ultra 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 3099,
+        "source": "x-kom.pl",
+        "url": "https://www.x-kom.pl/p/1613074-smartfon-telefon-xiaomi-poco-f8-ultra-5g-12-256gb-denim-blue.html",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "Denim Blue, 12/256 GB (wersja Black w x-kom: 3299 zł); x-kom: ostatnie sztuki",
+        "auditNote": "Najniższa oferta, którą otworzyłem i potwierdziłem w polskim sklepie (strona produktu x-kom, 2026-11-18): 3099 zł (Denim Blue), 3299 zł (Black, z listy wyszukiwania x-kom). Sklepy marketplace: MediaMarkt (sprzedawca Digital Bay PL) 3489,18 zł (Denim Blue), Morele (marketplace) 3515,35 zł (Black). Niżej wyceniane oferty widoczne na stronie porównywarki Ceneo (Allegro 2547,02 zł Black od sprzedawcy zewnętrznego, siglo.pl 2957 zł Denim Blue, abfoto.pl 3095/3149 zł, Neonet 3099 zł) NIE zostały otwarte (przekierowania Ceneo kończą się captchą, Allegro/Siglo niedostępne dla automatu), dlatego nie są podstawą ceny — patrz otherObservations. Sklepy mediaexpert, euro.com.pl, komputronik (blokada 403 dla automatu) nie zostały sprawdzone.",
+        "otherObservations": [
+          {
+            "pln": 2547.02,
+            "source": "Allegro (sprzedawca zewnętrzny, widoczne na Ceneo)",
+            "url": "https://www.ceneo.pl/190659270",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Black 12+256 GB, najniższa oferta na stronie Ceneo; oferty nie dało się otworzyć (captcha Ceneo), sprzedawca zewnętrzny, nie zweryfikowano jako oficjalnej dystrybucji"
+          },
+          {
+            "pln": 2957,
+            "source": "siglo.pl (widoczne na Ceneo)",
+            "url": "https://www.ceneo.pl/190832582",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Denim Blue 12/256 GB wg Ceneo; strony sklepu nie otwarto"
+          },
+          {
+            "pln": 3099,
+            "source": "Neonet (widoczne na Ceneo)",
+            "url": "https://www.ceneo.pl/190832582",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Denim Blue 12/256 GB wg Ceneo; strony sklepu nie otwarto"
+          },
+          {
+            "pln": 2799,
+            "source": "mi.com/pl / oficjalny sklep Xiaomi (pepper.pl, oferta wygasła)",
+            "url": "https://www.pepper.pl/promocje/smartfon-poco-f8-ultra-12-256-polska-dystrybucja-1235352",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Wg wcześniejszych doniesień (pepper.pl, gsmmaniak.pl) cena w oficjalnym sklepie 2799 zł, z kuponem dla nowych klientów ok. 2499-2519 zł; to oferty kuponowe/dla nowych klientów, nieweryfikowalne dziś (mi.com nie pokazuje ceny automatowi)"
+          }
+        ],
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.9,
+        "panel": "AMOLED",
+        "refreshHz": "60-120",
+        "resolution": "1200x2608",
+        "peakNits": 3500,
+        "glass": "POCO Shield Glass",
+        "ramGb": 12,
+        "storageGb": 256,
+        "storageType": "UFS 4.1",
+        "microSd": false,
+        "microSdNote": "Specyfikacja producenta przewiduje tylko tacę SIM (nano SIM / eSIM), brak wzmianki o slocie microSD.",
+        "chip": "Qualcomm Snapdragon 8 Elite Gen 5 (3 nm)",
+        "batteryMah": 6500,
+        "batteryCycles": 1000,
+        "batteryEndurance": 90,
+        "batteryTests": [
+          "EPREL / etykieta UE (model 25102PCBEG): klasa A, 67 h szacowanej wytrzymałości na cykl, 1000 cykli, pojemność znamionowa 6330 mAh (typowa 6500 mAh)",
+          "Notebookcheck: test Wi-Fi (Chrome 142) 21 h 53 min",
+          "etykieta UE: A, 67:00 h na cyklu, 1000 cykli (https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2496660_EN.pdf)"
+        ],
+        "chargingW": 100,
+        "chargingNote": "100 W HyperCharge przewodowo wymaga zasilacza o mocy wyjściowej 100 W (producent zaleca oficjalny zasilacz 120 W); do tego 50 W bezprzewodowo i 22,5 W ładowanie zwrotne (mi.com/pl). Karta EPREL wymaga od ładowarki tylko 15 W (minimum regulacyjne).",
+        "chargingTests": "Notebookcheck: 50% w 15 min, 80% w 27 min, pełne ładowanie w 35 min",
+        "chargerInBox": false,
+        "chargerInBoxNote": "Brak zasilacza w zestawie (producent mi.com/pl; w pudełku kabel USB-C i etui). Opcjonalny zasilacz 90 W HyperCharge Combo w oficjalnym sklepie Xiaomi za 49 zł (cena regularna 89 zł).",
+        "wirelessCharging": true,
+        "wirelessW": 50,
+        "ip": "IP68",
+        "ipNote": "IP68 (zanurzenie 1,5 m przez 30 min) potwierdzone przez producenta i kartę EPREL.",
+        "weightG": 220,
+        "weightNote": "220 g dla wersji Denim Blue (obecna najtańsza oferta); wersja Black 218 g wg producenta.",
+        "heightMm": 163.33,
+        "widthMm": 77.82,
+        "thicknessMm": 8.3,
+        "dimensionsMm": "163,33 × 77,82 × 8,3",
+        "cameras": {
+          "main": "50 MP f/1.67 (1/1,31″, Light Fusion 950) z OIS",
+          "ultrawide": "50 MP f/2.4",
+          "macro": null,
+          "selfie": "32 MP f/2.2, stała ostrość",
+          "telephoto": "50 MP f/3.0 peryskopowy (115 mm), zoom optyczny 5x, z OIS"
+        },
+        "video": "8K 30 kl./s oraz 4K 60 kl./s (aparaty tylne), 4K 30 kl./s (selfie)",
+        "os": "Android 16, Xiaomi HyperOS 3",
+        "updatesYears": 6,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "4 duże aktualizacje Androida (Android 17-20; ppe.pl: obietnica producenta 4 lata aktualizacji systemu i 6 lat poprawek bezpieczeństwa; androidupdatetracker: Android 17, 18, 19, 20). Koniec wsparcia 2031-11-26 wg listy Xiaomi opublikowanej przez gsmmaniak.pl. Karta EPREL: min. 5 lat gwarantowanych aktualizacji (minimum prawne). Notebookcheck podaje „4 lata Androida i 2 lata poprawek bezpieczeństwa” — to wyraźnie odbiega od pozostałych źródeł i nie jest przyjęte.",
+        "releasedAt": "2025-11",
+        "securitySupportUntil": "2031-11",
+        "supportNote": "2031-11-26 wg listy końca wsparcia Xiaomi/POCO (gsmmaniak.pl, 20.02.2026, za danymi producenta); liczone od premiery/dostępności 2025-11-26 (EPREL: wprowadzony do obrotu w UE 2025-11-26).",
+        "sim": "Dual SIM (nanoSIM + nanoSIM / nanoSIM + eSIM / eSIM + eSIM)",
+        "nfc": true,
+        "wifi": "Wi-Fi 7",
+        "bluetooth": "6.0",
+        "fingerprint": "w ekranie (ultradźwiękowy)",
+        "satelliteSos": null,
+        "polishLaunchPricePln": 2999,
+        "reviewNotes": [
+          "Notebookcheck: ekran 3519 cd/m² zmierzone (APL18), wydajność pierwszej klasy, ale wyraźne nagrzewanie pod długim obciążeniem i brak Wi-Fi 6 GHz",
+          "ppe.pl: ocena 8,5/10 — świetna dynamika tonalna głównego aparatu, najsłabszy jest szeroki kąt, oprogramowanie z reklamami i zbędnymi aplikacjami",
+          "gsmmaniak.pl (po 8 miesiącach używania, 07.2026): ok. 10 h ekranu na jednym ładowaniu, ładowanie 0-100% ok. 40 min, ładowarki brak w pudełku"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 76,
+        "charging": 100,
+        "updates": 71,
+        "storage": 75,
+        "durability": 90,
+        "smoothness": 96,
+        "display": 90,
+        "photoDay": 82,
+        "photoIndoor": 76,
+        "photoMotion": 50,
+        "selfie": 66,
+        "video": 76,
+        "zoom": 82,
+        "compactness": 24,
+        "value": null
+      },
+      "basis": {
+        "battery": "6500 mAh (pojemność 62,5 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 90,0 (50%) z etykiety UE (klasa A, 67:00 h przy skali 40–70 h, 1000 cykli) → 0,5 × 62,5 + 0,5 × 90,0 = 76 pkt",
+        "charging": "100 W przewodowo + 50 W bezprzewodowo (+8 pkt), bez zasilacza w pudełku — (100 − 15) / 75 × 100 + 8 = 100 pkt",
+        "updates": "4 dużych aktualizacji systemu i 6 lat poprawek bezpieczeństwa: średnia 5,0 → 5,0 / 7 × 100 = 71 pkt",
+        "storage": "256 GB UFS 4.1, brak slotu microSD = 75 pkt",
+        "durability": "IP68 = 90 pkt wg tabeli klas IP",
+        "smoothness": "Snapdragon 8 Elite Gen 5 (3 nm) z 12 GB LPDDR5X i pamięcią UFS 4.1; Notebookcheck: Geekbench 6.7 multi-core 11 004 (single-core 3676), AnTuTu v10 2 750 094, 3DMark Wild Life Extreme 7021, stabilność Solar Bay Extreme 81,4% — wydajność wyraźnie ponad dotychczasowe flagowe punkty odniesienia, obniżona za wyraźne nagrzewanie pod długim obciążeniem (obudowa do 49,8°C)",
+        "display": "6,9″ AMOLED 1,5K (1200×2608, 12-bit, 120 Hz bez LTPO, HDR10+/Dolby Vision); Notebookcheck zmierzył 3519 cd/m² (APL18) i 3458 cd/m² w HDR przy deklarowanych 3500 nitach, ΔE 1,3, 99,6% sRGB, czas reakcji ok. 0,9 ms — obniżone za migotanie PWM 120 Hz (amplituda 14%) i brak LTPO",
+        "photoDay": "główna matryca 50 MP f/1.67 (1/1,31″) z OIS + szeroki kąt 50 MP + peryskop 50 MP; Notebookcheck chwali zrównoważoną kompozycję, a ppe.pl znakomitą dynamikę tonalną (kolory miejscami zbyt chłodne); Expert Reviews: żywe, ostre i kontrastowe zdjęcia, ale szeroki kąt wyraźnie słabszy od głównego",
+        "photoIndoor": "Notebookcheck: główny aparat robi dobre zdjęcia nawet przy słabym świetle; Expert Reviews: szybkie ujęcia nocne z dobrą szczegółowością; ppe.pl wytyka nadmierne rozjaśnianie sceny, zauważalne opóźnienie migawki w trybie nocnym i przegładzone twarze",
+        "photoMotion": "brak niezależnych testów szybkości autofokusu i zdjęć w ruchu dla tego modelu (Notebookcheck, ppe.pl i Expert Reviews nie oceniają tego kryterium, ppe.pl wspomina jedynie sporadyczne polowanie ostrości w teleobiektywie) — ocena neutralna",
+        "selfie": "przedni aparat 32 MP f/2.2 ze stałą ostrością, bez łączenia pikseli (pełna rozdzielczość tylko w 4:3, 24 MP w 16:9), wideo do 4K 30 kl./s; Notebookcheck: spójne i przyjemne zdjęcia w dzień, ale szczegóły giną wcześnie przy słabym świetle; Expert Reviews: naturalne kolory, lecz miejscami miękki obraz; ppe.pl: solidny, ale bez wyróżnienia w słabym świetle",
+        "video": "8K 30 kl./s i 4K 60 kl./s z aparatów tylnych, selfie 4K 30 kl./s; ppe.pl: stabilizacja obrazu działa rewelacyjnie; Expert Reviews: 4K 60 kl./s bez zarzutu, brak 4K 120 kl./s; Notebookcheck: dedykowana stabilizacja działa tylko w trybie 2,8K 30 kl./s",
+        "zoom": "peryskop 50 MP f/3.0 (115 mm) z OIS i 5-krotnym zoomem optycznym; Notebookcheck: dobre wyniki zoomu optycznego, użyteczny także jako makro od 30 cm; Expert Reviews: ujęcia 2x, 5x i 10x dobre, powyżej 10x rośnie szum; ppe.pl: ostro przy 5x i hybrydowym 10x, powyżej tej wartości algorytmy AI agresywnie ingerują w obraz",
+        "compactness": "220 g, wymiary 163,33 × 77,82 × 8,3 mm — wzór poręczności: lekkość 21, mała powierzchnia 22, smukłość 40 → 24 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.mi.com/pl/product/poco-f8-ultra/specs/",
+        "https://www.mi.com/pl/product/poco-f8-ultra/",
+        "https://www.x-kom.pl/p/1613074-smartfon-telefon-xiaomi-poco-f8-ultra-5g-12-256gb-denim-blue.html",
+        "https://www.x-kom.pl/szukaj?q=poco%20f8%20ultra",
+        "https://cdn.x-kom.pl/f/karta-informacyjna/1613074_pl_1792472571325.pdf",
+        "https://www.morele.net/wyszukiwarka/?q=poco+f8+ultra",
+        "https://mediamarkt.pl/pl/product/_smartfon-xiaomi-f8-ultra-5g-12-gb-256-gb-niebieski-167446591.html",
+        "https://www.ceneo.pl/190659270",
+        "https://www.ceneo.pl/190832582",
+        "https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2496660_EN.pdf",
+        "https://eprel.ec.europa.eu/api/products/smartphonestablets20231669/2496660",
+        "https://www.notebookcheck.net/Affordable-flagship-with-Bose-subwoofer-Xiaomi-Poco-F8-Ultra-review.1189651.0.html",
+        "https://www.ppe.pl/recenzje/394153/poco-f8-ultra-test-smartfona-to-najbardziej-oplacalny-telefon-w-2025-roku-doslownie-miazdzy-konkurencje.html",
+        "https://www.expertreviews.co.uk/technology/phones/poco-f8-ultra-review",
+        "https://www.gsmonline.pl/artykuly/test-poco-f8-ultra-to-teraz-najlepszy-zakup-androida-w-cenie-3-tysiecy-zlotych",
+        "https://www.gsmmaniak.pl/1672404/poco-f8-ultra-test-recenzja-dlugoterminowa-opinia-po-8-miesiacach/amp/",
+        "https://www.gsmmaniak.pl/1637420/smartfony-xiaomi-poco-redmi-daty-konca-wsparcia-aktualizacji/amp/",
+        "https://www.tabletowo.pl/poco-f8-ultra-f8-pro-premiera-polska-cena/",
+        "https://www.purepc.pl/poco-f8-ultra-poco-f8-pro-poco-pad-m1-premiera",
+        "https://www.telepolis.pl/tech/sprzet/xiaomi-poco-f8-pro-f8-ultra-premiera-promocja-na-start",
+        "https://www.androidupdatetracker.com/p/xiaomi-poco-f8-ultra",
+        "https://www.pepper.pl/promocje/smartfon-poco-f8-ultra-12-256-polska-dystrybucja-1235352",
+        "https://fdn2.gsmarena.com/vv/bigpic/xiaomi-poco-f8-ultra.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/xiaomi/xiaomi-poco-f8-ultra-2.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "low",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": [
+        "photoMotion"
+      ]
     },
     {
       "id": "pixel-9-8-128",
@@ -4708,7 +4939,7 @@
             "pricePln": 2700,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#15): ~2 700 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Wariant 8/128 GB NIE istnieje. Pixel 9 (model podstawowy) ma w Polsce zawsze 12 GB RAM i jest sprzedawany w dwóch wersjach pamięci: 12/128 GB oraz 12/256 GB (PurePC: ceny premierowe 4049 zł i 4499 zł; x-kom, Komputronik, MediaMarkt, Empik: 12/128 GB). Wariant 8/128 GB dotyczy Pixela 9a (inny model). Dossier opisuje Pixela 9 12/128 GB; id i modelName z placeholdera nie zostały zmienione."
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-google+pixel+9+128gb"
@@ -4718,85 +4949,927 @@
       "id": "motorola-edge-60-pro-12-512",
       "brand": "Motorola",
       "modelName": "Edge 60 Pro 12/512 GB",
-      "status": "unverified",
+      "status": "ok",
       "reveal": {
         "name": "Motorola Edge 60 Pro 12/512 GB",
         "brand": "Motorola",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/motorola-edge-60-pro.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-60-pro-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-motorola+edge+60+pro+12%2F512",
-            "pricePln": 2100,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#20): ~2 100 zł (szacunek, cena niezweryfikowana)"
+            "label": "empik.com",
+            "url": "https://www.empik.com/motorola-edge-60-pro-12-512gb-nfc-dualsim-shadow-green-inny-producent,p1628959774,elektronika-p",
+            "pricePln": 1849,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Shadow green, sprzedaje Empik, nowy, dostawa za darmo; regularnie 1899 zł; w zestawie tylko kabel USB-C"
+          },
+          {
+            "label": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1330169-smartfon-telefon-motorola-edge-60-pro-5g-12-512gb-shadow-120hz.html",
+            "pricePln": 1998,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Shadow, dostępny, dostawa jutro; ładowarka jako opcja dodatkowa za 200 zł (domyślnie 'Brak')"
+          },
+          {
+            "label": "mediamarkt.pl (Marketplace: Electronic Shops PL)",
+            "url": "https://mediamarkt.pl/pl/product/_smartfon-motorola-pb7x0010pl-5g-12-gb512-gb-niebieski-158079984.html",
+            "pricePln": 2367,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "Dazzling Blue, 12/512 GB, sprzedawca zewnętrzny na Marketplace; najniższa cena z 30 dni 2585 zł; dostawa 27.11-03.12.2026"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-motorola+edge+60+pro+12%2F512"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/182960696",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 512,
+        "fromList": "Edge 60 Pro 12/512 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1849,
+        "source": "empik.com",
+        "url": "https://www.empik.com/motorola-edge-60-pro-12-512gb-nfc-dualsim-shadow-green-inny-producent,p1628959774,elektronika-p",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "Shadow (szarozielony), 12/512 GB, sprzedaje Empik, stan nowy, kabel USB-C w zestawie (bez ładowarki)",
+        "auditNote": "Strona produktu Empik otwarta 2026-11-18: 1849,00 zł (obniżka o 50 zł z 1899 zł, najniższa cena z 30 dni przed obniżką 1899 zł), 'Sprzedaje firma Empik', stan nowy, wysyłka ok. 1 dnia, dostawa za darmo. Ceneo (produkt 182960696, 18 ofert) potwierdza najniższą cenę 1849 zł (Empik i mobile-city.pl), kolejne 1908-1999 zł. Najtańsza oferta x-kom 1998 zł (oficjalna sieć). Zastrzeżenie: jedna opinia klienta o dystrybucji serbskiej i problemie z gwarancją (patrz variant.note); przy wyborze bezpieczniejszej oferty x-kom 1998 zł.",
+        "otherObservations": [
+          {
+            "pln": 1729,
+            "source": "mobile-city.pl",
+            "url": "https://mobile-city.pl/product-pol-38927-Motorola-Edge-60-Pro-5G-12-512GB-Szarozielony-Shadow.html",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "OUTLET (po zwrocie detalicznym, nie nowy egzemplarz), 24 mies. gwarancji; pominięte jako cena główna"
+          },
+          {
+            "pln": 1849,
+            "source": "mobile-city.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/182960696",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Ceneo wskazuje 1849 zł (szarozielony nowy) w mobile-city.pl; strony sklepu z tą ceną nie otwarto (otwarta karta to oferta outlet 1729 zł)"
+          },
+          {
+            "pln": 1998,
+            "source": "mediaexpert.pl, avans.pl, neonet.pl, electro.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/182960696",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Oferty z listy Ceneo, strony sklepów nie otwarte (serwery blokują automatyczne zapytania lub link przez przekierowanie Ceneo)"
+          },
+          {
+            "pln": 2198,
+            "source": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1373044-smartfon-telefon-motorola-edge-60-pro-5g-12-512gb-shadow-ladowarka-125w.html",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "zestaw z ładowarką 125 W (wg wyników wyszukiwania x-kom), strony nie otwarto"
+          }
+        ],
+        "regularPricePln": 1899,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.67,
+        "panel": "pOLED",
+        "refreshHz": 120,
+        "resolution": "1220x2712",
+        "peakNits": 4500,
+        "glass": "Corning Gorilla Glass 7i (przód)",
+        "ramGb": 12,
+        "storageGb": 512,
+        "storageType": "UFS 4.0",
+        "microSd": false,
+        "microSdNote": "brak slotu kart pamięci (Notebookcheck, Telepolis)",
+        "chip": "MediaTek Dimensity 8350 Extreme (4 nm)",
+        "batteryMah": 6000,
+        "batteryCycles": 1000,
+        "batteryEndurance": 92.6,
+        "batteryTests": [
+          "EPREL (etykieta UE): klasa A, 67:47 h szacowanej wytrzymałości na cykl, 1000 cykli (znamionowa pojemność na etykiecie 5820 mAh)",
+          "DXOMARK Battery: 164 pkt (autonomia 183, ładowanie 149, efektywność 141); 3 dni 11 h użytkowania, tryb umiarkowany (4 h aktywne dziennie) 83 h",
+          "Notebookcheck test Wi-Fi: 22 h 23 min",
+          "gsmManiaK: ok. 6 h SoT przy lżejszym użyciu (subiektywnie)",
+          "etykieta UE: A, 67:47 h na cyklu, 1000 cykli (https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2266111_EN.pdf)"
+        ],
+        "chargingW": 90,
+        "chargingNote": "90 W przewodowo (EPREL: wymagany zasilacz 90 W); w polskiej dystrybucji zasilacza w pudełku nie ma",
+        "chargingTests": "DXOMARK (zasilacz 90 W): 80% w 32 min, 100% w 53 min; gsmManiaK: 50% w 18 min, pełne ok. 45 min; Notebookcheck (zasilacz 100 W innego producenta): pełne ok. 1,5 h",
+        "chargerInBox": false,
+        "chargerInBoxNote": "Empik: w zestawie tylko kabel USB-C; x-kom: ładowarka jako opcja dodatkowa (+200 zł); Notebookcheck: bez zasilacza, kabel USB-C; w pudełku jest etui",
+        "wirelessCharging": true,
+        "wirelessW": 15,
+        "ip": "IP68/IP69",
+        "ipNote": "EPREL: IP68 (zanurzenie 1,5 m); IP69 i MIL-STD-810H wg producenta/Notebookcheck",
+        "weightG": 186,
+        "weightNote": null,
+        "heightMm": 160.69,
+        "widthMm": 73.06,
+        "thicknessMm": 8.24,
+        "dimensionsMm": "160,69 × 73,06 × 8,24",
+        "cameras": {
+          "main": "50 MP f/1.8 (1/1,56″, LYTIA 700C, PDAF) z OIS",
+          "ultrawide": "50 MP f/2.0 (120°) z AF i trybem makro",
+          "macro": null,
+          "selfie": "50 MP f/2.0 (bez AF)",
+          "telephoto": "10 MP f/2.0 (73 mm, PDAF) z OIS, zoom optyczny 3x"
+        },
+        "video": "4K 30 kl./s (z tylnych i przedniego aparatu)",
+        "os": "Android 15",
+        "updatesYears": 4,
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 4,
+        "updatesNote": "Obietnica producenta z premiery: 3 duże aktualizacje Androida i 4 lata poprawek bezpieczeństwa (Notebookcheck, gsmManiaK, Komputronik). W EPREL ten sam producent deklaruje minimum 6 lat aktualizacji bezpieczeństwa (od wprowadzenia na rynek UE 24.05.2025, czyli do ok. 05.2031), co jest sprzeczne z komunikacją z premiery.",
+        "releasedAt": "2025-04",
+        "securitySupportUntil": "2029-04",
+        "supportNote": "Wyliczone: 4 lata od premiery (zapowiedź 24.04.2025); Notebookcheck podaje 'wsparcie do 2029'. EPREL deklaruje minimum 6 lat (do ok. 2031-05) — przyjęto ostrożniejszą wartość z komunikacji producenta.",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E",
+        "bluetooth": "5.4",
+        "fingerprint": "w ekranie (optyczny)",
+        "satelliteSos": null,
+        "polishLaunchPricePln": 2499,
+        "reviewNotes": [
+          "Notebookcheck (82%): ekran 4122 nity zmierzone (APL18), bateria 22 h 23 min w teście Wi-Fi, ale temperatura obudowy do 58 °C i spadek wydajności GPU do ok. 42% w testach stabilności",
+          "gsmManiaK (8,4/10): ekran 9/10, aparat 8/10, bateria 7/10; krytykuje nocne selfie i krótką obietnicę aktualizacji",
+          "Chip.pl: przeciętny zoom 3x, słabe zdjęcia nocne i wideo; szkło przodu podatne na rysy"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 71,
+        "charging": 100,
+        "updates": 50,
+        "storage": 100,
+        "durability": 95,
+        "smoothness": 72,
+        "display": 86,
+        "photoDay": 79,
+        "photoIndoor": 70,
+        "photoMotion": 64,
+        "selfie": 72,
+        "video": 66,
+        "zoom": 72,
+        "compactness": 66,
+        "value": null
+      },
+      "basis": {
+        "battery": "6000 mAh (pojemność 50,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 92,6 (50%) z etykiety UE (klasa A, 67:47 h przy skali 40–70 h, 1000 cykli) → 0,5 × 50,0 + 0,5 × 92,6 = 71 pkt",
+        "charging": "90 W przewodowo + 15 W bezprzewodowo (+8 pkt), bez zasilacza w pudełku — (90 − 15) / 75 × 100 + 8 = 100 pkt",
+        "updates": "3 dużych aktualizacji systemu i 4 lat poprawek bezpieczeństwa: średnia 3,5 → 3,5 / 7 × 100 = 50 pkt",
+        "storage": "512 GB UFS 4.0, brak slotu microSD = 100 pkt",
+        "durability": "IP68/IP69 = 95 pkt wg tabeli klas IP",
+        "smoothness": "MediaTek Dimensity 8350 Extreme (4 nm), 12 GB LPDDR5X i UFS 4.0; Notebookcheck: Geekbench 6 multi-core 4616, AnTuTu v10 1 409 057, 3DMark Wild Life Extreme 3110; ocena obniżona, bo w testach stabilności GPU Notebookcheck zostaje ok. 42% wydajności po 20 przebiegach, a gsmManiaK notuje spadek do ok. 80% w teście CPU po 15 min",
+        "display": "zakrzywiony pOLED 6,67″ 1,5K (1220×2712, 120 Hz, HDR10+, szkło Gorilla Glass 7i); deklarowane 4500 nitów szczytowo, Notebookcheck zmierzył 4122 nity (mały obszar, APL18) i 1099 nitów średnio na całym ekranie, ΔE 1,25 (ColorChecker), 99,3% sRGB; minusy: PWM 716 Hz przy 75% amplitudzie i brak adaptacyjnego LTPO",
+        "photoDay": "główny 50 MP f/1.8 (1/1,56″) z OIS + 50 MP szeroki kąt z AF + tele 10 MP 3x; Notebookcheck (ocena aparatu 81%): zdjęcia dzienne bogate w detale i kontrast, ColorChecker w dzień średnie ΔE 9,77; Chip.pl chwali HDR i rozpiętość tonalną, ale wytyka podkręcone kolory; gsmManiaK: 'nie ma się do czego przyczepić'",
+        "photoIndoor": "opinie rozbieżne: gsmManiaK ocenia zdjęcia nocne z głównego aparatu jako 'nadal bardzo dobre' z kontrolowanym szumem, Komputronik i Orange widzą dobre efekty trybu nocnego, natomiast Chip.pl nazywa słabe światło 'słabym' (szum na jednolitych powierzchniach, prześwietlone punkty świetlne); Notebookcheck: wykres testowy rozpoznawalny przy 1 luksie, ale ΔE koloru w słabym świetle ok. 45,9",
+        "photoMotion": "główna matryca z PDAF i OIS, recenzje rozbieżne co do autofokusu: Komputronik pisze o szybkim AF i rzadko poruszonych zdjęciach, Chip.pl opisuje 'pompujący' autofokus i poruszone ujęcia; brak testów laboratoryjnych śledzenia ruchu",
+        "selfie": "przedni aparat 50 MP f/2.0 bez autofokusu, wideo 4K 30 kl./s; Notebookcheck i Orange: jedne z najlepszych selfie w tej cenie (szczegółowość, naturalna skóra); Chip.pl i gsmManiaK: gorsze krawędzie kadru, zaczerwieniona cera i rozmyte selfie nocne",
+        "video": "maksymalnie 4K 30 kl./s ze wszystkich aparatów (brak 4K 60 kl./s), OIS w głównym i tele; Komputronik chwali płynną stabilizację i jasne nagrania w słabym świetle, Chip.pl ocenia wideo jako przeciętne (szum w ciemnych scenach, skokowa stabilizacja, przesycone kolory); Notebookcheck: jakość wideo dobra",
+        "zoom": "dedykowany teleobiektyw 10 MP f/2.0 (73 mm) z OIS i PDAF, zoom optyczny 3x; Orange: bardzo ostry i szczegółowy przy 3x, lekko wygładzony 5x-10x; Notebookcheck: dobry w dzień, cyfrowy zoom do 50x rozmyty; Chip.pl: 3x przeciętny, brakuje detali i potrzeba dużo światła",
+        "compactness": "186 g, wymiary 160,69 × 73,06 × 8,24 mm — wzór poręczności: lekkość 70, mała powierzchnia 66, smukłość 42 → 66 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.empik.com/motorola-edge-60-pro-12-512gb-nfc-dualsim-shadow-green-inny-producent,p1628959774,elektronika-p",
+        "https://www.x-kom.pl/p/1330169-smartfon-telefon-motorola-edge-60-pro-5g-12-512gb-shadow-120hz.html",
+        "https://www.x-kom.pl/szukaj?q=motorola%20edge%2060%20pro",
+        "https://mediamarkt.pl/pl/product/_smartfon-motorola-pb7x0010pl-5g-12-gb512-gb-niebieski-158079984.html",
+        "https://mobile-city.pl/product-pol-38927-Motorola-Edge-60-Pro-5G-12-512GB-Szarozielony-Shadow.html",
+        "https://www.ceneo.pl/;szukaj-motorola+edge+60+pro+12%2F512",
+        "https://www.ceneo.pl/182960696",
+        "https://www.telepolis.pl/tech/motorola-edge-60-pro-i-edge-60-ceny-w-polsce",
+        "https://www.telepolis.pl/telefony/motorola/edge-60-pro",
+        "https://www.gsmmaniak.pl/1606683/motorola-edge-60-pro-za-mniej-niz-1900-zlotych/",
+        "https://www.gsmmaniak.pl/1574016/motorola-edge-60-pro-test-recenzja-opinia/",
+        "https://www.gsmmaniak.pl/?p=1655573",
+        "https://www.notebookcheck.net/Lightweight-curved-smartphone-with-great-endurance-and-a-strong-price-performance-ratio-Motorola-Edge-60-Pro-review.1051238.0.html",
+        "https://www.notebookcheck.net/Verdict-on-the-Motorola-Edge-60-Pro-Solid-mid-range-smartphone-with-few-weaknesses.1052895.0.html",
+        "https://www.notebookcheck.net/EU-energy-label-Here-are-the-best-and-worst-performing-tablets-and-smartphones.1042436.0.html",
+        "https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2266111_EN.pdf",
+        "https://eprel.ec.europa.eu/api/products/smartphonestablets20231669/2266111",
+        "https://www.dxomark.com/smartphones/Motorola/Edge-60-Pro",
+        "https://www.dxomark.com/motorola-edge-60-pro-battery-test/",
+        "https://www.chip.pl/2025/06/recenzja-motorola-edge-60-pro-opinia",
+        "https://nano.komputronik.pl/n/motorola-edge-60-pro-recenzja/",
+        "https://www.orange.pl/poradnik/recenzja-motorola-edge-60-pro/",
+        "https://fdn2.gsmarena.com/vv/bigpic/motorola-edge-60-pro.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-edge-60-pro-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     },
     {
       "id": "motorola-razr-60-8-256",
       "brand": "Motorola",
       "modelName": "Razr 60 8/256 GB",
-      "status": "unverified",
+      "status": "over_budget",
       "reveal": {
         "name": "Motorola Razr 60 8/256 GB",
         "brand": "Motorola",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/motorola-razr-60.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-razr-60-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-motorola+razr+60+8%2F256",
-            "pricePln": 2700,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#22): ~2 700 zł (szacunek, cena niezweryfikowana)"
+            "label": "empik.com",
+            "url": "https://www.empik.com/motorola-razr-60-5g-8-256gb-niebieski-motorola,p1706330114,elektronika-p",
+            "pricePln": 2399,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "niebieski, sprzedaje Empik, nowy, oficjalna dystrybucja; w zestawie kabel USB-C, etui, bez ładowarki"
+          },
+          {
+            "label": "orange.pl",
+            "url": "https://www.orange.pl/esklep/smartfony/motorola/motorola-razr-60-5g-8-256gb",
+            "pricePln": 1599,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "granatowy, bez abonamentu, obniżka z 1999 zł; STATUS: 'produkt tymczasowo niedostępny' — niedostępny do zakupu w chwili sprawdzenia"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-motorola+razr+60+8%2F256"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/183132080",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "Razr 60 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2399,
+        "source": "empik.com",
+        "url": "https://www.empik.com/motorola-razr-60-5g-8-256gb-niebieski-motorola,p1706330114,elektronika-p",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "niebieski (Gibraltar Sea), 8/256 GB, sprzedaje Empik, nowy, oficjalna dystrybucja; w zestawie kabel i etui, bez ładowarki",
+        "auditNote": "Strona Empik otwarta 2026-11-18: 2399,00 zł, 'Sprzedaje firma Empik', nowy, oficjalna dystrybucja, wysyłka ok. 1 dnia, dostawa za darmo; trzech innych sprzedawców na Empik, najtańszy 2308,98 zł (Marketplace, nie otwarto). Orange (otwarta karta): 1599 zł (z 1999 zł) ale 'produkt tymczasowo niedostępny' — nie do kupienia, więc nie przyjęto jako ceny głównej. Ceneo (183132080, granatowy): Orange 1999 (nieaktualne wobec karty Orange), Rozetka.pl 2162, abfoto.pl 2245, Allegro 2313,33, Amazon.pl 2978,21 — strony tych sklepów nie otwarto. Najtańsza dostępna nowa oferta zweryfikowana bezpośrednio: Empik 2399 zł.",
+        "otherObservations": [
+          {
+            "pln": 2308.98,
+            "source": "empik.com (sprzedawca Marketplace)",
+            "url": "https://www.empik.com/motorola-razr-60-5g-8-256gb-niebieski-motorola,p1706330114,elektronika-p",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "najtańsza oferta zewnętrznego sprzedawcy na karcie Empik (wg strony), sprzedawcy nie ustalono"
+          },
+          {
+            "pln": 2162,
+            "source": "rozetka.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/183132080",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "granatowy Gibraltar Sea wg listy Ceneo, strony sklepu nie otwarto (serwer blokuje automatyczne zapytania)"
+          },
+          {
+            "pln": 2245,
+            "source": "abfoto.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/183132080",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wg listy Ceneo, strony sklepu nie otwarto"
+          },
+          {
+            "pln": 2313.33,
+            "source": "allegro.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/183132080",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wg listy Ceneo, oferty nie otwarto"
+          },
+          {
+            "pln": 1999,
+            "source": "mediaexpert.pl (kod rabatowy, wygasła)",
+            "url": "https://www.tabletowo.pl/?p=1049087",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "promocja z kodem do 21.05.2026 (Tabletowo, android.com.pl) — wygasła, cena warunkowa, nie ma zastosowania"
+          }
+        ],
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.9,
+        "panel": "pOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2640",
+        "peakNits": 3000,
+        "glass": "Gorilla Glass Victus (wg Notebookcheck)",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 2.2",
+        "microSd": false,
+        "microSdNote": "Empik: brak slotu microSD",
+        "chip": "MediaTek Dimensity 7400X (4 nm)",
+        "batteryMah": 4500,
+        "batteryCycles": 1000,
+        "batteryEndurance": 17.1,
+        "batteryTests": [
+          "EPREL (etykieta UE, XT2553-1): klasa A, 45:08 h szacowanej wytrzymałości na cykl, 1000 cykli (znamionowa pojemność na etykiecie 4274 mAh, bateria niewymienna)",
+          "Notebookcheck test Wi-Fi: 13 h 34 min (recenzent: inne składaki działają znacznie dłużej)",
+          "etykieta UE: A, 45:08 h na cyklu, 1000 cykli (https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2270815_EN.pdf)"
+        ],
+        "chargingW": 30,
+        "chargingNote": "30 W przewodowo (EPREL: wymagany zasilacz 30 W); w Polsce zasilacza w pudełku nie ma",
+        "chargingTests": null,
+        "chargerInBox": false,
+        "chargerInBoxNote": "Empik i Orange: w zestawie telefon, kabel USB-C, etui, instrukcja; ładowarki brak",
+        "wirelessCharging": true,
+        "wirelessW": 15,
+        "ip": "IP48",
+        "ipNote": "IP48 wg EPREL i producenta (zanurzenie do 1,5 m, ale bez pełnej ochrony przed pyłem; cyfra 4 = obiekty >1 mm). Dotyczy złożonego telefonu.",
+        "weightG": 188,
+        "weightNote": "188 g (Notebookcheck, Orange, Empik, Tabletowo); waga całego urządzenia, bez rozróżnienia złożony/rozłożony",
+        "heightMm": 88.1,
+        "widthMm": 73.99,
+        "thicknessMm": 15.85,
+        "dimensionsMm": "88,1 × 73,99 × 15,85",
+        "cameras": {
+          "main": "50 MP f/1.7 z OIS (PDAF)",
+          "ultrawide": "13 MP f/2.2 (z trybem makro)",
+          "macro": null,
+          "selfie": "32 MP f/2.4 (wewnętrzny, po rozłożeniu)",
+          "telephoto": null
+        },
+        "video": "4K 30 kl./s (główny i selfie)",
+        "os": "Android 15",
+        "updatesYears": 4,
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 4,
+        "updatesNote": "Notebookcheck: aktualizacje do czerwca 2029 (4 lata); Orange: 3 aktualizacje systemu i 4 lata poprawek. W EPREL producent deklaruje minimum 6 lat poprawek bezpieczeństwa (od 23.05.2025, do ok. 05.2031) — sprzeczne z komunikacją z premiery.",
+        "releasedAt": "2025-04",
+        "securitySupportUntil": "2029-06",
+        "supportNote": "Notebookcheck: 'update promise until June 2029 (four years)'. EPREL deklaruje minimum 6 lat (ok. 2031-05) — przyjęto ostrożniejszą wartość z komunikacji producenta/Notebookcheck.",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E",
+        "bluetooth": "5.4",
+        "fingerprint": "w przycisku zasilania",
+        "satelliteSos": null,
+        "polishLaunchPricePln": 3299,
+        "reviewNotes": [
+          "Notebookcheck (78%): składak 'dla fanów designu i oszczędnych', niewiele zmian względem poprzednika, przeciętna jakość aparatu, umiarkowany czas pracy (13:34 h w teście Wi-Fi), tylko USB 2.0, PWM o wysokiej częstotliwości",
+          "Tabletowo (30.04.2026): cena ok. 1999 zł w promocji, premierowa 3299 zł"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 15,
+        "charging": 28,
+        "updates": 50,
+        "storage": 75,
+        "durability": 50,
+        "smoothness": 54,
+        "display": 76,
+        "photoDay": 64,
+        "photoIndoor": 62,
+        "photoMotion": 50,
+        "selfie": 60,
+        "video": 50,
+        "zoom": 50,
+        "compactness": 75,
+        "value": null
+      },
+      "basis": {
+        "battery": "4500 mAh (pojemność 12,5 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 17,1 (50%) z etykiety UE (klasa A, 45:08 h przy skali 40–70 h, 1000 cykli) → 0,5 × 12,5 + 0,5 × 17,1 = 15 pkt",
+        "charging": "30 W przewodowo + 15 W bezprzewodowo (+8 pkt), bez zasilacza w pudełku — (30 − 15) / 75 × 100 + 8 = 28 pkt",
+        "updates": "3 dużych aktualizacji systemu i 4 lat poprawek bezpieczeństwa: średnia 3,5 → 3,5 / 7 × 100 = 50 pkt",
+        "storage": "256 GB UFS 2.2, brak slotu microSD = 75 pkt",
+        "durability": "IP48 = null pkt wg tabeli klas IP",
+        "smoothness": "MediaTek Dimensity 7400X (4 nm) z 8 GB RAM i pamięcią UFS 2.2; Notebookcheck: Geekbench 6 single 1087 / multi-core 3081, 3DMark Wild Life Extreme 958, stabilność 99,1-99,6% (praktycznie brak throttlingu, max 45,1 °C) — poprawna płynność na co dzień, ale skromny zapas mocy i wolniejsza pamięć niż UFS 3.1",
+        "display": "wewnętrzny składany pOLED 6,9″ 1080×2640 (413 ppi, HDR10) deklarowane 3000 nitów szczytowo, w pomiarach Notebookcheck maks. 1205 nitów (średnio 1178), ΔE 1,31 i 99,6% sRGB, ocena ekranu 91%; Notebookcheck podaje odświeżanie 60-90 Hz (próbkowanie dotyku 120 Hz), sklepy i producent 120 Hz; PWM 764 Hz przy 74% amplitudzie; ekran zewnętrzny 3,6″ 1066×1056 do 90 Hz i 1700 nitów (deklaracja)",
+        "photoDay": "główny 50 MP f/1.7 z OIS + 13 MP szeroki kąt; Notebookcheck (ocena aparatu 70%): jakość głównego aparatu 'nie dorównuje typowym topowym telefonom', zdjęcia użyteczne, ale ziarniste z postrzępionymi krawędziami; szeroki kąt 'zbyt zgrubny w detalach'",
+        "photoIndoor": "Notebookcheck: w bardzo słabym świetle i przy dużym kontraście możliwe są 'przyzwoite' zdjęcia z głównego aparatu z OIS, ale ogólna jakość określona jako przeciętna; brak szerszych testów porównawczych nocnych",
+        "photoMotion": "brak niezależnego testu autofokusu ani zdjęć ruchomych obiektów (Notebookcheck podaje tylko, że główny aparat ma PDAF i OIS); ocena neutralna z braku danych",
+        "selfie": "wewnętrzny aparat 32 MP f/2.4 (po rozłożeniu); Notebookcheck: selfie 'poprawne, ale zbyt ciemne w mrocznych partiach' i 4K 30 kl./s",
+        "video": "maksymalnie 4K 30 kl./s (główny i selfie); Notebookcheck podaje tylko dane techniczne bez oceny jakości nagrań, brak innych niezależnych testów wideo; ocena neutralna z braku danych",
+        "zoom": "układ 50 MP + 13 MP, brak teleobiektywu; żaden z użytych niezależnych testów nie ocenia jakości przybliżenia, więc ocena neutralna z braku danych",
+        "compactness": "188 g, wymiary 88,1 × 73,99 × 15,85 mm — wzór poręczności: lekkość 67, mała powierzchnia 100, smukłość 0 → 75 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.empik.com/motorola-razr-60-5g-8-256gb-niebieski-motorola,p1706330114,elektronika-p",
+        "https://www.empik.com/szukaj/produkt?q=motorola+razr+60+8%2F256",
+        "https://www.orange.pl/esklep/smartfony/motorola/motorola-razr-60-5g-8-256gb",
+        "https://www.orange.pl/esklep/smartfony/motorola/motorola-razr-60-5g-8-256gb---outlet?market=B2B",
+        "https://mediamarkt.pl/pl/product/_smartfon-motorola-razr-60-5g-8-gb256-gb-szary-158079228.html",
+        "https://www.ceneo.pl/;szukaj-motorola+razr+60+8%2F256",
+        "https://www.ceneo.pl/183132080",
+        "https://www.tabletowo.pl/?p=1049087",
+        "https://android.com.pl/tech/1043707-motorola-razr-60-z-obnizona-cena/",
+        "https://www.notebookcheck.net/Flip-phone-for-design-fans-and-savers-Motorola-Razr-60-smartphone-review.1036857.0.html",
+        "https://www.notebookcheck.net/Motorola-Razr-60.1062559.0.html",
+        "https://www.notebookcheck.net/EU-energy-label-Here-are-the-best-and-worst-performing-tablets-and-smartphones.1042436.0.html",
+        "https://eprel.ec.europa.eu/api/products/smartphonestablets20231669/2270815",
+        "https://www.neoteo.com/en/motorola/razr-60-8-gb/256-gb/global",
+        "https://www.orange.pl/poradnik/?p=18436",
+        "https://fdn2.gsmarena.com/vv/bigpic/motorola-razr-60.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-razr-60-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "low",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "low",
+        "selfie": "medium",
+        "video": "low",
+        "zoom": "low",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": [
+        "durability",
+        "photoMotion",
+        "video",
+        "zoom"
+      ]
     },
     {
       "id": "motorola-razr-70-8-256",
       "brand": "Motorola",
       "modelName": "Razr 70 8/256 GB",
-      "status": "needs_confirmation",
+      "status": "over_budget",
       "reveal": {
         "name": "Motorola Razr 70 8/256 GB",
         "brand": "Motorola",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/motorola-razr-2026.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-razr-2026-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-motorola+razr+70",
-            "pricePln": 2799,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#23): ~2 799 zł (szacunek, świeża premiera — dostępność i cena w PL do sprawdzenia)"
+            "label": "orange.pl",
+            "url": "https://www.orange.pl/esklep/smartfony/motorola/motorola-razr-70-5g-8-256gb",
+            "pricePln": 2699,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "zielony (wybrany), szary i biały dostępne jako warianty; bez abonamentu, obniżka z 2939 zł; w zestawie kabel, etui, instrukcja; 24 mies. gwarancji"
+          },
+          {
+            "label": "empik.com (sprzedawca Marketplace 4PPL)",
+            "url": "https://www.empik.com/motorola-moto-razr-70-5g-8-256ggb-szary-motorola,p1750387407,elektronika-p",
+            "pricePln": 2901,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "szary, nowy zaplombowany, wysyłka ok. 1 dnia, dostawa od 9,99 zł"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-motorola+razr+70"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/196107959",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "Razr 70 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2699,
+        "source": "orange.pl",
+        "url": "https://www.orange.pl/esklep/smartfony/motorola/motorola-razr-70-5g-8-256gb",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "wersja zielona (wybrana na karcie; dostępne też szara i biała), 8/256 GB, bez abonamentu; w zestawie kabel USB-C i etui, bez ładowarki",
+        "auditNote": "Karta Orange (sklep bez abonamentu) otwarta 2026-11-18: 2699,00 zł, wcześniej 2939,00 zł; raty 0% 35 × 74,98 zł; brak warunków (kod, cashback) na karcie, status dostępności nie jest podany. Empik (karta otwarta): 2901,00 zł, sprzedawca Marketplace 4PPL, nowy zaplombowany, szary. Ceneo (szary, 13 ofert): Rozetka.pl 2559, Allegro 2752,38, abfoto.pl 2775, e-smartphone.pl 2779 — strony tych sklepów nie otwarto. Premierowo (maj 2026): Media Expert 3399, RTV Euro AGD i OleOle 3079, Orange 3399 (gsmManiaK 25.05.2026).",
+        "otherObservations": [
+          {
+            "pln": 2559,
+            "source": "rozetka.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/196107959",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "szary (Hematite Stone Grey), najniższa cena na liście Ceneo; strony sklepu nie otwarto (serwer blokuje automatyczne zapytania), więc nie przyjęto jako ceny głównej"
+          },
+          {
+            "pln": 2752.38,
+            "source": "allegro.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/196107959",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "szary Hematite, wg listy Ceneo, oferty nie otwarto"
+          },
+          {
+            "pln": 3079,
+            "source": "euro.com.pl, oleole.pl (wg Ceneo)",
+            "url": "https://www.ceneo.pl/196107959",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "szary, wg listy Ceneo, stron nie otwarto (euro.com.pl zwraca 403)"
+          },
+          {
+            "pln": 3045,
+            "source": "empik.com",
+            "url": "https://www.empik.com/szukaj/produkt?q=motorola+razr+70+8%2F256",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "XT2657-1 biały i zielony, wg wyników wyszukiwania, kart nie otwarto"
+          }
+        ],
+        "regularPricePln": 2939,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.9,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1080x2640",
+        "peakNits": 3000,
+        "glass": "Gorilla Glass Victus (ekran zewnętrzny wg Komputronik; Notebookcheck podaje Victus dla ekranu wewnętrznego)",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": null,
+        "microSdNote": "źródła nie wspominają o slocie kart pamięci",
+        "chip": "MediaTek Dimensity 7450X",
+        "batteryMah": 4800,
+        "batteryCycles": 1200,
+        "batteryEndurance": 65.4,
+        "batteryTests": [
+          "EPREL (etykieta UE, XT2657-1): klasa A, 59:37 h szacowanej wytrzymałości na cykl, 1200 cykli (znamionowa pojemność na etykiecie 4610 mAh, bateria oznaczona jako wymienna przez użytkownika)",
+          "Notebookcheck: test Wi-Fi 14 h 19 min; tryb jałowy (minimalna jasność, bez WLAN) 26 h 27 min; obciążenie (maks. jasność) 4 h 17 min",
+          "Tabletowo: ok. 48 h przy lekkim użytkowaniu (subiektywnie)",
+          "etykieta UE: A, 59:37 h na cyklu, 1200 cykli (https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2606359_EN.pdf)"
+        ],
+        "chargingW": 30,
+        "chargingNote": "30 W przewodowo (EPREL: wymagany zasilacz 30 W), bez zasilacza w pudełku; Tabletowo krytykuje wolne ładowanie jak na tę pojemność",
+        "chargingTests": "Tabletowo: ok. 15-20 min do 50%",
+        "chargerInBox": false,
+        "chargerInBoxNote": "Orange: telefon, kabel USB-C, etui, instrukcja, bez ładowarki; Tabletowo: w pudełku etui i kabel",
+        "wirelessCharging": true,
+        "wirelessW": 15,
+        "ip": "IP48",
+        "ipNote": "IP48 wg EPREL (zanurzenie do 1,5 m) i Tabletowo; cyfra 4 = ochrona tylko przed obiektami >1 mm, bez pyłoszczelności; Notebookcheck zaznacza, że telefon 'nie jest wodoszczelny'. Dotyczy złożonego telefonu.",
+        "weightG": 188,
+        "weightNote": "188 g (Notebookcheck, Tabletowo, Orange); waga całego urządzenia",
+        "heightMm": 88,
+        "widthMm": 74,
+        "thicknessMm": 15.85,
+        "dimensionsMm": "88 × 74 × 15,85",
+        "cameras": {
+          "main": "50 MP f/1.7 z OIS (PDAF)",
+          "ultrawide": "50 MP f/2.0 (122°)",
+          "macro": null,
+          "selfie": "32 MP f/2.4 (wewnętrzny, po rozłożeniu)",
+          "telephoto": null
+        },
+        "video": "4K 30 kl./s (główny i selfie), 1080p do 120 kl./s w zwolnionym tempie",
+        "os": "Android 16",
+        "updatesYears": 4,
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 4,
+        "updatesNote": "Notebookcheck: 3 duże aktualizacje Androida i 4 lata aktualizacji (podobnie BGR: strona wsparcia producenta podaje 4 lata poprawek). Rozbieżności: heise i Tabletowo podają 5 lat poprawek, a w EPREL ten sam producent deklaruje minimum 6 lat (od 31.03.2026, do ok. 03.2032).",
+        "releasedAt": "2026-04",
+        "securitySupportUntil": "2030-04",
+        "supportNote": "Wyliczone: 4 lata od premiery (EPREL: wprowadzony na rynek UE 31.03/01.04.2026; sprzedaż w PL od 19.05.2026). Przyjęto najostrożniejszą wartość z komunikacji producenta (Notebookcheck/BGR); heise/Tabletowo (5 lat) i EPREL (min. 6 lat) dają odpowiednio 2031-04 i ok. 2032-03.",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E",
+        "bluetooth": "5.4",
+        "fingerprint": "w przycisku zasilania",
+        "satelliteSos": null,
+        "polishLaunchPricePln": 3399,
+        "reviewNotes": [
+          "Notebookcheck (78%): ekran 92%, bateria 90%, aparat 70%; PWM tylko 67 Hz przy 14% amplitudzie; telefon 'nie jest wodoszczelny'",
+          "Tabletowo (7,5/10): bezpieczny następca poprzednika, adekwatna jakość główna, rozczarowujący szeroki kąt, wolne ładowanie 30 W, cena 3399 zł (o 100 zł więcej niż poprzednik)"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 43,
+        "charging": 28,
+        "updates": 50,
+        "storage": 75,
+        "durability": 50,
+        "smoothness": 58,
+        "display": 79,
+        "photoDay": 66,
+        "photoIndoor": 66,
+        "photoMotion": 50,
+        "selfie": 60,
+        "video": 50,
+        "zoom": 40,
+        "compactness": 75,
+        "value": null
+      },
+      "basis": {
+        "battery": "4800 mAh (pojemność 20,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 65,4 (50%) z etykiety UE (klasa A, 59:37 h przy skali 40–70 h, 1200 cykli) → 0,5 × 20,0 + 0,5 × 65,4 = 43 pkt",
+        "charging": "30 W przewodowo + 15 W bezprzewodowo (+8 pkt), bez zasilacza w pudełku — (30 − 15) / 75 × 100 + 8 = 28 pkt",
+        "updates": "3 dużych aktualizacji systemu i 4 lat poprawek bezpieczeństwa: średnia 3,5 → 3,5 / 7 × 100 = 50 pkt",
+        "storage": "256 GB UFS 3.1 = 75 pkt",
+        "durability": "IP48 = null pkt wg tabeli klas IP",
+        "smoothness": "MediaTek Dimensity 7450X z 8 GB LPDDR5X i pamięcią UFS 3.1; Notebookcheck: Geekbench 6 single 1108 / multi-core 3343, 3DMark Wild Life Extreme 961, stabilność 99-99,6% (brak throttlingu, max 43,7 °C), odczyt sekwencyjny 1689 MB/s; Tabletowo: wyniki zbliżone do telefonu ze Snapdragonem 7s Gen 3, gry płynne na średnich ustawieniach — poziom średniej półki",
+        "display": "wewnętrzny składany AMOLED 6,9″ 1080×2640 120 Hz, deklarowane 3000 nitów; Notebookcheck zmierzył maks. 1347 nitów (średnio 1318), ΔE 1,2, 99,6% sRGB, ocena ekranu 92%; minus: PWM tylko 67 Hz przy 14% amplitudzie; ekran zewnętrzny 3,63″ 1056×1066, do 90 Hz i 1700 nitów deklarowanych, 1154 nity zmierzone",
+        "photoDay": "główny 50 MP f/1.7 z OIS + 50 MP szeroki kąt; Notebookcheck (ocena aparatu 70%): zdjęcia poprawne, ale 'nie dorównują zwykłym topowym telefonom', na planszy testowej średnie ΔE 11,23, szeroki kąt miękki w detalach; Tabletowo: adekwatne zdjęcia w dobrym świetle z naturalnymi kolorami, rozczarowujący szeroki kąt 50 MP",
+        "photoIndoor": "Tabletowo: tryb nocny radzi sobie dobrze; Notebookcheck zamieszcza tylko porównanie zdjęć w słabym świetle bez słownej oceny; główna matryca z OIS, ale ogólna jakość określona jako średnia klasa",
+        "photoMotion": "brak niezależnego testu autofokusu i zdjęć ruchomych obiektów (Tabletowo wspomina tylko niespójne rozmycie tła w portretach, Notebookcheck podaje PDAF i OIS bez oceny); ocena neutralna z braku danych",
+        "selfie": "wewnętrzny aparat 32 MP f/2.4, 4K 30 kl./s; Notebookcheck: selfie 'mogłyby mieć większą rozpiętość tonalną i kontrast'; możliwość selfie głównym aparatem z podglądem na ekranie zewnętrznym jest doceniona; Tabletowo bez szczegółowej oceny",
+        "video": "maksymalnie 4K 30 kl./s (główny i selfie), 1080p 120 kl./s; Notebookcheck i Tabletowo podają tylko parametry bez rzetelnej oceny jakości i stabilizacji nagrań; ocena neutralna z braku danych",
+        "zoom": "układ 50 MP + 50 MP, brak teleobiektywu; Tabletowo: jakość przybliżenia wyraźnie spada już przy 4x i zaleca się korzystanie z 1-2x",
+        "compactness": "188 g, wymiary 88 × 74 × 15,85 mm — wzór poręczności: lekkość 67, mała powierzchnia 100, smukłość 0 → 75 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.orange.pl/esklep/smartfony/motorola/motorola-razr-70-5g-8-256gb",
+        "https://www.empik.com/szukaj/produkt?q=motorola+razr+70+8%2F256",
+        "https://www.empik.com/motorola-moto-razr-70-5g-8-256ggb-szary-motorola,p1750387407,elektronika-p",
+        "https://www.ceneo.pl/;szukaj-motorola+razr+70+8%2F256",
+        "https://www.ceneo.pl/196107959",
+        "https://www.gsmmaniak.pl/1660782/motorola-razr-70-oferty/",
+        "https://www.telepolis.pl/tech/sprzet/motorola-razr-70-razr-70-plus-razr-70-ultra-premiera-specyfikacja-cena",
+        "https://www.komputronik.pl/informacje/aktualnosci/kolejne-nowe-skladaki-od-motoroli-kiedy-premiera-motorola-razr-70-razr-70-plus-i-razr-70-ultra-w-polsce/",
+        "https://www.tabletowo.pl/?p=1056103",
+        "https://www.notebookcheck.net/This-foldable-attracts-everyone-s-attention-Test-Motorola-Razr-2026-Razr-70-smartphone.1308599.0.html",
+        "https://heise.de/-11276245",
+        "https://www.bgr.com/2242507/2026-motorola-phones-software-updates/",
+        "https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2606359_EN.pdf",
+        "https://eprel.ec.europa.eu/api/products/smartphonestablets20231669/2606359",
+        "https://fdn2.gsmarena.com/vv/bigpic/motorola-razr-2026.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/motorola/motorola-razr-2026-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "low",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "medium",
+        "photoMotion": "low",
+        "selfie": "medium",
+        "video": "low",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": [
+        "durability",
+        "photoMotion",
+        "video"
+      ]
     },
     {
       "id": "nothing-phone-3-12-256",
       "brand": "Nothing",
       "modelName": "Phone (3) 12/256 GB",
-      "status": "needs_confirmation",
+      "status": "over_budget",
       "reveal": {
         "name": "Nothing Phone (3) 12/256 GB",
         "brand": "Nothing",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/nothing-phone-3.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/nothing/nothing-phone3-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-nothing+phone+3+12%2F256",
+            "label": "mediamarkt.pl (TecnoFlow PL)",
+            "url": "https://mediamarkt.pl/pl/product/_smartphone-nothing-phone-3-5g-12-gb-256-gb-czarny-159466348.html",
+            "pricePln": 2259,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "czarny 12/256 GB, nowy, sprzedawca TecnoFlow PL, dostawa 24-27.11.2026"
+          },
+          {
+            "label": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1339126-smartfon-telefon-nothing-phone-3-5g-12-256gb-black-120hz.html",
             "pricePln": 2799,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#28): ~2 799 zł (szacunek, cena w PL do sprawdzenia)"
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "czarny 12/256 GB, w magazynie, dostawa następnego dnia, gwarancja 24 mies., w zestawie kabel USB-C i etui"
+          },
+          {
+            "label": "pl.nothing.tech",
+            "url": "https://pl.nothing.tech/products/phone-3",
+            "pricePln": 3649,
+            "checkedAt": "2026-11-18",
+            "kind": "official",
+            "note": "cena katalogowa sklepu producenta (jedna cena na stronie, bez rozróżnienia 12/256 i 16/512; zgodna z polską ceną premierową 12/256 wg Benchmark/GSMOnline)"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-nothing+phone+3+12%2F256"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/185595572",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "Phone (3) 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2259,
+        "source": "mediamarkt.pl (TecnoFlow PL)",
+        "url": "https://mediamarkt.pl/pl/product/_smartphone-nothing-phone-3-5g-12-gb-256-gb-czarny-159466348.html",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "czarny, 12/256 GB, nowy, oferta marketplace MediaMarkt (sprzedawca TecnoFlow PL), dostawa 24-27.11.2026",
+        "auditNote": "Najniższa otwarta oferta nowego egzemplarza: MediaMarkt (sprzedaje i wysyła TecnoFlow PL) 2259 zł, -24% od najniższej ceny z 30 dni 2999 zł, dostawa 24-27.11.2026 - jest to marketplace, nie sklep własny MediaMarkt. Sklep detaliczny w magazynie: x-kom 2799 zł (czarny, dostawa jutro, gwarancja 24 mies.). Ceneo (185595572, czarny, 13 ofert): Allegro 2267,42 zł (promocja Black Weeks), Rozetka 2499 zł, 2799 zł w x-kom, electro.pl, Media Expert, Avans, Neonet, Komputronik, proshop.pl 3799 zł - stan towaru na Ceneo niepodany, nie otwarto stron tych sklepów poza x-kom. Cena premierowa w Polsce 3649 zł. Pominięto: ofertę odnowioną CarbonPhone PL 2227,03 zł (nie nowy) oraz wpis Pepper/AliExpress (niespójna cena, zagraniczny sprzedawca).",
+        "otherObservations": [
+          {
+            "pln": 2267.42,
+            "source": "allegro.pl (przez Ceneo)",
+            "url": "https://www.ceneo.pl/185595572",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "czarny 12/256 GB, Black Weeks, dostawa od 10,49 zł; stan nie podany, strony oferty nie otwarto"
+          },
+          {
+            "pln": 2799,
+            "source": "ceneo.pl (electro.pl, Media Expert, Avans, Neonet, Komputronik)",
+            "url": "https://www.ceneo.pl/185595572",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "te same 2799 zł co x-kom; nie otwarto stron sklepów"
+          },
+          {
+            "pln": 2227.03,
+            "source": "mediamarkt.pl (CarbonPhone PL)",
+            "url": "https://mediamarkt.pl/pl/product/_smartphone-nothing-phone-3-5g-12-gb-256-gb-czarny-159466348.html",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "ODNOWIONY, marketplace - nie spełnia kryterium nowego"
+          },
+          {
+            "pln": 2775,
+            "source": "ceneo.pl",
+            "url": "https://www.ceneo.pl/185595589",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wersja biała 12/256 GB, najniższa cena na Ceneo (5 sklepów)"
+          }
+        ],
+        "regularPricePln": 2999,
+        "promoEndsAt": null,
+        "promoCondition": "obniżka -24% wg MediaMarkt względem najniższej ceny z 30 dni (2999 zł); brak kodu rabatowego, termin końca nieznany (Black Week)"
+      },
+      "specs": {
+        "displayInch": 6.67,
+        "panel": "LTPS AMOLED",
+        "refreshHz": 120,
+        "resolution": "1260x2800",
+        "peakNits": 4500,
+        "glass": "Corning Gorilla Glass 7i (przód), Gorilla Glass Victus (tył)",
+        "ramGb": 12,
+        "storageGb": 256,
+        "storageType": null,
+        "microSd": null,
+        "microSdNote": "Notebookcheck i x-kom nie wymieniają slotu kart pamięci; nie potwierdzono",
+        "chip": "Qualcomm Snapdragon 8s Gen 4",
+        "batteryMah": 5150,
+        "batteryCycles": 1400,
+        "batteryEndurance": 53.3,
+        "batteryTests": [
+          "EPREL (etykieta UE): klasa A, 56 h wytrzymałości na cykl, 1400 cykli, pojemność znamionowa 5150 mAh",
+          "Notebookcheck: test Wi-Fi v1.3 18:23 h (18,4 h)",
+          "Telepolis: 1014 min w teście redakcji",
+          "GSMOnline: odtwarzanie YouTube przy 50% jasności - po ponad 12 h bateria na poziomie połowy",
+          "etykieta UE: A, 56:00 h na cyklu, 1400 cykli (https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2359678_EN.pdf)"
+        ],
+        "chargingW": 65,
+        "chargingNote": "65 W przewodowo (EPREL, Notebookcheck); Telepolis: w praktyce rzadko pełna moc, realnie ok. 30-45 W",
+        "chargingTests": "Notebookcheck (ładowarka 65 W): 80% w 34 min, 100% w 55 min (producent: 54 min)",
+        "chargerInBox": false,
+        "chargerInBoxNote": "w pudełku kabel USB-C, etui i dokumentacja, bez zasilacza (x-kom, Notebookcheck)",
+        "wirelessCharging": true,
+        "wirelessW": 15,
+        "ip": "IP68",
+        "ipNote": "zanurzenie do 1,5 m (EPREL)",
+        "weightG": 218,
+        "heightMm": 160.6,
+        "widthMm": 75.6,
+        "thicknessMm": 9,
+        "dimensionsMm": "160,6 × 75,6 × 9,0",
+        "cameras": {
+          "main": "50 MP f/1.68 (1/1,3″) z OIS",
+          "ultrawide": "50 MP f/2.2 (114°)",
+          "macro": null,
+          "selfie": "50 MP f/2.2 (1/2,76″)",
+          "telephoto": "50 MP f/2.68 (1/2,75″) peryskopowy z OIS, zoom optyczny 3x, tryb makro"
+        },
+        "video": "4K 60 kl./s (ze wszystkich aparatów)",
+        "os": "Android 15, Nothing OS 3.5",
+        "updatesYears": 7,
+        "updatesOsGenerations": 5,
+        "updatesSecurityYears": 7,
+        "updatesNote": "5 lat dużych aktualizacji Androida i 7 lat poprawek bezpieczeństwa wg Notebookcheck oraz deklaracji współzałożyciela producenta (Android Central: 'Phone (3) will have 5 & 7'; nie jest to oficjalna strona wsparcia). EPREL (poz. 19) podaje minimum gwarantowane 6 lat aktualizacji systemu i zabezpieczeń. Telefon dostał już aktualizację do Androida 17 (GSMManiak 13.10.2026).",
+        "releasedAt": "2025-07",
+        "securitySupportUntil": "2032-07",
+        "supportNote": "Wyliczone: 7 lat poprawek od premiery w lipcu 2025 (EPREL: wprowadzony na rynek UE 02.07.2025); Notebookcheck podaje wsparcie do 2032 r.",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 7",
+        "bluetooth": "6.0",
+        "fingerprint": "optyczny, w ekranie",
+        "satelliteSos": null,
+        "polishLaunchPricePln": 3649,
+        "reviewNotes": [
+          "Notebookcheck 85%: wydajny, jasny ekran 120 Hz, dobry zestaw aparatów, IP68; wady: bez LTPO, silne nagrzewanie i dławienie, bez Qi2",
+          "Telepolis 5/10: nagrzewanie do 52 C, artefakty szachownicy na zdjęciach z tele, wolne przetwarzanie ultraszerokiego, problem z dotykiem przy krawędziach",
+          "GSMOnline: najlepszy zestaw aparatów tej marki, ale poziom średniej-wyższej półki; cena zbyt wysoka względem możliwości"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 41,
+        "charging": 75,
+        "updates": 86,
+        "storage": 75,
+        "durability": 90,
+        "smoothness": 86,
+        "display": 87,
+        "photoDay": 82,
+        "photoIndoor": 77,
+        "photoMotion": 62,
+        "selfie": 70,
+        "video": 50,
+        "zoom": 66,
+        "compactness": 34,
+        "value": null
+      },
+      "basis": {
+        "battery": "5150 mAh (pojemność 28,7 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 53,3 (50%) z etykiety UE (klasa A, 56:00 h przy skali 40–70 h, 1400 cykli) → 0,5 × 28,7 + 0,5 × 53,3 = 41 pkt",
+        "charging": "65 W przewodowo + 15 W bezprzewodowo (+8 pkt), bez zasilacza w pudełku — (65 − 15) / 75 × 100 + 8 = 75 pkt",
+        "updates": "5 dużych aktualizacji systemu i 7 lat poprawek bezpieczeństwa: średnia 6,0 → 6,0 / 7 × 100 = 86 pkt",
+        "storage": "256 GB = 75 pkt",
+        "durability": "IP68 = 90 pkt wg tabeli klas IP",
+        "smoothness": "Snapdragon 8s Gen 4 z 12 GB RAM; Notebookcheck: AnTuTu v10 1 975 046, Geekbench 6 2212/7161 (single/multi), 3DMark Wild Life Extreme 4490, stabilność 63,8% i dławienie do poniżej 60% wydajności, obudowa do 52 C; Telepolis: AnTuTu 1 941 229, Geekbench 6 2095/6758, stabilność 87%, ale test wymagał zewnętrznego wentylatora — wydajność klasy flagowej z wyraźnym nagrzewaniem; wersja pamięci masowej 256 GB bez potwierdzonego standardu UFS",
+        "display": "6,67″ LTPS AMOLED 1260×2800 (460 ppi) 120 Hz bez LTPO; deklarowane 4500 nitów, Notebookcheck zmierzył 1548 cd/m² (ocena ekranu 90%); Telepolis: jasność wysoka, jakość ekranu na poziomie flagowca, ale problem z czułością dotyku przy krawędziach; Notebookcheck wytyka mniej odporne szkło przednie klasy 7i",
+        "photoDay": "główny 50 MP f/1.68 (1/1,3″) z OIS + 50 MP szeroki kąt + 50 MP peryskop 3x; Notebookcheck (ocena aparatu 84%): jasne zdjęcia dzienne z wysoką rozpiętością tonalną i realistycznymi kolorami, czasem lekko rozmyte; Telepolis: dobry poziom szczegółów i rozpiętości; GSMOnline: najlepszy zestaw aparatów tej marki, ale poziom średniej-wyższej półki",
+        "photoIndoor": "Notebookcheck: w słabym świetle zachowana dobra ilość detali; Telepolis: zdjęcia po zmroku potrafią wyglądać bardzo dobrze, choć HDR bywa dziwny; GSMOnline: gorsze światło i mniej trafny balans bieli ujawniają słabości względem flagowców",
+        "photoMotion": "brak testu autofokusu; Telepolis: czas od naciśnięcia migawki do gotowego zdjęcia w szerokim kącie trwa kilka sekund, więc ujęcia często wychodzą rozmyte (problem oprogramowania); Notebookcheck: główny aparat bywa lekko rozmyty",
+        "selfie": "przedni aparat 50 MP f/2.2 (1/2,76″); Notebookcheck ocenia go jako odpowiedni do portretów i rozmów wideo, Telepolis i GSMOnline nie dają osobnej oceny — bardzo cienkie dane, bez pomiarów",
+        "video": "4K 60 kl./s ze wszystkich aparatów (Notebookcheck), bez 8K i 4K 120 kl./s oraz bez przełączania obiektywów w czasie nagrywania 4K 60 (GSMOnline); żadna z przejrzanych recenzji nie ocenia jakości ani stabilizacji wideo, więc ocena neutralna",
+        "zoom": "peryskop 50 MP f/2.68 z OIS i zoomem optycznym 3x; Notebookcheck: dobra jakość do 3x, przy 5x obiekty już rozmyte, cyfrowo do 60x; GSMOnline: przeciętny jak na tę cenę; Telepolis: artefakty szachownicy, głównie na zachmurzonym niebie, oceniane jako niedopuszczalne",
+        "compactness": "218 g, wymiary 160,6 × 75,6 × 9,0 mm — wzór poręczności: lekkość 24, mała powierzchnia 48, smukłość 17 → 34 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://pl.nothing.tech/products/phone-3",
+        "https://www.x-kom.pl/p/1339126-smartfon-telefon-nothing-phone-3-5g-12-256gb-black-120hz.html",
+        "https://www.x-kom.pl/szukaj?q=nothing%20phone%203%2012%2F256",
+        "https://mediamarkt.pl/pl/product/_smartphone-nothing-phone-3-5g-12-gb-256-gb-czarny-159466348.html",
+        "https://www.ceneo.pl/185595572",
+        "https://www.ceneo.pl/185595589",
+        "https://www.ceneo.pl/;szukaj-nothing+phone+3+12%2F256",
+        "https://www.pepper.pl/promocje/nothing-phone-3-12256-gb-nfc-e-sim-120hz-wysylka-z-polski-49857-mozliwe-49285-1380150",
+        "https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2359678_EN.pdf",
+        "https://www.notebookcheck.net/Nothing-Phone-3-smartphone-review-Top-class-hardware-combined-with-unrivaled-design-and-secondary-display.1096614.0.html",
+        "https://www.androidcentral.com/phones/nothing-phones/nothing-phone-3-android-os-upgrades-five-year-confirmation",
+        "https://www.gsmonline.pl/artykuly/test-nothing-phone-3-jest-piekny-ale-za-drogi",
+        "https://www.telepolis.pl/artykuly/testy-sprzetu/nothing-phone-3-test-recenzja-opinie",
+        "https://www.gsmmaniak.pl/1694528/nothing-phone-3-aktualizacja-nothing-os-5-android-17-cena-w-polsce/amp/",
+        "https://fdn2.gsmarena.com/vv/bigpic/nothing-phone-3.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/nothing/nothing-phone3-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "low",
+        "video": "low",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": [
+        "video"
+      ]
     },
     {
       "id": "cmf-phone-2-pro-8-256",
@@ -4813,7 +5886,7 @@
             "pricePln": 1100,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#29): 1 100–1 199 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Jedyny polski sprzedawca wariantu 8/256 GB to oficjalny sklep pl.nothing.tech (dane wariantu 'White / 8+256GB' = 1099,0 PLN w danych strony). Strona produktu 2026-11-18: 'Sold out' + 'Notify me'; dane strukturalne strony (Shopify) pokazują availableForSale=false dla wszystkich 8 wariantów kolor/pamięć, w tym 8+256GB w kolorach Black, White, Light Green i Orange (każdy 1099,0 PLN). Brak oferty telefonu w x-kom i morele (wyszukiwarki zwracają tylko akcesoria), brak telefonu w wynikach Ceneo. Allegro/mediaexpert/euro zwróciły 403 - niespraw"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-cmf+phone+2+pro+8%2F256"
@@ -4834,7 +5907,7 @@
             "pricePln": 2500,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#31): 2 500–2 899 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; 2026-11-18: x-kom.pl (strona produktu 1297575): „Produkt wycofany”, bez ceny; Ceneo (wyszukiwanie smartfonów i akcesoriów): w ofercie są tylko akcesoria do 13R, brak telefonu; morele.net i komputronik.pl: brak telefonu w wynikach wyszukiwania; mediaexpert.pl, euro.com.pl, oleole.pl, allegro.pl: blokada dla automatu (nie sprawdzono). Jedyna otwarta oferta telefonu: MediaMarkt Marketplace (Foxway PL) — produkt ODNOWIONY „Jak nowy”, 2019 zł (nie jest nowy, więc nie jest ceną). Wcześniejsze ceny rynkowe nowego egzemplarza (nieaktualne): Komp"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oneplus+13r+12%2F256"
@@ -4844,43 +5917,435 @@
       "id": "realme-gt-7-12-256",
       "brand": "Realme",
       "modelName": "GT 7 12/256 GB",
-      "status": "unverified",
+      "status": "over_budget",
       "reveal": {
-        "name": "Realme GT 7 12/256 GB",
+        "name": "realme GT 7 12/256 GB",
         "brand": "Realme",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/realme-gt-7.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/realme/realme-gt-7-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-realme+gt+7+12%2F256",
-            "pricePln": 2300,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#33): ~2 300 zł (szacunek, cena niezweryfikowana)"
+            "label": "amazon.pl",
+            "url": "https://www.amazon.pl/dp/B0F3HQKK2D",
+            "pricePln": 2355.04,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "czarny, 12+256 GB, „ekskluzywny Amazon”, 1 szt.; cena z wyników wyszukiwania Amazon.pl (strona produktu zablokowana captchą); sprzedawca niepotwierdzony"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-realme+gt+7+12%2F256"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/184057075",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 12,
+        "storageGb": 256,
+        "fromList": "GT 7 12/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2355.04,
+        "source": "amazon.pl",
+        "url": "https://www.amazon.pl/dp/B0F3HQKK2D",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "czarny („ekskluzywny Amazon”), 12/256 GB; dostępna 1 sztuka; sprzedawca/stan nie potwierdzone na stronie produktu",
+        "auditNote": "Cena z wyników wyszukiwania Amazon.pl (2026-11-18): 2355,04 zł, darmowa dostawa wt. 24 lis, „dostępne sztuki: 1”, klasa energetyczna A; ta sama oferta jest jedyną ofertą wariantu 12/256 GB w Ceneo (produkt 184057075, 1 sklep). Strona produktu Amazon (dp/B0F3HQKK2D) jest zablokowana captchą dla automatu, więc sprzedawcy (Amazon czy sprzedawca zewnętrzny) i stanu nie dało się potwierdzić — oferta ma niższą pewność niż ceny z kart sklepów. W x-kom, Morele i Komputroniku GT 7 nie ma w sprzedaży; mediaexpert, euro.com.pl, allegro.pl niedostępne dla automatu (nie sprawdzono). Ceny archiwalne: premiera 3199 zł (2799 zł z cashbackiem do 15.06.2025), promocja 07.2025 ok. 2899 zł.",
+        "otherObservations": [
+          {
+            "pln": 3199,
+            "source": "chip.pl / tabletowo (premiera, 05-06.2025)",
+            "url": "https://www.chip.pl/2025/06/realme-gt7-i-gt7t-juz-w-polsce-cos-mi-mowi-ze-nie-bedzie-nudy-pierwsze-wrazenia",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "cena regularna premierowa 12/256 GB; z cashbackiem 400 zł 2799 zł do 15.06.2025 (promocja zakończona)"
+          },
+          {
+            "pln": 2899,
+            "source": "tabletowo.pl (07.2025)",
+            "url": "https://www.tabletowo.pl/promocja-na-smartfon-realme-gt-7-android-16-kiedy/",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "promocja do 27.07.2025 w Media Expert, RTV Euro AGD, x-kom, Media Markt, Komputronik (wygasła)"
+          }
+        ],
+        "regularPricePln": 3199,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.78,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1264x2780",
+        "peakNits": 6000,
+        "glass": "Corning Gorilla Glass 7i",
+        "ramGb": 12,
+        "storageGb": 256,
+        "storageType": "UFS 4.0",
+        "microSd": false,
+        "microSdNote": "Specyfikacja producenta przewiduje tylko 2 sloty nano SIM, bez slotu microSD.",
+        "chip": "MediaTek Dimensity 9400e (4 nm)",
+        "batteryMah": 7000,
+        "batteryCycles": 800,
+        "batteryEndurance": 100,
+        "batteryTests": [
+          "EPREL / etykieta UE (model RMX5061): klasa A, 78:52 h szacowanej wytrzymałości na cykl, 800 cykli, pojemność znamionowa 2 × 3425 mAh (6850 mAh)",
+          "Notebookcheck: test Wi-Fi (Chrome 137) 23 h 45 min",
+          "instalki: odtwarzanie wideo YouTube 2160p 21 h 04 min",
+          "tabletowo: ok. 5 h ekranu w użyciu mieszanym, trudno rozładować w ciągu dnia; chip.pl: 7-8 h ekranu dziennie",
+          "etykieta UE: A, 78:52 h na cyklu, 800 cykli (https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2309651_EN.pdf)"
+        ],
+        "chargingW": 120,
+        "chargingNote": "120 W SUPERVOOC przewodowo (producent). Bateria 7000 mAh typ. (2 ogniwa po 3500 mAh) / 6850 mAh znamionowo; w Europie 7000 mAh (Notebookcheck), taka sama jak w specyfikacji globalnej. Ładowanie z zasilacza innego niż oryginalny trwa znacznie dłużej (chip.pl: nawet ok. 3 h, tabletowo: 2-100% w 56 min).",
+        "chargingTests": "tabletowo (oryginalny zasilacz): 3-99% w 37 min, 55% po 21 min; instalki: 0-50% w ok. 14 min, 0-100% w ok. 40-42 min; chip.pl: 0-100% w ok. 50 min, 21% po 5 min, 73% po 30 min",
+        "chargerInBox": false,
+        "chargerInBoxNote": "W Polsce w zestawie kabel USB, etui ochronne, narzędzie do SIM i dokumentacja, bez zasilacza (producent realme.com/pl; chip.pl, tabletowo, instalki).",
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP66/IP68/IP69",
+        "ipNote": "Producent deklaruje ochronę IP66/IP68/IP69; karta EPREL (RMX5061) podaje IP68 z głębokością zanurzenia 1,5 m (Notebookcheck: IP69).",
+        "weightG": 206,
+        "weightNote": "206 g wg producenta i Notebookcheck (chip.pl w tekście 207 g).",
+        "heightMm": 162.42,
+        "widthMm": 76.13,
+        "thicknessMm": 8.3,
+        "dimensionsMm": "162,42 × 76,13 × 8,3",
+        "cameras": {
+          "main": "50 MP f/1.8 (1/1,56″, Sony IMX906) z OIS",
+          "ultrawide": "8 MP f/2.2",
+          "macro": null,
+          "selfie": "32 MP f/2.4 (1/2,74″, Sony IMX615)",
+          "telephoto": "50 MP f/2.0 (1/2,8″, Samsung S5KJN5), zoom optyczny 2x, bez OIS"
+        },
+        "video": "8K 30 kl./s i 4K 120 kl./s (główny), 4K 60 kl./s (teleobiektyw i selfie), 1080p 30 kl./s (szeroki kąt)",
+        "os": "Android 15, realme UI 6.0",
+        "updatesYears": 6,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "4 duże aktualizacje Androida i 6 lat poprawek bezpieczeństwa wg deklaracji producenta cytowanej przez Notebookcheck (media wtórne: ostatnia duża aktualizacja Android 19, wsparcie do 2031). Rozbieżne podawanie w polskich recenzjach: tabletowo 5 lat Androida + 6 lat poprawek, instalki 5 + 6 (w podsumowaniu 4 lata), chip.pl (przy premierze) 3 aktualizacje + 4 lata poprawek; karta EPREL: min. 5 lat. Android 16 (realme UI 7.0) potwierdzony dla serii GT 7 (tabletowo).",
+        "releasedAt": "2025-05",
+        "securitySupportUntil": "2031-05",
+        "supportNote": "6 lat poprawek liczone od premiery/wprowadzenia do obrotu w UE 2025-05-26 (EPREL RMX5061; premiera w Polsce 27.05.2025) => 2031-05; źródło deklaracji 6 lat: Notebookcheck (producent), EPREL gwarantuje minimum 5 lat.",
+        "sim": "Dual nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 7",
+        "bluetooth": "5.4",
+        "fingerprint": "w ekranie",
+        "satelliteSos": null,
+        "polishLaunchPricePln": 3199,
+        "reviewNotes": [
+          "Notebookcheck: ocena 83%, kategoria aparat 77%, ekran 1523 cd/m² (APL18) przy deklarowanych 6000 nitach, bateria 23 h 45 min w teście Wi-Fi",
+          "tabletowo: ocena 8,2/10 (test wariantu 12/512), aparat główny mocny w dzień, szeroki kąt słabszy, nagrzewanie pod obciążeniem",
+          "chip.pl: „telefonowi nie sprzyja cena” (ponad 3000 zł), najsłabszy moduł to szeroki kąt 8 MP"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 88,
+        "charging": 100,
+        "updates": 71,
+        "storage": 75,
+        "durability": 95,
+        "smoothness": 91,
+        "display": 86,
+        "photoDay": 76,
+        "photoIndoor": 68,
+        "photoMotion": 68,
+        "selfie": 70,
+        "video": 68,
+        "zoom": 58,
+        "compactness": 40,
+        "value": null
+      },
+      "basis": {
+        "battery": "7000 mAh (pojemność 75,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 100,0 (50%) z etykiety UE (klasa A, 78:52 h przy skali 40–70 h, 800 cykli) → 0,5 × 75,0 + 0,5 × 100,0 = 88 pkt",
+        "charging": "120 W przewodowo, bez ładowania bezprzewodowego, bez zasilacza w pudełku — (120 − 15) / 75 × 100 = 100 pkt",
+        "updates": "4 dużych aktualizacji systemu i 6 lat poprawek bezpieczeństwa: średnia 5,0 → 5,0 / 7 × 100 = 71 pkt",
+        "storage": "256 GB UFS 4.0, brak slotu microSD = 75 pkt",
+        "durability": "IP66/IP68/IP69 = 95 pkt wg tabeli klas IP",
+        "smoothness": "MediaTek Dimensity 9400e (4 nm) z 12 GB LPDDR5X i pamięcią UFS 4.0; Notebookcheck: Geekbench 6.7 multi-core 7439 (single-core 2265), 3DMark Wild Life Extreme 5300, stabilność Wild Life 99,5% i Wild Life Extreme 65,9%; instalki: AnTuTu v10 2 214 302; tabletowo: AnTuTu 2 228 725 i zauważalne nagrzewanie pod długim obciążeniem (stabilność testu ekstremalnego 35,4%)",
+        "display": "6,78″ AMOLED 1,5K (1264×2780, 120 Hz) z deklarowanymi 6000 nitów lokalnie; Notebookcheck zmierzył 1523 cd/m² (APL18) i 1485 cd/m² w HDR, ΔE 1,0, 98,8% sRGB, PWM 90 Hz (amplituda 16,8%) + ok. 2083 Hz; tabletowo i instalki potwierdzają ok. 1500-1600 nitów w praktyce — obniżone za dużą różnicę między deklaracją a pomiarem i migotanie PWM",
+        "photoDay": "główny aparat 50 MP f/1.8 (1/1,56″) z OIS + szeroki kąt 8 MP + teleobiektyw 50 MP 2x; Notebookcheck (kategoria aparat 77%): bardzo wysoki kontrast, ale przesycone kolory; tabletowo: mocny w dzień, słabszy pod światło (HDR i wierność barw); chip: nasycone kolory, wyostrzanie generuje szum w cieniach",
+        "photoIndoor": "tabletowo: tryb auto w nocy dorównuje trybowi nocnemu, ale szeroki kąt wymaga trybu nocnego; instalki: nocą tracą się szczegóły i pojawia się szum; chip: wyniki nocne zmienne, problemy przy świetle wpadającym z boku kadru",
+        "photoMotion": "tabletowo: autofokus głównego aparatu szybko łapie ostrość na obiektach wchodzących w kadr; gsmonline: płynne przejścia autofokusu w wideo; stabilizacja OIS w głównym aparacie; brak pomiarów laboratoryjnych szybkości autofokusu",
+        "selfie": "przedni aparat 32 MP f/2.4 bez łączenia pikseli, wideo do 4K 60 kl./s; Notebookcheck: bardzo atrakcyjne selfie, lecz szczegóły sztuczne przy pełnym rozmiarze i słabsze w ciemności; tabletowo: dobre w dobrym świetle, wyraźnie gorsze w słabym; chip: dobry, ale nie wybitny",
+        "video": "8K 30 kl./s i 4K 120 kl./s z głównego aparatu, 4K 60 kl./s z teleobiektywu i selfie, szeroki kąt 1080p 30 kl./s; gsmonline: 8K z dobrą szczegółowością, ale słaba stabilizacja i rolling shutter, 4K 60 kl./s najlepszym kompromisem; chip: brak mistrzowskiej stabilizacji, dobry autofokus; tabletowo: tryb dodatkowej stabilizacji działa tylko w 1080p 60 kl./s",
+        "zoom": "teleobiektyw 50 MP f/2.0 z 2-krotnym zoomem optycznym, bez OIS; tabletowo: doskonały 2x, spadek jakości od 5x, ujęcia 20x rozmyte; gsmonline: bardzo udany bezstratny 2x; chip: rozczarowanie, nocą często rozmycie przez brak OIS; Notebookcheck: poprawny zoom cyfrowy do 100x",
+        "compactness": "206 g, wymiary 162,42 × 76,13 × 8,3 mm — wzór poręczności: lekkość 41, mała powierzchnia 38, smukłość 40 → 40 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.realme.com/pl/realme-gt-7-5g",
+        "https://www.realme.com/pl/realme-gt-7-5g/specs",
+        "https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2309651_EN.pdf",
+        "https://eprel.ec.europa.eu/api/products/smartphonestablets20231669/2309651",
+        "https://www.ceneo.pl/Smartfony;szukaj-realme+gt+7",
+        "https://www.ceneo.pl/184057075",
+        "https://www.amazon.pl/s?k=realme+gt+7+12%2F256",
+        "https://www.amazon.pl/dp/B0F3HQKK2D",
+        "https://www.x-kom.pl/szukaj?q=realme%20gt%207",
+        "https://www.morele.net/wyszukiwarka/?q=realme+gt+7",
+        "https://www.komputronik.pl/search/category/1?query=realme+gt+7",
+        "https://www.notebookcheck.net/realme-GT-7-Smartphone-Review-Killer-value-with-lots-of-AI-features-in-the-upper-mid-range.1047006.0.html",
+        "https://www.tabletowo.pl/?p=981846",
+        "https://www.tabletowo.pl/?p=978203",
+        "https://www.tabletowo.pl/promocja-na-smartfon-realme-gt-7-android-16-kiedy/",
+        "https://www.chip.pl/2025/06/realme-gt7-i-gt7t-juz-w-polsce-cos-mi-mowi-ze-nie-bedzie-nudy-pierwsze-wrazenia",
+        "https://www.chip.pl/2025/06/recenzja-realme-gt-7-z-akumulatorem-7000-mah",
+        "https://gsmonline.pl/artykuly/recenzja-realme-gt-7-to-nie-jest-flagowiec-a-jest-i-tak-maksymalnie-wypasiony",
+        "https://www.instalki.pl/testy/hardware/realme-gt-7-recenzja-mocny-zawodnik-z-topowa-bateria-i-szybkim-ladowaniem/",
+        "https://www.mgsm.pl/pl/katalog/realme/gt7/",
+        "https://fdn2.gsmarena.com/vv/bigpic/realme-gt-7.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/realme/realme-gt-7-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     },
     {
-      "id": "iphone-16e-128",
+      "id": "iphone-16e-128-8-128",
       "brand": "Apple",
-      "modelName": "iPhone 16e 128 GB",
-      "status": "unverified",
+      "modelName": "iPhone 16e 128 GB 8/128 GB",
+      "status": "over_budget",
       "reveal": {
-        "name": "Apple iPhone 16e 128 GB",
+        "name": "Apple iPhone 16e 128 GB 8/128 GB",
         "brand": "Apple",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-16e.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16e-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-iphone+16e+128gb",
-            "pricePln": 2632,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#35): 2 632–2 700 zł (szacunek, cena niezweryfikowana)"
+            "label": "mediamarkt.pl",
+            "url": "https://mediamarkt.pl/pl/product/_smartfon-apple-iphone-16e-5g-128-gb-czarny-1489941.html",
+            "pricePln": 2999,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "czarny MD1Q4HX/A, nowy, dostępny online, darmowa dostawa; obok oferta odnowiona GeekMarket PL 2147,96 zł (nie nowa)"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-iphone+16e+128gb"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/180892144",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 128,
+        "fromList": "Apple iPhone 16e 128 GB (wariant nie istnieje w sprzedaży — zweryfikowano 8/128 GB: Wariant 128 GB istnieje (Apple: 128/256/512 GB; czarny i biały) i jest sprzedawany nowy w Polsce (MediaMarkt 2999 zł, dostępny online; Ceneo: 16-18 sklepów). Apple nie podaje RAM - 8 GB wynika z testu Notebookcheck (pole ramGb=8 pochodzi od niezależnego testu, nie od Apple). Model jest już wypierany przez następcę (Apple w sklepie PL pokazuje teraz iPhone 16 i nowsze), x-kom i Lantre pokazują 16e jako chwilowo niedostępny.)",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2999,
+        "source": "mediamarkt.pl",
+        "url": "https://mediamarkt.pl/pl/product/_smartfon-apple-iphone-16e-5g-128-gb-czarny-1489941.html",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "czarny (MD1Q4HX/A), 128 GB, nowy, dostępny online, dostawa następnego dnia",
+        "auditNote": "MediaMarkt: oferta 'Nowy produkt' 2999,00 zł, dostępna online (strona nie nazywa wprost sprzedawcy nowej sztuki; Ceneo wymienia MediaMarkt wśród sklepów z ceną 2999 zł i wysyłką 'jutro'). Ta sama cena 2999 zł (czarny): Media Expert, MediaMarkt, electro.pl, delkom.pl, Empik, idream.pl, Avans, cortland.pl, Neonet (Ceneo 180892144, 18 ofert) oraz RTV Euro AGD i OleOle (2999,99 zł). Ceneo dla wersji BIAŁEJ (180491033) pokazuje 2879,04 zł w Media Expert, electro.pl, Avans i Amazon - nie otwarto stron tych sklepów (HTTP 403 / link tylko przez przekierowanie Ceneo), więc nie przyjęto jako ceny zweryfikowanej. Sklepy z ceną 2999 zł, ale bez dostępności: x-kom (czarny i biały: 'Chwilowo niedostępny'), Lantre (biały, brak w magazynie), Komputronik (biały: archiwalny). Polska cena premierowa 128 GB: 2999 zł.",
+        "otherObservations": [
+          {
+            "pln": 2879.04,
+            "source": "ceneo.pl (Media Expert, electro.pl, Avans, Amazon)",
+            "url": "https://www.ceneo.pl/180491033",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wersja biała 128 GB, najniższa cena na Ceneo, stan towaru nie podany; nie zweryfikowano na stronach sklepów"
+          },
+          {
+            "pln": 2999,
+            "source": "ceneo.pl (Media Expert, MediaMarkt, electro.pl, Empik, Avans, Neonet i in.)",
+            "url": "https://www.ceneo.pl/180892144",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wersja czarna 128 GB, 15 widocznych ofert, najniższe 2999 zł"
+          },
+          {
+            "pln": 2999,
+            "source": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1319567-smartfon-telefon-apple-iphone-16e-128gb-czarny.html",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wg wyszukiwarki x-kom: czarny i biały 2999 zł, 'Chwilowo niedostępny' (30-dniowa najniższa cena wg wyników wyszukiwania: 2449 zł)"
+          },
+          {
+            "pln": 3316.84,
+            "source": "morele.net",
+            "url": "https://www.morele.net/smartfon-apple-iphone-16e-5g-8-128gb-czarny-md1q4-14726634/",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "sprzedaż przez Morele; cena z listy wyszukiwania, nie otwarto karty produktu"
+          },
+          {
+            "pln": 2147.96,
+            "source": "mediamarkt.pl (GeekMarket PL)",
+            "url": "https://mediamarkt.pl/pl/product/_smartfon-apple-iphone-16e-5g-128-gb-czarny-1489941.html",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "ODNOWIONY ('Jak nowy'), marketplace - nie spełnia kryterium nowego"
+          }
+        ],
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.1,
+        "panel": "Super Retina XDR OLED",
+        "refreshHz": 60,
+        "resolution": "1170x2532",
+        "peakNits": 1200,
+        "glass": "Ceramic Shield (przód), szkło (tył); twardość Mohsa 4 (EPREL)",
+        "ramGb": 8,
+        "storageGb": 128,
+        "storageType": "NVMe",
+        "microSd": false,
+        "microSdNote": null,
+        "chip": "Apple A18",
+        "batteryMah": 4005,
+        "batteryCycles": 1000,
+        "batteryEndurance": 3.3,
+        "batteryTests": [
+          "EPREL (etykieta UE): klasa B, 41 h wytrzymałości na cykl, 1000 cykli, pojemność znamionowa 4005 mAh",
+          "Notebookcheck: test Wi-Fi v1.3 23:10 h",
+          "Tabletowo: ekran włączony ok. 9 h (głównie Wi-Fi) i ok. 6:30 h (tylko sieć komórkowa); GSMManiak: do 8,8/10 w ocenie baterii, ok. 12 h przy intensywnym użyciu",
+          "Apple (deklaracja): do 26 h odtwarzania wideo, 21 h wideo strumieniowego",
+          "etykieta UE: B, 41:00 h na cyklu, 1000 cykli (https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2261239_EN.pdf)"
+        ],
+        "chargingW": 20,
+        "chargingNote": "Apple nie podaje maksymalnej mocy ładowania przewodowego - deklaruje do 50% w ok. 30 min z zasilaczem 20 W lub mocniejszym (sprzedawanym osobno); 20 W podają też Tabletowo i GSMManiak. EPREL: wymagana minimalna moc zasilacza 5 W.",
+        "chargingTests": "Notebookcheck (zasilacz 65 W): 80% w 46 min, 100% w 80 min; Tabletowo (20 W): 50% w 31 min, 100% w ok. 105 min; GSMManiak (20 W): 50% w 30 min, 100% w ok. 100 min",
+        "chargerInBox": false,
+        "chargerInBoxNote": "w pudełku kabel USB-C 1 m i dokumentacja, bez zasilacza i słuchawek (Apple)",
+        "wirelessCharging": true,
+        "wirelessW": 7.5,
+        "ip": "IP68",
+        "ipNote": "do 6 m przez 30 min (Apple, EPREL: 6,00 m)",
+        "weightG": 167,
+        "heightMm": 146.7,
+        "widthMm": 71.5,
+        "thicknessMm": 7.8,
+        "dimensionsMm": "146,7 × 71,5 × 7,8",
+        "cameras": {
+          "main": "48 MP f/1.6 (Fusion, 26 mm) z OIS",
+          "ultrawide": null,
+          "macro": null,
+          "selfie": "12 MP f/1.9 z AF (TrueDepth)",
+          "telephoto": null
+        },
+        "video": "4K 60 kl./s Dolby Vision (główny i selfie)",
+        "os": "iOS 18",
+        "updatesYears": 5,
+        "updatesOsGenerations": null,
+        "updatesSecurityYears": 5,
+        "updatesNote": "EPREL (poz. 19): minimum 5 lat gwarantowanych aktualizacji systemu i zabezpieczeń; Apple (strona z etykietami): co najmniej 5 lat. Apple nie podaje liczby głównych aktualizacji iOS ani daty końca wsparcia.",
+        "releasedAt": "2025-03",
+        "securitySupportUntil": "2030-03",
+        "supportNote": "Wyliczone: 5 lat od wprowadzenia na rynek UE 03.03.2025 (EPREL: 'Model placed on the Union market from 03/03/2025'); to minimum gwarantowane, nie górna granica. Ogłoszenie 19.02.2025 (Notebookcheck).",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6",
+        "bluetooth": "5.3",
+        "fingerprint": "brak (Face ID)",
+        "satelliteSos": true,
+        "polishLaunchPricePln": 2999,
+        "reviewNotes": [
+          "Notebookcheck 84%: bardzo wysoka wydajność, długi czas pracy, IP68, lekka obudowa; wady: tylko 60 Hz, brak aparatu szerokokątnego, wolne ładowanie, 12 miesięcy gwarancji",
+          "GSMManiak: ładowanie 20 W do 50% w 30 min, aparat krokiem wstecz względem konkurencji, cena wysoka (2999 zł za 128 GB)",
+          "Tabletowo: ekran powinien być jaśniejszy, 60 Hz widoczne w animacjach; zoom 2x to kadrowanie matrycy"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 2,
+        "charging": 15,
+        "updates": 71,
+        "storage": 40,
+        "durability": 90,
+        "smoothness": 88,
+        "display": 66,
+        "photoDay": 82,
+        "photoIndoor": 66,
+        "photoMotion": 50,
+        "selfie": 76,
+        "video": 80,
+        "zoom": 48,
+        "compactness": 94,
+        "value": null
+      },
+      "basis": {
+        "battery": "4005 mAh (pojemność 0,1 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 3,3 (50%) z etykiety UE (klasa B, 41:00 h przy skali 40–70 h, 1000 cykli) → 0,5 × 0,1 + 0,5 × 3,3 = 2 pkt",
+        "charging": "20 W przewodowo + 7.5 W bezprzewodowo (+8 pkt), bez zasilacza w pudełku — (20 − 15) / 75 × 100 + 8 = 15 pkt",
+        "updates": "5 lat poprawek bezpieczeństwa (brak drugiej składowej w źródle): 5 / 7 × 100 = 71 pkt",
+        "storage": "128 GB NVMe, brak slotu microSD = 40 pkt",
+        "durability": "IP68 = 90 pkt wg tabeli klas IP",
+        "smoothness": "układ A18 (6 rdzeni CPU, 4 rdzenie GPU), 8 GB RAM i pamięć NVMe; Notebookcheck: Geekbench 6 3338/8044 (single/multi), AnTuTu v10 1 432 050, 3DMark Wild Life Extreme 3330, stabilność 83%; Tabletowo: Geekbench 6 3160/7860 — bardzo szybki, ale tylko 60 Hz, co obniża odczuwalną płynność (animacje widocznie gorsze niż przy 120 Hz)",
+        "display": "6,1″ OLED 1170×2532 (460 ppi) 60 Hz z wcięciem; Notebookcheck: 839 cd/m² maksymalnie (HDR ok. 1201 cd/m²), ΔE 0,7, PWM 60 Hz o amplitudzie 15%; deklarowane 800 nitów typowo i 1200 nitów HDR; Tabletowo: ekran powinien być jaśniejszy — dobre odwzorowanie barw, ale umiarkowana jasność i brak wyższego odświeżania",
+        "photoDay": "jeden aparat 48 MP f/1.6 z OIS (domyślnie zapis 24 MP); Notebookcheck (wynik aparatu 77%, ΔE 3,99 w dzień): bardzo dobre zdjęcia dzienne z realistycznymi odcieniami skóry i dużą ilością detali; GSMManiak: zdjęcia pełne szczegółów, naturalne kolory i dobry kontrast; brak aparatu szerokokątnego",
+        "photoIndoor": "Notebookcheck: słabe światło wypada gorzej niż dzień (ΔE 18,05 przy 1 luksie, zoom i zdjęcia nocne słabsze od dziennych); Tabletowo: zdjęcia ciemniejsze, ale naturalne, niektóre rozmyte mimo nieruchomego telefonu, brak ręcznego trybu nocnego; GSMManiak: tryb nocny działa solidnie",
+        "photoMotion": "brak niezależnych pomiarów autofokusu i zdjęć w ruchu dla tego modelu (Notebookcheck nie ocenia tego kryterium, brak testu DXOMARK); ocena neutralna",
+        "selfie": "przedni aparat 12 MP f/1.9 z autofokusem i wideo 4K 60 kl./s Dolby Vision; Notebookcheck: dobre zdjęcia selfie; GSMManiak: bardzo dobre, jeden z lepszych przednich aparatów w klasie; Tabletowo: poprawne, tryb portretowy działa dobrze, choć nie bezbłędnie",
+        "video": "4K 60 kl./s Dolby Vision z głównego aparatu i selfie (Notebookcheck, Tabletowo); Tabletowo: szczegółowe nagrania z dobrą stabilizacją; brak trybu Filmowego i Akcji oraz przełączania obiektywów w trakcie nagrywania, jeden aparat tylny (Notebookcheck); brak testu laboratoryjnego wideo",
+        "zoom": "brak teleobiektywu i aparatu szerokokątnego — zoom 2x to kadrowanie matrycy 48 MP (12 MP na wyjściu), cyfrowo do 10x; Notebookcheck: różnice do 2x niewielkie, dalej wyraźnie słabiej; Tabletowo: jakość spada przy większym zoomie, w słabym świetle więcej szumów",
+        "compactness": "167 g, wymiary 146,7 × 71,5 × 7,8 mm — wzór poręczności: lekkość 97, mała powierzchnia 100, smukłość 57 → 94 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://support.apple.com/122208",
+        "https://support.apple.com/pl-pl/122208",
+        "https://www.apple.com/pl/iphone-16e/specs/",
+        "https://eprel.ec.europa.eu/fiches/smartphonestablets20231669/Fiche_2261239_EN.pdf",
+        "https://mediamarkt.pl/pl/product/_smartfon-apple-iphone-16e-5g-128-gb-czarny-1489941.html",
+        "https://mediamarkt.pl/pl/product/_smartphones-apple-iphone-16e-5g128-gb-bialy-154837646.html",
+        "https://mediamarkt.pl/pl/brand/apple/apple-iphone/iphone-16e",
+        "https://www.ceneo.pl/180892144",
+        "https://www.ceneo.pl/180491033",
+        "https://www.ceneo.pl/;szukaj-iphone+16e+128gb",
+        "https://www.x-kom.pl/szukaj?q=iphone%2016e%20128",
+        "https://www.x-kom.pl/p/1319567-smartfon-telefon-apple-iphone-16e-128gb-czarny.html",
+        "https://www.morele.net/wyszukiwarka/?q=iphone+16e+128gb",
+        "https://lantre.pl/apple-iphone-16e-128gb-bialy-white-md1r4hx-a.html",
+        "https://www.komputronik.pl/product/958369/telefon-apple-iphone-16e-128gb-bialy.html",
+        "https://www.notebookcheck.net/Apple-iPhone-16e.976066.0.html",
+        "https://www.notebookcheck.net/Apple-s-new-budget-wonder-weapon-against-the-competition-Apple-iPhone-16e-review.1009234.0.html",
+        "https://www.notebookcheck.net/iPhone-16e-iPhone-SE-successor-announced-with-Apple-s-new-5G-modem-and-a-higher-than-anticipated-price-tag.964137.0.html",
+        "https://www.gsmmaniak.pl/1560807/apple-iphone-16e-test/",
+        "https://www.tabletowo.pl/recenzja-iphone-16e-opinia-czy-warto-kupic",
+        "https://bgr.com/tech/8-things-we-learned-from-the-iphone-energy-labels-apple-was-forced-to-add-in-europe/",
+        "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-16e.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16e-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "medium",
+        "photoMotion": "low",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": [
+        "photoMotion"
+      ]
     },
     {
       "id": "sony-xperia-10-vii-8-128",
@@ -4897,7 +6362,7 @@
             "pricePln": 1900,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#36): ~1 900 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Sprawdzono dziś: Ceneo (produkty 193595862 biały i 193426460 czarny): 'Aktualnie brak ofert tego produktu' (Oferty 0); Morele (biały, XQFE54EUKCW.GC): w danych strony cena 2795,71 zł, ale availability = OutOfStock/'niedostępny' (nie jest to oferta do kupienia); Amazon.pl (B0FPDGZ18N biały, B0FPDFGFLZ czarny): 'Przedmiot jest obecnie niedostępny'. Sony PL (sony.pl) odrzuca klientów automatycznych (HTTP 403), x-kom/euro/mediaexpert/komputronik również 403 — nie sprawdzono. Cena premierowa 1999 zł (Telepolis, PurePC) jest historyczna. Ofert"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-sony+xperia+10+vii"
@@ -4907,22 +6372,245 @@
       "id": "sony-xperia-10-viii-8-128",
       "brand": "Sony",
       "modelName": "Xperia 10 VIII 8/128 GB",
-      "status": "needs_confirmation",
+      "status": "over_budget",
       "reveal": {
         "name": "Sony Xperia 10 VIII 8/128 GB",
         "brand": "Sony",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/sony-xperia-10-viii.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/sony/sony-xperia-10-viii-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-sony+xperia+10+viii",
-            "pricePln": 1899,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#37): ~1 899 zł (szacunek, premiera i dostępność w PL do sprawdzenia)"
+            "label": "amazon.pl",
+            "url": "https://www.amazon.pl/dp/B0HDTJRBQ6",
+            "pricePln": 2699,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Frosted Gray, sprzedaż i wysyłka Amazon; cena z karty w wynikach wyszukiwania Amazon.pl (strona produktu bez ceny w HTML)"
+          },
+          {
+            "label": "amazon.pl",
+            "url": "https://www.amazon.pl/dp/B0HDTPHYF8",
+            "pricePln": 2699,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Frozen White, sprzedaż i wysyłka Amazon; cena z karty w wynikach wyszukiwania"
+          },
+          {
+            "label": "amazon.pl",
+            "url": "https://www.amazon.pl/dp/B0HDTKYBW2",
+            "pricePln": 3055.63,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Misty Lilac, sprzedaż i wysyłka Amazon; cena z karty w wynikach wyszukiwania, potwierdzona w Ceneo 201174498"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-sony+xperia+10+viii"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/201174498",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 128,
+        "fromList": "Xperia 10 VIII 8/128 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2699,
+        "source": "amazon.pl",
+        "url": "https://www.amazon.pl/dp/B0HDTJRBQ6",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "Frosted Gray (szary), 8/128 GB; ta sama cena 2699 zł dla Frozen White; Misty Lilac 3055,63 zł. Sprzedaż i wysyłka Amazon.",
+        "auditNote": "Strona produktu Amazon.pl (HTTP 200, przyciski 'Dodaj do koszyka'/'Kup teraz', brak komunikatu o niedostępności) nie renderuje ceny w odpowiedzi bez JavaScript; cena 2699,00 zł pochodzi z karty produktu w wynikach wyszukiwania Amazon.pl pobranych dziś (B0HDTJRBQ6 szary i B0HDTPHYF8 biały: 2699,00 zł; B0HDTKYBW2 liliowy: 3055,63 zł) i pokrywa się z ceną sugerowaną w Polsce (2699 zł, Tabletowo, GSMOnline, PurePC). Ceneo (201174498, otwarte dziś): Amazon.pl 3055,63 zł (liliowy), abfoto.pl 3399 zł, allegro.pl 3509 zł; Ceneo (202768976): allegro.pl 3492,15 zł, abfoto.pl 3497 zł. Oficjalny sklep sony.pl (HTTP 403) i sieci x-kom/euro/mediaexpert/komputronik (HTTP 403) nie były dostępne dla klientów automatycznych. Nie potwierdzono, czy egzemplarz Amazon pochodzi z oficjalnej polskiej dystrybucji.",
+        "otherObservations": [
+          {
+            "pln": 3399,
+            "source": "abfoto.pl (przez Ceneo)",
+            "url": "https://www.ceneo.pl/201174498",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wg strony Ceneo: Xperia 10 VIII 5G 8/128 GB liliowy, darmowa wysyłka; strona sklepu nie została otwarta"
+          },
+          {
+            "pln": 3509,
+            "source": "allegro.pl (przez Ceneo)",
+            "url": "https://www.ceneo.pl/201174498",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wg Ceneo: fioletowy, oznaczenie 'Black Weeks -50%' obok ceny, strona oferty nie została otwarta"
+          },
+          {
+            "pln": 3492.15,
+            "source": "allegro.pl (przez Ceneo)",
+            "url": "https://www.ceneo.pl/202768976",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wg Ceneo: wariant 5G 8/128 GB biały; strona oferty nie została otwarta"
+          },
+          {
+            "pln": 3497,
+            "source": "abfoto.pl (przez Ceneo)",
+            "url": "https://www.ceneo.pl/202768976",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "wg Ceneo: wariant 5G 8/128 GB biały; strona sklepu nie została otwarta"
+          },
+          {
+            "pln": 2699,
+            "source": "sony.pl (cena sugerowana)",
+            "url": "https://www.tabletowo.pl/sony-xperia-10-viii-dostepna-w-polsce-jaki-gratis/",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "cena sugerowana w polskim sklepie producenta wg Tabletowo (09.09.2026); sony.pl niedostępne dla klientów automatycznych (HTTP 403); promocja słuchawek WH-CH530 do 20.09.2026 już zakończona"
+          }
+        ],
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.1,
+        "panel": "OLED",
+        "refreshHz": 120,
+        "resolution": "1080x2340",
+        "peakNits": 1487,
+        "peakNitsNote": "Wartość zmierzona (Notebookcheck: APL18 1487 cd/m², średnio 1527, maks. 1551; tryb ręczny 682 cd/m²; brak HDR). Producent deklaruje jasność o ok. 50% wyższą niż w poprzedniku (Sony PL/EU, cytowane przez iMagazine i Telepolis), ale nie podaje wartości w nitach. Agregator NanoReview podaje 'maks. 1000 nitów' i 1538 nitów w trybie auto — niewykorzystane (agregator).",
+        "glass": "Corning Gorilla Glass Victus 2 (przód)",
+        "ramGb": 8,
+        "storageGb": 128,
+        "storageType": "UFS 3.1",
+        "storageNote": "Notebookcheck: 128 GB UFS 3.1; Tabletowo: '128 GB UFS' (bez wersji). RAM 8 GB + opcjonalnie 6 GB pamięci wirtualnej (GSMOnline).",
+        "microSd": true,
+        "microSdNote": "do 2 TB (Tabletowo, GSMOnline, Notebookcheck); nie ustalono, czy slot jest hybrydowy z drugą nanoSIM",
+        "chip": "Qualcomm Snapdragon 6 Gen 3 (4 nm)",
+        "batteryMah": 5000,
+        "batteryCycles": 1400,
+        "batteryEndurance": 44.1,
+        "batteryTests": [
+          "EPREL / etykieta UE (wg epey.co.uk i newmobile.com): klasa A, 53:13 h wytrzymałości na cykl, 1400 cykli",
+          "Notebookcheck test Wi-Fi (Chrome 153, jasność 150 nitów): 19 h 50 min (wynik gorszy niż u poprzednika, 23,9 h wg Notebookcheck)",
+          "Android.com.pl: PCMark Work (wersja nie podana) ponad 24 h przy 60 Hz i ok. 17 h przy 120 Hz",
+          "etykieta UE: A, 53:13 h na cyklu, 1400 cykli (https://www.epey.co.uk/phone/sony-xperia-10-viii.html)"
+        ],
+        "chargingW": 30,
+        "chargingNote": "Źródła sprzeczne: do 30 W podają Tabletowo, Spider's Web i Android.com.pl; do 22 W (USB PD) podają Notebookcheck (tabela 'Max wired charging') i GSMOnline. Producent nie podał wartości w odczytanych stronach (Sony PL/EU zablokowane dla klientów automatycznych). Przyjęto 30 W (najczęstsza wartość w polskich recenzjach), ale konflikt nierozstrzygnięty.",
+        "chargingTests": "Notebookcheck (zasilacz 65 W): 50% w 32 min, 80% w 59 min, 100% w 69 min; Spider's Web i Android.com.pl: pełne ładowanie ok. 1,5 h; GSMOnline: ok. 1 h 50 min (zasilacz 22 W)",
+        "chargerInBox": false,
+        "chargerInBoxNote": "Notebookcheck (DE): w pudełku brak zasilacza i innych akcesoriów; Spider's Web: w pudełku nawet bez kabla. Brak potwierdzenia na polskiej stronie sklepu.",
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP65/IP68",
+        "ipNote": "IP65 + IP68 (Tabletowo, GSMOnline, Notebookcheck); EPREL: IP68",
+        "weightG": 168,
+        "weightNote": null,
+        "heightMm": 153,
+        "widthMm": 72,
+        "thicknessMm": 8.3,
+        "dimensionsMm": "153 × 72 × 8,3",
+        "cameras": {
+          "main": "50 MP f/1.9 (24 mm, 1/1,56″, PDAF) z OIS",
+          "ultrawide": "13 MP f/2.4 (16 mm, 1/3″, stała ostrość)",
+          "macro": null,
+          "selfie": "8 MP f/2.0 (26 mm, 1/4″, stała ostrość)",
+          "telephoto": null
+        },
+        "video": "4K 30 kl./s (tylko główny aparat), 1080p 60 kl./s; selfie 1080p 30 kl./s",
+        "os": "Android 16",
+        "updatesYears": 6,
+        "updatesOsGenerations": 4,
+        "updatesSecurityYears": 6,
+        "updatesNote": "4 duże aktualizacje Androida (do 08.2030) i 6 lat poprawek bezpieczeństwa (do 08.2032) wg Notebookcheck; Tabletowo, GSMOnline i newmobile: 4 aktualizacje OS i do 6 lat poprawek; liczone od premiery",
+        "releasedAt": "2026-08",
+        "securitySupportUntil": "2032-08",
+        "supportNote": "Notebookcheck: poprawki bezpieczeństwa do 08.2032 (6 lat od premiery 25.08.2026); aktualizacje OS do 08.2030",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E",
+        "bluetooth": "5.4",
+        "fingerprint": "z boku obudowy (w przycisku)",
+        "satelliteSos": null,
+        "polishLaunchPricePln": 2699,
+        "reviewNotes": [
+          "GSMOnline (26.10.2026): panel wyraźnie jaśniejszy niż w poprzedniku; AnTuTu v12 995 178; sporadyczne przycięcia przy wybudzaniu ekranu i uruchamianiu aparatu; cena 2699 zł.",
+          "Notebookcheck: ogółem 79%; Wi-Fi 19:50 h (gorzej niż u poprzednika); układ 'zacina się od czasu do czasu'; cena po podwyżce z 449 do 599 EUR nieadekwatna do nielicznych zmian.",
+          "Spider's Web (15.11.2026) i Android.com.pl (07.11.2026, ocena 7,3/10): kompaktowy, gniazdo 3,5 mm, microSD, głośniki stereo, bateria na 2 dni; wady: cena, wydajność, 128 GB."
+        ],
+        "wearableNotes": null,
+        "stereoSpeakers": true,
+        "frame": "plastik"
+      },
+      "scores": {
+        "battery": 35,
+        "charging": 20,
+        "updates": 71,
+        "storage": 45,
+        "durability": 90,
+        "smoothness": 52,
+        "display": 78,
+        "photoDay": 66,
+        "photoIndoor": 60,
+        "photoMotion": 55,
+        "selfie": 60,
+        "video": 58,
+        "zoom": 36,
+        "compactness": 92,
+        "value": null
+      },
+      "basis": {
+        "battery": "5000 mAh (pojemność 25,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 44,1 (50%) z etykiety UE (klasa A, 53:13 h przy skali 40–70 h, 1400 cykli) → 0,5 × 25,0 + 0,5 × 44,1 = 35 pkt",
+        "charging": "30 W przewodowo, bez ładowania bezprzewodowego, bez zasilacza w pudełku — (30 − 15) / 75 × 100 = 20 pkt",
+        "updates": "4 dużych aktualizacji systemu i 6 lat poprawek bezpieczeństwa: średnia 5,0 → 5,0 / 7 × 100 = 71 pkt",
+        "storage": "128 GB UFS 3.1 + slot microSD (+5 pkt) = 45 pkt",
+        "durability": "IP65/IP68 = 90 pkt wg tabeli klas IP",
+        "smoothness": "Snapdragon 6 Gen 3 (4 nm) z 8 GB RAM; Notebookcheck: Geekbench 6.7 multi-core 2853, AnTuTu v11 879 035, system 'od czasu do czasu się zacina'; GSMOnline: AnTuTu v12 995 178 (lepszy od zaledwie 18% urządzeń) i sporadyczne przycięcia przy wybudzaniu ekranu i uruchamianiu aparatu; Spider's Web: wolne przełączanie aplikacji przy większym obciążeniu — średnia półka z odczuwalnym brakiem zapasu mocy",
+        "display": "6,1″ OLED 1080×2340 120 Hz, bez HDR; Notebookcheck: średnio 1527 nitów (maks. 1551, APL18 1487), ręcznie 682 nity, PWM tylko 480 Hz; GSMOnline, Spider's Web i Android.com.pl potwierdzają świetną czytelność w pełnym słońcu — bardzo jasny panel jak na klasę, ale bez HDR i z niską częstotliwością PWM",
+        "photoDay": "główny 50 MP f/1.9 (1/1,56″) z OIS + 13 MP szeroki kąt f/2.4; Android.com.pl i GSMOnline chwalą naturalne kolory i balans bieli, ale wytykają zbyt duży kontrast, słabą rozpiętość tonalną (przepalone niebo, utrata świateł i cieni); Notebookcheck: naturalny balans bieli, brakuje rozpiętości tonalnej; Spider's Web: w pełnym słońcu połowa ujęć wyszła zbyt ciemna",
+        "photoIndoor": "Notebookcheck: poprawne zdjęcia w słabym świetle, ale z długimi czasami naświetlania; GSMOnline: użyteczne nocne ujęcia z widocznym szumem, mniejszą szczegółowością i niespójnymi kolorami; Android.com.pl: wynik akceptowalny, duża podatność na flary, szeroki kąt mało przydatny po zmroku",
+        "photoMotion": "brak niezależnego testu zdjęć w ruchu; recenzje wskazują długie czasy naświetlania w słabym świetle (Notebookcheck, Android.com.pl) oraz przycięcia aplikacji aparatu (GSMOnline, Spider's Web) — dane szczątkowe",
+        "selfie": "przedni aparat 8 MP f/2.0 (stała ostrość, wideo 1080p 30 kl./s); Notebookcheck: dobre w dzień; GSMOnline i Android.com.pl: poprawne w dobrym świetle, z ograniczoną szczegółowością i przyzwoitymi odcieniami skóry, w słabym świetle jakość szybko spada",
+        "video": "4K 30 kl./s tylko z aparatu głównego, 1080p 60 kl./s, selfie 1080p 30 kl./s; GSMOnline: dobra ostrość i skuteczna stabilizacja w dobrym świetle, ale przepalenia świateł i brak detali w cieniach; ultraszeroki kąt wyraźnie gorszy, zwłaszcza po zmroku",
+        "zoom": "układ 50 MP + 13 MP, brak teleobiektywu, wyłącznie zoom cyfrowy do 6x (Notebookcheck, Android.com.pl); Android.com.pl ocenia opcję 2x jako mało imponującą; brak pomiarów jakości zoomu",
+        "compactness": "168 g, wymiary 153 × 72 × 8,3 mm — wzór poręczności: lekkość 96, mała powierzchnia 99, smukłość 40 → 92 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.tabletowo.pl/sony-xperia-10-viii-dostepna-w-polsce-jaki-gratis/",
+        "https://gsmonline.pl/artykuly/test-sony-xperia-10-viii-tylko-dla-osob-ktore-nie-chca-miec-chinskiego-smartfonu",
+        "https://www.purepc.pl/premiera-sony-xperia-10-viii",
+        "https://www.telepolis.pl/telefony/sony/xperia-10-viii",
+        "https://spidersweb.pl/2026/11/sony-xperia-10-viii-test-opinie-recenzja.html",
+        "https://android.com.pl/tech/1096163-recenzja-sony-xperia-10-viii-opinia/",
+        "https://imagazine.pl/2026/08/25/sony-xperia-10-viii-premiera-specyfikacja-cena-polska/",
+        "https://www.notebookcheck.net/Sony-launches-new-midrange-smartphone-with-minor-upgrades-and-wild-price.1377773.0.html",
+        "https://www.notebookcheck.net/Sony-s-mid-range-lineup-remains-unique-and-is-getting-expensive-Sony-Xperia-10-VIII-Review.1408419.0.html",
+        "https://www.epey.co.uk/phone/sony-xperia-10-viii.html",
+        "https://www.newmobile.com/global/phones/sony/xperia-10-viii/specifications",
+        "https://www.amazon.pl/dp/B0HDTJRBQ6",
+        "https://www.amazon.pl/dp/B0HDTPHYF8",
+        "https://www.amazon.pl/dp/B0HDTKYBW2",
+        "https://www.ceneo.pl/201174498",
+        "https://www.ceneo.pl/202768976",
+        "https://www.ceneo.pl/;szukaj-sony+xperia+10+viii",
+        "https://fdn2.gsmarena.com/vv/bigpic/sony-xperia-10-viii.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/sony/sony-xperia-10-viii-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "low",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     },
     {
       "id": "oppo-reno-14-5g-12-256",
@@ -4939,7 +6627,7 @@
             "pricePln": 2300,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#38): ~2 300 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Strony x-kom, Media Expert, Neonet, euro.com.pl, mediamarkt.pl zwracaly 403/410/brak ceny dla klienta automatycznego albo oznaczaly produkt jako wycofany, a strona producenta nie pokazuje ceny, wiec nie ma oferty ze sklepu, ktora dalo sie otworzyc i potwierdzic. Otwarte strony Ceneo pokazuja wylacznie oferty Allegro bez nazwy sprzedawcy i bez potwierdzenia stanu 'nowy' (Biały 2499,00 zl; Zielony 2033,28 zl). Z wyszukiwarki (NIEOTWARTE przez badacza, tylko fragmenty wynikow): Media Expert i Neonet ok. 2499 zl (Biały), euro.com.pl i Komput"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oppo+reno+14+5g+12%2F256"
@@ -4960,7 +6648,7 @@
             "pricePln": 2899,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#39): ~2 899 zł (szacunek, cena i dostępność w PL do sprawdzenia)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Model Reno16 Pro 5G istnieje i jest sprzedawany w Polsce (premiera PL 17.08.2026, regularna sprzedaż od 27.08.2026), ale WYŁĄCZNIE w wariancie 12 GB + 512 GB (UFS 3.1) za 3799 zł (cena regularna). Wariant 12/256 GB nie jest oferowany w Polsce: oficjalna strona producenta PL, CHIP, Tabletowo i gsmonline wymieniają tylko 12/512 GB, a na otwartej stronie Ceneo są wyłącznie oferty 12/512 GB (Czarny od 3505 zł, Biały od 3693 zł); selektor wariantów Ceneo zawiera opcję 256 GB, ale bez żadnej oferty 12/256. Agregatory (91mobiles, mysmartprice) wymieni"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oppo+reno+16+pro"
@@ -4981,7 +6669,7 @@
             "pricePln": 2200,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#40, nowy): ~2 200 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: vivo V60 5G (Snapdragon 7 Gen 4) NIE jest oficjalnie sprzedawany w Polsce ani w UE: oficjalne strony vivo PL i EU wymieniają w serii V tylko V70 Lite 5G, V70 i V70 FE (bez V60), Ceneo nie ma żadnego telefonu V60 5G (jest tylko V60 Lite 5G 8/256 GB oraz akcesoria), a polskie media (gsmManiaK, gsmonline) opisywały V60 wyłącznie jako premierę indyjską z własnymi spekulacjami o cenie ok. 2100-2500 zł - bez oficjalnej zapowiedzi dla Polski. W Polsce sprzedawany był inny model: vivo V60 Lite 5G (Dimensity 7360 Turbo, 8/256 GB, 6500 mAh, 1499 zł) - ni"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-vivo+v60+5g+12%2F256"
@@ -4991,43 +6679,460 @@
       "id": "fairphone-5-8-256",
       "brand": "Fairphone",
       "modelName": "5 8/256 GB",
-      "status": "unverified",
+      "status": "over_budget",
       "reveal": {
         "name": "Fairphone 5 8/256 GB",
         "brand": "Fairphone",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/fairphone-5.jpg",
+        "photoUrl": null,
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-fairphone+5",
-            "pricePln": 2499,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#42, nowy): ~2 499 zł (szacunek, cena niezweryfikowana)"
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-fairphone-5-5g-8-256gb-czarny-f5fphn-2tl-eu1-13120929/",
+            "pricePln": 2807.78,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "czarny, 8/256 GB, nowy, sprzedawca NET-S (marketplace Morele), ostatnia sztuka, dostawa 'jutro'"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-fairphone+5"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/157833549",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "5 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2807.78,
+        "source": "morele.net",
+        "url": "https://www.morele.net/smartfon-fairphone-5-5g-8-256gb-czarny-f5fphn-2tl-eu1-13120929/",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "czarny (F5FPHN-2TL-EU1), 8/256 GB, nowy; sprzedawca marketplace NET-S, 'Ostatnia sztuka'",
+        "auditNote": "Najnizsza cena, jaka udalo sie zweryfikowac na stronie sklepu (schema.org: NewCondition, InStock, priceValidUntil 2026-11-19, sprzedawca marketplace NET-S w Morele). Ceneo (strony 157833549/50/51, otwarte dzis) pokazuje nizsze oferty: amazon.pl 2524,99 zl (przezroczysty, opis 'Android 14, ze srubokretem'), Bestokazje.pl 2703,93 zl, Gigadeal.pl 2785,29 zl oraz amazon.pl 2739,28 zl (czarny) - nie udalo sie ich otworzyc na stronach sklepow (przekierowanie Ceneo wymaga captcha, amazon.pl zwrocil 503, gigadeal.pl 403), wiec nie sa uznane za zweryfikowane i trafily do otherObservations. W proshop.pl nie ma obecnie Fairphone 5. Brak oferty w x-kom (wyszukiwarka bez wynikow), euro.com.pl i mediaexpert.pl blokuja automatyczne zapytania.",
+        "otherObservations": [
+          {
+            "pln": 2524.99,
+            "source": "amazon.pl (przez Ceneo 157833550)",
+            "url": "https://www.ceneo.pl/157833550",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Transparent Edition 8/256 GB, oferta widoczna tylko na Ceneo, nie otwarta na stronie sklepu (captcha/503); opis oferty wspomina Android 14"
+          },
+          {
+            "pln": 2703.93,
+            "source": "bestokazje.pl (przez Ceneo 157833550)",
+            "url": "https://www.ceneo.pl/157833550",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Transparent Edition 8/256 GB, tylko widok Ceneo, nie zweryfikowano na stronie sklepu"
+          },
+          {
+            "pln": 2785.29,
+            "source": "gigadeal.pl (przez Ceneo 157833550)",
+            "url": "https://www.ceneo.pl/157833550",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Transparent Edition 8/256 GB, tylko widok Ceneo, strona sklepu zwraca 403"
+          },
+          {
+            "pln": 2739.28,
+            "source": "amazon.pl (przez Ceneo 157833549)",
+            "url": "https://www.ceneo.pl/157833549",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "czarny matowy 8/256 GB, jedyna oferta na Ceneo, nie zweryfikowano na stronie sklepu"
+          }
+        ],
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.46,
+        "panel": "OLED",
+        "refreshHz": 90,
+        "resolution": "1224x2700",
+        "peakNits": 800,
+        "glass": "Corning Gorilla Glass 5",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 2.2",
+        "microSd": true,
+        "microSdNote": "do 2 TB (Notebookcheck); test kopiowania z karty microSD: 18,45 MB/s (ponizej sredniej)",
+        "chip": "Qualcomm QCM6490",
+        "batteryMah": 4200,
+        "batteryCycles": 1300,
+        "batteryEndurance": 0,
+        "batteryTests": [
+          "Etykieta UE (Fairphone, EPREL 2378858): klasa B, 37 h wytrzymalosci na cykl, 1300 cykli, bateria wymienna przez uzytkownika",
+          "Notebookcheck test Wi-Fi (Chrome 119): 9 h 35 min (9,6 h w tescie Wi-Fi v1.3)",
+          "DXOMARK Battery: 83 pkt (aparat: mniej niz 2 h, gry: prawie 5,5 h, mocne aplikacje spolecznosciowe: ok. 5 h, nawigacja GPS: ok. 4 h)",
+          "etykieta UE: B, 37:00 h na cyklu, 1300 cykli (https://www.fairphone.com/theme_fairphone/static/src/pdf/energy/fp5/en.pdf)"
+        ],
+        "chargingW": 30,
+        "chargingNote": "30 W wg DXOMARK i Notebookcheck; etykieta UE wymaga ladowarki o mocy wyjsciowej 27 W",
+        "chargingTests": "DXOMARK: pelne ladowanie w 2:19 h, 0-80% w nieco ponad 1 h (30 W); Notebookcheck: 50% w 20 min na zasilaczu 30 W",
+        "chargerInBox": false,
+        "chargerInBoxNote": "Notebookcheck: w pudelku tylko telefon, bez ladowarki i kabla (globalny zestaw); dla polskiej dystrybucji nie potwierdzono osobno w opisie sklepu",
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP55",
+        "ipNote": "IP55 wg etykiety UE (EPREL); nie jest wodoodporny; Notebookcheck podaje tez certyfikat MIL-STD 810H (upadek z 1,5 m) - brak potwierdzenia na stronie producenta; etykieta UE: 300 upadkow bez usterki, klasa A",
+        "weightG": 212,
+        "weightNote": "212 g wg Notebookcheck i sklepu (Morele)",
+        "heightMm": 161.6,
+        "widthMm": 75.8,
+        "thicknessMm": 9.6,
+        "dimensionsMm": "161,6 × 75,8 × 9,6",
+        "cameras": {
+          "main": "50 MP f/1.9 z OIS",
+          "ultrawide": "50 MP f/2.2 (ultraszeroki, z trybem makro)",
+          "macro": null,
+          "selfie": "50 MP f/2.5 (laczenie pikseli do 12,5 MP)",
+          "telephoto": null
+        },
+        "video": "4K 30 kl./s (tylny aparat); 1080p do 60 kl./s",
+        "os": "Android 13",
+        "updatesYears": 8,
+        "updatesOsGenerations": 5,
+        "updatesSecurityYears": 8,
+        "updatesNote": "Etykieta UE (EPREL 2378858): min. 8 lat aktualizacji systemu i zabezpieczen; Notebookcheck: piec duzych aktualizacji Androida i poprawki przez min. 8 lat; opis w sklepie Morele i producent wymieniaja rok 2031 (zgodny z 8 latami od premiery); agregator Notebookcheck.pl wspomina o celu 2033, czego nie potwierdzono u producenta",
+        "releasedAt": "2023-09",
+        "securitySupportUntil": "2031-08",
+        "supportNote": "Wyliczone: model wprowadzony na rynek UE 30.08.2023 (EPREL) + minimum 8 lat = 08.2031; opis producenta w sklepie Morele: wsparcie do 2031. Liczone od daty wprowadzenia na rynek, nie od daty zakupu.",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E",
+        "bluetooth": "5.2",
+        "fingerprint": "w przycisku zasilania (boczny)",
+        "satelliteSos": null,
+        "polishLaunchPricePln": null,
+        "reviewNotes": [
+          "Notebookcheck (ocena 83%): wymienna bateria, wiele napraw we wlasnym zakresie, dlugie wsparcie, eSIM, USB 3.2, microSD; wady: kalibracja ekranu, slabe glosniki, wysokie temperatury pod obciazeniem, umiarkowany czas pracy",
+          "DXOMARK: Camera 108, Display 119, Audio 92, Battery 83"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 3,
+        "charging": 20,
+        "updates": 93,
+        "storage": 80,
+        "durability": 50,
+        "smoothness": 54,
+        "display": 60,
+        "photoDay": 68,
+        "photoIndoor": 62,
+        "photoMotion": 60,
+        "selfie": 58,
+        "video": 58,
+        "zoom": 32,
+        "compactness": 34,
+        "value": null
+      },
+      "basis": {
+        "battery": "4200 mAh (pojemność 5,0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 0,0 (50%) z etykiety UE (klasa B, 37:00 h przy skali 40–70 h, 1300 cykli) → 0,5 × 5,0 + 0,5 × 0,0 = 3 pkt",
+        "charging": "30 W przewodowo, bez ładowania bezprzewodowego, bez zasilacza w pudełku — (30 − 15) / 75 × 100 = 20 pkt",
+        "updates": "5 dużych aktualizacji systemu i 8 lat poprawek bezpieczeństwa: średnia 6,5 → 6,5 / 7 × 100 = 93 pkt",
+        "storage": "256 GB UFS 2.2 + slot microSD (+5 pkt) = 80 pkt",
+        "durability": "IP55 = null pkt wg tabeli klas IP",
+        "smoothness": "Układ QCM6490 z 8 GB RAM LPDDR4x, pamięć UFS 2.2 i ekran 90 Hz; Notebookcheck: Geekbench 6 multi-core 2999, AnTuTu v10 676 317, 3DMark Wild Life Extreme 887, stabilność 99,3% w teście obciążeniowym — poprawna płynność na co dzień, ale skromny zapas mocy i tylko 90 Hz (poziom układów klasy 6-serii)",
+        "display": "6,46″ OLED 1224×2700, 90 Hz; Notebookcheck zmierzył 617 cd/m² średnio (628 maks., 721 w HDR) przy deklarowanych 800, ΔE 3,4 i zielonkawy odcień szarości; DXOMARK Display 119 pkt (kolor 130, dotyk 126, odczyt 115) — dobra kolorystyka, ale brak rezerwy jasności w słońcu i dla wideo HDR10",
+        "photoDay": "główny 50 MP f/1.9 z OIS + 50 MP ultraszeroki; DXOMARK Camera 108 (Photo 115: ekspozycja 97, kolor 103, tekstura 88) chwali naturalny balans bieli i trafną ekspozycję, wytyka lekko wyblakłe kolory; Notebookcheck: zdjęcia dzienne «całkiem przyzwoite», ale rozpiętość tonalna mogłaby być lepsza",
+        "photoIndoor": "DXOMARK: dobrze kontrolowany szum w pomieszczeniach (szum 94 pkt) i naturalny balans bieli, ale silna dominanta barwna w słabym świetle; Notebookcheck nie podaje osobnego werdyktu o zdjęciach nocnych, a ultraszeroki łapie szum wcześnie",
+        "photoMotion": "DXOMARK Photo: autofokus 97 pkt («zasadniczo skuteczny»); w nagraniach różnice ostrości między klatkami w ruchomych scenach; układ QCM6490 daje przeciętną szybkość działania (Notebookcheck: Geekbench 6 multi-core 2999)",
+        "selfie": "przedni aparat 50 MP f/2.5 (łączenie pikseli do 12,5 MP); Notebookcheck: w dzień zdjęcia nadmiernie wyostrzone, w słabym świetle niski kontrast; brak osobnego testu selfie w DXOMARK, więc tylko ocena jakościowa",
+        "video": "4K maksymalnie 30 kl./s z OIS, 1080p do 60 kl./s; DXOMARK Video 104 pkt (autofokus 95, szum 98, stabilizacja 88, ekspozycja 75) — zarzuty: drgania obrazu i mocno ograniczona rozpiętość tonalna w jasnym świetle",
+        "zoom": "brak teleobiektywu: 50 MP główny + 50 MP ultraszeroki; DXOMARK Zoom 79 pkt (tele tylko 50 pkt — niska rozdzielczość zdjęć tele); Notebookcheck: zoom «nie jest mocną stroną»",
+        "compactness": "212 g, wymiary 161,6 × 75,8 × 9,6 mm — wzór poręczności: lekkość 33, mała powierzchnia 43, smukłość 0 → 34 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.morele.net/smartfon-fairphone-5-5g-8-256gb-czarny-f5fphn-2tl-eu1-13120929/",
+        "https://www.ceneo.pl/157833549",
+        "https://www.ceneo.pl/157833550",
+        "https://www.ceneo.pl/157833551",
+        "https://www.ceneo.pl/Smartfony/p:Fairphone.htm",
+        "https://mediamarkt.pl/pl/product/_smartphones-fairphone-5-5g-4g-lte-3g-umts-2g-gsm-8-gb256-gb-czarny-127774032.html",
+        "https://www.fairphone.com/theme_fairphone/static/src/pdf/energy/fp5/en.pdf",
+        "https://www.notebookcheck.net/Fairphone-5-review-Sustainable-smartphone-with-8-years-updates-and-5-years-warranty.775970.0.html",
+        "https://www.notebookcheck.net/Fairphone-5-fails-in-DxOMark-battery-analysis-and-dies-after-two-hours-of-camera-use.797228.0.html",
+        "https://www.dxomark.com/smartphones/Fairphone/5",
+        "https://www.dxomark.com/fairphone-5-camera-test/",
+        "https://www.dxomark.com/fairphone-5-display-test/",
+        "https://antyweb.pl/fairphone-5-premiera",
+        "https://fdn2.gsmarena.com/vv/bigpic/fairphone-5.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "low",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": [
+        "durability"
+      ]
     },
     {
       "id": "fairphone-gen-6-8-256",
       "brand": "Fairphone",
       "modelName": "(Gen. 6) 8/256 GB",
-      "status": "needs_confirmation",
+      "status": "over_budget",
       "reveal": {
         "name": "Fairphone (Gen. 6) 8/256 GB",
         "brand": "Fairphone",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/fairphone-6.jpg",
+        "photoUrl": null,
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-fairphone+gen+6",
-            "pricePln": 2999,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#43, nowy): ~2 999 zł (szacunek na granicy 3 000 zł, do sprawdzenia)"
+            "label": "proshop.pl",
+            "url": "https://www.proshop.pl/Telefon-komorkowy/Fairphone-Gen-6-256GB8GB-Horizon-Black/3382473",
+            "pricePln": 2599,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Horizon Black, 8/256 GB, nowy, magazyn zewnętrzny, dostawa 7-8 dni"
+          },
+          {
+            "label": "proshop.pl",
+            "url": "https://www.proshop.pl/Telefon-komorkowy/Fairphone-Gen-6-256GB8GB-Forest-Green/3382474",
+            "pricePln": 2599,
+            "checkedAt": "2026-11-18",
+            "kind": "shop",
+            "note": "Forest Green, 8/256 GB, nowy, magazyn zewnętrzny, dostawa 7-8 dni"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-fairphone-gen-6-8-256gb-zielony-f6fphn-2gr-eu1-15441751/",
+            "pricePln": 2814.13,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "Forest Green (F6FPHN-2GR-EU1), nowy, sprzedaje i wysyła zewnętrzny przedsiębiorca, ostatnia sztuka"
+          },
+          {
+            "label": "mediamarkt.pl",
+            "url": "https://mediamarkt.pl/pl/product/_smartphone-fairphone-the-gen-6-5g-8-gb-256-gb-czarny-161626524.html",
+            "pricePln": 2865,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "czarny, sprzedawca marketplace Electronic Shops PL; strona nie podaje wprost stanu nowy/używany; dostawa 23-27.11.2026"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-fairphone+gen+6"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/186964318",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "(Gen. 6) 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2599,
+        "source": "proshop.pl",
+        "url": "https://www.proshop.pl/Telefon-komorkowy/Fairphone-Gen-6-256GB8GB-Horizon-Black/3382473",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "Horizon Black (F6FPHN-2ZW-EU1), 8/256 GB, nowy; Forest Green (3382474) w tej samej cenie; dostawa z magazynu zewnętrznego 7-8 dni",
+        "auditNote": "Najniższa cena zweryfikowana na stronie sklepu (schema.org: NewCondition, price 2599.00 PLN, zwrot 14 dni). Ceneo (186964318/186964307, otwarte dziś) pokazuje niższe oferty: abfoto.pl 2485 zł i allegro.pl 2489 zł - strony sklepów nie dały się zweryfikować (abfoto.pl zwraca 403/stronę bez ceny w treści, wyszukiwarka pokazała tam 2583-2593 zł, co rozjeżdża się z Ceneo; Allegro blokuje automaty), więc zapisano je tylko jako obserwacje. Pozostałe otwarte oferty: Morele 2814,13 zł (marketplace, Forest Green, ostatnia sztuka), MediaMarkt 2865 zł (marketplace, Electronic Shops PL, czarny), Morele 2986,99 zł (czarny, sku 99936505, opis niemieckiej edycji operatorskiej). x-kom: brak produktu w wyszukiwarce; euro.com.pl i mediaexpert.pl blokują automatyczne zapytania.",
+        "otherObservations": [
+          {
+            "pln": 2485,
+            "source": "abfoto.pl (przez Ceneo 186964318 / 186964307)",
+            "url": "https://www.ceneo.pl/186964318",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "Horizon Black i Forest Green 8/256 GB wg Ceneo; strona sklepu https://abfoto.pl/pl/p/Fairphone-6-5G-8256-GB-Czarny-Horizon-Black/19730 nie dała się odczytać (cena nie jest w treści dla klienta automatycznego); wyszukiwarka podawała 2583-2593 zł - niezweryfikowane"
+          },
+          {
+            "pln": 2489,
+            "source": "allegro.pl (przez Ceneo 186964318 / 186964307)",
+            "url": "https://www.ceneo.pl/186964318",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "oferta Allegro (dostawa od 10,49 zł), widoczna tylko na Ceneo, nie otwarta na Allegro"
+          },
+          {
+            "pln": 2965.19,
+            "source": "bestokazje.pl (przez Ceneo 186964318)",
+            "url": "https://www.ceneo.pl/186964318",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "czarny, tylko widok Ceneo"
+          },
+          {
+            "pln": 2970.99,
+            "source": "supertech.pl (przez Ceneo 186964318)",
+            "url": "https://www.ceneo.pl/186964318",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "czarny, tylko widok Ceneo"
+          },
+          {
+            "pln": 2986.99,
+            "source": "morele.net",
+            "url": "https://www.morele.net/smartfon-fairphone-fairphone-6-5g-8-256gb-czarny-99936505-15416829/",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "czarny, sku 99936505, opis w treści sklepu wskazuje niemiecką edycję operatorską (TELEKOM), nowy"
+          }
+        ],
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.31,
+        "panel": "LTPO P-OLED",
+        "refreshHz": "10-120",
+        "resolution": "1116x2484",
+        "peakNits": 1400,
+        "glass": "Corning Gorilla Glass 7i",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": true,
+        "microSdNote": "do 2 TB (Fairphone, Notebookcheck)",
+        "chip": "Qualcomm Snapdragon 7s Gen 3",
+        "batteryMah": 4415,
+        "batteryCycles": 1000,
+        "batteryEndurance": 43.3,
+        "batteryTests": [
+          "Etykieta UE (Fairphone, EPREL 2372958, model FP6): klasa A, 53 h wytrzymałości na cykl, 1000 cykli, bateria wymienialna przez użytkownika",
+          "Notebookcheck test Wi-Fi: 16 h 30 min",
+          "Expert Reviews, test pętli wideo: 23 h 45 min",
+          "etykieta UE: A, 53:00 h na cyklu, 1000 cykli (https://admin.fairphone.com/wp-content/uploads/2025/06/Energy-Label-Productinformatieblad-2372958_nl.pdf)"
+        ],
+        "chargingW": 30,
+        "chargingNote": "30 W maks. (producent: 27 W szybkie ładowanie, 30 W szczyt); etykieta UE wymaga zasilacza 27 W",
+        "chargingTests": "Notebookcheck (zasilacz PD): 50% w 24 min, 80% w 44 min, pełne w 64 min; Expert Reviews: ok. 62% w 30 min, pełne w nieco ponad godzinę",
+        "chargerInBox": false,
+        "chargerInBoxNote": "Fairphone: w pudełku brak ładowarki (tylko skrócona instrukcja, informacje o bezpieczeństwie, narzędzie do tacki SIM)",
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP55",
+        "ipNote": "IP55 wg producenta i etykiety UE (EPREL 2372958); nie jest wodoodporny (Notebookcheck); etykieta UE: 300 upadków bez usterki, klasa A",
+        "weightG": 193,
+        "weightNote": "193 g wg producenta i Proshop; Notebookcheck i abfoto podają 191,4 g - przyjęto producenta",
+        "heightMm": 156.6,
+        "widthMm": 73.3,
+        "thicknessMm": 9.6,
+        "dimensionsMm": "156,6 × 73,3 × 9,6",
+        "cameras": {
+          "main": "50 MP f/1.88 z OIS",
+          "ultrawide": "13 MP f/2.2 (tylko stabilizacja elektroniczna wg producenta; makro)",
+          "macro": null,
+          "selfie": "32 MP f/2.0",
+          "telephoto": null
+        },
+        "video": "4K 30 kl./s (główny i ultraszeroki); selfie 2K 30 kl./s",
+        "os": "Android 15",
+        "updatesYears": 8,
+        "updatesOsGenerations": 6,
+        "updatesSecurityYears": 8,
+        "updatesNote": "Producent: sześć dużych aktualizacji Androida, wsparcie do 2033; etykieta UE (EPREL): min. 8 lat aktualizacji systemu i zabezpieczeń; Antyweb wspomina o 'co najmniej siedmiu' dużych aktualizacjach (sprzeczne, przyjęto producenta); Fairphone obecnie podaje Android 16 jako system w nowych egzemplarzach",
+        "releasedAt": "2025-06",
+        "securitySupportUntil": "2033-06",
+        "supportNote": "Wyliczone: wprowadzenie na rynek UE 25.06.2025 (EPREL) + 8 lat = 06.2033; producent podaje samo 'do 2033'. Liczone od premiery, nie od daty zakupu.",
+        "sim": "nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E",
+        "bluetooth": "5.4",
+        "fingerprint": "w przycisku zasilania",
+        "satelliteSos": null,
+        "polishLaunchPricePln": null,
+        "reviewNotes": [
+          "Notebookcheck (kategoria aparat 70%): zalety - łatwa naprawa, 8 lat aktualizacji, do 5 lat gwarancji, dobry czas pracy; wady - brak pyło- i wodoodporności, USB 2.0, ekran mógłby być jaśniejszy",
+          "Expert Reviews: zalecany dla świadomych ekologicznie, ale słabsza wydajność, bateria i aparaty niż u rywali"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 27,
+        "charging": 20,
+        "updates": 100,
+        "storage": 80,
+        "durability": 50,
+        "smoothness": 64,
+        "display": 78,
+        "photoDay": 66,
+        "photoIndoor": 56,
+        "photoMotion": 50,
+        "selfie": 66,
+        "video": 58,
+        "zoom": 38,
+        "compactness": 62,
+        "value": null
+      },
+      "basis": {
+        "battery": "4415 mAh (pojemność 10,4 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 43,3 (50%) z etykiety UE (klasa A, 53:00 h przy skali 40–70 h, 1000 cykli) → 0,5 × 10,4 + 0,5 × 43,3 = 27 pkt",
+        "charging": "30 W przewodowo, bez ładowania bezprzewodowego, bez zasilacza w pudełku — (30 − 15) / 75 × 100 = 20 pkt",
+        "updates": "6 dużych aktualizacji systemu i 8 lat poprawek bezpieczeństwa: średnia 7,0 → 7,0 / 7 × 100 = 100 pkt",
+        "storage": "256 GB UFS 3.1 + slot microSD (+5 pkt) = 80 pkt",
+        "durability": "IP55 = null pkt wg tabeli klas IP",
+        "smoothness": "Snapdragon 7s Gen 3 z 8 GB LPDDR5, pamięć UFS 3.1 i ekran LTPO 10–120 Hz; Notebookcheck: Geekbench 6.7 multi-core 3426 (single 1188), 3DMark Wild Life Extreme 1120, stabilność 98,8% — płynna praca na co dzień na poziomie średniej półki (AnTuTu v10 nie zmierzono)",
+        "display": "6,31″ LTPO P-OLED 1116×2484, adaptacyjne 10–120 Hz; Notebookcheck zmierzył 746 cd/m² maks. (736 średnio), 1458 cd/m² w szczycie APL18 i 1920 cd/m² w HDR przy deklarowanych 1400, ΔE 1,6, PWM 120 Hz o amplitudzie 14%; recenzent: panel jaśniejszy i dokładniejszy niż w poprzedniku, ale ekran mógłby być jaśniejszy w słońcu",
+        "photoDay": "główny 50 MP f/1.88 z OIS + 13 MP ultraszeroki; Notebookcheck: «solidne wyniki» i bardzo naturalne kolory, ale ograniczona rozpiętość tonalna (kategoria aparat 70%); Expert Reviews wytyka rozmyte fragmenty po powiększeniu, Antyweb pisze, że aparaty «pozostawiają nieco do życzenia»",
+        "photoIndoor": "Expert Reviews: zdjęcia nocne «w porządku, ale niezbyt imponujące», niebo ciemne, rozmyte i z dużym szumem; Notebookcheck nie podaje werdyktu o słabym świetle (tylko galeria próbek), brak testu DXOMARK",
+        "photoMotion": "brak niezależnego testu autofokusu i zdjęć w ruchu dla tego modelu (Notebookcheck i Expert Reviews nie oceniają tego kryterium) — ocena neutralna",
+        "selfie": "przedni aparat 32 MP f/2.0 (wideo 2K 30 kl./s); Notebookcheck: selfie wyglądają dobrze, choć wyostrzanie jest nieco zbyt agresywne; Expert Reviews: naturalne odcienie skóry i ostry fokus na twarzy",
+        "video": "4K maksymalnie 30 kl./s z OIS na głównym aparacie i na ultraszerokim, selfie 2K 30 kl./s (producent, Notebookcheck); Expert Reviews: wideo «wystarczająco solidne» do 4K 30 kl./s; brak testu DXOMARK i pomiarów stabilizacji",
+        "zoom": "układ 50 MP + 13 MP, brak teleobiektywu; Expert Reviews: zoom «w porządku» przy 2x i 3x, dalej obraz mocno się rozmywa (do 10x maks.); Notebookcheck podaje tylko próbkę 5x bez werdyktu",
+        "compactness": "193 g, wymiary 156,6 × 73,3 × 9,6 mm — wzór poręczności: lekkość 60, mała powierzchnia 78, smukłość 0 → 62 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.proshop.pl/Telefon-komorkowy/Fairphone-Gen-6-256GB8GB-Horizon-Black/3382473",
+        "https://www.proshop.pl/Telefon-komorkowy/Fairphone-Gen-6-256GB8GB-Forest-Green/3382474",
+        "https://www.morele.net/smartfon-fairphone-gen-6-8-256gb-zielony-f6fphn-2gr-eu1-15441751/",
+        "https://www.morele.net/smartfon-fairphone-fairphone-6-5g-8-256gb-czarny-99936505-15416829/",
+        "https://mediamarkt.pl/pl/product/_smartphone-fairphone-the-gen-6-5g-8-gb-256-gb-czarny-161626524.html",
+        "https://www.ceneo.pl/186964318",
+        "https://www.ceneo.pl/186964307",
+        "https://www.ceneo.pl/Smartfony/p:Fairphone.htm",
+        "https://abfoto.pl/pl/p/Fairphone-6-5G-8256-GB-Czarny-Horizon-Black/19730",
+        "https://www.fairphone.com/en/the-fairphone-gen-6/",
+        "https://admin.fairphone.com/wp-content/uploads/2025/06/Energy-Label-Productinformatieblad-2372958_nl.pdf",
+        "https://www.notebookcheck.net/Fairphone-6-review-The-smartphone-built-with-sustainability-in-mind.1115153.0.html",
+        "https://www.expertreviews.co.uk/mobile-phones/fairphone-6-review",
+        "https://www.telepolis.pl/tech/sprzet/fairphone-6-smartfon-modulowy-premiera-specyfikacja-cena",
+        "https://antyweb.pl/ten-telefon-sam-sobie-naprawisz-jednym-srubokretem",
+        "https://fdn2.gsmarena.com/vv/bigpic/fairphone-6.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "low",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "low",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": [
+        "durability",
+        "photoMotion"
+      ]
     },
     {
       "id": "infinix-gt-30-pro-12-256",
@@ -5044,7 +7149,7 @@
             "pricePln": 1500,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#44, nowy): ~1 500 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Model Infinix GT 30 Pro (X6873) istnieje globalnie, a wariant 12/256 GB jest podstawowym wariantem z premiery (Notebookcheck; dostępne też 8/256 i 12/512 GB wg GSMManiak/mGSM), ale NIE znaleziono dowodu sprzedaży w Polsce: Ceneo, x-kom i morele nie zwracają żadnego telefonu GT 30 Pro (tylko akcesoria lub brak wyników), katalog mGSM.pl: 'Brak informacji o cenach' i 'Nie znaleziono produktu' w sklepach, GSMManiak (21.05.2025) nie potwierdza dostępności w Polsce, a karta EPREL (nr 2499730) ma pustą listę państw EOG, w których model jest dostępny ("
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-infinix+gt+30+pro"
@@ -5065,7 +7170,7 @@
             "pricePln": 1799,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#45): ~1 799 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Nie znaleziono żadnego potwierdzenia, że model 'Infinix Zero 50 Pro 5G' istnieje (ani w wariancie 12/512 GB, ani innym). Wyszukiwanie 'Infinix Zero 50 Pro' zwraca tylko 'Zero 50 5G' (bez 'Pro'), który wg Smartprix jest plotką niepotwierdzoną przez wiarygodne źródła (agregatory podają sprzeczne dane: Dimensity 8300, 5500 mAh vs 5000 mAh/88 W, premiera od grudnia 2025 do 2026+). Ceneo: brak wyników dla 'infinix zero 50' (Brak wyników dla frazy wyszukania); polskie portale (gsmmaniak, telepolis, tabletowo, antyweb) nie opisują Zero 50 ani Zero 50 "
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-infinix+zero+50+pro"
@@ -5086,7 +7191,7 @@
             "pricePln": 2999,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#46): ~2 999 zł (szacunek na granicy 3 000 zł, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; x-kom.pl (1211268): 'Produkt wycofany', bez ceny; komputronik.pl: 4999 zl, 'Produkt archiwalny - sprzedaz zakonczona'; allmar.com.pl: 2999 zl, 'Brak w magazynie', kraj wysylki Hiszpania; Ceneo 162717924 (czarny): 'Aktualnie brak ofert'; Ceneo 166462132 (szary): jedna oferta amazon.pl 5367,80 zl, ale tytul oferty na Ceneo nie pasuje do telefonu (opis dywanikow) i nie udalo sie otworzyc strony oferty - niezweryfikowana. Mediaexpert i Allegro zwracaja HTTP 403 dla automatu - nie otwarte (w wynikach wyszukiwarki widoczne fragmenty 2820 zl na"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-asus+rog+phone+8+12%2F256"
@@ -5107,7 +7212,7 @@
             "pricePln": 1999,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#47): ~1 999 zł (szacunek, premiera i dostępność w PL do sprawdzenia)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Model HMD Skyline 2 nie został oficjalnie zapowiedziany ani wprowadzony do sprzedaży. gsmManiaK.pl (10.07.2026) opisuje wyłącznie przecieki (autor pisze, że nie wiadomo, czy model w ogóle się ukaże), Notebookcheck (publikacja 05.07.2026, aktualizacja 05.10.2026) podaje 'no official confirmation yet' i spodziewany start w 2026 bez daty. Polska strona producenta (hmd.com/pl_pl/smartphones, pobrana dziś) nie zawiera Skyline 2 (jest jedynie podstrona oryginalnego Skyline), Ceneo na zapytanie 'hmd skyline 2' zwraca wyłącznie oryginalnego Skyline (m."
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-hmd+skyline+2"
@@ -5128,7 +7233,7 @@
             "pricePln": 2499,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#48): ~2 499 zł (szacunek, cena niezweryfikowana)"
+            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Globalny model ma wariant 8/256 GB (plus 8 GB pamięci wirtualnej wg producenta), ale nie znaleziono dowodu sprzedaży w Polsce. Polska strona producenta (tecno-mobile.com/pl) nie ma serii Phantom na liście smartfonów (tylko Spark, Pova, Camon, Pop). Notebookcheck podaje regiony sprzedaży: Afryka, Azja Południowo-Wschodnia, Bliski Wschód, Ameryka Łacińska i inne niewymienione - nie Europa. Ceneo i Morele pokazują wyłącznie akcesoria do tego modelu, nie telefon; Komorkomat: brak ceny/dostępności. Telepolis (09.2024) pisał jedynie, że telefon 'praw"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-tecno+phantom+v+flip+2"
@@ -5138,22 +7243,193 @@
       "id": "tcl-50-nxtpaper-5g-8-256",
       "brand": "TCL",
       "modelName": "50 NXTPAPER 5G 8/256 GB",
-      "status": "unverified",
+      "status": "ok",
       "reveal": {
         "name": "TCL 50 NXTPAPER 5G 8/256 GB",
         "brand": "TCL",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/tcl-50-nxtpaper.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/tcl/tcl-50-nxtpaper-1.jpg",
         "shopLinks": [
           {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-tcl+50+nxtpaper+5g",
-            "pricePln": 1199,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "placeholder z listy (#49, nowy): ~1 199 zł (szacunek, cena niezweryfikowana)"
+            "label": "mediamarkt.pl",
+            "url": "https://mediamarkt.pl/pl/product/_smartphones-tcl-50-nxtpaper-5g-5g-8-gb256-gb-niebieski-145752847.html",
+            "pricePln": 990,
+            "checkedAt": "2026-11-18",
+            "kind": "marketplace",
+            "note": "sprzedaż i wysyłka przez Electronic Shops PL (marketplace MediaMarkt), niebieski, nowy, z VAT, darmowa dostawa; termin dostawy 24-30.11.2026 sugeruje brak od ręki"
           }
         ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-tcl+50+nxtpaper+5g"
-      }
+        "priceCompareUrl": "https://www.ceneo.pl/194392956",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "50 NXTPAPER 5G 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 990,
+        "source": "mediamarkt.pl (marketplace, sprzedawca Electronic Shops PL)",
+        "url": "https://mediamarkt.pl/pl/product/_smartphones-tcl-50-nxtpaper-5g-5g-8-gb256-gb-niebieski-145752847.html",
+        "checkedAt": "2026-11-18",
+        "providedBy": "search",
+        "userNote": "niebieski (Midnight Blue), 8/256 GB, nowy; sprzedawca zewnętrzny na marketplace MediaMarkt, darmowa dostawa, termin 24-30.11.2026",
+        "auditNote": "Jedyna zweryfikowana (otwarta) oferta nowego egzemplarza w Polsce. Karta Ceneo 194392956 (T702D) miała 0 ofert w dniu sprawdzenia (ostatnia cena 828,99 zł, bez daty). Morele: brak tego modelu w wynikach wyszukiwania. x-kom, euro.com.pl, Media Expert, Komputronik i Allegro zwracają 403 dla automatów, więc nie zostały sprawdzone. Wyniki wyszukiwarki wspominały o ofertach Allegro ok. 729-800 zł i cenie Kimovil 860 zł, ale tych stron nie otwarto i nie są użyte jako cena. Cena premierowa w Europie: 229 EUR (ok. 981 zł wg Telepolis, 2024).",
+        "otherObservations": [
+          {
+            "pln": 828.99,
+            "source": "ceneo.pl",
+            "url": "https://www.ceneo.pl/194392956",
+            "checkedAt": "2026-11-18",
+            "providedBy": "claude",
+            "note": "ostatnia znana cena z karty produktu (T702D, szary 8/256 GB), bez daty; w dniu sprawdzenia 'Aktualnie brak ofert tego produktu' - nie użyte jako cena"
+          }
+        ],
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null
+      },
+      "specs": {
+        "displayInch": 6.78,
+        "panel": "IPS LCD",
+        "refreshHz": 120,
+        "resolution": "1080x2460",
+        "peakNits": 550,
+        "glass": null,
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 2.2",
+        "microSd": true,
+        "microSdNote": "do 2 TB; hybrydowa taca: 2x nanoSIM albo nanoSIM + microSD (eSIM dodatkowo) wg MobilArena",
+        "chip": "MediaTek Dimensity 6300 (6 nm)",
+        "batteryMah": 5010,
+        "batteryCycles": 1000,
+        "batteryEndurance": 17.3,
+        "batteryTests": [
+          "Etykieta UE (EPREL, model T702D): klasa B, 45:11 h szacowanej wytrzymałości na cykl, 1000 cykli",
+          "MobilArena: PCMark Work 3.0 13 h 41 min (95% -> 20%), częstotliwość odświeżania w teście nie podana",
+          "Smartzone: 11,8 h w teście baterii (bez szczegółów metody)",
+          "etykieta UE: B, 45:11 h na cyklu, 1000 cykli (https://eprel.ec.europa.eu/labels/smartphonestablets20231669/Label_2352397.svg)"
+        ],
+        "chargingW": 33,
+        "chargingNote": "do 33 W wg producenta; MobilArena zmierzyła 23-25 W z zasilacza PD 3.0",
+        "chargingTests": "MobilArena: 23-25 W z zasilacza PD 3.0, ok. 2 h do pełna (szacunek); Smartzone: pełne ładowanie w 82 min z zasilacza 90 W",
+        "chargerInBox": false,
+        "chargerInBoxNote": "w zestawie tylko kabel USB-C i szpilka do SIM; zasilacz 33 W tylko w wersji Pro (MobilArena, Batista70Phone, Smartzone, Telepolis)",
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP54",
+        "ipNote": "IP54 wg etykiety UE (EPREL); bez certyfikatu MIL-STD",
+        "weightG": 196,
+        "weightNote": null,
+        "heightMm": 167.6,
+        "widthMm": 75.5,
+        "thicknessMm": 7.99,
+        "dimensionsMm": "167,6 × 75,5 × 7,99",
+        "cameras": {
+          "main": "108 MP f/1.75 (1/1,67″, PDAF), bez OIS (obraz domyślnie 12 MP)",
+          "ultrawide": "8 MP f/2.2 (120°, stała ostrość)",
+          "macro": "2 MP f/2.4",
+          "selfie": "8 MP f/2.0 (stała ostrość)",
+          "telephoto": null
+        },
+        "video": "1080p 30 kl./s",
+        "os": "Android 14, TCL UI 7.0",
+        "updatesYears": 5,
+        "updatesOsGenerations": 2,
+        "updatesSecurityYears": 5,
+        "updatesNote": "Etykieta UE (EPREL, via mGSM): minimalna gwarantowana dostępność aktualizacji 5 lat. Wydarzenie premierowe wg MobilArena: 2 duże aktualizacje Androida + 3 lata poprawek; Telepolis: aktualizacje systemu przez 2 lata i wsparcie w UE do 2029; Smartzone: poprawki do marca 2029; Batista70Phone: 5 lat poprawek.",
+        "releasedAt": "2024-09",
+        "securitySupportUntil": "2029-09",
+        "supportNote": "Wyliczone: 5 lat wg EPREL liczone od premiery (2024-09). Źródła prasowe różnią się (marzec 2029 wg Smartzone, 'do 2029' wg Telepolis, 3 lata wg MobilArena). EPREL nie podaje daty startu liczenia - może być później, jeśli liczy się od końca sprzedaży.",
+        "sim": "nanoSIM + eSIM (taca hybrydowa: 2x nanoSIM lub nanoSIM + microSD)",
+        "nfc": true,
+        "wifi": "Wi-Fi 5",
+        "bluetooth": "5.3",
+        "fingerprint": "w przycisku zasilania (boczny)",
+        "satelliteSos": null,
+        "polishLaunchPricePln": null,
+        "reviewNotes": [
+          "MobilArena: matowy ekran LCD jak papier, dobry do czytania w pomieszczeniach, trudny do odczytania w pełnym słońcu (619 nitów zmierzone); aparat słaby, problemy z ostrością; bateria ok. dwóch dni",
+          "Smartzone: słaba jasność (648 lux), 11,8 h w teście baterii, ładowanie do pełna 82 min; zdjęcia dzienne poprawne, szum w nocy i przy zoomie",
+          "Batista70Phone: słabo świecący ekran (550 nitów), dobry czas pracy, słaby aparat w ciemności, wideo tylko 1080p"
+        ],
+        "wearableNotes": null
+      },
+      "scores": {
+        "battery": 21,
+        "charging": 24,
+        "updates": 50,
+        "storage": 80,
+        "durability": 45,
+        "smoothness": 40,
+        "display": 52,
+        "photoDay": 58,
+        "photoIndoor": 45,
+        "photoMotion": 40,
+        "selfie": 45,
+        "video": 35,
+        "zoom": 28,
+        "compactness": 41,
+        "value": null
+      },
+      "basis": {
+        "battery": "5010 mAh (pojemność 25,3 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 17,3 (50%) z etykiety UE (klasa B, 45:11 h przy skali 40–70 h, 1000 cykli) → 0,5 × 25,3 + 0,5 × 17,3 = 21 pkt",
+        "charging": "33 W przewodowo, bez ładowania bezprzewodowego, bez zasilacza w pudełku — (33 − 15) / 75 × 100 = 24 pkt",
+        "updates": "2 dużych aktualizacji systemu i 5 lat poprawek bezpieczeństwa: średnia 3,5 → 3,5 / 7 × 100 = 50 pkt",
+        "storage": "256 GB UFS 2.2 + slot microSD (+5 pkt) = 80 pkt",
+        "durability": "IP54 = 45 pkt wg tabeli klas IP",
+        "smoothness": "Dimensity 6300 (6 nm) z 8 GB LPDDR4X, pamięcią UFS 2.2 i panelem 120 Hz; MobilArena: AnTuTu v10 399 966, Geekbench 6 single/multi 737/1915; Smartzone: AnTuTu v10 426 650, Geekbench 6 multi 1839 — interfejs działa płynnie na co dzień, ale zapas mocy jest wyraźnie mniejszy niż w typowej średniej półce",
+        "display": "6,78″ matowy panel IPS LCD 1080×2460 120 Hz; deklarowane 550 nitów, w pomiarach MobilArena 619 nitów maksymalnie (kontrast 2292:1, wąskie kąty widzenia, szarzenie w rogach), Smartzone najniższa jasność w zestawieniu (648 lux); MobilArena ocenia ekran jako wygodny do czytania w pomieszczeniach, ale w pełnym słońcu trudny do odczytania",
+        "photoDay": "główny 108 MP f/1.75 (1/1,67″) bez OIS, obraz domyślnie 12 MP; Smartzone chwali szczegółowość i ostrość w dzień, ale wytyka blade kolory i ograniczoną rozpiętość tonalną, MobilArena ocenia zdjęcia dzienne jako ani szczególnie dobre, ani tragiczne (szum i artefakty nawet przy dobrym świetle); szeroki kąt 8 MP użyteczny tylko w mocnym słońcu",
+        "photoIndoor": "bez stabilizacji obrazu; MobilArena: wieczorne ujęcia z rozmytymi plamami i słabą ekspozycją, tryb nocny podbija kontrast i wyostrzanie, ale problemy z ostrością pozostają; Smartzone i Batista70Phone odnotowują wyraźny szum w słabym świetle, szeroki kąt po zmroku daje rozmyty obraz",
+        "photoMotion": "matryca 108 MP z PDAF bez OIS; MobilArena nazywa autofokus zawodnym (powtarzanie ujęć, problemy z ostrością także przy 3x), co ogranicza pewność zdjęć w ruchu i przy słabszym świetle",
+        "selfie": "przedni aparat 8 MP f/2.0 ze stałą ostrością; MobilArena: selfie przegładzone z dziwnym żółtawym odcieniem z HDR, słaby fleszowy ekran; Smartzone i Batista70Phone oceniają je jako poprawne do mediów społecznościowych z naturalną kolorystyką",
+        "video": "maksymalnie 1080p 30 kl./s (bez 4K i bez 60 kl./s), bez OIS; MobilArena: wideo wyraźnie słabe, mała szczegółowość, kreskówkowe wyostrzanie, błędna ekspozycja i bardzo słabe odszumianie nocą; Batista70Phone: jakość tylko akceptowalna",
+        "zoom": "układ 108 MP + 8 MP + 2 MP, brak teleobiektywu; MobilArena: przy 3x nadal problemy z ostrością, prawdopodobnie kadrowanie z obrazu 12 MP; Batista70Phone: zoom cyfrowy do 10x o jakości wyraźnie niższej niż optyczny",
+        "compactness": "196 g, wymiary 167,6 × 75,5 × 7,99 mm — wzór poręczności: lekkość 56, mała powierzchnia 25, smukłość 50 → 41 pkt",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://mediamarkt.pl/pl/product/_smartphones-tcl-50-nxtpaper-5g-5g-8-gb256-gb-niebieski-145752847.html",
+        "https://www.ceneo.pl/194392956",
+        "https://www.mgsm.pl/pl/katalog/tcl/50-nxtpaper-5g/",
+        "https://eprel.ec.europa.eu/labels/smartphonestablets20231669/Label_2352397.svg",
+        "https://www.tcl.com/eu/en/mobile/tcl-50-nxtpaper-5g",
+        "https://www.telepolis.pl/tech/sprzet/tcl-50-nxtpaper-5g-50-pro-nxtpaper-5g-premiera-ifa-2024",
+        "https://www.gsmonline.pl/artykuly/tcl-50-pro-nxtpaper-5g-oficjalnie-w-polsce",
+        "https://www.gsmonline.pl/artykuly/tcl-wprowadza-do-polski-smartfony-z-serii-50",
+        "https://mobilarena.hu/teszt/tcl_50_nxtpaper_5g_teszt_velemeny/bevezetes_doboz_tartalma_kulso.html",
+        "https://mobilarena.hu/teszt/tcl_50_nxtpaper_5g_teszt_velemeny/kijelzo.html",
+        "https://mobilarena.hu/teszt/tcl_50_nxtpaper_5g_teszt_velemeny/hardver_szoftver.html",
+        "https://mobilarena.hu/teszt/tcl_50_nxtpaper_5g_teszt_velemeny/kamera_fotok_videok.html",
+        "https://mobilarena.hu/teszt/tcl_50_nxtpaper_5g_teszt_velemeny/adatkapcsolat_uzemido_vegszo.html",
+        "https://mobilarena.hu/teszt/tcl_50_nxtpaper_5g_teszt_velemeny/specifikacio.html",
+        "https://www.smartzone.de/tcl-50-nxtpaper-test/",
+        "https://www.batista70phone.com/2024/11/15/recensione-tcl-50-nxtpaper-5g-oltre-la-semplice-visione/",
+        "https://www.notebookcheck.com/TCL-50-Serie.857819.0.html",
+        "https://fdn2.gsmarena.com/vv/bigpic/tcl-50-nxtpaper.jpg",
+        "https://fdn2.gsmarena.com/vv/pics/tcl/tcl-50-nxtpaper-1.jpg"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "medium",
+        "photoIndoor": "medium",
+        "photoMotion": "medium",
+        "selfie": "medium",
+        "video": "medium",
+        "zoom": "medium",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     },
     {
       "id": "huawei-nova-13-pro-12-512",
@@ -5170,7 +7446,7 @@
             "pricePln": 2399,
             "checkedAt": null,
             "kind": "compare",
-            "note": "placeholder z listy (#50, nowy): ~2 399 zł (szacunek, do sprawdzenia; uwaga: brak usług Google / GMS)"
+            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Otwarte i sprawdzone dziś: MediaMarkt 1488413 - 'PRODUKT PO EKSPOZYCJI', 2199 zł, może pochodzić z ekspozycji lub zwrotu (nie nowy, pominięty jako cena); x-kom 1311802 - 'Produkt wycofany', bez ceny; Komputronik 949103 - 'Produkt archiwalny - sprzedaż zakończona', 2999 zł; Morele 14629057 - brak ceny, 'Powiadom mnie o dostępności'; Ceneo 179942326 - 'Aktualnie brak ofert', ostatnia cena 2199 zł (bez daty); mGSM - tylko egzemplarz po ekspozycji 2199 zł. Strony Avans, Media Expert, Euro, Electro, Allegro i Monitor Promocji zwracają 403 dla"
           }
         ],
         "priceCompareUrl": "https://www.ceneo.pl/;szukaj-huawei+nova+13+pro"
