@@ -44,4 +44,21 @@ Po zmianie: 14 z 415 testów pada (13 z bazy + 1 nowy; tymczasowy test planu 2 p
 
 ## Plan 5 — cena niższa waga
 
-(uzupełnia sesja planu 5)
+Po zmianie (pełny bieg): 17 z 414 testów pada. Z tego 13 z bazy + 1 z planu 2 + 2 z planu 5 oraz 1 test
+z bazy, który tym razem przeszedł (`a11y-audit`, motyw jasny) — patrz uwaga niżej.
+
+| Plik | Test | Przyczyna |
+|---|---|---|
+| `weights.test.ts` | E2-05 · ważności grup › trójka najważniejszych: pasma 5/4/3 skorygowane siłą odpowiedzi | oczekuje opisu „1,3 z 5, mało ważne” dla ceny (l. 104, komentarz „value 2 → 1,3”); teraz 0,9 — zamierzona zmiana |
+| `sliders-screen.test.ts` | E5-06/E5-07 · hybryda i dostrojenie › 3. po krótkim quizie suwaki mają wartości wyliczone przez silnik | oczekuje ważności ceny 1,3 (z `F1-c` → `value` 2); teraz 0,9 — zamierzona zmiana |
+
+Uwagi:
+
+- `ranking-screen.test.ts` (2 testy) padły w pełnym biegu, ale przechodzą po uruchomieniu osobno — wygląda
+  na niestabilność przy obciążeniu (limity czasu), nie na skutek planu 5. Do potwierdzenia w sesji końcowej.
+- Komentarz `F1: 'F1-c', // do 2000 zł → value 2` w `tests/personas.ts` (l. 39) → zmienić na 1 (nie ruszano
+  w trakcie planu, zasada 1 README).
+- Persony: top 3 bez zmian (pula referencyjna: żona Note 17 Pro 69,4 · POCO F7 68,6 · Edge 70 Fusion 68,0;
+  aparat 15T 73,3 · POCO F7 68,2 · Edge 60 Neo 68,1; bateria POCO F7 68,1 · Note 17 Pro 67,1 · Note 15 Pro
+  65,8). Pełna pula: u „aparatu” 15T (75,1) i Edge 60 Pro (74,9) zamieniły się miejscami #1/#2.
+- Ważność ceny: poza trójką 1,3 → 0,9; przy trójce `['battery','price','longevity']` 4 → 3,88.

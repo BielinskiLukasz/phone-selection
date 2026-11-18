@@ -270,7 +270,7 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     [
       { label: 'Do 1500 zł, twardo', sets: { value: 5 }, budgetMax: 1500 },
       { label: 'Do 1800 zł', sets: { value: 3 }, budgetMax: 1800 },
-      { label: 'Do 2000 zł, jeśli warto', sets: { value: 2 }, budgetMax: 2000 },
+      { label: 'Do 2000 zł, jeśli warto', sets: { value: 1 }, budgetMax: 2000 },
       /* FP3-05: wariant z profilu (PROJECT 2) — 2 karty ≤ 1500 zł + 1 karta ≤ 1800 zł z plakietką dopłaty. */
       {
         label: 'Najlepiej do 1500 zł, dopłacę do 1800 zł, jeśli telefon będzie wyraźnie lepszy',

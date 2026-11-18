@@ -188,7 +188,7 @@ Dla `display` liczymy średnią z E1 i E2.
 
 | ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
 |---|---|---|---|---|
-| F1 | Ile możesz wydać na telefon? | Do 1500 zł, twardo → `budgetMax` 1500, `value` 5 · Do 1800 zł → 1800, `value` 3 · Do 2000 zł, jeśli warto → 2000, `value` 2 | Cena zawęża wybór i wpływa na ocenę opłacalności. | tak |
+| F1 | Ile możesz wydać na telefon? | Do 1500 zł, twardo → `budgetMax` 1500, `value` 5 · Do 1800 zł → 1800, `value` 3 · Do 2000 zł, jeśli warto → 2000, `value` 1 · Najlepiej do 1500 zł, dopłacę do 1800 zł, jeśli telefon będzie wyraźnie lepszy → 1500 (`budgetStretch` 1800), `value` 4 | Cena zawęża wybór i wpływa na ocenę opłacalności. | tak |
 
 ### Podsumowanie
 
