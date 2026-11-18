@@ -308,7 +308,10 @@ export function validatePhoneData(data: unknown, now = new Date()) {
       if (typeof price.pln !== 'number' || !Number.isFinite(price.pln) || price.pln <= 0) {
         errors.push(`${path}.price.pln musi być dodatnią liczbą.`);
       } else if (price.pln > 2000) {
-        errors.push(`${path}.price.pln przekracza limit 2000 zł.`);
+        /* Rekord jawnie oznaczony `over_budget` jest poza rankingiem (pool.ts), więc to ostrzeżenie, nie błąd. */
+        const message = `${path}.price.pln przekracza limit 2000 zł.`;
+        if (value.status === 'over_budget') warnings.push(message);
+        else errors.push(message);
       }
       if (!nonEmptyString(price.source)) errors.push(`${path}.price.source jest wymagane.`);
       const checkedAt = validDate(price.checkedAt);
