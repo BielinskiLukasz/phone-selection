@@ -123,7 +123,7 @@ Krótki quiz (bloki: bateria, aparat, budżet), potem ekran suwaków **wypełnio
 | `updates` | Wsparcie aktualizacjami | lata aktualizacji systemu i zabezpieczeń |
 | `smoothness` | Płynność na co dzień | przeglądarka, komunikatory, Facebook |
 | `display` | Ekran | jasność na słońcu, płynność, jakość |
-| `durability` | Odporność | klasa IP, szkło, konstrukcja |
+| `durability` | Odporność | klasa IP (woda i pył) oraz norma MIL-STD, jeśli jest (szkło i odporność na upadki nie wchodzą do oceny) |
 | `compactness` | Wymiary i waga | poręczność: im mniejszy, smuklejszy i lżejszy telefon, tym wyżej |
 | `value` | Stosunek jakości do ceny | liczony z ceny i budżetu sesji |
 
@@ -160,7 +160,7 @@ Dopas. = round(S)                                        // pokazywane jako „%
 | Pamięć | Minimalna pamięć (128 / 256 / 512 GB)? | filtr + `storage` |
 | Pamięć | Czy karta microSD jest ważna? | `storage` / filtr |
 | Codzienność | Jak bardzo przeszkadzałyby zawieszki i spowolnienia? | `smoothness` |
-| Codzienność | Jak ważna jest odporność na wodę i upadki? | `durability` |
+| Codzienność | Jak ważna jest odporność na wodę (i pył)? *(w kodzie pytanie D2 dotyczy tylko wody; upadki nie są oceniane)* | `durability` |
 | Codzienność | Ile lat aktualizacji chcesz mieć? | `updates` |
 | Ekran | Jak ważny jest ekran (jasność w słońcu, płynność)? | `display` |
 | Budżet | Do ilu zł? (do 1500 / 1800 / 2000) | filtr + `value` |

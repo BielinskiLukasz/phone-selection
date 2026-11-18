@@ -172,7 +172,7 @@ Wartości `→` to waga kryterium (0-5) ustawiana przez odpowiedź. Każde pytan
 | ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
 |---|---|---|---|---|
 | D1 | Jak bardzo przeszkadzają Ci chwilowe zacięcia i wolne otwieranie aplikacji? | Prawie wcale → `smoothness` 1 · Trochę → 3 · Bardzo → 5 | Różnice w szybkości widać nawet przy przeglądarce i komunikatorach. | nie |
-| D2 | Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)? | Rzadko → `durability` 1 · Czasem → 3 · Często, chcę mieć spokój → 5 | Odporność na wodę ratuje przed głupimi wpadkami. | nie |
+| D2 | Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)? | Rzadko → `durability` 1 · Czasem → 3 · Często, chcę mieć spokój → 5 | Odporność na wodę ratuje przed głupimi wpadkami. (`durability` = klasa IP + MIL-STD; szkło i upadki nie są oceniane.) | nie |
 | D3 | Jak długo chcesz używać tego telefonu? | 2 lata → `updates` 1 · 3-4 lata → 3 · 5 lat lub dłużej → 5 | Telefon bez aktualizacji bezpieczeństwa przestaje być bezpieczny. | nie |
 
 ### Blok E. Ekran

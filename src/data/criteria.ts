@@ -30,7 +30,7 @@ export const CRITERIA: readonly CriterionDef[] = [
   { id: 'zoom', group: 'camera', label: 'Zoom', description: 'Teleobiektyw i jakość przybliżenia.' },
   { id: 'storage', group: 'storage', label: 'Pamięć', description: 'Pojemność, microSD jako bonus.' },
   { id: 'updates', group: 'longevity', label: 'Wsparcie aktualizacjami', description: 'Lata aktualizacji systemu i poprawek.' },
-  { id: 'durability', group: 'longevity', label: 'Odporność', description: 'Klasa IP, szkło, konstrukcja.' },
+  { id: 'durability', group: 'longevity', label: 'Odporność', description: 'Klasa IP (woda i pył) oraz norma wojskowa MIL-STD, jeśli telefon ją ma.' },
   { id: 'display', group: 'smooth', label: 'Ekran', description: 'Jasność w słońcu, płynność, jakość.' },
   { id: 'smoothness', group: 'smooth', label: 'Płynność na co dzień', description: 'Przeglądarka, komunikatory, aplikacje.' },
   { id: 'compactness', group: 'size', label: 'Wymiary i waga', description: 'Im mniejszy, smuklejszy i lżejszy telefon, tym wyższa ocena.' },
@@ -59,7 +59,7 @@ export const GROUPS: readonly GroupDef[] = [
   {
     id: 'longevity',
     label: 'Aktualizacje i trwałość',
-    description: 'Lata wsparcia oraz odporność na wodę i upadki.',
+    description: 'Lata wsparcia oraz odporność na wodę i pył.',
     criteria: ['updates', 'durability'],
   },
   {

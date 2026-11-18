@@ -40,7 +40,8 @@ Po zmianie: 14 z 415 testów pada (13 z bazy + 1 nowy; tymczasowy test planu 2 p
 
 ## Plan 4 — opis odporności
 
-(uzupełnia sesja planu 4)
+Brak nowych niezgodności. Po zmianie: 16 z 414 testów pada = 13 z bazy + 1 z planu 2 (`fix-phase` FP3-03)
++ 2 z planu 5 (`weights`, `sliders-screen`). Żaden test nie porównywał starych opisów.
 
 ## Plan 5 — cena niższa waga
 
