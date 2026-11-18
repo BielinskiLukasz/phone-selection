@@ -78,7 +78,7 @@ describe('E2-10 · schemat danych', () => {
 
   it('jest 15 telefonów (po rozszerzeniu w etapie 10), wszystkie nowe i w limicie 2000 zł', () => {
     expect(POOL.length).toBe(EXPECTED_POOL_SIZE);
-    expect(EXPECTED_POOL_SIZE).toBe(22);
+    expect(EXPECTED_POOL_SIZE).toBe(24);
     for (const phone of POOL) {
       expect(phone.price.pln, phone.id).toBeLessThanOrEqual(BUDGET_LIMIT);
       expect(phone.price.pln, phone.id).toBeGreaterThan(0);

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { POOL, clonePhone, overLimit, phoneById, tiedPair, withMicroSd, poolWithTwoInBudget, SMALL_STORAGE_IDS } from './data';
+import { POOL, REFERENCE_POOL, clonePhone, overLimit, phoneById, tiedPair, withMicroSd, poolWithTwoInBudget, SMALL_STORAGE_IDS } from './data';
 import { CAMERA, WIFE, noAnswers } from './personas';
 import {
   anyMicroSd,
@@ -172,7 +172,7 @@ describe('E2-07 · kolejność i remisy', () => {
   });
 
   it('różnica ponad próg nie daje znacznika remisu', () => {
-    const result = rankFromAnswers(POOL, CAMERA.answers, CAMERA.topThree);
+    const result = rankFromAnswers(REFERENCE_POOL, CAMERA.answers, CAMERA.topThree);
     expect(result.ranked[0]!.score - result.ranked[1]!.score).toBeGreaterThan(TIE_THRESHOLD);
     expect(result.ranked[0]!.practicalTieWith).toBeNull();
   });

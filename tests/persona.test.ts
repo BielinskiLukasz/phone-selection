@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { POOL, SMALL_STORAGE_IDS, phoneById, poolWithTwoInBudget } from './data';
+import { ADDED_AFTER_REFERENCE_IDS, POOL as FULL_POOL, REFERENCE_POOL as POOL, SMALL_STORAGE_IDS, phoneById, poolWithTwoInBudget } from './data';
 import { BATTERY, CAMERA, PERSONAS, WIFE, skipAll } from './personas';
 import { rankFromAnswers } from '../src/lib/scoring';
 import { rawScore } from '../src/lib/scoring';
@@ -207,5 +207,17 @@ describe('persony · filtry i brzegi', () => {
     expect(vivo.status).toBe('ok');
     expect(vivo.scores.battery).toBe(83);
     expect(wife().ranked.slice(0, 4).map((entry) => entry.phoneId)).toContain(vivo.id);
+  });
+
+  it('rekordy z uzupełnienia specyfikacji (18.11.2026) wchodzą do puli i zmieniają lidera „żony”', () => {
+    for (const id of ADDED_AFTER_REFERENCE_IDS) {
+      const phone = FULL_POOL.find((item) => item.id === id);
+      expect(phone, id).toBeDefined();
+      expect(phone!.status).toBe('ok');
+      expect(phone!.price.pln).toBeLessThanOrEqual(2000);
+    }
+    const result = rankFromAnswers(FULL_POOL, WIFE.answers, WIFE.topThree);
+    expect(result.fullRanking.length).toBe(FULL_POOL.length);
+    expect(result.cards[0]!.phoneId).toBe('motorola-edge-60-pro-12-512');
   });
 });

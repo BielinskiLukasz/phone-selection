@@ -55,9 +55,9 @@
   ],
   "manualOverride": true,
   "gateReference": {
-    "note": "Stan referencyjny bramki kandydata po rozszerzeniu puli do 22 modeli (18.11.2026, decyzja użytkownika). Snapshot ranking.cards i picks zostają bez zmian jako zapis tego, co użytkowniczka widziała i wybrała 16-17.11.2026.",
-    "dataVersion": "2026-11-17",
-    "poolSize": 22,
-    "cards": ["xiaomi-15t-12-512", "poco-f7-12-256", "motorola-edge-60-neo-5g-12-256"]
+    "note": "Stan referencyjny bramki kandydata po rozszerzeniu puli do 24 modeli (18.11.2026: do 22 modeli decyzja użytkownika, potem uzupełnienie specyfikacji dodało Edge 60 Pro i TCL 50 NXTPAPER). Snapshot ranking.cards i picks zostają bez zmian jako zapis tego, co użytkowniczka widziała i wybrała 16-17.11.2026.",
+    "dataVersion": "2026-11-18",
+    "poolSize": 24,
+    "cards": ["motorola-edge-60-pro-12-512", "xiaomi-15t-12-512", "poco-f7-12-256"]
   }
 }

@@ -289,7 +289,7 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
 
     const redmi = cardFor(phoneById('redmi-note-15-pro-5g-8-256'));
     expect(factOf(redmi, 'updates')).toBe('4 aktualizacje systemu, 6 lat poprawek');
-    expect(factOf(redmi, 'camera')).toBe('Główny 200 MP · selfie 20 MP · bez aparatu do przybliżania');
+    expect(factOf(redmi, 'camera')).toBe('Główny 200 MP · selfie 20 MP · bez aparatu do przybliżania · szeroki kąt 8 MP');
 
     /* Po uzupełnieniu źródeł żadna karta nie pokazuje już „brak danych”. */
     for (const phone of POOL) {

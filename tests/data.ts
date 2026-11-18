@@ -22,6 +22,16 @@ export const POOL: Phone[] = RAW_RECORDS.filter(
 );
 
 /**
+ * Rekordy dodane po ustaleniu stanu referencyjnego kalibracji i person (pula 22 modeli, 18.11.2026): testy
+ * kalibracji, person i suwaków mierzą ranking na tym stanie, a nie na każdej kolejnej puli. Wpływ nowych
+ * rekordów na ranking pilnuje osobny test w `tests/persona.test.ts`.
+ */
+export const ADDED_AFTER_REFERENCE_IDS = ['motorola-edge-60-pro-12-512', 'tcl-50-nxtpaper-5g-8-256'];
+
+/** Pula 22 modeli ze stanu referencyjnego kalibracji (bez rekordów z `ADDED_AFTER_REFERENCE_IDS`). */
+export const REFERENCE_POOL: Phone[] = POOL.filter((phone) => !ADDED_AFTER_REFERENCE_IDS.includes(phone.id));
+
+/**
  * Pula, w której przy budżecie sesji mieszczą się dokładnie 2 telefony (najtańsze) — do testów uzupełniania
  * karty „Powyżej budżetu”. Liczona z danych, więc nie zależy od tego, ile telefonów jest w puli.
  */

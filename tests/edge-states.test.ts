@@ -57,9 +57,12 @@ describe('UI-SPEC 10 · pula telefonów na ekranie kart', () => {
   });
 
   it('pula mała (telefony ze slotem microSD): tyle kart, ile telefonów, z komunikatem, bez pustych miejsc', () => {
-    const withSlot = PHONES.filter((phone) => phone.specs.microSd === true).length;
-    expect(buildPool(PHONES, { budgetMax: 2000, requireMicroSd: true }).length).toBe(withSlot);
-    open({ requireMicroSd: true });
+    /* Slot microSD + min. 256 GB zawęża pulę do mniej niż trzech — komunikat o małej puli pojawia się tylko wtedy. */
+    const filters = { budgetMax: 2000, requireMicroSd: true, minStorageGb: 256 };
+    const withSlot = PHONES.filter((phone) => phone.specs.microSd === true && phone.variant.storageGb >= 256).length;
+    expect(withSlot).toBeLessThan(3);
+    expect(buildPool(PHONES, filters).length).toBe(withSlot);
+    open(filters);
 
     const articles = screen.getAllByRole('article');
     expect(articles.length).toBe(withSlot);

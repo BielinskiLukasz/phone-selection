@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { POOL } from './data';
+import { REFERENCE_POOL as POOL } from './data';
 import { WIFE, CAMERA, BATTERY, skipAll } from './personas';
 import { rank } from '../src/lib/scoring';
 import { deriveFromAnswers } from '../src/lib/weights';

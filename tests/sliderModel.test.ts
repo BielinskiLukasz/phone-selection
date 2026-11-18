@@ -1,4 +1,3 @@
-import { POOL } from './data';
 import { describe, expect, it } from 'vitest';
 import { DATA_VERSION, PHONES } from '../src/data/phones';
 import { GROUPS } from '../src/data/criteria';
@@ -267,7 +266,7 @@ describe('DoD · trzy tryby kończą się tym samym kształtem sesji (test akcep
       expect(session.filters.budgetMax).toBe(2000);
       expect(session.status).toBe('awaiting_pick'); // FP5-04: trzy tryby kończą na propozycjach, wybór domyka
       expect(session.ranking).not.toBeNull();
-      expect(session.ranking!.entries.length).toBe(POOL.length);
+      expect(session.ranking!.entries.length).toBe(PHONES.length);
       expect(session.ranking!.cards.length).toBe(3);
       expect(session.ranking!.dataVersion).toBe(DATA_VERSION);
     }

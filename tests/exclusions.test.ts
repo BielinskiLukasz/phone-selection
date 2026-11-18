@@ -17,7 +17,7 @@ import { rankFromAnswers } from '../src/lib/scoring';
 import { STORAGE_KEY } from '../src/lib/storage';
 import type { Phone } from '../src/types';
 import { WIFE } from './personas';
-import { poolWithTwoInBudget } from './data';
+import { ADDED_AFTER_REFERENCE_IDS, poolWithTwoInBudget } from './data';
 import { buildPhone } from './fixtures/phones';
 
 const h = createElement;
@@ -154,11 +154,12 @@ describe('E11-02/E11-03 · dane i czysta logika wykluczeń', () => {
 
 describe('Etap 11 · testy akceptacyjne 1–5 (silnik i persony, QUIZ-SPEC 9.5)', () => {
   it('1. i 2. wykluczenie modelu #1 persony „żona” usuwa go z kart, ale zostawia #1 i ten sam S w fullRanking', () => {
-    const baseline = rankFromAnswers(PHONES, WIFE.answers, WIFE.topThree);
+    const referencePhones = PHONES.filter((phone) => !ADDED_AFTER_REFERENCE_IDS.includes(phone.id));
+    const baseline = rankFromAnswers(referencePhones, WIFE.answers, WIFE.topThree);
     const leaderId = baseline.cards[0]!.phoneId;
     expect(leaderId).toBe('redmi-note-17-pro-5g-8-512'); // lider „żony” po rozszerzeniu puli do 22 modeli (wcześniej Edge 70 Fusion)
 
-    const withExclusion = rankFromAnswers(PHONES, WIFE.answers, WIFE.topThree, {
+    const withExclusion = rankFromAnswers(referencePhones, WIFE.answers, WIFE.topThree, {
       excludedPhoneIds: [leaderId],
     });
 
