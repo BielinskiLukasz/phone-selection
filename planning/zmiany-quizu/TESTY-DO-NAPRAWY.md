@@ -36,7 +36,15 @@ Po zmianie: 14 z 415 testów pada (13 z bazy + 1 nowy; tymczasowy test planu 2 p
 
 ## Plan 3 — agregacja max
 
-(uzupełnia sesja planu 3)
+Po zmianie (pełny bieg): 16 z 414 testów pada = 12 z bazy (`a11y-audit`, motyw jasny, tym razem przeszedł)
++ 1 z planu 2 + 2 z planu 5 + 1 z planu 3. Tymczasowy test planu 3 przeszedł (A1-d+A2-a → 5, E1-c+E2-a → 5,
+A1-b → 3, A1-b+A2-skip → 3, persona WIFE 3 i 3) i został usunięty.
+
+| Plik | Test | Przyczyna |
+|---|---|---|
+| `weights.test.ts` | E2-05 · wagi kryteriów z odpowiedzi › kilka pytań o jedno kryterium daje średnią (E1=1, E2=5 → display 3) | oczekuje średniej (l. 36–37); teraz max = 5 — zamierzona zmiana, poprawić oczekiwanie i opis |
+
+Rankingi person bez nowych zmian względem planu 5.
 
 ## Plan 4 — opis odporności
 

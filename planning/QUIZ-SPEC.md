@@ -33,7 +33,7 @@ Wartości liczbowe w tym dokumencie zostały sprawdzone symulacją na danych z `
 
 Symulacja pokazała, że płaskie wagi na 14 kryteriach są błędne: grupa „Aparat” ma sześć kryteriów, więc przy równych wagach zdominowałaby wynik, nawet gdy użytkowniczka najbardziej ceni baterię. Dlatego wagi liczymy w dwóch poziomach:
 
-1. **Waga kryterium wewnątrz grupy** (`w_c`, skala 0-5): średnia wartości z odpowiedzi na pytania dotyczące tego kryterium; bez odpowiedzi domyślnie **2**. Waga mówi, **jak bardzo** kryterium liczy się *w swojej grupie*; z wag liczymy udziały `share_c = w_c / Σ w_c` w grupie (przy samych zerach udziały równe).
+1. **Waga kryterium wewnątrz grupy** (`w_c`, skala 0-5): **maksimum** wartości z odpowiedzi na pytania dotyczące tego kryterium (każda odpowiedź to niezależny powód, żeby cenić kryterium; „Pomiń” nic nie wnosi; dotyczy `battery` ← A1, A2 i `display` ← E1, E2; do 18.11.2026 była średnia — przełącznik `MULTI_ANSWER_AGGREGATION`); bez odpowiedzi domyślnie **2**. Waga mówi, **jak bardzo** kryterium liczy się *w swojej grupie*; z wag liczymy udziały `share_c = w_c / Σ w_c` w grupie (przy samych zerach udziały równe).
 2. **Ważność grupy** (`G_g`):
    - grupy wybrane w kroku „trzy najważniejsze rzeczy”: pasmo z miejsca — 1. miejsce **5**, 2. miejsce **4**,
      3. miejsce **3** — skorygowane siłą odpowiedzi: `G_g = pasmo + 0,3 × (wyliczone − 1,3)`, maksymalnie ±0,6
@@ -82,6 +82,7 @@ S            = Σ_g ( G_g × GroupScore_g ) / Σ_g G_g   // 0-100
 | Wariant alternatywny G1 | `additive`: `wyliczone + 1,5 / 1,0 / 0,5` | `TOP_THREE_MODE` (domyślnie `band`) |
 | Ważność grupy poza trójką | `0,5 + 0,4 × średnia` | |
 | Domyślna waga kryterium | 2 | |
+| Agregacja wielu odpowiedzi o to samo kryterium | `max` | `MULTI_ANSWER_AGGREGATION` (`'max'` / `'mean'`); dotyczy `battery` (A1, A2) i `display` (E1, E2) |
 | Próg „praktycznego remisu” | 2 pkt | |
 
 **Wynik kalibracji po rozszerzeniu puli do 15 modeli i skali baterii 4000–8000 mAh (E9-03 + Etap 10, D4):**
@@ -182,7 +183,7 @@ Wartości `→` to waga kryterium (0-5) ustawiana przez odpowiedź. Każde pytan
 | E1 | Jak często używasz telefonu na zewnątrz w pełnym słońcu? | Rzadko → `display` 1 · Czasem → 3 · Często → 5 | W słońcu liczy się jasność ekranu. | nie |
 | E2 | Jak często oglądasz na telefonie filmy, zdjęcia i dłuższe materiały? | Rzadko → `display` 1 · Czasem → 3 · Często → 5 | Przy oglądaniu liczy się jakość i płynność ekranu. | nie |
 
-Dla `display` liczymy średnią z E1 i E2.
+Dla `display` liczymy maksimum z E1 i E2 (jasność w słońcu = 5 i rzadkie oglądanie = 1 daje 5, nie 3).
 
 ### Blok F. Budżet
 

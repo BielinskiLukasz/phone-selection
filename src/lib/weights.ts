@@ -33,6 +33,8 @@ import {
   GROUP_BASE,
   GROUP_FACTOR,
   IMPORTANCE_MAX,
+  MULTI_ANSWER_AGGREGATION,
+  type MultiAnswerAggregation,
   TOP_THREE_EVIDENCE_BASELINE,
   TOP_THREE_EVIDENCE_FACTOR,
   TOP_THREE_EVIDENCE_MAX,
@@ -59,6 +61,15 @@ function round(value: number, digits = 6): number {
 function average(values: readonly number[]): number {
   if (values.length === 0) return DEFAULT_WEIGHT;
   return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+/** Łączy wartości z kilku odpowiedzi o to samo kryterium: max albo średnia (wg stałej). */
+function aggregate(
+  values: readonly number[],
+  mode: MultiAnswerAggregation = MULTI_ANSWER_AGGREGATION,
+): number {
+  if (values.length === 0) return DEFAULT_WEIGHT;
+  return mode === 'max' ? Math.max(...values) : average(values);
 }
 
 /** Surowe wartości ustawione przez odpowiedzi, z podziałem na kryteria. */
@@ -94,7 +105,7 @@ export function answeredCriteria(
   return new Set(answeredCriterionValues(answers, questions).keys());
 }
 
-/** Waga kryterium wewnątrz grupy: średnia z odpowiedzi, bez odpowiedzi — 2. */
+/** Waga kryterium wewnątrz grupy: max z odpowiedzi (patrz `MULTI_ANSWER_AGGREGATION`), bez odpowiedzi — 2. */
 export function answersToCriterionWeights(
   answers: Answers,
   questions: readonly QuizQuestion[] = QUESTIONS,
@@ -104,7 +115,7 @@ export function answersToCriterionWeights(
 
   for (const { id } of criterionIds()) {
     const values = collected.get(id);
-    weights[id] = round(values && values.length > 0 ? average(values) : DEFAULT_WEIGHT);
+    weights[id] = round(values && values.length > 0 ? aggregate(values) : DEFAULT_WEIGHT);
   }
 
   return weights;

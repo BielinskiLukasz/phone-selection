@@ -33,6 +33,15 @@ export const IMPORTANCE_MAX = 5;
 export const GROUP_BASE = 0.5;
 export const GROUP_FACTOR = 0.4;
 
+/**
+ * Jak łączymy kilka odpowiedzi dotyczących tego samego kryterium (dziś `battery` ← A1, A2
+ * i `display` ← E1, E2). Każda odpowiedź jest niezależnym powodem, żeby cenić kryterium,
+ * więc domyślnie liczy się najwyższa (`max`); `mean` przywraca dawną średnią (kalibracja
+ * sprzed 18.11.2026). „Pomiń” nic nie wnosi w obu trybach.
+ */
+export type MultiAnswerAggregation = 'max' | 'mean';
+export const MULTI_ANSWER_AGGREGATION: MultiAnswerAggregation = 'max';
+
 /** Waga kryterium bez odpowiedzi (start neutralny). */
 export const DEFAULT_WEIGHT = 2;
 /* FP3-03: osobna domyślna waga `charging` = 1 była w planie, ale łamie „start neutralny: wszystko 2” (QUIZ-SPEC 6,
