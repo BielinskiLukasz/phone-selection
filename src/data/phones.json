@@ -4658,27 +4658,6 @@
       "scoresEstimatedNeutral": []
     },
     {
-      "id": "galaxy-xcover-8-pro-8-128",
-      "brand": "Samsung",
-      "modelName": "Galaxy XCover 8 Pro 8/128 GB",
-      "status": "needs_confirmation",
-      "reveal": {
-        "name": "Samsung Galaxy XCover 8 Pro 8/128 GB",
-        "brand": "Samsung",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-samsung+galaxy+xcover+8+pro",
-            "pricePln": 2699,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Galaxy XCover 8 Pro nie istnieje jako produkt: Samsung nigdy go nie ogłosił ani nie wprowadził do sprzedaży w Polsce. Nazwa 'XCover8 Pro' pochodzi wyłącznie z przecieków z lat 2024-2025 (certyfikat baterii BIS EB-BG766GBY, certyfikat TUV Rheinland, wpis Geekbench) dla numeru modelu SM-G766B. Samsung oficjalnie wprowadził ten sam numer SM-G766B jako Galaxy XCover7 Pro (polska strona Samsunga: 'Galaxy XCover7 Pro Black 128 GB', SM-G766BZKDEEE, 6 GB RAM + 128 GB, status 'Produkt niedostępny'; komunikat prasowy Samsung Polska z 14.04.2025: 6 GB + 1"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-samsung+galaxy+xcover+8+pro"
-      }
-    },
-    {
       "id": "poco-f8-ultra-12-256",
       "brand": "POCO",
       "modelName": "F8 Ultra 12/256 GB",
@@ -4923,27 +4902,6 @@
       "scoresEstimatedNeutral": [
         "photoMotion"
       ]
-    },
-    {
-      "id": "pixel-9-8-128",
-      "brand": "Google",
-      "modelName": "Pixel 9 8/128 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "Google Pixel 9 8/128 GB",
-        "brand": "Google",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-google+pixel+9+128gb",
-            "pricePln": 2700,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Wariant 8/128 GB NIE istnieje. Pixel 9 (model podstawowy) ma w Polsce zawsze 12 GB RAM i jest sprzedawany w dwóch wersjach pamięci: 12/128 GB oraz 12/256 GB (PurePC: ceny premierowe 4049 zł i 4499 zł; x-kom, Komputronik, MediaMarkt, Empik: 12/128 GB). Wariant 8/128 GB dotyczy Pixela 9a (inny model). Dossier opisuje Pixela 9 12/128 GB; id i modelName z placeholdera nie zostały zmienione."
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-google+pixel+9+128gb"
-      }
     },
     {
       "id": "motorola-edge-60-pro-12-512",
@@ -5872,48 +5830,6 @@
       ]
     },
     {
-      "id": "cmf-phone-2-pro-8-256",
-      "brand": "CMF",
-      "modelName": "Phone 2 Pro 8/256 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "CMF Phone 2 Pro 8/256 GB",
-        "brand": "CMF",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-cmf+phone+2+pro+8%2F256",
-            "pricePln": 1100,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Jedyny polski sprzedawca wariantu 8/256 GB to oficjalny sklep pl.nothing.tech (dane wariantu 'White / 8+256GB' = 1099,0 PLN w danych strony). Strona produktu 2026-11-18: 'Sold out' + 'Notify me'; dane strukturalne strony (Shopify) pokazują availableForSale=false dla wszystkich 8 wariantów kolor/pamięć, w tym 8+256GB w kolorach Black, White, Light Green i Orange (każdy 1099,0 PLN). Brak oferty telefonu w x-kom i morele (wyszukiwarki zwracają tylko akcesoria), brak telefonu w wynikach Ceneo. Allegro/mediaexpert/euro zwróciły 403 - niespraw"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-cmf+phone+2+pro+8%2F256"
-      }
-    },
-    {
-      "id": "oneplus-13r-12-256",
-      "brand": "OnePlus",
-      "modelName": "13R 12/256 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "OnePlus 13R 12/256 GB",
-        "brand": "OnePlus",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-oneplus+13r+12%2F256",
-            "pricePln": 2500,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; 2026-11-18: x-kom.pl (strona produktu 1297575): „Produkt wycofany”, bez ceny; Ceneo (wyszukiwanie smartfonów i akcesoriów): w ofercie są tylko akcesoria do 13R, brak telefonu; morele.net i komputronik.pl: brak telefonu w wynikach wyszukiwania; mediaexpert.pl, euro.com.pl, oleole.pl, allegro.pl: blokada dla automatu (nie sprawdzono). Jedyna otwarta oferta telefonu: MediaMarkt Marketplace (Foxway PL) — produkt ODNOWIONY „Jak nowy”, 2019 zł (nie jest nowy, więc nie jest ceną). Wcześniejsze ceny rynkowe nowego egzemplarza (nieaktualne): Komp"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oneplus+13r+12%2F256"
-      }
-    },
-    {
       "id": "realme-gt-7-12-256",
       "brand": "Realme",
       "modelName": "GT 7 12/256 GB",
@@ -6348,27 +6264,6 @@
       ]
     },
     {
-      "id": "sony-xperia-10-vii-8-128",
-      "brand": "Sony",
-      "modelName": "Xperia 10 VII 8/128 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "Sony Xperia 10 VII 8/128 GB",
-        "brand": "Sony",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-sony+xperia+10+vii",
-            "pricePln": 1900,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Sprawdzono dziś: Ceneo (produkty 193595862 biały i 193426460 czarny): 'Aktualnie brak ofert tego produktu' (Oferty 0); Morele (biały, XQFE54EUKCW.GC): w danych strony cena 2795,71 zł, ale availability = OutOfStock/'niedostępny' (nie jest to oferta do kupienia); Amazon.pl (B0FPDGZ18N biały, B0FPDFGFLZ czarny): 'Przedmiot jest obecnie niedostępny'. Sony PL (sony.pl) odrzuca klientów automatycznych (HTTP 403), x-kom/euro/mediaexpert/komputronik również 403 — nie sprawdzono. Cena premierowa 1999 zł (Telepolis, PurePC) jest historyczna. Ofert"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-sony+xperia+10+vii"
-      }
-    },
-    {
       "id": "sony-xperia-10-viii-8-128",
       "brand": "Sony",
       "modelName": "Xperia 10 VIII 8/128 GB",
@@ -6611,69 +6506,6 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
-    },
-    {
-      "id": "oppo-reno-14-5g-12-256",
-      "brand": "Oppo",
-      "modelName": "Reno 14 5G 12/256 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "Oppo Reno 14 5G 12/256 GB",
-        "brand": "Oppo",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-oppo+reno+14+5g+12%2F256",
-            "pricePln": 2300,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Strony x-kom, Media Expert, Neonet, euro.com.pl, mediamarkt.pl zwracaly 403/410/brak ceny dla klienta automatycznego albo oznaczaly produkt jako wycofany, a strona producenta nie pokazuje ceny, wiec nie ma oferty ze sklepu, ktora dalo sie otworzyc i potwierdzic. Otwarte strony Ceneo pokazuja wylacznie oferty Allegro bez nazwy sprzedawcy i bez potwierdzenia stanu 'nowy' (Biały 2499,00 zl; Zielony 2033,28 zl). Z wyszukiwarki (NIEOTWARTE przez badacza, tylko fragmenty wynikow): Media Expert i Neonet ok. 2499 zl (Biały), euro.com.pl i Komput"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oppo+reno+14+5g+12%2F256"
-      }
-    },
-    {
-      "id": "oppo-reno-16-pro-5g-12-256",
-      "brand": "Oppo",
-      "modelName": "Reno 16 Pro 5G 12/256 GB",
-      "status": "needs_confirmation",
-      "reveal": {
-        "name": "Oppo Reno 16 Pro 5G 12/256 GB",
-        "brand": "Oppo",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-oppo+reno+16+pro",
-            "pricePln": 2899,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Model Reno16 Pro 5G istnieje i jest sprzedawany w Polsce (premiera PL 17.08.2026, regularna sprzedaż od 27.08.2026), ale WYŁĄCZNIE w wariancie 12 GB + 512 GB (UFS 3.1) za 3799 zł (cena regularna). Wariant 12/256 GB nie jest oferowany w Polsce: oficjalna strona producenta PL, CHIP, Tabletowo i gsmonline wymieniają tylko 12/512 GB, a na otwartej stronie Ceneo są wyłącznie oferty 12/512 GB (Czarny od 3505 zł, Biały od 3693 zł); selektor wariantów Ceneo zawiera opcję 256 GB, ale bez żadnej oferty 12/256. Agregatory (91mobiles, mysmartprice) wymieni"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oppo+reno+16+pro"
-      }
-    },
-    {
-      "id": "vivo-v60-5g-12-256",
-      "brand": "vivo",
-      "modelName": "V60 5G 12/256 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "vivo V60 5G 12/256 GB",
-        "brand": "vivo",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-vivo+v60+5g+12%2F256",
-            "pricePln": 2200,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: vivo V60 5G (Snapdragon 7 Gen 4) NIE jest oficjalnie sprzedawany w Polsce ani w UE: oficjalne strony vivo PL i EU wymieniają w serii V tylko V70 Lite 5G, V70 i V70 FE (bez V60), Ceneo nie ma żadnego telefonu V60 5G (jest tylko V60 Lite 5G 8/256 GB oraz akcesoria), a polskie media (gsmManiaK, gsmonline) opisywały V60 wyłącznie jako premierę indyjską z własnymi spekulacjami o cenie ok. 2100-2500 zł - bez oficjalnej zapowiedzi dla Polski. W Polsce sprzedawany był inny model: vivo V60 Lite 5G (Dimensity 7360 Turbo, 8/256 GB, 6500 mAh, 1499 zł) - ni"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-vivo+v60+5g+12%2F256"
-      }
     },
     {
       "id": "fairphone-5-8-256",
@@ -7135,111 +6967,6 @@
       ]
     },
     {
-      "id": "infinix-gt-30-pro-12-256",
-      "brand": "Infinix",
-      "modelName": "GT 30 Pro 12/256 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "Infinix GT 30 Pro 12/256 GB",
-        "brand": "Infinix",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-infinix+gt+30+pro",
-            "pricePln": 1500,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Model Infinix GT 30 Pro (X6873) istnieje globalnie, a wariant 12/256 GB jest podstawowym wariantem z premiery (Notebookcheck; dostępne też 8/256 i 12/512 GB wg GSMManiak/mGSM), ale NIE znaleziono dowodu sprzedaży w Polsce: Ceneo, x-kom i morele nie zwracają żadnego telefonu GT 30 Pro (tylko akcesoria lub brak wyników), katalog mGSM.pl: 'Brak informacji o cenach' i 'Nie znaleziono produktu' w sklepach, GSMManiak (21.05.2025) nie potwierdza dostępności w Polsce, a karta EPREL (nr 2499730) ma pustą listę państw EOG, w których model jest dostępny ("
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-infinix+gt+30+pro"
-      }
-    },
-    {
-      "id": "infinix-zero-50-pro-5g-12-512",
-      "brand": "Infinix",
-      "modelName": "Zero 50 Pro 5G 12/512 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "Infinix Zero 50 Pro 5G 12/512 GB",
-        "brand": "Infinix",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-infinix+zero+50+pro",
-            "pricePln": 1799,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Nie znaleziono żadnego potwierdzenia, że model 'Infinix Zero 50 Pro 5G' istnieje (ani w wariancie 12/512 GB, ani innym). Wyszukiwanie 'Infinix Zero 50 Pro' zwraca tylko 'Zero 50 5G' (bez 'Pro'), który wg Smartprix jest plotką niepotwierdzoną przez wiarygodne źródła (agregatory podają sprzeczne dane: Dimensity 8300, 5500 mAh vs 5000 mAh/88 W, premiera od grudnia 2025 do 2026+). Ceneo: brak wyników dla 'infinix zero 50' (Brak wyników dla frazy wyszukania); polskie portale (gsmmaniak, telepolis, tabletowo, antyweb) nie opisują Zero 50 ani Zero 50 "
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-infinix+zero+50+pro"
-      }
-    },
-    {
-      "id": "asus-rog-phone-8-12-256",
-      "brand": "Asus",
-      "modelName": "ROG Phone 8 12/256 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "Asus ROG Phone 8 12/256 GB",
-        "brand": "Asus",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-asus+rog+phone+8+12%2F256",
-            "pricePln": 2999,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; x-kom.pl (1211268): 'Produkt wycofany', bez ceny; komputronik.pl: 4999 zl, 'Produkt archiwalny - sprzedaz zakonczona'; allmar.com.pl: 2999 zl, 'Brak w magazynie', kraj wysylki Hiszpania; Ceneo 162717924 (czarny): 'Aktualnie brak ofert'; Ceneo 166462132 (szary): jedna oferta amazon.pl 5367,80 zl, ale tytul oferty na Ceneo nie pasuje do telefonu (opis dywanikow) i nie udalo sie otworzyc strony oferty - niezweryfikowana. Mediaexpert i Allegro zwracaja HTTP 403 dla automatu - nie otwarte (w wynikach wyszukiwarki widoczne fragmenty 2820 zl na"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-asus+rog+phone+8+12%2F256"
-      }
-    },
-    {
-      "id": "hmd-skyline-2-8-256",
-      "brand": "HMD",
-      "modelName": "Skyline 2 8/256 GB",
-      "status": "needs_confirmation",
-      "reveal": {
-        "name": "HMD Skyline 2 8/256 GB",
-        "brand": "HMD",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-hmd+skyline+2",
-            "pricePln": 1999,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Model HMD Skyline 2 nie został oficjalnie zapowiedziany ani wprowadzony do sprzedaży. gsmManiaK.pl (10.07.2026) opisuje wyłącznie przecieki (autor pisze, że nie wiadomo, czy model w ogóle się ukaże), Notebookcheck (publikacja 05.07.2026, aktualizacja 05.10.2026) podaje 'no official confirmation yet' i spodziewany start w 2026 bez daty. Polska strona producenta (hmd.com/pl_pl/smartphones, pobrana dziś) nie zawiera Skyline 2 (jest jedynie podstrona oryginalnego Skyline), Ceneo na zapytanie 'hmd skyline 2' zwraca wyłącznie oryginalnego Skyline (m."
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-hmd+skyline+2"
-      }
-    },
-    {
-      "id": "tecno-phantom-v-flip-2-8-256",
-      "brand": "Tecno",
-      "modelName": "Phantom V Flip 2 8/256 GB",
-      "status": "unverified",
-      "reveal": {
-        "name": "Tecno Phantom V Flip 2 8/256 GB",
-        "brand": "Tecno",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-tecno+phantom+v+flip+2",
-            "pricePln": 2499,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: wariant nie potwierdzony: Globalny model ma wariant 8/256 GB (plus 8 GB pamięci wirtualnej wg producenta), ale nie znaleziono dowodu sprzedaży w Polsce. Polska strona producenta (tecno-mobile.com/pl) nie ma serii Phantom na liście smartfonów (tylko Spark, Pova, Camon, Pop). Notebookcheck podaje regiony sprzedaży: Afryka, Azja Południowo-Wschodnia, Bliski Wschód, Ameryka Łacińska i inne niewymienione - nie Europa. Ceneo i Morele pokazują wyłącznie akcesoria do tego modelu, nie telefon; Komorkomat: brak ceny/dostępności. Telepolis (09.2024) pisał jedynie, że telefon 'praw"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-tecno+phantom+v+flip+2"
-      }
-    },
-    {
       "id": "tcl-50-nxtpaper-5g-8-256",
       "brand": "TCL",
       "modelName": "50 NXTPAPER 5G 8/256 GB",
@@ -7430,27 +7157,6 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
-    },
-    {
-      "id": "huawei-nova-13-pro-12-512",
-      "brand": "Huawei",
-      "modelName": "Nova 13 Pro 12/512 GB",
-      "status": "needs_confirmation",
-      "reveal": {
-        "name": "Huawei Nova 13 Pro 12/512 GB",
-        "brand": "Huawei",
-        "shopLinks": [
-          {
-            "label": "ceneo.pl",
-            "url": "https://www.ceneo.pl/;szukaj-huawei+nova+13+pro",
-            "pricePln": 2399,
-            "checkedAt": null,
-            "kind": "compare",
-            "note": "Weryfikacja 2026-11-18: brak zweryfikowanej oferty w PL; Otwarte i sprawdzone dziś: MediaMarkt 1488413 - 'PRODUKT PO EKSPOZYCJI', 2199 zł, może pochodzić z ekspozycji lub zwrotu (nie nowy, pominięty jako cena); x-kom 1311802 - 'Produkt wycofany', bez ceny; Komputronik 949103 - 'Produkt archiwalny - sprzedaż zakończona', 2999 zł; Morele 14629057 - brak ceny, 'Powiadom mnie o dostępności'; Ceneo 179942326 - 'Aktualnie brak ofert', ostatnia cena 2199 zł (bez daty); mGSM - tylko egzemplarz po ekspozycji 2199 zł. Strony Avans, Media Expert, Euro, Electro, Allegro i Monitor Promocji zwracają 403 dla"
-          }
-        ],
-        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-huawei+nova+13+pro"
-      }
     }
   ]
 }
