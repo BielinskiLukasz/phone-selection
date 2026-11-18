@@ -3762,6 +3762,226 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "iphone-15-128",
+      "brand": "Apple",
+      "modelName": "iPhone 15 128 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Apple iPhone 15 128 GB",
+        "brand": "Apple",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-15.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-1.jpg",
+        "shopLinks": [
+          {
+            "label": "sferis.pl",
+            "url": "https://www.sferis.pl/apple-iphone-15-128gb-black-i667767",
+            "pricePln": 2679,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny (MTP03QN/A), 128 GB — nowy, dostępny, darmowa dostawa, 12 mies. gwarancji producenta + rękojmia"
+          },
+          {
+            "label": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1179980-smartfon-telefon-apple-iphone-15-128gb-black.html",
+            "pricePln": 2892,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny, 128 GB — oficjalna sieć x-kom (niebieski i żółty: 2899 zł, różowy: 3049 zł)"
+          },
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-apple-iphone-15-5g-black-128gb",
+            "pricePln": 2999,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny i żółty, 128 GB — oficjalna sieć Media Expert (wariant 2x eSIM bez nanoSIM: 2769,99 zł)"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-apple-iphone-15-128gb-black-mtp03-13109807/",
+            "pricePln": 3020,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny (MTP03, dystrybucja EU), 128 GB — dostępny w sprzedaży bezpośredniej Morele.net"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/138536500",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 6,
+        "storageGb": 128,
+        "fromList": "Apple iPhone 15 128 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2679,
+        "source": "sferis.pl",
+        "url": "https://www.sferis.pl/apple-iphone-15-128gb-black-i667767",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "czarny (MTP03QN/A), 6/128 GB — powyżej progu 2000 zł (segment do 3000 zł)",
+        "auditNote": "Sferis.pl (i667767, MTP03QN/A, czarny, nowy): 2679 zł z darmową dostawą (druga karta i541732: 2849 zł). Na Ceneo nowe egzemplarze 128 GB: niebieski (157145030) od 2605 zł, czarny (138536500) od 2625 zł, różowy (157128723) od 2699 zł (Empik/Allegro); w autoryzowanych sieciach: x-kom 2892 zł (czarny) / 2899 zł (niebieski, żółty), AB Foto 2888–2999 zł, Media Expert 2999–3049,99 zł (uwaga: tańsze oferty 2299,99–2599,99 zł w Media Expert/Electro/Avans dotyczą sztuk odnowionych/CPO, a 2769,99 zł to wersja 2x eSIM bez fizycznego slotu SIM), Morele.net 3020 zł (odczyt JSON-LD, InStock). Cena przekracza pierwotny limit 2000 zł i należy do rozszerzonej puli do 3000 zł.",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 2625,
+            "source": "ceneo.pl (najtańsza oferta czarnego 128 GB)",
+            "url": "https://www.ceneo.pl/138536500",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny, 128 GB (niebieski na Ceneo 157145030 od 2605 zł)"
+          },
+          {
+            "pln": 2892,
+            "source": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1179980-smartfon-telefon-apple-iphone-15-128gb-black.html",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny, 128 GB, oficjalna sieć (niebieski i żółty: 2899 zł)"
+          },
+          {
+            "pln": 2999,
+            "source": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-apple-iphone-15-5g-black-128gb",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny i żółty, 128 GB, nowy (wersja 2x eSIM: 2769,99 zł)"
+          },
+          {
+            "pln": 3020,
+            "source": "morele.net",
+            "url": "https://www.morele.net/smartfon-apple-iphone-15-128gb-black-mtp03-13109807/",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (MTP03), 128 GB, dostępny (odczyt JSON-LD)"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.1,
+        "panel": "Super Retina XDR OLED",
+        "refreshHz": 60,
+        "resolution": "1179x2556",
+        "peakNits": 2000,
+        "glass": "Ceramic Shield (przód), barwione matowe szkło (tył)",
+        "ramGb": 6,
+        "storageGb": 128,
+        "storageType": "NVMe",
+        "microSd": false,
+        "chip": "Apple A16 Bionic (4 nm)",
+        "batteryMah": 3349,
+        "batteryCycles": 1000,
+        "batteryEndurance": 0,
+        "batteryTests": [
+          "EPREL (baza UE, mGSM): klasa B, 34:00 h trwałości na cykl, 1000 cykli → wytrzymałość 0 (poniżej progu 40 h skali 40–70 h)",
+          "GSMArena active use score: 13:20 h (rozmowy 18:46 h, WWW 12:34 h, wideo 18:34 h, gry 8:14 h; stary test endurance: 98 h)",
+          "DXOMARK Battery: 113 pkt (51 h / 2 dni 3 h umiarkowanego użycia)"
+        ],
+        "chargingW": 20,
+        "chargingNote": "do 20 W przewodowo (USB-C PD2.0; deklaracja Apple: 50% w 30 min), 15 W bezprzewodowo (MagSafe oraz Qi2; 7,5 W standardowe Qi) i 4,5 W przewodowe ładowanie zwrotne; brak ładowarki w pudełku, w zestawie kabel USB-C (GSMArena, DXOMARK, sferis.pl)",
+        "chargingTests": "GSMArena (USB PD 20 W): 32% w 15 min, 58% w 30 min, 85% w 60 min, pełne ładowanie w 110 min; DXOMARK: 51% w 30 min, 80% w 62 min, pełne w 151 min (indukcyjnie 32% w 30 min)",
+        "chargerInBox": false,
+        "wirelessCharging": true,
+        "wirelessW": 15,
+        "ip": "IP68",
+        "weightG": 171,
+        "heightMm": 147.6,
+        "widthMm": 71.6,
+        "thicknessMm": 7.8,
+        "dimensionsMm": "147,6 × 71,6 × 7,8",
+        "cameras": {
+          "main": "48 MP f/1.6 (26 mm, 1/1,56″, dual pixel PDAF) z sensor-shift OIS",
+          "ultrawide": "12 MP f/2.4 (13 mm, 120°)",
+          "macro": null,
+          "selfie": "12 MP f/1.9 (23 mm, 1/3,6″, PDAF) + czujnik głębi SL 3D (Face ID)",
+          "telephoto": null
+        },
+        "video": "4K 24/25/30/60 kl./s z Dolby Vision HDR (główny i selfie), 4K 30 kl./s (szeroki kąt)",
+        "os": "iOS 17 (aktualizowany do iOS 27)",
+        "updatesYears": 5,
+        "updatesOsGenerations": 5,
+        "updatesSecurityYears": 5,
+        "updatesNote": "Min. 5 lat aktualizacji systemu i poprawek bezpieczeństwa od premiery (22.09.2023) wg oficjalnej deklaracji regulacyjnej Apple (UK PSTI) i karty UE EPREL; historycznie Apple wspiera iPhone’y 6–7 lat pełnymi wersjami iOS i dłużej łatkami bezpieczeństwa (uwaga: model nie obsługuje funkcji Apple Intelligence — wymagają min. A17 Pro i 8 GB RAM)",
+        "releasedAt": "2023-09",
+        "securitySupportUntil": "2028-09",
+        "supportNote": "Oficjalne gwarantowane minimum Apple (deklaracja UK PSTI i baza UE EPREL, debiut 09.2023): 5 lat poprawek bezpieczeństwa do 09.2028 (w praktyce iPhone’y zwykle otrzymują poprawki przez 6–8 lat)",
+        "sim": "nanoSIM + dual eSIM (maks. 2 aktywne jednocześnie; wersja międzynarodowa A3090)",
+        "nfc": true,
+        "wifi": "Wi-Fi 6 (dwuzakresowe 802.11ax)",
+        "bluetooth": "5.3",
+        "wearableNotes": "Uwaga: system Apple iOS (nie Android). Mi Band 6 współpracuje z iPhone’em przez aplikację Zepp Life z App Store — należy włączyć dla niej „Odświeżanie aplikacji w tle” oraz opcję „Udostępniaj powiadomienia systemowe” w ustawieniach Bluetooth opaski (na iOS brak szybkich odpowiedzi na wiadomości z poziomu opaski; NFC w iPhonie obsługuje Apple Pay zamiast Google Wallet)."
+      },
+      "scores": {
+        "battery": 0,
+        "charging": 15,
+        "updates": 71,
+        "storage": 40,
+        "durability": 90,
+        "smoothness": 84,
+        "display": 78,
+        "photoDay": 88,
+        "photoIndoor": 85,
+        "photoMotion": 84,
+        "selfie": 86,
+        "video": 92,
+        "zoom": 55,
+        "compactness": 92,
+        "value": null
+      },
+      "basis": {
+        "battery": "niewielkie ogniwo 3349 mAh (pojemność 0 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 0 (50%) z rejestru UE EPREL (klasa B, 34:00 h na cyklu — poniżej progu 40 h skali 40–70 h, 1000 cykli) → 0 pkt ze wzoru; w praktyce dzięki optymalizacji iOS wytrzymuje pełny dzień umiarkowanej pracy (GSMArena active use 13:20 h, DXOMARK 51 h)",
+        "charging": "maks. 20 W przewodowo USB-C PD (GSMArena: 58% w 30 min, pełne w 110 min przez mocne spowolnienie powyżej 80%) + 15 W indukcyjnie MagSafe/Qi2 (+8 pkt), bez ładowarki w pudełku — (20 − 15) / 75 × 100 + 8 = 15 pkt",
+        "updates": "oficjalnie gwarantowane min. 5 lat aktualizacji iOS i poprawek bezpieczeństwa od 09.2023 do min. 09.2028 (deklaracja Apple UK PSTI, rejestr UE EPREL): 5 / 7 × 100 = 71 pkt (historycznie Apple wspiera telefony dłużej, 6–8 lat, ale od premiery minęły już ponad 3 lata)",
+        "storage": "128 GB szybkiej pamięci NVMe (z 6 GB RAM), brak slotu microSD (GSMArena, sferis.pl) = 40 pkt",
+        "durability": "IP68 o podwyższonej odporności na zanurzenie aż do 6 m przez 30 min, szkło Ceramic Shield z przodu, aluminiowa ramka oraz klasa C odporności na upadki (90 upadków) w EPREL (GSMArena, mGSM) = 90 pkt",
+        "smoothness": "układ Apple A16 Bionic (4 nm, Geekbench 6 multi-core 6526, AnTuTu v10 1 354 651), pamięć NVMe i bardzo dopracowany iOS gwarantują błyskawiczne działanie aplikacji, ale odświeżanie 60 Hz obniża odczuwalną płynność przewijania (GSMArena, DXOMARK), a 6 GB RAM wyklucza Apple Intelligence",
+        "display": "6,1″ Super Retina XDR OLED (1179×2556, 461 ppi, Dolby Vision, HDR10, Dynamic Island), 2000 nitów szczytowo i rewelacyjne 1643 nity zmierzone w słońcu w GSMArena oraz wzorowa wierność barw, ale poważny minus za odświeżanie tylko 60 Hz w tej cenie",
+        "photoDay": "główny 48 MP f/1.6 (1/1,56″) z sensor-shift OIS i domyślnym zapisem 24 MP + 12 MP szeroki kąt; DXOMARK Camera 145 pkt i recenzja GSMArena chwalą wybitną szczegółowość 24 MP, powtarzalność kadrów, rozpiętość tonalną Smart HDR i czołowe w klasie portrety (z edycją głębi po zrobieniu zdjęcia)",
+        "photoIndoor": "recenzja GSMArena i test DXOMARK potwierdzają znakomitą szczegółowość, celną ekspozycję, ochronę świateł i naturalne odcienie skóry w pomieszczeniach i po zmroku z jasnego 48 MP f/1.6 z sensor-shift OIS (słabszy i bardziej zaszumiony w nocy jest szeroki kąt 12 MP bez AF)",
+        "photoMotion": "warstwowa matryca 48 MP ze 100% Focus Pixels (dual pixel PDAF), stabilizacja matrycy sensor-shift OIS i Photonic Engine zapewniają bardzo szybki, pewny autofokus i powtarzalnie ostre ujęcia w ruchu (DXOMARK, GSMArena)",
+        "selfie": "przedni aparat 12 MP f/1.9 z autofokusem PDAF, skanerem głębi 3D (Face ID) i wideo 4K 60 kl./s Dolby Vision; GSMArena chwali świetną ostrość, naturalną fakturę skóry, celny AF w ruchu oraz znakomite portrety selfie",
+        "video": "referencyjne w tej klasie cenowej wideo 4K 60 kl./s Dolby Vision HDR (główny i selfie) oraz 4K 30 kl./s (szeroki kąt), tryb Filmowy 4K i tryb Akcji 2,8K; DXOMARK i GSMArena chwalą czołową stabilizację, płynny AF, spójność kolorów i świetną jakość nagrań nocnych",
+        "zoom": "układ 48 MP + 12 MP, brak teleobiektywu (GSMArena, DXOMARK); przybliżenie 2x (52 mm) z wycinka matrycy 48 MP jest w testach GSMArena i DXOMARK ocenione jako wyjątkowo ostre w dzień, w nocy i w wideo 4K, lecz powyżej 2x wyraźnie ustępuje dedykowanym teleobiektywom 3x",
+        "compactness": "171 g, wymiary 147,6 × 71,6 × 7,8 mm (GSMArena, sferis.pl) — wzór poręczności: lekkość 91, mała powierzchnia 100 (zaledwie 10 568 mm²), smukłość 57 → 92 pkt (prawdziwy, bardzo lekki i wygodny jednorącz kompakt 6,1″)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.ceneo.pl/138536500",
+        "https://www.sferis.pl/apple-iphone-15-128gb-black-i667767",
+        "https://www.x-kom.pl/p/1179980-smartfon-telefon-apple-iphone-15-128gb-black.html",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-apple-iphone-15-5g-black-128gb",
+        "https://www.morele.net/smartfon-apple-iphone-15-128gb-black-mtp03-13109807/",
+        "https://www.mgsm.pl/pl/katalog/apple/iphone15/",
+        "https://www.gsmarena.com/apple_iphone_15-12559.php",
+        "https://www.gsmarena.com/apple_iphone_15-review-2619p3.php",
+        "https://www.gsmarena.com/apple_iphone_15-review-2619p5.php",
+        "https://www.gsmarena.com/apple_promises_five_years_of_software_support_for_the_iphone_15_two_less_than_google_and_samsung-news-63159.php",
+        "https://www.dxomark.com/apple-iphone-15-camera-test/",
+        "https://www.dxomark.com/apple-iphone-15-battery-test/"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "high",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
