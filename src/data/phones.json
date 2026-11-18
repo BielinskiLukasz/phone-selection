@@ -3549,6 +3549,219 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "honor-magic-7-lite-8-256",
+      "brand": "Honor",
+      "modelName": "Magic 7 Lite 8/256 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Honor Magic 7 Lite 8/256 GB",
+        "brand": "Honor",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/honor-x9c.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/honor/honor-magic7-lite-2.jpg",
+        "shopLinks": [
+          {
+            "label": "sferis.pl",
+            "url": "https://www.sferis.pl/smartfon-honor-magic7-lite-5g-dual-sim-8-256gb-titanium-black-i560174",
+            "pricePln": 1245,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny Titanium Black (BRP-NX1), 8/256 GB — dostępny w sklepie Sferis"
+          },
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-honor-magic-7-lite-5g-8-256gb-6-78-120hz-fioletowy",
+            "pricePln": 1199,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "fioletowy i czarny (BRP-NX1), 8/256 GB — oficjalna sieć Media Expert"
+          },
+          {
+            "label": "allegro.pl",
+            "url": "https://allegro.pl/oferta/smartfon-honor-magic-7-lite-5g-8-256gb-6-78-120hz-czarny-17160354378",
+            "pricePln": 1249.99,
+            "checkedAt": "2026-11-17",
+            "kind": "marketplace",
+            "note": "czarny (5109BQHG / EAN 6936520856817), 8/256 GB, nowy (na Ceneo 179321500 fioletowy od 1198 zł)"
+          },
+          {
+            "label": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1309685-smartfon-telefon-honor-magic7-lite-5g-8-256gb-titanium-black-120hz.html",
+            "pricePln": 1399,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny Titanium Black, 8/256 GB — oficjalna sieć x-kom"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/179321500",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 256,
+        "fromList": "Honor Magic 7 Lite 8/256 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 1199,
+        "source": "mediaexpert.pl",
+        "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-honor-magic-7-lite-5g-8-256gb-6-78-120hz-fioletowy",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "fioletowy lub czarny (BRP-NX1), 8/256 GB",
+        "auditNote": "Media Expert: 1199 zł za wariant 8/256 GB (fioletowy i czarny, wg wykazu cen mGSM/Media Expert); Ceneo 179321500 (fioletowy 8/256 GB): aktywne oferty od 1198 zł (Allegro Smart) do 1385 zł (Rozetka); Sferis: 1245 zł (Titanium Black i560174); Allegro (5109BQHG, czarny): 1249,99 zł; x-kom: 1399 zł; w Komputroniku (ostatnio 1304–1399 zł) sprzedaż zakończona w związku z wejściem następcy Honor Magic8 Lite (~1325–1499 zł). Polska cena premierowa (01.2025): 1599 zł.",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 1198,
+            "source": "allegro.pl (przez Ceneo 179321500)",
+            "url": "https://www.ceneo.pl/179321500",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "fioletowy (EAN 6936520856831), 8/256 GB, Allegro Smart"
+          },
+          {
+            "pln": 1245,
+            "source": "sferis.pl",
+            "url": "https://www.sferis.pl/smartfon-honor-magic7-lite-5g-dual-sim-8-256gb-titanium-black-i560174",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny Titanium Black (BRP-NX1), 8/256 GB, dostępny"
+          },
+          {
+            "pln": 1399,
+            "source": "x-kom.pl",
+            "url": "https://www.x-kom.pl/p/1309685-smartfon-telefon-honor-magic7-lite-5g-8-256gb-titanium-black-120hz.html",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny Titanium Black, 8/256 GB, oficjalna sieć"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.78,
+        "panel": "AMOLED",
+        "refreshHz": 120,
+        "resolution": "1224x2700",
+        "peakNits": 4000,
+        "glass": "Honor Anti-Drop Display (odporność na upadki z 2 m, certyfikat SGS 5 gwiazdek)",
+        "ramGb": 8,
+        "storageGb": 256,
+        "storageType": "UFS 3.1",
+        "microSd": false,
+        "chip": "Qualcomm Snapdragon 6 Gen 1 (4 nm)",
+        "batteryMah": 6600,
+        "batteryCycles": 1200,
+        "batteryEndurance": 65,
+        "batteryTests": [
+          "EPREL / GSMArena (etykieta UE): klasa B, 59:33 h szacowanej wytrzymałości, 1200 cykli → wytrzymałość 65 (skala 40–70 h)",
+          "GSMArena active use score: 15:02 h (rozmowy 40:45 h, WWW 13:05 h, wideo 18:17 h, gry 8:58 h)",
+          "DXOMARK Battery: 164 pkt (89 h / 3 dni 17 h umiarkowanego użycia — czołówka globalnego rankingu)",
+          "Notebookcheck test Wi-Fi v1.3: 23,1 h"
+        ],
+        "chargingW": 66,
+        "chargingNote": "do 66 W Honor SuperCharge przewodowo oraz przewodowe ładowanie zwrotne; w europejskiej dystrybucji brak ładowarki w pudełku, w zestawie kabel USB-C (GSMArena, DXOMARK, Tabletowo)",
+        "chargingTests": "GSMArena (zasilacz Honor 66 W): pełne ładowanie w 61 min; DXOMARK: 59% w 30 min, 80% w 42 min, pełne w 70 min",
+        "chargerInBox": false,
+        "wirelessCharging": false,
+        "wirelessW": null,
+        "ip": "IP64",
+        "weightG": 189,
+        "heightMm": 162.8,
+        "widthMm": 75.5,
+        "thicknessMm": 8,
+        "dimensionsMm": "162,8 × 75,5 × 8,0",
+        "cameras": {
+          "main": "108 MP f/1.8 (1/1,67″, Samsung ISOCELL HM6, PDAF) z OIS",
+          "ultrawide": "5 MP f/2.2",
+          "macro": null,
+          "selfie": "16 MP f/2.5",
+          "telephoto": null
+        },
+        "video": "4K 30 kl./s (główny), 1080p 30 kl./s (szeroki kąt i selfie)",
+        "os": "Android 14, MagicOS 8",
+        "updatesYears": 5,
+        "updatesOsGenerations": 3,
+        "updatesSecurityYears": 5,
+        "updatesNote": "3 duże aktualizacje Androida (do Androida 17 / MagicOS 11 — Notebookcheck i oficjalny harmonogram MagicOS 11) oraz min. 5 lat aktualizacji zabezpieczeń i poprawek wg unijnej karty EPREL (seria Magic Lite nie jest objęta 7-letnim programem flagowców Magic7 Pro)",
+        "releasedAt": "2025-01",
+        "securitySupportUntil": "2030-01",
+        "supportNote": "Karta informacyjna UE EPREL (BRP-NX1, wprowadzony w UE 15.01.2025, mGSM): min. 5 lat gwarantowanych aktualizacji zabezpieczeń i poprawek → co najmniej do 01.2030 (wcześniejsze recenzje sprzed publikacji EPREL szacowały wsparcie krócej, do 2027–2028)",
+        "sim": "nanoSIM + nanoSIM / nanoSIM + eSIM",
+        "nfc": true,
+        "wifi": "Wi-Fi 5 (dwuzakresowe 802.11ac)",
+        "bluetooth": "5.1",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). MagicOS mocno ogranicza pracę w tle — w Ustawieniach → Bateria → Uruchamianie aplikacji należy wyłączyć „Zarządzaj automatycznie” dla Zepp Life i włączyć wszystkie trzy zgody na działanie w tle."
+      },
+      "scores": {
+        "battery": 65,
+        "charging": 68,
+        "updates": 57,
+        "storage": 75,
+        "durability": 55,
+        "smoothness": 52,
+        "display": 81,
+        "photoDay": 68,
+        "photoIndoor": 64,
+        "photoMotion": 58,
+        "selfie": 62,
+        "video": 56,
+        "zoom": 36,
+        "compactness": 53,
+        "value": null
+      },
+      "basis": {
+        "battery": "krzemowo-węglowe ogniwo 6600 mAh (pojemność 65 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 65 (50%) z etykiety UE EPREL (klasa B, 59:33 h przy skali 40–70 h, 1200 cykli; GSMArena active use 15:02 h, DXOMARK Battery 164 pkt / 89 h) → 0,5 × 65 + 0,5 × 65 = 65 pkt",
+        "charging": "66 W Honor SuperCharge przewodowo (GSMArena: pełne w 61 min; DXOMARK: 59% w 30 min, 80% w 42 min) + zwrotne przewodowe, bez indukcji i bez ładowarki w pudełku EU — (66 − 15) / 75 × 100 = 68 pkt",
+        "updates": "3 duże aktualizacje Androida (start z Android 14, potwierdzony Android 17 / MagicOS 11) + min. 5 lat aktualizacji bezpieczeństwa wg rejestru UE EPREL (co najmniej do 01.2030, kwartalne poprawki): średnia 4 lata → 4 / 7 × 100 = 57 pkt",
+        "storage": "256 GB pamięci UFS 3.1 (Notebookcheck) z 8 GB RAM, brak slotu microSD (GSMArena, Tabletowo) = 75 pkt",
+        "durability": "IP64 wg EPREL i GSMArena = 55 pkt ze wzoru szczelności (tylko ochrona przed zachlapaniem, bez zanurzenia), choć mechanicznie ponadprzeciętnie wzmocniony: Anti-Drop do 2 m, certyfikat SGS 5 gwiazdek i najwyższa klasa A odporności na upadki (270 upadków) na etykiecie UE",
+        "smoothness": "starszy Snapdragon 6 Gen 1 (4 nm) z 8 GB RAM i UFS 3.1; GSMArena: AnTuTu v10 594 450, Geekbench 6 multi-core 2705; Notebookcheck i Telepolis chwalą wzorową kulturę pracy (stabilność 99,2%, maks. 34,7°C), ale wytykają skromny zapas mocy pod gry i cięższe aplikacje",
+        "display": "6,78″ zakrzywiony AMOLED 1,5K (1224×2700, 10-bit, 120 Hz, bezpieczne ściemnianie PWM 3840 Hz); deklarowane 4000 nitów szczytowo, w pomiarach Notebookcheck realnie 1272–1295 nitów i wzorowe odwzorowanie barw (ΔE 1,1)",
+        "photoDay": "główny aparat 108 MP f/1.8 (1/1,67″, ISOCELL HM6) z OIS + bardzo podstawowy 5 MP szeroki kąt; Notebookcheck, Telepolis i Tabletowo chwalą przyzwoitą szczegółowość w dzień, ale krytykują chłodny/przesycony balans bieli, przeciętną rozpiętość tonalną i słaby obiektyw 5 MP",
+        "photoIndoor": "dodanie OIS do sensora 108 MP poprawiło zdjęcia wieczorne względem Magic6 Lite (Telepolis, Stuff), jednak Tabletowo i Notebookcheck odnotowują zauważalny szum i utratę drobnych detali przy słabszym świetle oraz nieużywalny w nocy szeroki kąt 5 MP",
+        "photoMotion": "matryca 108 MP z PDAF i OIS wspierana starszym układem Snapdragon 6 Gen 1; Tabletowo zwraca uwagę na przeciętną szybkość działania aplikacji aparatu, co ogranicza pewność przy ruchomych obiektach",
+        "selfie": "przedni aparat 16 MP f/2.5 (wideo tylko 1080p 30 kl./s); Telepolis i Tabletowo oceniają dzienne autoportrety jako poprawne, ale z agresywnym wyostrzaniem/upiększaniem i bardzo dużym spadkiem jakości po zmroku",
+        "video": "4K 30 kl./s wyłącznie z głównego aparatu (brak 60 kl./s, szeroki kąt i selfie tylko 1080p 30 kl./s); Telepolis i Tabletowo wytykają wyraźny szum w 4K oraz gwałtowne skoki balansu bieli w trakcie nagrywania",
+        "zoom": "układ 108 MP + 5 MP, brak teleobiektywu (GSMArena, Notebookcheck); bezstratny wycinek 2x–3x z matrycy 108 MP sprawdza się w dobrym świetle dziennym, ale szybko traci ostrość w pomieszczeniach",
+        "compactness": "189 g, wymiary 162,8 × 75,5 × 8,0 mm (7,98 mm wg producenta, GSMArena) — wzór poręczności: lekkość 66, mała powierzchnia 41 (12 291 mm²), smukłość 50 → 53 pkt (zaskakująco lekki i zgrabny jak na baterię 6600 mAh)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.honor.com/uk/shop/buying-guide/introducing-honor-magic7-lite/",
+        "https://www.ceneo.pl/179321500",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-honor-magic-7-lite-5g-8-256gb-6-78-120hz-fioletowy",
+        "https://www.sferis.pl/smartfon-honor-magic7-lite-5g-dual-sim-8-256gb-titanium-black-i560174",
+        "https://www.x-kom.pl/p/1309685-smartfon-telefon-honor-magic7-lite-5g-8-256gb-titanium-black-120hz.html",
+        "https://www.mgsm.pl/pl/katalog/honor/magic7-lite/",
+        "https://www.gsmarena.com/honor_magic7_lite-13581.php",
+        "https://www.gsmarena.com/honor_magic7_lite_battery_life_charging_test_results-news-66562.php",
+        "https://www.dxomark.com/honor-magic7-lite-battery-test/",
+        "https://www.notebookcheck.net/A-rugged-yet-stylish-smartphone-Honor-Magic7-Lite-review.993599.0.html",
+        "https://www.telepolis.pl/artykuly/testy-sprzetu/honor-magic7-lite-test-recenzja-opinie",
+        "https://www.tabletowo.pl/recenzja-honor-magic-7-lite-test-opinia/"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "medium",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "medium",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
