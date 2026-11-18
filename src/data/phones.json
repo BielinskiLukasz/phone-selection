@@ -4609,6 +4609,531 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "galaxy-xcover-8-pro-8-128",
+      "brand": "Samsung",
+      "modelName": "Galaxy XCover 8 Pro 8/128 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Samsung Galaxy XCover 8 Pro 8/128 GB",
+        "brand": "Samsung",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-samsung+galaxy+xcover+8+pro",
+            "pricePln": 2699,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#8): ~2 699 zł (szacunek, cena niezweryfikowana; uwaga: model nieogłoszony — w sprzedaży jest Galaxy XCover7 Pro)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-samsung+galaxy+xcover+8+pro"
+      }
+    },
+    {
+      "id": "poco-f8-ultra-12-256",
+      "brand": "POCO",
+      "modelName": "F8 Ultra 12/256 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "POCO F8 Ultra 12/256 GB",
+        "brand": "POCO",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-poco+f8+ultra",
+            "pricePln": 2899,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#14): ~2 899 zł (szacunek, cena i dostępność w PL do sprawdzenia)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-poco+f8+ultra"
+      }
+    },
+    {
+      "id": "pixel-9-8-128",
+      "brand": "Google",
+      "modelName": "Pixel 9 8/128 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Google Pixel 9 8/128 GB",
+        "brand": "Google",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-google+pixel+9+128gb",
+            "pricePln": 2700,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#15): ~2 700 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-google+pixel+9+128gb"
+      }
+    },
+    {
+      "id": "motorola-edge-60-pro-12-512",
+      "brand": "Motorola",
+      "modelName": "Edge 60 Pro 12/512 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Motorola Edge 60 Pro 12/512 GB",
+        "brand": "Motorola",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-motorola+edge+60+pro+12%2F512",
+            "pricePln": 2100,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#20): ~2 100 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-motorola+edge+60+pro+12%2F512"
+      }
+    },
+    {
+      "id": "motorola-razr-60-8-256",
+      "brand": "Motorola",
+      "modelName": "Razr 60 8/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Motorola Razr 60 8/256 GB",
+        "brand": "Motorola",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-motorola+razr+60+8%2F256",
+            "pricePln": 2700,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#22): ~2 700 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-motorola+razr+60+8%2F256"
+      }
+    },
+    {
+      "id": "motorola-razr-70-8-256",
+      "brand": "Motorola",
+      "modelName": "Razr 70 8/256 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Motorola Razr 70 8/256 GB",
+        "brand": "Motorola",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-motorola+razr+70",
+            "pricePln": 2799,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#23): ~2 799 zł (szacunek, świeża premiera — dostępność i cena w PL do sprawdzenia)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-motorola+razr+70"
+      }
+    },
+    {
+      "id": "nothing-phone-3-12-256",
+      "brand": "Nothing",
+      "modelName": "Phone (3) 12/256 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Nothing Phone (3) 12/256 GB",
+        "brand": "Nothing",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-nothing+phone+3+12%2F256",
+            "pricePln": 2799,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#28): ~2 799 zł (szacunek, cena w PL do sprawdzenia)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-nothing+phone+3+12%2F256"
+      }
+    },
+    {
+      "id": "cmf-phone-2-pro-8-256",
+      "brand": "CMF",
+      "modelName": "Phone 2 Pro 8/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "CMF Phone 2 Pro 8/256 GB",
+        "brand": "CMF",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-cmf+phone+2+pro+8%2F256",
+            "pricePln": 1100,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#29): 1 100–1 199 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-cmf+phone+2+pro+8%2F256"
+      }
+    },
+    {
+      "id": "oneplus-13r-12-256",
+      "brand": "OnePlus",
+      "modelName": "13R 12/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "OnePlus 13R 12/256 GB",
+        "brand": "OnePlus",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-oneplus+13r+12%2F256",
+            "pricePln": 2500,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#31): 2 500–2 899 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oneplus+13r+12%2F256"
+      }
+    },
+    {
+      "id": "realme-gt-7-12-256",
+      "brand": "Realme",
+      "modelName": "GT 7 12/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Realme GT 7 12/256 GB",
+        "brand": "Realme",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-realme+gt+7+12%2F256",
+            "pricePln": 2300,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#33): ~2 300 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-realme+gt+7+12%2F256"
+      }
+    },
+    {
+      "id": "iphone-16e-128",
+      "brand": "Apple",
+      "modelName": "iPhone 16e 128 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Apple iPhone 16e 128 GB",
+        "brand": "Apple",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-iphone+16e+128gb",
+            "pricePln": 2632,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#35): 2 632–2 700 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-iphone+16e+128gb"
+      }
+    },
+    {
+      "id": "sony-xperia-10-vii-8-128",
+      "brand": "Sony",
+      "modelName": "Xperia 10 VII 8/128 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Sony Xperia 10 VII 8/128 GB",
+        "brand": "Sony",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-sony+xperia+10+vii",
+            "pricePln": 1900,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#36): ~1 900 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-sony+xperia+10+vii"
+      }
+    },
+    {
+      "id": "sony-xperia-10-viii-8-128",
+      "brand": "Sony",
+      "modelName": "Xperia 10 VIII 8/128 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Sony Xperia 10 VIII 8/128 GB",
+        "brand": "Sony",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-sony+xperia+10+viii",
+            "pricePln": 1899,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#37): ~1 899 zł (szacunek, premiera i dostępność w PL do sprawdzenia)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-sony+xperia+10+viii"
+      }
+    },
+    {
+      "id": "oppo-reno-14-5g-12-256",
+      "brand": "Oppo",
+      "modelName": "Reno 14 5G 12/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Oppo Reno 14 5G 12/256 GB",
+        "brand": "Oppo",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-oppo+reno+14+5g+12%2F256",
+            "pricePln": 2300,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#38): ~2 300 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oppo+reno+14+5g+12%2F256"
+      }
+    },
+    {
+      "id": "oppo-reno-16-pro-5g-12-256",
+      "brand": "Oppo",
+      "modelName": "Reno 16 Pro 5G 12/256 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Oppo Reno 16 Pro 5G 12/256 GB",
+        "brand": "Oppo",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-oppo+reno+16+pro",
+            "pricePln": 2899,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#39): ~2 899 zł (szacunek, cena i dostępność w PL do sprawdzenia)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-oppo+reno+16+pro"
+      }
+    },
+    {
+      "id": "vivo-v60-5g-12-256",
+      "brand": "vivo",
+      "modelName": "V60 5G 12/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "vivo V60 5G 12/256 GB",
+        "brand": "vivo",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-vivo+v60+5g+12%2F256",
+            "pricePln": 2200,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#40, nowy): ~2 200 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-vivo+v60+5g+12%2F256"
+      }
+    },
+    {
+      "id": "fairphone-5-8-256",
+      "brand": "Fairphone",
+      "modelName": "5 8/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Fairphone 5 8/256 GB",
+        "brand": "Fairphone",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-fairphone+5",
+            "pricePln": 2499,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#42, nowy): ~2 499 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-fairphone+5"
+      }
+    },
+    {
+      "id": "fairphone-gen-6-8-256",
+      "brand": "Fairphone",
+      "modelName": "(Gen. 6) 8/256 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Fairphone (Gen. 6) 8/256 GB",
+        "brand": "Fairphone",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-fairphone+gen+6",
+            "pricePln": 2999,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#43, nowy): ~2 999 zł (szacunek na granicy 3 000 zł, do sprawdzenia)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-fairphone+gen+6"
+      }
+    },
+    {
+      "id": "infinix-gt-30-pro-12-256",
+      "brand": "Infinix",
+      "modelName": "GT 30 Pro 12/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Infinix GT 30 Pro 12/256 GB",
+        "brand": "Infinix",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-infinix+gt+30+pro",
+            "pricePln": 1500,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#44, nowy): ~1 500 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-infinix+gt+30+pro"
+      }
+    },
+    {
+      "id": "infinix-zero-50-pro-5g-12-512",
+      "brand": "Infinix",
+      "modelName": "Zero 50 Pro 5G 12/512 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Infinix Zero 50 Pro 5G 12/512 GB",
+        "brand": "Infinix",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-infinix+zero+50+pro",
+            "pricePln": 1799,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#45): ~1 799 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-infinix+zero+50+pro"
+      }
+    },
+    {
+      "id": "asus-rog-phone-8-12-256",
+      "brand": "Asus",
+      "modelName": "ROG Phone 8 12/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Asus ROG Phone 8 12/256 GB",
+        "brand": "Asus",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-asus+rog+phone+8+12%2F256",
+            "pricePln": 2999,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#46): ~2 999 zł (szacunek na granicy 3 000 zł, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-asus+rog+phone+8+12%2F256"
+      }
+    },
+    {
+      "id": "hmd-skyline-2-8-256",
+      "brand": "HMD",
+      "modelName": "Skyline 2 8/256 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "HMD Skyline 2 8/256 GB",
+        "brand": "HMD",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-hmd+skyline+2",
+            "pricePln": 1999,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#47): ~1 999 zł (szacunek, premiera i dostępność w PL do sprawdzenia)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-hmd+skyline+2"
+      }
+    },
+    {
+      "id": "tecno-phantom-v-flip-2-8-256",
+      "brand": "Tecno",
+      "modelName": "Phantom V Flip 2 8/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "Tecno Phantom V Flip 2 8/256 GB",
+        "brand": "Tecno",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-tecno+phantom+v+flip+2",
+            "pricePln": 2499,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#48): ~2 499 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-tecno+phantom+v+flip+2"
+      }
+    },
+    {
+      "id": "tcl-50-nxtpaper-5g-8-256",
+      "brand": "TCL",
+      "modelName": "50 NXTPAPER 5G 8/256 GB",
+      "status": "unverified",
+      "reveal": {
+        "name": "TCL 50 NXTPAPER 5G 8/256 GB",
+        "brand": "TCL",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-tcl+50+nxtpaper+5g",
+            "pricePln": 1199,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#49, nowy): ~1 199 zł (szacunek, cena niezweryfikowana)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-tcl+50+nxtpaper+5g"
+      }
+    },
+    {
+      "id": "huawei-nova-13-pro-12-512",
+      "brand": "Huawei",
+      "modelName": "Nova 13 Pro 12/512 GB",
+      "status": "needs_confirmation",
+      "reveal": {
+        "name": "Huawei Nova 13 Pro 12/512 GB",
+        "brand": "Huawei",
+        "shopLinks": [
+          {
+            "label": "ceneo.pl",
+            "url": "https://www.ceneo.pl/;szukaj-huawei+nova+13+pro",
+            "pricePln": 2399,
+            "checkedAt": null,
+            "kind": "compare",
+            "note": "placeholder z listy (#50, nowy): ~2 399 zł (szacunek, do sprawdzenia; uwaga: brak usług Google / GMS)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/;szukaj-huawei+nova+13+pro"
+      }
     }
   ]
 }
