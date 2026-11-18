@@ -1,12 +1,43 @@
 import phonesData from '../src/data/phones.json';
 import type { Phone } from '../src/types';
+import { isCompleteRecord } from '../src/data/phones';
 
 /**
  * Pula testowa = prawdziwe dane z `src/data/phones.json` (15 telefonów po etapie 10).
  * Jeden rzut na granicy JSON → typy: rekordy są heterogeniczne (np. `refreshHz` bywa
  * zakresem „60-120”), a kształt pilnuje `tests/phones-schema.test.ts` i `validate-data`.
  */
-export const POOL: Phone[] = (phonesData.phones ?? []) as Phone[];
+export const RAW_RECORDS: Phone[] = (phonesData.phones ?? []) as Phone[];
+
+/**
+ * Pula rankingowa = kompletne rekordy w twardym limicie ceny i bez statusu `over_budget` — dokładnie to, co
+ * rankinguje silnik (`matchesFilters`). Szkice kandydatów i rekordy ponad limit pilnuje `RAW_RECORDS`.
+ */
+export const POOL: Phone[] = RAW_RECORDS.filter(
+  (phone) =>
+    isCompleteRecord(phone) &&
+    phone.status !== 'over_budget' &&
+    typeof phone.price.pln === 'number' &&
+    phone.price.pln <= 2000,
+);
+
+/**
+ * Pula, w której przy budżecie sesji mieszczą się dokładnie 2 telefony (najtańsze) — do testów uzupełniania
+ * karty „Powyżej budżetu”. Liczona z danych, więc nie zależy od tego, ile telefonów jest w puli.
+ */
+export function poolWithTwoInBudget(budget = 1500): Phone[] {
+  const cheapest = POOL.filter((phone) => phone.price.pln <= budget)
+    .sort((a, b) => a.price.pln - b.price.pln)
+    .slice(0, 2)
+    .map((phone) => phone.id);
+  return POOL.filter((phone) => phone.price.pln > budget || cheapest.includes(phone.id));
+}
+
+/** Budżet, przy którym w puli mieszczą się dokładnie 2 telefony (środek między 2. a 3. najtańszym). */
+export function tightBudget(): number {
+  const prices = POOL.map((phone) => phone.price.pln).sort((a, b) => a - b);
+  return Math.floor((prices[1]! + prices[2]!) / 2);
+}
 
 export function phoneById(id: string): Phone {
   const found = POOL.find((phone) => phone.id === id);

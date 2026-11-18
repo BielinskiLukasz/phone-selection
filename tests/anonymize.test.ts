@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { POOL, phoneById } from './data';
+import { POOL, phoneById, poolWithTwoInBudget } from './data';
 import { WIFE } from './personas';
 import { rankFromAnswers } from '../src/lib/scoring';
 import {
@@ -188,8 +188,8 @@ describe('E2-08 · parsowanie danych ze źródeł', () => {
     });
     expect(updatesInfo(phoneById('nothing-phone-3a-12-256').specs)).toEqual({
       osUpdates: 3,
-      securityYears: null,
-      years: null,
+      securityYears: 6,
+      years: 6,
     });
     expect(updatesInfo(phoneById('xiaomi-15t-12-512').specs)).toEqual({
       osUpdates: 4,
@@ -392,7 +392,7 @@ describe('E2-08 · treść anonimowej karty (UI-SPEC 4)', () => {
     expect(toAnonCards(POOL, full1500, 1500).filter((card) => card.overBudgetBy !== null)).toEqual([]);
 
     /* Gdy w budżecie są tylko 2 telefony, trzecia karta ma kwotę przekroczenia. */
-    const twoInBudget = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
+    const twoInBudget = poolWithTwoInBudget();
     const tight = rankFromAnswers(twoInBudget, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
     const flagged = toAnonCards(twoInBudget, tight, 1500).filter((card) => card.overBudgetBy !== null);
     expect(flagged.length).toBe(1);

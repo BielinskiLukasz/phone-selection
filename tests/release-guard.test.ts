@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { POOL } from './data';
+import { POOL, RAW_RECORDS } from './data';
 import { BUDGET_LIMIT } from '../src/lib/scoringConfig';
 
 /**
@@ -12,7 +12,7 @@ const daysSince = (iso: string): number =>
 
 describe('strażnik wydania', () => {
   it('żaden rekord nie czeka na potwierdzenie', () => {
-    const unconfirmed = POOL.filter(
+    const unconfirmed = RAW_RECORDS.filter(
       (phone) => phone.status === 'needs_confirmation' || phone.status === 'unverified',
     );
     expect(unconfirmed.map((phone) => phone.id)).toEqual([]);

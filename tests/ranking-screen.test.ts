@@ -1,10 +1,11 @@
+import { POOL, SMALL_STORAGE_IDS } from './data';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { createElement, useEffect, useState } from 'react';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { StateProvider, useAppState } from '../src/features/state/StateProvider';
 import { RankingScreen } from '../src/screens/RankingScreen';
 import { CardsScreen } from '../src/screens/CardsScreen';
-import { PHONES } from '../src/data/phones';
+import { DATA_VERSION } from '../src/data/phones';
 import { sessionTexts, strings } from '../src/data/strings';
 import type { Session } from '../src/types/state';
 
@@ -63,21 +64,21 @@ describe('E9-01 · pełny ranking', () => {
 
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe(strings.ranking);
     const rows = screen.getAllByRole('button', { name: /pkt/ });
-    expect(rows.length).toBe(PHONES.length);
+    expect(rows.length).toBe(POOL.length);
 
-    for (const phone of PHONES) {
+    for (const phone of POOL) {
       expect(screen.getByText(phone.reveal.name), phone.id).toBeTruthy();
     }
-    expect(screen.getAllByText(/zł/).length).toBeGreaterThanOrEqual(PHONES.length);
-    expect(screen.getAllByText(/^\d+$/).length).toBeGreaterThanOrEqual(PHONES.length);
+    expect(screen.getAllByText(/zł/).length).toBeGreaterThanOrEqual(POOL.length);
+    expect(screen.getAllByText(/^\d+$/).length).toBeGreaterThanOrEqual(POOL.length);
   });
 
   it('mieści komunikat o stanie danych i podsumowanie puli', () => {
     open();
     expect(
-      screen.getByText('Ranking dotyczy stanu danych z 16.11.2026. Ceny sprawdź w sklepie.'),
+      screen.getByText(`Ranking dotyczy stanu danych z ${DATA_VERSION!.split('-').reverse().join('.')}. Ceny sprawdź w sklepie.`),
     ).toBeTruthy();
-    expect(screen.getAllByText(sessionTexts.poolSummary(PHONES.length, PHONES.length)).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(sessionTexts.poolSummary(POOL.length, POOL.length)).length).toBeGreaterThan(0);
   });
 
   it('odznacza własne wybory numeracją „Twój wybór 1/1”', () => {
@@ -94,7 +95,7 @@ describe('E9-01 · pełny ranking', () => {
   it('bez wyboru nie ma odznak, a pierwszy wiersz jest wyróżniony', () => {
     open({ withPick: false });
     expect(screen.queryByText(new RegExp(strings.rankingYourPick))).toBeNull();
-    expect(screen.getAllByRole('button', { name: /pkt/ }).length).toBe(PHONES.length);
+    expect(screen.getAllByRole('button', { name: /pkt/ }).length).toBe(POOL.length);
   });
 
   it('każdy wiersz ma miniaturę zdjęcia, wymiary z wagą oraz mini-paski siedmiu grup', () => {
@@ -177,7 +178,7 @@ describe('E9-01 · pełny ranking', () => {
     );
     fireEvent.click(view.getByTestId('create'));
 
-    expect(screen.getAllByRole('button', { name: /pkt/ }).length).toBe(PHONES.length - 2);
+    expect(screen.getAllByRole('button', { name: /pkt/ }).length).toBe(POOL.length - SMALL_STORAGE_IDS.length);
     const toggle = screen.getByRole('button', { name: new RegExp(strings.rankingShowOutside) });
     fireEvent.click(toggle);
 

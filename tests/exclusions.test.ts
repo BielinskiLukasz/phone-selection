@@ -3,7 +3,7 @@ import { createElement } from 'react';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import App from '../src/App';
 import { PHONES, phoneById } from '../src/data/phones';
-import { strings } from '../src/data/strings';
+import { sessionTexts, strings } from '../src/data/strings';
 import { collectForbiddenTokens } from '../src/lib/anonymize';
 import {
   buildBrandCatalog,
@@ -17,6 +17,7 @@ import { rankFromAnswers } from '../src/lib/scoring';
 import { STORAGE_KEY } from '../src/lib/storage';
 import type { Phone } from '../src/types';
 import { WIFE } from './personas';
+import { poolWithTwoInBudget } from './data';
 import { buildPhone } from './fixtures/phones';
 
 const h = createElement;
@@ -155,7 +156,7 @@ describe('Etap 11 · testy akceptacyjne 1–5 (silnik i persony, QUIZ-SPEC 9.5)'
   it('1. i 2. wykluczenie modelu #1 persony „żona” usuwa go z kart, ale zostawia #1 i ten sam S w fullRanking', () => {
     const baseline = rankFromAnswers(PHONES, WIFE.answers, WIFE.topThree);
     const leaderId = baseline.cards[0]!.phoneId;
-    expect(leaderId).toBe('motorola-edge-70-fusion-12-256'); // FP3-03: lider „żony” po zmianie wag A3
+    expect(leaderId).toBe('redmi-note-17-pro-5g-8-512'); // lider „żony” po rozszerzeniu puli do 22 modeli (wcześniej Edge 70 Fusion)
 
     const withExclusion = rankFromAnswers(PHONES, WIFE.answers, WIFE.topThree, {
       excludedPhoneIds: [leaderId],
@@ -214,11 +215,10 @@ describe('Etap 11 · testy akceptacyjne 1–5 (silnik i persony, QUIZ-SPEC 9.5)'
   });
 
   it('5. przy budżecie 1500 zł i wykluczeniach karta „Powyżej budżetu” pochodzi wyłącznie z niewykluczonych', () => {
-    /* W budżecie 1500 zł są 3 modele (Edge 60, Redmi Note 15 Pro, Galaxy A37).
-       Wykluczamy Xiaomi (wypada Note 15 Pro w budżecie oraz Note 17 Pro i 15T ponad budżetem)
-       oraz vivo V70 FE (najlepszy ponad budżetem) → 2 w budżecie + 1 niewykluczony ponad budżetem. */
+    /* Pula z dokładnie 2 telefonami w budżecie 1500 zł (najtańsze, nie-Xiaomi) i resztą ponad budżetem.
+       Wykluczamy Xiaomi oraz vivo V70 FE → 2 w budżecie + 1 niewykluczony ponad budżetem. */
     const result = rankFromAnswers(
-      PHONES,
+      poolWithTwoInBudget(),
       { ...WIFE.answers, F1: 'F1-a' },
       WIFE.topThree,
       {
@@ -236,8 +236,9 @@ describe('Etap 11 · testy akceptacyjne 1–5 (silnik i persony, QUIZ-SPEC 9.5)'
     expect(overCard.excluded).toBeNull();
     expect(overCard.phoneId).not.toBe('vivo-v70-fe-5g-8-256');
     expect(phoneById(overCard.phoneId)?.brand).not.toBe('Xiaomi');
-    /* Przy budżecie 1500 zł wszystkie telefony >1500 zł mają value = 0 — wygrywa Realme 16 Pro+. */
-    expect(overCard.phoneId).toBe('realme-16-pro-plus-5g-8-256');
+    /* Uzupełnienie to najlepszy w rankingu niewykluczony telefon ponad budżetem. */
+    const bestOver = result.ranked.find((entry) => !entry.inBudget && entry.excluded === null)!;
+    expect(overCard.phoneId).toBe(bestOver.phoneId);
   });
 });
 
@@ -277,31 +278,31 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
 
     const brandsGroup = screen.getByRole('group', { name: strings.excludeBrandsLabel });
     const brandButtons = within(brandsGroup).getAllByRole('button');
-    expect(brandButtons.length).toBe(9);
+    expect(brandButtons.length).toBe(new Set(PHONES.map((phone) => phone.brand)).size);
 
-    /* Wykluczamy wszystkie 9 marek → 0 telefonów, błąd i blokada Dalej. */
+    /* Wykluczamy wszystkie marki → 0 telefonów, błąd i blokada Dalej. */
     for (const btn of brandButtons) fireEvent.click(btn);
-    expect(screen.getByText(/Zostanie 0 z 15 telefonów/)).toBeTruthy();
+    expect(screen.getByText(new RegExp(`Zostanie 0 z ${PHONES.length} telefonów`))).toBeTruthy();
     expect(screen.getByText(strings.excludeZeroError)).toBeTruthy();
     for (const nextBtn of screen.getAllByRole('button', { name: strings.excludeContinue })) {
       expect((nextBtn as HTMLButtonElement).disabled).toBe(true);
     }
 
-    /* Odblokowujemy markę z 2 modelami (Motorola) → ostrzeżenie, Dalej aktywne, 2 karty. */
-    fireEvent.click(within(brandsGroup).getByRole('button', { name: /Motorola/ }));
-    expect(screen.getByText(/Zostaną 2 z 15 telefonów/)).toBeTruthy();
+    /* Odblokowujemy markę z 2 modelami (Nothing) → ostrzeżenie, Dalej aktywne, 2 karty. */
+    fireEvent.click(within(brandsGroup).getByRole('button', { name: /Nothing/ }));
+    expect(screen.getByText(new RegExp(`Zostaną 2 z ${PHONES.length} telefonów`))).toBeTruthy();
     expect(screen.getByText(/Zostają tylko 2 telefony/)).toBeTruthy();
 
     fireEvent.click(screen.getAllByRole('button', { name: strings.excludeContinue })[0]!);
     goto(window.location.hash);
     /* FP2-04: sesja z linku to quiz — licznik sprawdzamy na suwakach tej samej sesji (E11-07). */
     goto(window.location.hash.replace(/\/quiz$/, '/sliders'));
-    expect(screen.getByText('Pasuje 2 z 15 telefonów')).toBeTruthy();
+    expect(screen.getByText(`Pasuje 2 z ${PHONES.length} telefonów`)).toBeTruthy();
 
     fireEvent.click(screen.getAllByRole('button', { name: /Pokaż wyniki|Pokaż 3 propozycje|Dalej: podsumowanie/ })[0]!);
     goto(window.location.hash);
     expect(screen.getAllByRole('article').length).toBe(2);
-    expect(screen.getByText(/Pominęliśmy 13 wykluczonych telefonów/)).toBeTruthy();
+    expect(screen.getByText(new RegExp(`Pominęliśmy ${PHONES.length - 2} wykluczonych telefonów`))).toBeTruthy();
     expect(screen.getByText(/Tylko 2 telefony spełniają te warunki/)).toBeTruthy();
   });
 
@@ -438,7 +439,7 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
     fireEvent.click(screen.getByRole('button', { name: /Samodzielnie ustaw, co jest ważne/ }));
     goto(window.location.hash);
 
-    expect(screen.getByText('Pasuje 15 z 15 telefonów')).toBeTruthy();
+    expect(screen.getByText(`Pasuje ${PHONES.length} z ${PHONES.length} telefonów`)).toBeTruthy();
     expect(screen.getByText(strings.excludeFilterNone)).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: strings.excludeFilterOpen }));
@@ -447,10 +448,9 @@ describe('Etap 11 · testy akceptacyjne 2, 4, 6, 7, 8, 9 (ekrany i przepływ)', 
     fireEvent.click(within(dialog).getByRole('button', { name: /Samsung/ }));
     fireEvent.click(within(dialog).getByRole('button', { name: strings.excludeSave }));
 
-    /* Samsung ma 3 modele (A57, A56, A37) → zostaje 12 z 15. */
-    /* Samsung ma 3 modele (A57, A56, A37) → zostaje 12 z 15. */
-    expect(screen.getByText('Pasuje 12 z 15 telefonów')).toBeTruthy();
-    expect(screen.getByText('Pominięto 3 telefony')).toBeTruthy();
+    /* Wykluczenie marki Samsung zostawia pozostałe modele puli. */
+    expect(screen.getByText(`Pasuje ${PHONES.length - PHONES.filter((phone) => phone.brand === 'Samsung').length} z ${PHONES.length} telefonów`)).toBeTruthy();
+    expect(screen.getByText(sessionTexts.filterExcludedCount(PHONES.filter((phone) => phone.brand === 'Samsung').length))).toBeTruthy();
     expect(screen.getByRole('button', { name: strings.excludeChange })).toBeTruthy();
   });
 });

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import phonesData from '../src/data/phones.json';
-import { POOL } from './data';
+import { POOL, RAW_RECORDS } from './data';
 import type { Phone } from '../src/types';
 import { CRITERIA as CRITERIA_DEFS, CRITERION_IDS, GROUPS } from '../src/data/criteria';
 import { CRITERIA as VALIDATOR_CRITERIA, validatePhoneData } from '../scripts/validate-data';
@@ -78,7 +78,7 @@ describe('E2-10 · schemat danych', () => {
 
   it('jest 15 telefonów (po rozszerzeniu w etapie 10), wszystkie nowe i w limicie 2000 zł', () => {
     expect(POOL.length).toBe(EXPECTED_POOL_SIZE);
-    expect(EXPECTED_POOL_SIZE).toBe(15);
+    expect(EXPECTED_POOL_SIZE).toBe(22);
     for (const phone of POOL) {
       expect(phone.price.pln, phone.id).toBeLessThanOrEqual(BUDGET_LIMIT);
       expect(phone.price.pln, phone.id).toBeGreaterThan(0);
@@ -139,7 +139,7 @@ describe('E2-10 · schemat danych', () => {
   });
 
   it('po potwierdzeniu oferty (A1) nie ma rekordów `needs_confirmation`', () => {
-    expect(POOL.filter((phone) => phone.status === 'needs_confirmation')).toEqual([]);
+    expect(RAW_RECORDS.filter((phone) => phone.status === 'needs_confirmation')).toEqual([]);
     const realme = POOL.find((phone) => phone.id === 'realme-16-pro-plus-5g-8-256')!;
     expect(realme.status).toBe('ok');
     /* FP1-08: notatka weryfikacyjna żyje w auditNote, użytkowniczka widzi tylko userNote. */

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { POOL, phoneById } from './data';
+import { POOL, SMALL_STORAGE_IDS, phoneById, poolWithTwoInBudget } from './data';
 import { BATTERY, CAMERA, PERSONAS, WIFE, skipAll } from './personas';
 import { rankFromAnswers } from '../src/lib/scoring';
 import { rawScore } from '../src/lib/scoring';
@@ -65,13 +65,15 @@ describe('persony · podstawy', () => {
 
 describe('9.1 · persona „żona”', () => {
   it('trójka odpowiada stanowi referencyjnemu (FP3-03): bateria przed aparatem, pamięć ≥ 256 GB', () => {
-    /* FP3-03 (17.11.2026): „zawsze na noc” → charging 0,25; vivo (90 W) traci przewagę z ładowania:
-       #1 Edge 70 Fusion 66,9 · #2 Redmi Note 17 Pro 66,7 (remis) · #3 vivo V70 FE 65,7 · #4 realme 64,5. */
+    /* FP3-03 (17.11.2026): „zawsze na noc” → charging 0,25; vivo (90 W) traci przewagę z ładowania.
+       Stan po rozszerzeniu puli do 22 modeli (18.11.2026): #1 Redmi Note 17 Pro 68,3 · #2 POCO F7 68,3 (remis) ·
+       #3 Edge 70 Fusion 67,5 · #4 vivo V70 FE 67,0 · #5 realme 65,7 (przed rozszerzeniem: Edge 70 Fusion #1 66,9). */
     const ids = wife().cards.map((entry) => entry.phoneId);
-    expect(ids[0]).toBe('motorola-edge-70-fusion-12-256');
-    expect(ids[1]).toBe('redmi-note-17-pro-5g-8-512');
-    expect(ids[2]).toBe('vivo-v70-fe-5g-8-256');
-    expect(wife().ranked[3]!.phoneId).toBe('realme-16-pro-plus-5g-8-256');
+    expect(ids[0]).toBe('redmi-note-17-pro-5g-8-512');
+    expect(ids[1]).toBe('poco-f7-12-256');
+    expect(ids[2]).toBe('motorola-edge-70-fusion-12-256');
+    expect(wife().ranked[3]!.phoneId).toBe('vivo-v70-fe-5g-8-256');
+    expect(wife().ranked[4]!.phoneId).toBe('realme-16-pro-plus-5g-8-256');
     for (const entry of wife().cards) {
       expect(phoneOf(entry).variant.storageGb).toBeGreaterThanOrEqual(256);
     }
@@ -94,13 +96,16 @@ describe('9.1 · persona „żona”', () => {
   it('9.1.3 filtr „min. 256 GB” zostawia dotychczasowe #1 w trójce i zachowuje priorytet baterii', () => {
     const plain = wife();
     const filtered = rankFromAnswers(POOL, WIFE.answers, WIFE.topThree, { minStorageGb: 256 });
-    expect(filtered.poolSize).toBe(POOL.length - 2);
+    expect(filtered.poolSize).toBe(POOL.length - SMALL_STORAGE_IDS.length);
     /* Po odcięciu 128 GB normalizacja rozciąga 256 vs 512 GB: wygrywa model 512 GB z trójki
        o najwyższej baterii, a dotychczasowy #1 zostaje w trójce i jest #1 wśród modeli 256 GB. */
     expect(filtered.cards.map((entry) => entry.phoneId)).toContain(plain.cards[0]!.phoneId);
     expect(plain.cards.map((entry) => entry.phoneId)).toContain(filtered.cards[0]!.phoneId);
+    /* Najlepszy model 256 GB przed filtrem pozostaje najlepszym modelem 256 GB po filtrze
+       (po rozszerzeniu puli dotychczasowe #1 to model 512 GB, więc porównujemy w obrębie 256 GB). */
     const first256 = filtered.ranked.find((entry) => phoneOf(entry).variant.storageGb === 256)!;
-    expect(first256.phoneId).toBe(plain.cards[0]!.phoneId);
+    const plainFirst256 = plain.ranked.find((entry) => phoneOf(entry).variant.storageGb === 256)!;
+    expect(first256.phoneId).toBe(plainFirst256.phoneId);
   });
 
   it('9.1.4 (D6, etap 10) budżet 1500 zł → wszystkie trzy karty mieszczą się w budżecie, a przy puli <3 w budżecie dokłada „Powyżej budżetu”', () => {
@@ -115,7 +120,7 @@ describe('9.1 · persona „żona”', () => {
     }
 
     /* Mechanizm uzupełniania nadal działa, gdy w budżecie są mniej niż 3 telefony. */
-    const twoInBudget = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
+    const twoInBudget = poolWithTwoInBudget();
     const fallback = rankFromAnswers(twoInBudget, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
     expect(fallback.inBudgetCount).toBe(2);
     expect(fallback.cards.filter((entry) => !entry.inBudget).length).toBe(1);
@@ -196,11 +201,11 @@ describe('persony · filtry i brzegi', () => {
     expect(realme.reveal.name).not.toContain('potwierdzenia');
     expect(realme.scores.battery).toBe(84); // 7000 mAh (75 w skali 4000–8000, D4) + PCMark 19 h (92)
     expect(realme.scoresEstimatedNeutral).toEqual([]);
-    expect(wife().ranked.slice(0, 4).map((entry) => entry.phoneId)).toContain(realme.id);
+    expect(wife().ranked.slice(0, 5).map((entry) => entry.phoneId)).toContain(realme.id);
 
     const vivo = phoneById('vivo-v70-fe-5g-8-256');
     expect(vivo.status).toBe('ok');
     expect(vivo.scores.battery).toBe(83);
-    expect(wife().cards.map((entry) => entry.phoneId)).toContain(vivo.id);
+    expect(wife().ranked.slice(0, 4).map((entry) => entry.phoneId)).toContain(vivo.id);
   });
 });

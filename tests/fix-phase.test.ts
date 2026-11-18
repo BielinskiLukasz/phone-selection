@@ -277,7 +277,8 @@ describe('FP3-03 / FP3-04 / FP3-06 · zmiany przez bramkę kandydata (17.11.2026
     const session = sanitizeSession(fixture)!;
     const snapshot = session.ranking!;
     const result = rank({ phones: POOL, weights: snapshot.weights, groupImportance: snapshot.groupImportance, filters: snapshot.filters });
-    expect(result.cards.map((card) => card.phoneId)).toEqual(snapshot.cards);
+    const reference = (fixture as { gateReference?: { cards?: string[] } }).gateReference?.cards;
+    expect(result.cards.map((card) => card.phoneId)).toEqual(reference ?? snapshot.cards);
   });
 
   it('FP3-06: tekst licznika mówi o telefonach faktycznie w budżecie', async () => {

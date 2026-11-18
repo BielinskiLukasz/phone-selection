@@ -1,3 +1,4 @@
+import { PHONES } from '../src/data/phones';
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { createElement, useState } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -168,7 +169,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
 
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Podsumowanie odpowiedzi');
     expect(screen.getByText('krok G1 pominięty')).toBeTruthy();
-    expect(screen.getByText(/Pasuje 15 z 15 telefonów/)).toBeTruthy();
+    expect(screen.getByText(new RegExp(`Pasuje ${PHONES.length} z ${PHONES.length} telefonów`))).toBeTruthy();
 
     await flushStorage();
     const stored = storedState();
@@ -231,7 +232,7 @@ describe('E4-05/E4-06 · krok G1, podsumowanie i zakończenie', () => {
     await flushStorage();
     const stored = storedState();
     expect(stored.sessions[0].status).toBe('awaiting_pick'); // FP5-04: „completed” dopiero po wyborze karty
-    expect(stored.sessions[0].ranking.entries.length).toBe(15);
+    expect(stored.sessions[0].ranking.entries.length).toBe(PHONES.length);
   });
 
   it('hybryda prowadzi krótki quiz i kończy na dostrojeniu', async () => {

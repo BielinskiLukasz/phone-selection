@@ -1,3 +1,4 @@
+import { DATA_VERSION } from '../src/data/phones';
 import { describe, expect, it } from 'vitest';
 import { POOL, phoneById } from './data';
 import { createSession } from '../src/lib/session';
@@ -198,7 +199,7 @@ describe('E7-01 · model listy historii', () => {
     expect(summary.picks[0]!.name).toBe(phoneById(summary.picks[0]!.phoneId).reveal.name);
     expect(summary.picksText).toContain('miejsce');
     expect(summary.bestMatchPercent).toBeGreaterThan(0);
-    expect(summary.dataVersion).toBe('2026-11-16');
+    expect(summary.dataVersion).toBe(DATA_VERSION);
     expect(summary.resumeView).toBe('quiz');
     expect(summary.canResume).toBe(false);
 
@@ -249,7 +250,7 @@ describe('E7-05 · nowa sesja nie rusza starych', () => {
 
     expect(created.answers).toEqual(source.answers);
     expect(created.ranking).not.toBeNull();
-    expect(created.ranking!.dataVersion).toBe('2026-11-16');
+    expect(created.ranking!.dataVersion).toBe(DATA_VERSION);
     expect(created.ranking!.cards.length).toBe(3);
     expect(created.ranking!.poolSize).toBe(POOL.length);
     expect(created.status).toBe('in_progress');

@@ -1,3 +1,4 @@
+import { POOL, SMALL_STORAGE_IDS, phoneById, tightBudget } from './data';
 import { describe, expect, it } from 'vitest';
 import {
   computeRankingSnapshot,
@@ -27,7 +28,7 @@ import {
 } from '../src/lib/session';
 import { clearAll, readBackup } from '../src/lib/storage';
 import { revealInfo } from '../src/features/sessions/useReveal';
-import { PHONES } from '../src/data/phones';
+import { DATA_VERSION, PHONES } from '../src/data/phones';
 import { DEFAULT_BUDGET } from '../src/lib/scoringConfig';
 import type { AppState } from '../src/types/state';
 import type { Phone } from '../src/types';
@@ -61,15 +62,15 @@ describe('E3-05 · reducer: utworzenie sesji', () => {
 
     expect(session.ranking).not.toBeNull();
     expect(session.ranking!.cards.length).toBe(3);
-    expect(session.ranking!.poolSize).toBe(PHONES.length);
+    expect(session.ranking!.poolSize).toBe(POOL.length);
   });
 
   it('E3-06 · snapshot zapisuje wersję danych, wagi i ważności grup', () => {
     const snapshot = sessionOf(withSession()).ranking!;
-    expect(snapshot.dataVersion).toBe('2026-11-16');
+    expect(snapshot.dataVersion).toBe(DATA_VERSION);
     expect(snapshot.weights.battery).toBe(2);
     expect(snapshot.groupImportance.camera).toBeCloseTo(1.3, 5);
-    expect(snapshot.entries.length).toBe(PHONES.length);
+    expect(snapshot.entries.length).toBe(POOL.length);
     expect(snapshot.entries[0]!.place).toBe(1);
     expect(typeof snapshot.computedAt).toBe('string');
   });
@@ -130,7 +131,7 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
     expect(session.groupImportance.storage).toBe(3);
   });
 
-  it('4. filtr budżetu zmienia snapshot: 1500 zł daje 3 karty w budżecie (D6), a 1380 zł — dwie w budżecie i jedną powyżej', () => {
+  it('4. filtr budżetu zmienia snapshot: 1500 zł daje komplet kart w budżecie (D6), a ciasny budżet (2 telefony) — dwie w budżecie i jedną powyżej', () => {
     const state1500 = reducer(withSession(), {
       type: 'session/filters',
       sessionId: 's-1',
@@ -139,7 +140,7 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
     });
     const snap1500 = sessionOf(state1500).ranking!;
     expect(snap1500.filters.budgetMax).toBe(1500);
-    expect(snap1500.inBudgetCount).toBe(3);
+    expect(snap1500.inBudgetCount).toBe(POOL.filter((phone) => phone.price.pln <= 1500).length);
     expect(
       snap1500.entries.filter(
         (entry) => snap1500.cards.includes(entry.phoneId) && entry.overBudgetBy !== null,
@@ -149,7 +150,7 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
     const stateTight = reducer(withSession(), {
       type: 'session/filters',
       sessionId: 's-1',
-      filters: { budgetMax: 1380 },
+      filters: { budgetMax: tightBudget() },
       now: LATER,
     });
     const snapshot = sessionOf(stateTight).ranking!;
@@ -158,8 +159,8 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
       (entry) => snapshot.cards.includes(entry.phoneId) && entry.overBudgetBy !== null,
     );
     expect(over.length).toBe(1);
-    /* Wagi neutralne: ponad budżetem 1380 zł dokłada się najwyżej oceniony — 15T za 1999 zł (+619 zł). */
-    expect(over[0]!.overBudgetBy).toBe(619);
+    /* Ponad budżet dokłada się najwyżej oceniony telefon; kwota to różnica jego ceny i budżetu. */
+    expect(over[0]!.overBudgetBy).toBe(Math.round(phoneById(over[0]!.phoneId).price.pln - tightBudget()));
   });
 
   it('filtr pamięci 256 GB usuwa telefony 128 GB ze snapshotu', () => {
@@ -170,7 +171,7 @@ describe('E3-05 · reducer: odpowiedzi, trójka, filtry, korekta ręczna', () =>
       now: LATER,
     });
     const snapshot = sessionOf(state).ranking!;
-    expect(snapshot.poolSize).toBe(PHONES.length - 2);
+    expect(snapshot.poolSize).toBe(POOL.length - SMALL_STORAGE_IDS.length);
     expect(snapshot.entries.map((entry) => entry.phoneId)).not.toContain('pixel-10a-8-128');
   });
 

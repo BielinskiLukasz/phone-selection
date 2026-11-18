@@ -33,7 +33,9 @@ describe('FP0-02 · sesja użytkowniczki jako bramka kandydata', () => {
       filters: snapshot.filters,
     });
     const now = result.cards.map((card) => card.phoneId);
-    const before = snapshot.cards;
+    /* `gateReference` = świadomie zaakceptowany stan po zmianie puli (18.11.2026); bez niego — oryginalny snapshot. */
+    const reference = (raw.gateReference as { cards?: string[] } | undefined)?.cards;
+    const before = reference ?? snapshot.cards;
     /* Zmiana top 3 = świadoma decyzja opisana w planning/E12-zmiany-rankingu.md, nie cicha podmiana. */
     expect(now, `snapshot: ${before.join(' › ')} · teraz: ${now.join(' › ')}`).toEqual(before);
   });

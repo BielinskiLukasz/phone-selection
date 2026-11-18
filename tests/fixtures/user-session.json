@@ -53,5 +53,11 @@
     { "phoneId": "motorola-edge-70-fusion-12-256", "at": "2026-11-17T20:09:53.607Z" },
     { "phoneId": "redmi-note-17-pro-5g-8-512", "at": "2026-11-17T20:09:55.641Z" }
   ],
-  "manualOverride": true
+  "manualOverride": true,
+  "gateReference": {
+    "note": "Stan referencyjny bramki kandydata po rozszerzeniu puli do 22 modeli (18.11.2026, decyzja użytkownika). Snapshot ranking.cards i picks zostają bez zmian jako zapis tego, co użytkowniczka widziała i wybrała 16-17.11.2026.",
+    "dataVersion": "2026-11-17",
+    "poolSize": 22,
+    "cards": ["xiaomi-15t-12-512", "poco-f7-12-256", "motorola-edge-60-neo-5g-12-256"]
+  }
 }

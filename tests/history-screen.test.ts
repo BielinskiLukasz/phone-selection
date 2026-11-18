@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { StateProvider, useAppState } from '../src/features/state/StateProvider';
 import { HistoryScreen } from '../src/screens/HistoryScreen';
 import App from '../src/App';
-import { PHONES } from '../src/data/phones';
+import { DATA_VERSION, PHONES } from '../src/data/phones';
 import { rank } from '../src/lib/scoring';
 import { answersToCriterionWeights, groupImportance } from '../src/lib/weights';
 import { encodeResume } from '../src/lib/resumeLink';
@@ -121,7 +121,7 @@ describe('E7-01 · lista historii', () => {
     expect(preview.getAttribute('href')).toBe('#/s/222222/cards');
 
     /* Podgląd jest stały w czasie: dane z dnia zapisu, nie nowy ranking. */
-    expect(within(item('222222')).getAllByText(/dane z 2026-11-16/).length).toBeGreaterThan(0);
+    expect(within(item('222222')).getAllByText(new RegExp(`dane z ${DATA_VERSION}`)).length).toBeGreaterThan(0);
   });
 
   it('4. usunięcie z potwierdzeniem znika z listy i z localStorage', async () => {

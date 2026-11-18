@@ -13,7 +13,9 @@ describe('E9-05 · npm run stale-prices', () => {
     const ages = priceAges(POOL, RELEASE_DAY);
     expect(ages.length).toBe(POOL.length);
     for (const entry of ages) {
-      const expected = entry.checkedAt === '2026-11-16' ? 2 : 4;
+      const expected = Math.floor(
+        (RELEASE_DAY.getTime() - new Date(`${entry.checkedAt}T00:00:00.000Z`).getTime()) / 86_400_000,
+      );
       expect(entry.days, entry.id).toBe(expected);
       expect(entry.days, entry.id).toBeLessThanOrEqual(RELEASE_MAX_AGE_DAYS);
     }

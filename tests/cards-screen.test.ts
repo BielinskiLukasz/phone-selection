@@ -3,7 +3,7 @@ import { createElement, useState } from 'react';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { StateProvider, useAppState } from '../src/features/state/StateProvider';
 import { CardsScreen } from '../src/screens/CardsScreen';
-import { POOL } from './data';
+import { POOL, tightBudget } from './data';
 import { WIFE } from './personas';
 import { STORAGE_KEY } from '../src/lib/storage';
 import { collectForbiddenTokens } from '../src/lib/anonymize';
@@ -53,7 +53,7 @@ function Harness({ withWifeAnswers = false }: { withWifeAnswers?: boolean }) {
         'data-testid': 'budget-tight',
         onClick: () => {
           if (active) {
-            dispatch({ type: 'session/filters', sessionId: active.id, filters: { budgetMax: 1380 } });
+            dispatch({ type: 'session/filters', sessionId: active.id, filters: { budgetMax: tightBudget() } });
           }
         },
       },

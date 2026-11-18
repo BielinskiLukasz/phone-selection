@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { POOL, clonePhone, overLimit, phoneById, tiedPair, withMicroSd } from './data';
+import { POOL, clonePhone, overLimit, phoneById, tiedPair, withMicroSd, poolWithTwoInBudget, SMALL_STORAGE_IDS } from './data';
 import { CAMERA, WIFE, noAnswers } from './personas';
 import {
   anyMicroSd,
@@ -64,7 +64,9 @@ describe('E2-07 · value, braki danych i normalizacja', () => {
 
     // najtańszy telefon w puli ma najwyższe value
     const cheapest = [...POOL].sort((a, b) => a.price.pln - b.price.pln)[0]!;
-    expect(rawScore(cheapest, 'value', 2000)).toBe(88);
+    expect(rawScore(cheapest, 'value', 2000)).toBe(
+      Math.max(...POOL.map((phone) => rawScore(phone, 'value', 2000))),
+    );
   });
 
   it('brak danych → 50 (mechanizm), a po uzupełnieniu wzory z PROJECT 7.5', () => {
@@ -83,7 +85,8 @@ describe('E2-07 · value, braki danych i normalizacja', () => {
     expect(rawScore(phoneById('motorola-edge-60-12-256'), 'storage', 2000)).toBe(80);
     expect(rawScore(phoneById('motorola-edge-60-12-256'), 'durability', 2000)).toBe(100);
     expect(rawScore(phoneById('realme-16-pro-plus-5g-8-256'), 'charging', 2000)).toBe(87);
-    expect(rawScore(phoneById('nothing-phone-3a-12-256'), 'updates', 2000)).toBe(43);
+    /* 18.11.2026: 6 lat poprawek serii 3a potwierdzone (9to5google, Notebookcheck) → jak 3a Pro; wcześniej 43. */
+    expect(rawScore(phoneById('nothing-phone-3a-12-256'), 'updates', 2000)).toBe(64);
   });
 
   it('normalizacja min-max z mieszaniem; przy max = min zwraca 50', () => {
@@ -189,7 +192,7 @@ describe('E2-06 · pula i filtry twarde', () => {
   it('5. filtr „min. 256 GB” usuwa telefony 128 GB z puli i z rankingu', () => {
     const filters = { budgetMax: BUDGET_LIMIT, minStorageGb: 256 };
     const pool = buildPool(POOL, filters);
-    expect(pool.length).toBe(POOL.length - 2);
+    expect(pool.length).toBe(POOL.length - SMALL_STORAGE_IDS.length);
     expect(pool.map((phone) => phone.id)).not.toContain('pixel-10a-8-128');
     expect(pool.map((phone) => phone.id)).not.toContain('pixel-9a-8-128');
 
@@ -199,24 +202,24 @@ describe('E2-06 · pula i filtry twarde', () => {
     }
   });
 
-  it('filtr „musi mieć microSD” zostawia jedyny telefon ze slotem', () => {
+  it('filtr „musi mieć microSD” zostawia tylko telefony ze slotem', () => {
     expect(anyMicroSd(POOL)).toBe(true);
 
     const pool = buildPool(POOL, { budgetMax: BUDGET_LIMIT, requireMicroSd: true });
-    expect(pool.map((phone) => phone.id)).toEqual(['motorola-edge-60-12-256']);
-    expect(countPool(POOL, { budgetMax: BUDGET_LIMIT, requireMicroSd: true })).toBe(1);
+    const withSlotIds = POOL.filter((phone) => phone.specs.microSd === true).map((phone) => phone.id);
+    expect(withSlotIds).toContain('motorola-edge-60-12-256');
+    expect(pool.map((phone) => phone.id).sort()).toEqual([...withSlotIds].sort());
+    expect(countPool(POOL, { budgetMax: BUDGET_LIMIT, requireMicroSd: true })).toBe(withSlotIds.length);
 
     const withSlot = withMicroSd();
-    expect(buildPool([...POOL, withSlot], { budgetMax: BUDGET_LIMIT, requireMicroSd: true }).length).toBe(2);
+    expect(buildPool([...POOL, withSlot], { budgetMax: BUDGET_LIMIT, requireMicroSd: true }).length).toBe(withSlotIds.length + 1);
     expect(activeQuestions(POOL).map((question) => question.id)).toContain('C3');
   });
 
   it('inBudgetSubset liczy telefony mieszczące się w budżecie sesji', () => {
-    expect(inBudgetSubset(POOL, 1500).map((phone) => phone.id).sort()).toEqual([
-      'galaxy-a37-5g-8-256',
-      'motorola-edge-60-12-256',
-      'redmi-note-15-pro-5g-8-256',
-    ]);
+    expect(inBudgetSubset(POOL, 1500).map((phone) => phone.id).sort()).toEqual(
+      POOL.filter((phone) => phone.price.pln <= 1500).map((phone) => phone.id).sort(),
+    );
     expect(inBudgetSubset(POOL, BUDGET_LIMIT).length).toBe(POOL.length);
     expect(inBudget(phoneById('xiaomi-15t-12-512'), 1500)).toBe(false);
   });
@@ -249,7 +252,7 @@ describe('E2-07 · karty i uzupełnianie powyżej budżetu', () => {
     expect(full.cards.length).toBe(3);
     expect(full.cards.every((entry) => entry.inBudget && entry.overBudgetBy === null)).toBe(true);
 
-    const twoInBudget = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
+    const twoInBudget = poolWithTwoInBudget();
     const result = rankFromAnswers(twoInBudget, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
     expect(result.inBudgetCount).toBe(2);
     expect(result.cards.length).toBe(3);
@@ -258,7 +261,7 @@ describe('E2-07 · karty i uzupełnianie powyżej budżetu', () => {
   });
 
   it('karty są numerowane od 1, a ranking puli zachowuje własną numerację', () => {
-    const twoInBudget = POOL.filter((phone) => phone.id !== 'galaxy-a37-5g-8-256');
+    const twoInBudget = poolWithTwoInBudget();
     const result = rankFromAnswers(twoInBudget, { ...WIFE.answers, F1: 'F1-a' }, WIFE.topThree);
     const overBudgetCard = result.cards.find((entry) => !entry.inBudget)!;
     const sameInPool = result.ranked.find((entry) => entry.phoneId === overBudgetCard.phoneId)!;

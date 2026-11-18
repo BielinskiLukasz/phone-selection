@@ -56,13 +56,14 @@ describe('UI-SPEC 10 · pula telefonów na ekranie kart', () => {
     expect(screen.queryAllByRole('article').length).toBe(0);
   });
 
-  it('pula 1: jedna karta z komunikatem, bez pustych miejsc', () => {
-    expect(buildPool(PHONES, { budgetMax: 2000, requireMicroSd: true }).length).toBe(1);
+  it('pula mała (telefony ze slotem microSD): tyle kart, ile telefonów, z komunikatem, bez pustych miejsc', () => {
+    const withSlot = PHONES.filter((phone) => phone.specs.microSd === true).length;
+    expect(buildPool(PHONES, { budgetMax: 2000, requireMicroSd: true }).length).toBe(withSlot);
     open({ requireMicroSd: true });
 
     const articles = screen.getAllByRole('article');
-    expect(articles.length).toBe(1);
-    expect(screen.getAllByText(sessionTexts.poolSmall(1)).length).toBeGreaterThan(0);
+    expect(articles.length).toBe(withSlot);
+    expect(screen.getAllByText(sessionTexts.poolSmall(withSlot)).length).toBeGreaterThan(0);
     expect(within(articles[0]!).getByRole('heading', { level: 2 }).textContent).toContain('#1');
   });
 
