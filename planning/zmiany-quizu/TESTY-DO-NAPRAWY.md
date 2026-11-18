@@ -28,7 +28,11 @@ Przyczyny nie zdiagnozowane (hipoteza w `README.md`).
 
 ## Plan 2 — ładowanie max 5
 
-(uzupełnia sesja planu 2)
+Po zmianie: 14 z 415 testów pada (13 z bazy + 1 nowy; tymczasowy test planu 2 przeszedł i został usunięty).
+
+| Plik | Test | Przyczyna |
+|---|---|---|
+| `fix-phase.test.ts` | FP3-03 / FP3-04 / FP3-06 › FP3-03: A3 ustawia charging 0,25 / 1,5 / 4… | oczekuje `A3-c` → `charging` 4 (l. 252); teraz 5 — zamierzona zmiana, poprawić oczekiwanie i tytuł testu |
 
 ## Plan 3 — agregacja max
 

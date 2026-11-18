@@ -144,7 +144,7 @@ Wartości `→` to waga kryterium (0-5) ustawiana przez odpowiedź. Każde pytan
 |---|---|---|---|---|
 | A1 | Ile godzin dziennie patrzysz w ekran telefonu? | Do 2 godzin → `battery` 1 · 2-4 godziny → 3 · 4-6 godzin → 4 · Ponad 6 godzin → 5 | Im więcej ekranu, tym ważniejsza bateria. | tak |
 | A2 | Czy zdarzają się dni, gdy nie masz jak naładować telefonu (wyjazd, wycieczka, długi dzień poza domem)? | Prawie nigdy → `battery` 1 · Czasem → 3 · Często → 5 | Przy takich dniach liczy się bateria na dwa dni, a nie sama szybkość ładowania. | tak |
-| A3 | Jak zwykle ładujesz telefon? | Zawsze na noc → `charging` 1 · Czasem w ciągu dnia → 3 · Często potrzebuję szybkiego doładowania → 5 | Szybkie ładowanie ratuje dzień, gdy bateria padnie w drodze. | nie |
+| A3 | Jak zwykle ładujesz telefon? | Zawsze na noc → `charging` 0,25 · Czasem w ciągu dnia → 1,5 · Często potrzebuję szybkiego doładowania → 5 | Szybkie ładowanie ratuje dzień, gdy bateria padnie w drodze. | nie |
 
 ### Blok B. Aparat
 

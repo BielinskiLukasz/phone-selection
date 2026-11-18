@@ -134,7 +134,7 @@ Legenda nakładu: **S** ≤ 2 h · **M** pół dnia · **L** 1–2 dni. Identyfi
 |---|---|---|---|---|
 | FP3-01 | **„Pasuje, bo…” / „Na co uważać”** na każdej anonimowej karcie. | R1 §3.10, R2 #20 | L | test wycieku zielony; dla sesji użytkowniczki tekst na #1–#3 brzmi sensownie |
 | FP3-02 | **Ochrona przed krytyczną wadą**: plakietka „Wyraźny kompromis w Twoim priorytecie”, kara punktowa tylko po pomiarze. | R2 #9 | M | testy person; `tests/calibration.test.ts` rozszerzony |
-| FP3-03 | **`charging`**: A3 „na noc” → 0.25, „czasem” → 1.5, „często” → 4; waga domyślna 1. | R2 #10 | S | persona „żona”: `charging` ≤ waga `photoMotion` |
+| FP3-03 | **`charging`**: A3 „na noc” → 0.25, „czasem” → 1.5, „często” → 5 (było 4; plan 2, 18.11.2026: sufit skali); waga domyślna 1. | R2 #10 | S | persona „żona”: `charging` ≤ waga `photoMotion` |
 | FP3-04 | **C3 microSD**: bonus tylko dla `specs.microSd === true`; „wolę z microSD”. | R2 #12 | S | odpowiedź „Chcę, jeśli się da” podnosi wynik Edge 60 |
 | FP3-05 | **Budżet jak w profilu**: „Najlepiej do 1500 zł, dopłacę jeśli wyraźnie lepszy” = 2 karty ≤ 1500 + 1 ≤ 1800 z plakietką dopłaty. | R1 §3.8, R2 #11 | L | przy 1500 elastycznym trzecia karta to najlepszy 1501–1800 zł |
 | FP3-06 | Licznik filtrów liczy **faktycznie w budżecie**. | R2 #19 | S | test licznika dla 1500/1800/2000 |

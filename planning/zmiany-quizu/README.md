@@ -59,4 +59,4 @@ Wykonujemy dopiero po planach 1–5, w tej kolejności:
 
 ## Status
 
-- [ ] Plan 2   - [ ] Plan 5   - [ ] Plan 4   - [ ] Plan 3   - [ ] Plan 1   - [ ] Sesja końcowa (testy)
+- [x] Plan 2   - [ ] Plan 5   - [ ] Plan 4   - [ ] Plan 3   - [ ] Plan 1   - [ ] Sesja końcowa (testy)

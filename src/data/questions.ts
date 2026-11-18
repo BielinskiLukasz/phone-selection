@@ -71,10 +71,11 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Jak zwykle ładujesz telefon?',
     'Szybkie ładowanie ratuje dzień, gdy bateria padnie w drodze.',
     [
-      /* FP3-03 (17.11.2026): ładowanie na noc = szybkość niemal bez znaczenia (0,25), nie 1. */
+      /* FP3-03 (17.11.2026): ładowanie na noc = szybkość niemal bez znaczenia (0,25), nie 1.
+         Plan 2, 18.11.2026: „często” = 5, sufit skali. */
       { label: 'Zawsze na noc', sets: { charging: 0.25 } },
       { label: 'Czasem w ciągu dnia', sets: { charging: 1.5 } },
-      { label: 'Często potrzebuję szybkiego doładowania', sets: { charging: 4 } },
+      { label: 'Często potrzebuję szybkiego doładowania', sets: { charging: 5 } },
     ],
   ),
 
