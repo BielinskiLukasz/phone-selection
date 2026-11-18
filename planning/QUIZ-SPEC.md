@@ -44,7 +44,7 @@ Symulacja pokazała, że płaskie wagi na 14 kryteriach są błędne: grupa „A
      odpowiedzi odwrócić świadomy wybór, bo grupa z sześcioma pytaniami (Aparat) zbiera więcej „dowodów”
      niż grupa z dwoma (Bateria) — u persony „żona” oddałoby to pierwszeństwo aparatowi zamiast baterii
      (PROJECT 2, sekcja 2: „Dobra bateria ma pierwszeństwo przed najlepszym aparatem”);
-   - pozostałe grupy: `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów grupy` (bez odpowiedzi: średnia = 2, czyli 1,3). Zakres 0,5 do 2,5.
+   - pozostałe grupy: `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów grupy` (bez odpowiedzi: średnia = 2, czyli 1,3). Zakres 0,5 do 2,5. Wyjątek: gdy odpowiedziano na **wszystkie** kryteria grupy i średnia wynosi 0, ważność grupy to 0 (grupa ignorowana); częściowe zera grupy nie zerują (np. tylko B4/B5/B6 „zero” → 0,5).
    - grupa `price`: jeśli nie jest w trójce, wartość z pytania o budżet (F1) przechodzi przez ten sam wzór.
 
 ### 2.3 Normalizacja ocen telefonów
@@ -154,9 +154,9 @@ Wartości `→` to waga kryterium (0-5) ustawiana przez odpowiedź. Każde pytan
 | B1 | Jak często robisz zdjęcia w domu, wieczorem albo przy sztucznym świetle? | Rzadko → `photoIndoor` 1 · Czasem → 3 · Często → 5 | Słabe światło to najtrudniejszy test dla aparatu. | tak |
 | B2 | Jak często fotografujesz dziecko lub rodzinę w ruchu (zabawa, bieganie)? | Rzadko → `photoMotion` 1 · Czasem → 3 · Często → 5 | Ruchome obiekty wymagają szybkiego, pewnego ustawiania ostrości. | tak |
 | B3 | Jak często robisz zdjęcia na zewnątrz w dzień (spacery, plac zabaw, wyjazdy)? | Rzadko → `photoDay` 1 · Czasem → 3 · Często → 5 | W dzień większość telefonów radzi sobie dobrze, ale różnią się szczegółami i kolorami. | tak |
-| B4 | Jak często robisz selfie? | Prawie nigdy → `selfie` 1 · Czasem → 3 · Często → 5 | Aparat przedni to osobny aparat o osobnej jakości. | nie |
-| B5 | Jak często nagrywasz filmy? | Prawie nigdy → `video` 1 · Czasem → 3 · Często → 5 | Wideo wymaga stabilizacji i dobrego dźwięku. | nie |
-| B6 | Czy zdarza się, że fotografujesz z daleka (występ dziecka, plac zabaw, zwierzęta)? | Nie → `zoom` 1 · Czasem → 3 · Często → 5 | Z daleka dobre zdjęcia robi tylko telefon z osobnym aparatem do przybliżania. | nie |
+| B4 | Jak często robisz selfie? | Prawie nigdy → `selfie` 0 · Czasem → 3 · Często → 5 | Aparat przedni to osobny aparat o osobnej jakości. | nie |
+| B5 | Jak często nagrywasz filmy? | Prawie nigdy → `video` 0 · Czasem → 3 · Często → 5 | Wideo wymaga stabilizacji i dobrego dźwięku. | nie |
+| B6 | Czy zdarza się, że fotografujesz z daleka (występ dziecka, plac zabaw, zwierzęta)? | Nie → `zoom` 0 · Czasem → 3 · Często → 5 | Z daleka dobre zdjęcia robi tylko telefon z osobnym aparatem do przybliżania. | nie |
 
 ### Blok C. Pamięć
 
@@ -173,15 +173,15 @@ Wartości `→` to waga kryterium (0-5) ustawiana przez odpowiedź. Każde pytan
 | ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
 |---|---|---|---|---|
 | D1 | Jak bardzo przeszkadzają Ci chwilowe zacięcia i wolne otwieranie aplikacji? | Prawie wcale → `smoothness` 1 · Trochę → 3 · Bardzo → 5 | Różnice w szybkości widać nawet przy przeglądarce i komunikatorach. | nie |
-| D2 | Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)? | Rzadko → `durability` 1 · Czasem → 3 · Często, chcę mieć spokój → 5 | Odporność na wodę ratuje przed głupimi wpadkami. (`durability` = klasa IP + MIL-STD; szkło i upadki nie są oceniane.) | nie |
+| D2 | Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)? | Rzadko → `durability` 0 · Czasem → 3 · Często, chcę mieć spokój → 5 | Odporność na wodę ratuje przed głupimi wpadkami. (`durability` = klasa IP + MIL-STD; szkło i upadki nie są oceniane.) | nie |
 | D3 | Jak długo chcesz używać tego telefonu? | 2 lata → `updates` 1 · 3-4 lata → 3 · 5 lat lub dłużej → 5 | Telefon bez aktualizacji bezpieczeństwa przestaje być bezpieczny. | nie |
 
 ### Blok E. Ekran
 
 | ID | Pytanie | Odpowiedzi → wartości | Dlaczego pytamy? | Krótki |
 |---|---|---|---|---|
-| E1 | Jak często używasz telefonu na zewnątrz w pełnym słońcu? | Rzadko → `display` 1 · Czasem → 3 · Często → 5 | W słońcu liczy się jasność ekranu. | nie |
-| E2 | Jak często oglądasz na telefonie filmy, zdjęcia i dłuższe materiały? | Rzadko → `display` 1 · Czasem → 3 · Często → 5 | Przy oglądaniu liczy się jakość i płynność ekranu. | nie |
+| E1 | Jak często używasz telefonu na zewnątrz w pełnym słońcu? | Rzadko → `display` 0 · Czasem → 3 · Często → 5 | W słońcu liczy się jasność ekranu. | nie |
+| E2 | Jak często oglądasz na telefonie filmy, zdjęcia i dłuższe materiały? | Rzadko → `display` 0 · Czasem → 3 · Często → 5 | Przy oglądaniu liczy się jakość i płynność ekranu. | nie |
 
 Dla `display` liczymy maksimum z E1 i E2 (jasność w słońcu = 5 i rzadkie oglądanie = 1 daje 5, nie 3).
 

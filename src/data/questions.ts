@@ -121,8 +121,9 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'camera',
     'Jak często robisz selfie?',
     'Aparat przedni to osobny aparat o osobnej jakości.',
+    /* Waga 0 = bez znaczenia (plan 1): najniższa odpowiedź wyłącza kryterium z grupy. */
     [
-      { label: 'Prawie nigdy', sets: { selfie: 1 } },
+      { label: 'Prawie nigdy', sets: { selfie: 0 } },
       { label: 'Czasem', sets: { selfie: 3 } },
       { label: 'Często', sets: { selfie: 5 } },
     ],
@@ -133,7 +134,7 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Jak często nagrywasz filmy?',
     'Wideo wymaga stabilizacji i dobrego dźwięku.',
     [
-      { label: 'Prawie nigdy', sets: { video: 1 } },
+      { label: 'Prawie nigdy', sets: { video: 0 } },
       { label: 'Czasem', sets: { video: 3 } },
       { label: 'Często', sets: { video: 5 } },
     ],
@@ -144,7 +145,7 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Czy zdarza się, że fotografujesz z daleka (występ dziecka, plac zabaw, zwierzęta)?',
     'Z daleka dobre zdjęcia robi tylko telefon z osobnym aparatem do przybliżania.',
     [
-      { label: 'Nie', sets: { zoom: 1 } },
+      { label: 'Nie', sets: { zoom: 0 } },
       { label: 'Czasem', sets: { zoom: 3 } },
       { label: 'Często', sets: { zoom: 5 } },
     ],
@@ -209,7 +210,7 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Czy telefon bywa narażony na wodę (deszcz, zachlapania, dziecko z kubkiem)?',
     'Odporność na wodę ratuje przed głupimi wpadkami.',
     [
-      { label: 'Rzadko', sets: { durability: 1 } },
+      { label: 'Rzadko', sets: { durability: 0 } },
       { label: 'Czasem', sets: { durability: 3 } },
       { label: 'Często, chcę mieć spokój', sets: { durability: 5 } },
     ],
@@ -244,7 +245,7 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Jak często używasz telefonu na zewnątrz w pełnym słońcu?',
     'W słońcu liczy się jasność ekranu.',
     [
-      { label: 'Rzadko', sets: { display: 1 } },
+      { label: 'Rzadko', sets: { display: 0 } },
       { label: 'Czasem', sets: { display: 3 } },
       { label: 'Często', sets: { display: 5 } },
     ],
@@ -255,7 +256,7 @@ export const QUESTIONS: readonly QuizQuestion[] = [
     'Jak często oglądasz na telefonie filmy, zdjęcia i dłuższe materiały?',
     'Przy oglądaniu liczy się jakość i płynność ekranu.',
     [
-      { label: 'Rzadko', sets: { display: 1 } },
+      { label: 'Rzadko', sets: { display: 0 } },
       { label: 'Czasem', sets: { display: 3 } },
       { label: 'Często', sets: { display: 5 } },
     ],

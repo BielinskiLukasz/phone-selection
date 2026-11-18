@@ -152,7 +152,8 @@ export function criterionShares(
  */
 /**
  * Ważność grupy z odpowiedzi: `0,5 + 0,4 × średnia wag odpowiedzianych kryteriów`
- * (bez odpowiedzi: średnia = 2, czyli 1,3). Zakres 0,5-2,5.
+ * (bez odpowiedzi: średnia = 2, czyli 1,3). Zakres 0,5-2,5. Wyjątek: grupa z odpowiedziami na
+ * wszystkie kryteria i średnią 0 dostaje ważność 0 (ignorowana).
  */
 export function computedGroupImportance(
   weights: Weights,
@@ -162,8 +163,9 @@ export function computedGroupImportance(
   const answeredInGroup = groupCriteria.filter((id) => answered.has(id));
   const source = answeredInGroup.length > 0 ? answeredInGroup : groupCriteria;
   const mean = average(source.map((id) => clamp(weights[id] ?? DEFAULT_WEIGHT, 0, 5)));
-  /* Jawne „bez znaczenia” (0) dla całej grupy = ignoruj (PROJECT 7.2). */
-  if (answeredInGroup.length > 0 && mean <= 0) return 0;
+  /* Jawne „bez znaczenia” (0) = ignoruj grupę (PROJECT 7.2) — tylko gdy odpowiedziano na WSZYSTKIE
+     kryteria grupy; częściowe zera (np. tylko selfie/filmy/zoom) nie wyłączają całej grupy (plan 1). */
+  if (answeredInGroup.length === groupCriteria.length && mean <= 0) return 0;
   return round(clamp(GROUP_BASE + GROUP_FACTOR * mean, GROUP_BASE, 2.5));
 }
 

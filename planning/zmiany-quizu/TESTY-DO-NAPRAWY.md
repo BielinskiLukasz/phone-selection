@@ -24,7 +24,25 @@ Przyczyny nie zdiagnozowane (hipoteza w `README.md`).
 
 ## Plan 1 — waga 0
 
-(uzupełnia sesja planu 1: nowe niezgodności względem bazy)
+Po zmianie (pełny bieg, 18.11.2026): 17 z 414 testów pada = 13 z bazy + 1 z planu 2 (`fix-phase` FP3-03)
++ 1 z planu 3 (`weights`, E1/E2) + 2 z planu 5 (`weights` pasma 5/4/3, `sliders-screen`). `a11y-audit`
+(motyw jasny) tym razem padł jak w bazie. **Plan 1 nie dodał żadnego nowego padającego testu.**
+`tsc --noEmit` przechodzi. Tymczasowy test planu 1 przeszedł i został usunięty:
+
+- wszystkie sześć zmian na „-a” → `selfie/video/zoom/durability/display` = 0 (grupy: camera 0,5, longevity 0,5,
+  smooth 0,5 — częściowe zera nie zerują grupy);
+- tylko `B4-a`, `B5-a`, `B6-a` → `groupImportance.camera` = 0,5;
+- `D4-a` → `groupImportance.size` = 0 jak dotąd.
+
+Uwagi do sesji końcowej:
+
+- Testy, które pokrywają zmianę, ale **już padały z innych powodów** (więc plan 1 mógł zmienić ich wynik
+  niezauważenie): `persona.test.ts` (bateria — BATTERY używa `B4-a, B5-a, B6-a, E1-a, E2-a`),
+  `calibration.test.ts` (9.3, rozstęp, „pomiń”), `sliderModel.test.ts` („bateria 5, reszta 0”).
+  Po naprawie bazy sprawdzić je ponownie pod kątem wag 0.
+- `weights.test.ts` l. 36–37 (`E1-a` + `E2-c`): wcześniej opisano jako „teraz max = 5”; po planie 1 `E1-a`
+  daje 0, więc `E1=a, E2=c` nadal daje 5 (max), a `E1=a, E2=a` daje 0 — oczekiwanie „średnia 3” i tak do poprawy.
+- `CAMERA` w `tests/personas.ts` używa `D2-a` (durability 0, wcześniej 1) — sprawdzić ranking §9.2.
 
 ## Plan 2 — ładowanie max 5
 
