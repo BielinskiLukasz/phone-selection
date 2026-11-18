@@ -4193,6 +4193,218 @@
         "compactness": "high"
       },
       "scoresEstimatedNeutral": []
+    },
+    {
+      "id": "galaxy-s26-fe-5g-8-128",
+      "brand": "Samsung",
+      "modelName": "Galaxy S26 FE 5G 8/128 GB",
+      "status": "ok",
+      "reveal": {
+        "name": "Samsung Galaxy S26 FE 5G 8/128 GB",
+        "brand": "Samsung",
+        "imageUrl": "https://fdn2.gsmarena.com/vv/bigpic/samsung-samsung-galaxy-s26-fe.jpg",
+        "photoUrl": "https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s26-fe-1.jpg",
+        "shopLinks": [
+          {
+            "label": "sferis.pl",
+            "url": "https://www.sferis.pl/samsung-galaxy-s26-fe-s741b-ds-5g-8-128gb-pistachio-i753814",
+            "pricePln": 2299,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "jasnozielony Pistachio (SM-S741B), 8/128 GB — darmowa wysyłka w 1 dzień (Ceneo 199720157; na karcie sklepu 2329 zł, grafitowy 2599 zł)"
+          },
+          {
+            "label": "mediaexpert.pl",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-s26-fe-5g-8-128gb-6-7-120hz-grafitowy-sm-s741bd-eu",
+            "pricePln": 2385.09,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "grafitowy (SM-S741BD), 8/128 GB — dystrybucja europejska, wyłączony z promocji Samsung Polska (oficjalna dystrybucja PL w Media Expert: 2999 zł)"
+          },
+          {
+            "label": "morele.net",
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-s26-fe-5g-8-128gb-czarny-sm-s741bzkdeub-600517856/",
+            "pricePln": 2423.97,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny/grafitowy (SM-S741BZKDEUB, dystrybucja EU), 8/128 GB — dostępny w sprzedaży bezpośredniej Morele.net (odczyt JSON-LD)"
+          },
+          {
+            "label": "komputronik.pl",
+            "url": "https://www.komputronik.pl/product/1026379/telefon-samsung-galaxy-s26-fe-5g-8-128gb-dual-sim-czarny-s741-.html",
+            "pricePln": 3489,
+            "checkedAt": "2026-11-17",
+            "kind": "shop",
+            "note": "czarny, fioletowy i jasnozielony (SM-S741B), 8/128 GB — cena katalogowa w autoryzowanej sieci PL (w promocjach 2999 zł)"
+          }
+        ],
+        "priceCompareUrl": "https://www.ceneo.pl/199659385",
+        "verifiedForPurchaseAt": null,
+        "verifiedForPurchase": null
+      },
+      "variant": {
+        "ramGb": 8,
+        "storageGb": 128,
+        "fromList": "Samsung Galaxy S26 FE 5G 8/128 GB",
+        "variantOf": null
+      },
+      "price": {
+        "pln": 2299,
+        "source": "sferis.pl",
+        "url": "https://www.sferis.pl/samsung-galaxy-s26-fe-s741b-ds-5g-8-128gb-pistachio-i753814",
+        "checkedAt": "2026-11-17",
+        "providedBy": "search",
+        "userNote": "jasnozielony Pistachio (SM-S741B), 8/128 GB — dystrybucja EU; oficjalna dystrybucja PL 2999 zł (powyżej progu 2000 zł)",
+        "auditNote": "Duża rozpiętość między dystrybucją EU a oficjalną siecią Samsung Polska: Sferis 2299–2329 zł (Pistachio i753814, Ceneo 199720157; Graphite 2599 zł), Media Expert EU 2385,09 zł (SM-S741BD EU, Ceneo 199659385), Morele.net bezpośrednio 2423,97 zł (SM-S741BZKDEUB, potwierdzone odczytem JSON-LD InStock), Allegro od 2176,04 zł, AB Foto od 2254 zł, Proshop 2749 zł; natomiast oficjalna dystrybucja PL kosztuje 2999 zł w Media Expert (grafitowy/zielony/fioletowy) i 2999–3489 zł w Komputroniku (polska cena premierowa z 08.2026: 3489 zł). Cena przekracza pierwotny limit 2000 zł.",
+        "regularPricePln": null,
+        "promoEndsAt": null,
+        "promoCondition": null,
+        "otherObservations": [
+          {
+            "pln": 2385.09,
+            "source": "mediaexpert.pl (dystrybucja EU)",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-s26-fe-5g-8-128gb-6-7-120hz-grafitowy-sm-s741bd-eu",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "grafitowy (SM-S741BD EU), 8/128 GB; wariant PL w Media Expert: 2999 zł"
+          },
+          {
+            "pln": 2423.97,
+            "source": "morele.net",
+            "url": "https://www.morele.net/smartfon-samsung-galaxy-s26-fe-5g-8-128gb-czarny-sm-s741bzkdeub-600517856/",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "czarny (SM-S741BZKDEUB), 8/128 GB, sprzedaż bezpośrednia, dostępny (JSON-LD)"
+          },
+          {
+            "pln": 2999,
+            "source": "mediaexpert.pl (dystrybucja PL)",
+            "url": "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/warianty-produktu_samsung-galaxy-s26-fe-5g",
+            "checkedAt": "2026-11-17",
+            "providedBy": "search",
+            "note": "grafitowy/zielony/fioletowy (SM-S741BD), 8/128 GB, oficjalna polska dystrybucja"
+          }
+        ]
+      },
+      "specs": {
+        "displayInch": 6.7,
+        "panel": "Dynamic AMOLED 2X",
+        "refreshHz": 120,
+        "resolution": "1080x2340",
+        "peakNits": 1900,
+        "glass": "Corning Gorilla Glass Victus+ (przód i tył)",
+        "ramGb": 8,
+        "storageGb": 128,
+        "storageType": null,
+        "microSd": false,
+        "chip": "Samsung Exynos 2500 (3 nm)",
+        "batteryMah": 4900,
+        "batteryCycles": 1200,
+        "batteryEndurance": 33,
+        "batteryTests": [
+          "GSMArena (etykieta UE): klasa A, 50:00 h szacowanej wytrzymałości, 1200 cykli → wytrzymałość 33 (skala 40–70 h)",
+          "GSMArena active use score: 14:49 h (rozmowy 33:49 h, WWW 12:29 h, wideo 20:16 h, gry 8:48 h)"
+        ],
+        "chargingW": 45,
+        "chargingNote": "do 45 W przewodowo (USB PD + PPS do 16 V, QC2; deklaracja producenta: 69% w 30 min, nie wymaga już kabla 5A), 15 W bezprzewodowo (zgodne z Qi2) i bezprzewodowe ładowanie zwrotne; brak ładowarki w pudełku, w zestawie kabel USB-C 3A (GSMArena)",
+        "chargingTests": "GSMArena (USB PD 45 W): 40% w 15 min, 69% w 30 min, pełne ładowanie w 68 min",
+        "chargerInBox": false,
+        "wirelessCharging": true,
+        "wirelessW": 15,
+        "ip": "IP68",
+        "weightG": 193,
+        "heightMm": 161.6,
+        "widthMm": 76.9,
+        "thicknessMm": 7.4,
+        "dimensionsMm": "161,6 × 76,9 × 7,4",
+        "cameras": {
+          "main": "50 MP f/1.8 (24 mm, 1/1,56″, Samsung ISOCELL GN3, dual pixel PDAF) z OIS",
+          "ultrawide": "12 MP f/2.2 (13 mm, 123°, 1/3,2″, stała ostrość)",
+          "macro": null,
+          "selfie": "12 MP f/2.2 (23 mm, 1/3,2″, stała ostrość)",
+          "telephoto": "8 MP f/2.4 (69 mm, 1/4,4″, OmniVision OV08A10, PDAF) z OIS, zoom optyczny 3x"
+        },
+        "video": "8K 24/30 kl./s, 4K 30/60/120 kl./s (główny), 4K 30 kl./s (tele i szeroki kąt), 4K 30/60 kl./s HDR10+ (selfie)",
+        "os": "Android 17, One UI 9",
+        "updatesYears": 7,
+        "updatesOsGenerations": 7,
+        "updatesSecurityYears": 7,
+        "updatesNote": "7 dużych aktualizacji Androida (od Androida 17 do Androida 24) i do 7 lat poprawek bezpieczeństwa do 30.09.2033 (Samsung, GSMArena)",
+        "releasedAt": "2026-09",
+        "securitySupportUntil": "2033-09",
+        "supportNote": "Oficjalna specyfikacja Samsung (SM-S741B): poprawki bezpieczeństwa gwarantowane do 30 września 2033 r. (7 lat od premiery 09.2026)",
+        "sim": "nanoSIM + nanoSIM + dual eSIM (maks. 2 aktywne jednocześnie)",
+        "nfc": true,
+        "wifi": "Wi-Fi 6E",
+        "bluetooth": "5.4",
+        "wearableNotes": "Mi Band 6 działa z telefonem przez aplikację Zepp Life (dawne Mi Fit; Mi Fitness nie obsługuje Band 6). Aby powiadomienia działały bez przerw, należy wyłączyć optymalizację baterii dla Zepp Life w ustawieniach Androida i w One UI dodać ją do „Aplikacji nieuśpionych” (Bateria → Limity użycia w tle)."
+      },
+      "scores": {
+        "battery": 28,
+        "charging": 48,
+        "updates": 100,
+        "storage": 40,
+        "durability": 90,
+        "smoothness": 90,
+        "display": 84,
+        "photoDay": 82,
+        "photoIndoor": 76,
+        "photoMotion": 75,
+        "selfie": 77,
+        "video": 81,
+        "zoom": 68,
+        "compactness": 50,
+        "value": null
+      },
+      "basis": {
+        "battery": "4900 mAh Li-Ion (pojemność 22,5 przy skali 4000–8000 mAh, 50% wagi) + wytrzymałość 33 (50%) z etykiety UE na GSMArena (klasa A, 50:00 h przy skali 40–70 h; żywotność obniżona do 1200 cykli względem 2000 cykli w S24 FE; active use 14:49 h) → 0,5 × 22,5 + 0,5 × 33 = 28 pkt; wyraźny postęp względem S24 FE, ale nadal w tyle za konkurencją z ogniwami 6000–7000 mAh",
+        "charging": "45 W przewodowo USB PD+PPS (GSMArena: 40% w 15 min, 69% w 30 min, pełne w 68 min przez łagodną końcówkę ładowania) + 15 W indukcyjnie Qi2 (+8 pkt), bez zasilacza w pudełku — (45 − 15) / 75 × 100 + 8 = 48 pkt",
+        "updates": "7 dużych aktualizacji Androida (start z Android 17 / One UI 9) i 7 lat poprawek bezpieczeństwa do 30.09.2033 (Samsung, GSMArena): 7 / 7 × 100 = 100 pkt",
+        "storage": "128 GB pamięci wewnętrznej bez slotu microSD = 40 pkt (skromna pojemność w tej cenie; typ kości w wersji 128 GB pozostawiony jako null z uwagi na rozbieżność: GSMArena podaje UFS 4.0, Notebookcheck dla wariantu 128 GB wskazuje UFS 3.1)",
+        "durability": "IP68 (zanurzenie do 1,5 m na 30 min), aluminiowa ramka, szkło Gorilla Glass Victus+ z przodu i z tyłu oraz klasa A odporności na upadki (270 upadków) na etykiecie UE (GSMArena) = 90 pkt",
+        "smoothness": "10-rdzeniowy Exynos 2500 (3 nm) z Xclipse 950; GSMArena: AnTuTu v10 2 119 022, Geekbench 6 multi-core 8035, 3DMark Wild Life Extreme 5275 — wydajność zbliżona do Snapdragona 8 Elite, ale ocena obniżona za zaledwie 8 GB RAM w tej półce cenowej oraz spadek mocy do 62–68% pod długim obciążeniem",
+        "display": "6,7″ Dynamic AMOLED 2X FHD+ (1080×2340, 385 ppi) 120 Hz z HDR10+, deklarowane 1900 nitów i 1268 nitów zmierzonych w trybie auto (75% APL; 445 nitów ręcznie) w GSMArena — dobry ekran, lecz bez LTPO (tylko 60/120 Hz), o niższej rozdzielczości i niższej jasności zmierzonej niż w S24 FE (1372 nity) i rywalach 1,5K",
+        "photoDay": "główny 50 MP f/1.8 (1/1,56″, ISOCELL GN3) z OIS + niezmienione od lat moduły pomocnicze: 12 MP szeroki kąt bez AF i 8 MP tele 3x; GSMArena chwali naturalne detale, rozpiętość tonalną i kolory z głównego aparatu, oceniając cały zestaw jako poprawny w klasie, ale przestarzały sprzętowo na 2026 r.",
+        "photoIndoor": "wg recenzji GSMArena zdjęcia nocne 1x w trybie auto są poprawne kolorystycznie, lecz mało kontrastowe i z widocznym szumem, a ukryty w dodatku Camera Assistant tryb nocny zbyt mocno wyostrza; szeroki kąt w auto jest ciemny, a teleobiektyw 3x wyraźnie miękki w pomieszczeniach i po zmroku",
+        "photoMotion": "matryca 50 MP z dual pixel PDAF i OIS, szybki procesor Exynos 2500 oraz funkcja Best Face zapewniają sprawne fotografowanie w typowym ruchu, bez przewagi nad S24 FE ze względu na ten sam sensor główny (GSMArena)",
+        "selfie": "przedni aparat 12 MP f/2.2 (1/3,2″, większa rozdzielczość niż 10 MP w S24 FE) z wideo 4K 60 kl./s HDR10+; GSMArena chwali ostrość z odległości wyciągniętej ręki, kolory i rozpiętość tonalną, wytykając brak autofokusu przy bliższych kadrach",
+        "video": "8K 30 kl./s i 4K 60 kl./s z głównego aparatu, 4K 60 kl./s z selfie oraz 4K 30 kl./s z UW i tele (HDR na wszystkich obiektywach); GSMArena chwali bardzo skuteczną stabilizację i nagrania z głównego modułu, ale punktuje brak 60 kl./s na UW/tele oraz miękki, wyprany obraz i szukanie ostrości w nocy na teleobiektywie",
+        "zoom": "dedykowany teleobiektyw 8 MP f/2.4 (69 mm) z OIS i 3-krotnym zoomem optycznym, ale oparty na bardzo małej matrycy 1/4,4″ (skalowanie do 12 MP); wg GSMArena użyteczny w słońcu, natomiast miękki w portretach, we wnętrzach, w nocy i w wideo — wyraźnie słabszy od peryskopów 50 MP",
+        "compactness": "193 g, wymiary 161,6 × 76,9 × 7,4 mm (GSMArena) — wzór poręczności: lekkość 60, mała powierzchnia 35 (12 427 mm²), smukłość 70 → 50 pkt (o 20 g lżejszy i 0,6 mm cieńszy od S24 FE, nadal duży ekran 6,7″)",
+        "value": "liczone w aplikacji z ceny i budżetu sesji"
+      },
+      "sources": [
+        "https://www.samsung.com/ie/smartphones/galaxy-s/galaxy-s26-fe-pistachio-128gb-sm-s741blgdeub/",
+        "https://www.ceneo.pl/199659385",
+        "https://www.ceneo.pl/199720157",
+        "https://www.sferis.pl/samsung-galaxy-s26-fe-s741b-ds-5g-8-128gb-pistachio-i753814",
+        "https://www.morele.net/smartfon-samsung-galaxy-s26-fe-5g-8-128gb-czarny-sm-s741bzkdeub-600517856/",
+        "https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony/smartfon-samsung-galaxy-s26-fe-5g-8-128gb-6-7-120hz-grafitowy-sm-s741bd-eu",
+        "https://nano.komputronik.pl/n/samsung-galaxy-s26-fe-vs-galaxy-s26/",
+        "https://www.gsmarena.com/samsung_galaxy_s26_fe_5g-14870.php",
+        "https://www.gsmarena.com/samsung_galaxy_s26_fe-review-2999p3.php",
+        "https://www.gsmarena.com/samsung_galaxy_s26_fe-review-2999p4.php",
+        "https://www.gsmarena.com/samsung_galaxy_s26_fe-review-2999p5.php",
+        "https://www.gsmarena.com/samsung_galaxy_s26_fe-review-2999p6.php",
+        "https://www.notebookcheck.net/Samsung-Galaxy-S26-FE-Reviews-and-Specs.1329214.0.html"
+      ],
+      "scoreConfidence": {
+        "battery": "high",
+        "charging": "high",
+        "updates": "high",
+        "storage": "high",
+        "durability": "high",
+        "smoothness": "high",
+        "display": "high",
+        "photoDay": "high",
+        "photoIndoor": "high",
+        "photoMotion": "medium",
+        "selfie": "high",
+        "video": "high",
+        "zoom": "high",
+        "compactness": "high"
+      },
+      "scoresEstimatedNeutral": []
     }
   ]
 }
